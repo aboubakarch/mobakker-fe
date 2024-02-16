@@ -1,23 +1,26 @@
 import { IFormValueObj, ILoginFormValues } from "@/@types/forms";
 import { loginValidationSchema } from "./validationSchemas";
+import { formConstants } from "./constants";
 
 export const loginDefaultValues: ILoginFormValues = {
-  username: "",
+  email: "",
   password: "",
 };
 export const loginFormVals: IFormValueObj<ILoginFormValues> = {
   validationSchema: loginValidationSchema,
   initialValues: loginDefaultValues,
   info: {
-    username: {
-      placeHolder: "Username",
+    email: {
+      placeHolder: formConstants.EMAIL_PLACEHOLDER,
       hasError: false,
-      name: "username",
+      name: formConstants.EMAIL,
+      label: formConstants.EMAIL_LABEL,
     },
     password: {
-      placeHolder: "Password",
+      placeHolder: formConstants.PASS_PLACEHOLDER,
       hasError: false,
-      name: "password",
+      name: formConstants.PASS,
+      label: formConstants.PASS_LABEL,
     },
   },
 };

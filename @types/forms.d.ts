@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import * as yup from "yup";
 
 interface ILoginFormValues {
-  username: string;
+  email: string;
   password: string;
 }
 

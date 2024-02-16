@@ -3,9 +3,9 @@ import { useFormState } from 'react-hook-form'
 import { Button } from '../ui'
 
 const SubmitButton: FC<{ title: string, className?: string }> = ({ title, className = "" }) => {
-    const { isValid } = useFormState()
+    const { disabled } = useFormState()
     return (
-        <Button disabled={!isValid} variant={'default'} type='submit' className={className} >{title}</Button>
+        <Button disabled={disabled} variant={'default'} type='submit' className={className} >{title}</Button>
 
     )
 }
