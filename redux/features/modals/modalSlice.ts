@@ -1,4 +1,4 @@
-import { ModalPayload, ModalSlice } from "@/@types/modals";
+import { IModal, ModalSlice } from "@/@types/modals";
 import { ModalEnum } from "@/constants/enums";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
@@ -10,7 +10,7 @@ const modalSlice = createSlice({
   name: "modal",
   initialState,
   reducers: {
-    openModal(state, action: PayloadAction<ModalPayload>) {
+    openModal(state, action: PayloadAction<IModal>) {
       Object.keys(state).forEach((modalName: string) => {
         const modName = modalName as ModalEnum;
         state[modName] = { ...initialState[modName] };

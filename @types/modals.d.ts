@@ -5,8 +5,6 @@ interface IModal {
   isOpen: boolean;
 }
 
-type ModalPayload = IModal;
-
 interface ModalSlice {
   test: IModal;
 }
