@@ -26,6 +26,7 @@ const config = {
         foreground: "hsl(var(--foreground))",
         screen: "#F9FAFB",
         primaryPurple: "#3C1EAD",
+        icon: "#6B7280",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",

@@ -1,16 +1,6 @@
+import { ModalPayload, ModalSlice } from "@/@types/modals";
 import { ModalEnum } from "@/constants/enums";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-interface Modal {
-  name: ModalEnum;
-  isOpen: boolean;
-}
-
-type Payload = Modal;
-
-interface ModalSlice {
-  test: Modal;
-}
 
 const initialState: ModalSlice = {
   test: { name: ModalEnum.Test, isOpen: false },
@@ -20,7 +10,7 @@ const modalSlice = createSlice({
   name: "modal",
   initialState,
   reducers: {
-    openModal(state, action: PayloadAction<Payload>) {
+    openModal(state, action: PayloadAction<ModalPayload>) {
       Object.keys(state).forEach((modalName: string) => {
         const modName = modalName as ModalEnum;
         state[modName] = { ...initialState[modName] };
