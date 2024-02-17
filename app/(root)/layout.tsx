@@ -3,9 +3,7 @@ import Sidebar from "@/components/sidebar/sidebar"
 
 export default function AuthLayout({
     children,
-}: {
-    children: React.ReactNode
-}) {
+}: ILayoutProps) {
     return (
         <div className="h-full w-full bg-screen relative" >
             <Navbar />

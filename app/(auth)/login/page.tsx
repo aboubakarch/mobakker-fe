@@ -2,7 +2,7 @@
 'use client'
 import SubmitButton from '@/components/buttons/submitButton';
 import Card from '@/components/card/card';
-import CustomForm from '@/components/form/form';
+import AppForm from '@/components/form/form';
 import InputField from '@/components/form/formField';
 import { messages } from '@/constants/constants';
 import { loginFormVals } from '@/constants/forms';
@@ -22,7 +22,7 @@ const Page = () => {
 
     return (
         <Card>
-            <CustomForm onSubmit={onSubmit} className='flex flex-col gap-6 justify-center h-full px-10' {...loginFormVals}>
+            <AppForm onSubmit={onSubmit} className='flex flex-col gap-6 justify-center h-full px-10' {...loginFormVals}>
                 <h1 className='text-xl font-bold'>{messages.SIGN_IN}</h1>
                 <div className='flex flex-col gap-3'>
                     <InputField {...loginFormVals.info.email} />
@@ -38,7 +38,7 @@ const Page = () => {
                         <p className='text-primaryPurple'>{messages.SIGN_Up}</p>
                     </div>
                 </div>
-            </CustomForm>
+            </AppForm>
         </Card>
     )
 }

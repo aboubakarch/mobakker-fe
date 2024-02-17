@@ -1,15 +1,15 @@
 import Link from 'next/link'
 import React, { FC } from 'react'
 
-const SideListItem: FC<ISideBarItem> = (item) => {
+const SideListItem: FC<ISideBarItem> = (props) => {
     return (
-        <Link href={item.link} className='flex gap-2 hover:bg-screen py-2 pl-4'>
+        <Link href={props.link} className='flex gap-2 hover:bg-screen py-2 pl-4'>
 
             <div>
-                <item.icon className='h-6 w-6' />
+                <props.icon className='h-6 w-6' />
             </div>
             <div className='text-base text-icon'>
-                {item.name}
+                {props.name}
             </div>
         </Link>
     )

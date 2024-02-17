@@ -4,9 +4,7 @@ import React from 'react'
 
 const Card = ({
     children
-}: {
-    children: React.ReactNode
-}) => {
+}: ILayoutProps) => {
     return (
         <div className='h-full w-full flex md:flex-row flex-col-reverse'>
             <div className='flex-[0.5] h-full'>

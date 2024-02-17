@@ -12,9 +12,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<ILayoutProps>) {
   return (
     <html lang="en">
       <body className={cn(inter.className, "h-screen w-screen")}>{children}</body>

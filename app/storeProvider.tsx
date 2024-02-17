@@ -5,9 +5,7 @@ import { Provider } from 'react-redux'
 
 export default function StoreProvider({
     children,
-}: {
-    children: React.ReactNode
-}) {
+}: ILayoutProps) {
     const storeRef = useRef<AppStore>()
     if (!storeRef.current) {
         // Create the store instance the first time this renders

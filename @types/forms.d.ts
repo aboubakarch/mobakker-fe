@@ -6,9 +6,9 @@ interface ILoginFormValues {
   password: string;
 }
 
-type IFormTemplate = ICustomFormProps;
+type IFormTemplate = IAppFormProps;
 
-interface ICustomFormProps<T> {
+interface IAppFormProps<T> {
   validationSchema:
     | yup.ObjectSchema<T, yup.AnyObject, any, string | "d" | "s" | "">
     | Lazy<any, AnyObject, any>;
