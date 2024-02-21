@@ -76,7 +76,7 @@ const StackedBarChart = () => {
 
                 ],
                 // borderRadius: 999,
-                barPercentage: 0.4,
+                barPercentage: 0.3,
 
             }, {
                 label: 'total Progress',
@@ -86,7 +86,7 @@ const StackedBarChart = () => {
 
                 ],
                 // borderRadius: 999,
-                barPercentage: 0.4,
+                barPercentage: 0.3,
 
             }],
     }
