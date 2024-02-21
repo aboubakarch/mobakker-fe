@@ -18,6 +18,11 @@ export const messages = {
   SIGN_Up: "Sign Up",
   FORGOT_PASSWORD: "Forgot Password?",
   WELCOME: "Hey \nWelcome to\nMawaqeet",
+  GOOD_MORNING: "Good Morning, ",
+  PROMOTIONS: "Active Promotions",
+  SALES_AMOUNT: "Sales Amount Per Week",
+  DAILY_PROGRESS: "Daily Progress",
+  MONTHLY_PROGRESS: "Monthly Progress",
 };
 
 export const formConstants = {

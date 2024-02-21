@@ -25,7 +25,11 @@ const config = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         screen: "#F9FAFB",
-        primaryPurple: "#3C1EAD",
+        primaryBlue: "#3C1EAD",
+        primaryRed: "#CC4848",
+        primaryGreen: "#06AA8D",
+        primaryYellow: "#F3C522",
+        appcard: "#f1f1f8",
         icon: "#6B7280",
         primary: {
           DEFAULT: "hsl(var(--primary))",
@@ -77,6 +81,11 @@ const config = {
       },
     },
   },
+  safelist: [
+    { pattern: /bg-./ },
+    { pattern: /text-./ },
+    { pattern: /border-./ },
+  ],
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;
 

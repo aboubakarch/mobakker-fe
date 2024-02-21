@@ -30,12 +30,12 @@ const Page = () => {
                 </div>
 
 
-                <SubmitButton title='Login' className='w-full bg-primaryPurple' />
+                <SubmitButton title='Login' className='w-full bg-primaryBlue' />
                 <div className='flex justify-between text-sm'>
                     <p className=''>{messages.FORGOT_PASSWORD}</p>
                     <div className='flex gap-1 items-center'>
                         <p>{messages.DONT_HAVE_ACCOUNT}</p>
-                        <p className='text-primaryPurple'>{messages.SIGN_Up}</p>
+                        <p className='text-primaryBlue'>{messages.SIGN_Up}</p>
                     </div>
                 </div>
             </AppForm>

@@ -5,7 +5,7 @@ import SideListItem from './sideListItem'
 
 const Sidebar = () => {
     return (
-        <div className='bg-white w-1/6 h-full flex flex-col gap-3 px-3 py-4 overflow-auto'>
+        <div className='bg-white w-1/6 h-full flex flex-col gap-3 px-3 py-4 overflow-auto shadow-sm'>
             <div className='flex gap-2 bg-screen h-14 text-sm items-center px-3 rounded-md cursor-pointer'>
                 <Image
                     src={'/assets/profilePlaceholder.png'}

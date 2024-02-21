@@ -231,6 +231,35 @@ export const HomeIcon = (props: SVGProps<SVGSVGElement>) => (
         </defs>
     </svg>
 )
+export const InfoArrowUpIcon = (props: SVGProps<SVGSVGElement>) => (
+    <svg width="44" height="44" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+        <g clipPath="url(#clip0_1574_31775)">
+            <path d="M5.5 31.1668L16.5 20.1668L23.8333 27.5002L38.5 12.8335" stroke={props?.stroke ?? "#000"} strokeWidth="3.66667" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M25.6667 12.8335H38.5001V25.6668" stroke={props?.stroke ?? "#000"} strokeWidth="3.66667" strokeLinecap="round" strokeLinejoin="round" />
+        </g>
+        <defs>
+            <clipPath id="clip0_1574_31775">
+                <rect width="44" height="44" fill="white" />
+            </clipPath>
+        </defs>
+    </svg>
+
+)
+export const InfoArrowDownIcon = (props: SVGProps<SVGSVGElement>) => (
+    <svg width="44" height="44" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+        <g clipPath="url(#clip0_1574_31785)">
+            <path d="M5.5 12.8335L16.5 23.8335L23.8333 16.5002L38.5 31.1668" stroke={props?.stroke ?? "#000"} strokeWidth="3.66667" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M38.5 18.3335V31.1668H25.6666" stroke={props?.stroke ?? "#000"} strokeWidth="3.66667" strokeLinecap="round" strokeLinejoin="round" />
+        </g>
+        <defs>
+            <clipPath id="clip0_1574_31785">
+                <rect width="44" height="44" fill="white" />
+            </clipPath>
+        </defs>
+    </svg>
+
+
+)
 
 
 
