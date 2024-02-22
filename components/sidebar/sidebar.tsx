@@ -1,7 +1,7 @@
 import { SettingsNavigation, sidebarNavigation } from '@/constants/constants'
 import Image from 'next/image'
 import React from 'react'
-import SideListItem from './sideListItem'
+import SideListItem from './SideListItem'
 
 const Sidebar = () => {
     return (

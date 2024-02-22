@@ -1,9 +1,9 @@
 "use client"
 import Image from 'next/image'
 import React from 'react'
-import { SearchInput } from '../ui/searchInput'
+import { SearchInput } from '../ui/SearchInput'
 import { BellIcon, BulbIcon, ChevronDownIcon } from '@/svgs'
-import IconButton from '../buttons/iconButton'
+import IconButton from '../buttons/IconButton'
 
 const Navbar = () => {
     return (

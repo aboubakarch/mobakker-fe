@@ -1,9 +1,9 @@
 
 'use client'
-import SubmitButton from '@/components/buttons/submitButton';
-import Card from '@/components/card/card';
-import AppForm from '@/components/form/form';
-import InputField from '@/components/form/formField';
+import SubmitButton from '@/components/buttons/SubmitButton';
+import Card from '@/components/card/Card';
+import AppForm from '@/components/form/Form';
+import InputField from '@/components/form/FormField';
 import { messages } from '@/constants/constants';
 import { loginFormVals } from '@/constants/forms';
 import { loginValidationSchema } from '@/constants/validationSchemas';

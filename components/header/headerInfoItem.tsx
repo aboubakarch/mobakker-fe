@@ -3,7 +3,7 @@ import { colorHelper } from '@/lib/helpers'
 import { cn } from '@/lib/utils'
 import { InfoArrowDownIcon, InfoArrowUpIcon } from '@/svgs'
 import React, { FC } from 'react'
-import { PercentagePie } from '../charts/percentPie'
+import { PercentagePie } from '../charts/PercentPie'
 
 const HeaderInfoItem: FC<IHeaderInfoProps> = ({ title, count, color, showIcon = false, hasGraph = false, percentage, className = "" }) => {
     const primaryColor = colorHelper[color];

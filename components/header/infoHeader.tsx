@@ -1,5 +1,5 @@
 import React from 'react'
-import HeaderInfoItem from './headerInfoItem'
+import HeaderInfoItem from './HeaderInfoItem'
 import { ColorsEnum } from '@/constants/enums'
 
 const InfoHeader = () => {
