@@ -1,12 +1,18 @@
+"use client"
 import { SettingsNavigation, sidebarNavigation } from '@/constants/constants'
 import Image from 'next/image'
 import React from 'react'
 import SideListItem from './SideListItem'
+// import { usePathname } from 'next/navigation'
 
 const Sidebar = () => {
+
+    // const path = usePathname()
+    // console.log(path, path.split('/'))
+
     return (
-        <div className='bg-white w-1/6 h-full flex flex-col gap-3 px-3 py-4 overflow-auto shadow-sm'>
-            <div className='flex gap-2 bg-screen h-14 text-sm items-center px-3 rounded-md cursor-pointer'>
+        <div className='bg-white w-1/6 h-full flex flex-col gap-3 px-3 py-4 overflow-auto shadow-sm scrollbar'>
+            <div className='flex gap-2 bg-screen hover:bg-appcard h-16 text-sm items-center px-3 py-2 rounded-md cursor-pointer'>
                 <Image
                     src={'/assets/profilePlaceholder.png'}
                     height={40}

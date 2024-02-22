@@ -2,7 +2,7 @@ import { ColorsEnum } from "@/constants/enums";
 
 interface IHeaderInfoProps {
   title: string;
-  count: number;
+  heading: number | string;
   color: ColorsEnum;
   showIcon?: boolean;
   hasGraph?: boolean;

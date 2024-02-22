@@ -45,10 +45,10 @@ export default function Home() {
 
 
         <div className="col-span-1 bg-appcard rounded-sm px-3 py-2 grid grid-rows-4 grid-flow-row grid-cols-1 gap-2 auto-rows-max md:overflow-auto">
-          <HeaderInfoItem color={ColorsEnum.Blue} count={300} title="Test1" className="bg-white py-1" />
-          <HeaderInfoItem color={ColorsEnum.Blue} count={300} title="Test1" className="bg-white py-1" />
-          <HeaderInfoItem color={ColorsEnum.Blue} count={300} title="Test1" className="bg-white py-1" />
-          <HeaderInfoItem color={ColorsEnum.Blue} count={300} title="Test1" className="bg-white py-1" />
+          <HeaderInfoItem color={ColorsEnum.Blue} heading={300} title="Test1" className="bg-white py-1" />
+          <HeaderInfoItem color={ColorsEnum.Blue} heading={300} title="Test1" className="bg-white py-1" />
+          <HeaderInfoItem color={ColorsEnum.Blue} heading={300} title="Test1" className="bg-white py-1" />
+          <HeaderInfoItem color={ColorsEnum.Blue} heading={300} title="Test1" className="bg-white py-1" />
         </div>
 
 

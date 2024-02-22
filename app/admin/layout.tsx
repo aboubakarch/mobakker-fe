@@ -1,0 +1,17 @@
+import Navbar from "@/components/navbar/Navbar"
+import Sidebar from "@/components/sidebar/Sidebar"
+
+export default function AuthLayout({
+    children,
+}: ILayoutProps) {
+    return (
+        <div className="h-full w-full bg-screen relative" >
+            <Navbar />
+            <div className="flex w-full h-[calc(100%-80px)]">
+                <Sidebar />
+                {children}
+
+            </div>
+        </div >
+    )
+}

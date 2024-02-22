@@ -10,6 +10,7 @@ import {
   SpeakerIcon,
   StarIcon,
   TicketIcon,
+  UserIcon,
 } from "@/svgs";
 
 export const messages = {
@@ -23,6 +24,9 @@ export const messages = {
   SALES_AMOUNT: "Sales Amount Per Week",
   DAILY_PROGRESS: "Daily Progress",
   MONTHLY_PROGRESS: "Monthly Progress",
+  TODAYS_PERFORMANCE: "Todays Performance",
+  EXPORT: "Export",
+  APPLY_FILTER: "Apply Filter",
 };
 
 export const formConstants = {
@@ -87,6 +91,18 @@ export const sidebarNavigation: ISideBarItem[] = [
     id: 9,
     name: "Notifications",
     icon: NotificationIcon,
+    link: "/",
+  },
+  {
+    id: 10,
+    name: "Providers",
+    icon: NotificationIcon,
+    link: "/",
+  },
+  {
+    id: 11,
+    name: "Manage Users",
+    icon: UserIcon,
     link: "/",
   },
 ];
