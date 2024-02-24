@@ -8,3 +8,9 @@ export enum ColorsEnum {
   Blue = "blue",
   Yellow = "yellow",
 }
+
+export enum ReportTypesEnum {
+  Day = "Day",
+  Month = "Month",
+  Year = "Year",
+}

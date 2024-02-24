@@ -27,6 +27,12 @@ export const messages = {
   TODAYS_PERFORMANCE: "Todays Performance",
   EXPORT: "Export",
   APPLY_FILTER: "Apply Filter",
+  REPORTS: "Reports",
+  SELECT: "Select",
+  COMPLETE: "Complete",
+  TOTAL_REQ: "Total Requests",
+  CANCELLED: "Cancelled",
+  ENTERED_MAN: "Entered Manually",
 };
 
 export const formConstants = {
