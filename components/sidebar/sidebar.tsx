@@ -1,14 +1,11 @@
 "use client"
-import { SettingsNavigation, sidebarNavigation } from '@/constants/constants'
+import { SettingsNavigation } from '@/constants/constants'
 import Image from 'next/image'
-import React from 'react'
+import React, { FC } from 'react'
 import SideListItem from './SideListItem'
-// import { usePathname } from 'next/navigation'
 
-const Sidebar = () => {
+const Sidebar: FC<ISideBarProps> = ({ navigation }) => {
 
-    // const path = usePathname()
-    // console.log(path, path.split('/'))
 
     return (
         <div className='bg-white w-1/6 h-full flex flex-col gap-3 px-3 py-4 overflow-auto shadow-sm scrollbar'>
@@ -25,7 +22,7 @@ const Sidebar = () => {
                 </div>
             </div>
             <div className='w-full flex flex-col gap-3'>
-                {sidebarNavigation.map((item) => (
+                {navigation.map((item) => (
                     <SideListItem key={item.id} {...item} />
                 ))}
                 <hr className='w-2/3 self-center' />
