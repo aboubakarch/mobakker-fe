@@ -27,6 +27,12 @@ export const messages = {
   TODAYS_PERFORMANCE: "Todays Performance",
   EXPORT: "Export",
   APPLY_FILTER: "Apply Filter",
+  REPORTS: "Reports",
+  SELECT: "Select",
+  COMPLETE: "Complete",
+  TOTAL_REQ: "Total Requests",
+  CANCELLED: "Cancelled",
+  ENTERED_MAN: "Entered Manually",
 };
 
 export const formConstants = {
@@ -38,72 +44,75 @@ export const formConstants = {
   PASS: "password",
 };
 
-export const sidebarNavigation: ISideBarItem[] = [
+export const sidebarNavigation = (prefix: string): ISideBarItem[] => [
   {
     id: 1,
     name: "Dashboard",
     icon: HomeIcon,
-    link: "/",
+    link: `${prefix}`,
   },
   {
     id: 2,
     name: "Reports",
     icon: ClipboardIcon,
-    link: "/",
+    link: `${prefix}/reports`,
   },
   {
     id: 3,
     name: "Appointments",
     icon: TicketIcon,
-    link: "/",
+    link: `${prefix}/appointments`,
   },
   {
     id: 4,
     name: "Employees",
     icon: PeopleIcon,
-    link: "/",
+    link: `${prefix}/employees`,
   },
   {
     id: 5,
     name: "Loyal Programs",
     icon: PersonStarIcon,
-    link: "/",
+    link: `${prefix}/loyal-program`,
   },
   {
     id: 6,
     name: "Services",
     icon: PageIcon,
-    link: "/",
+    link: `${prefix}/services`,
   },
   {
     id: 7,
     name: "Promotions",
     icon: SpeakerIcon,
-    link: "/",
+    link: `${prefix}/services`,
   },
   {
     id: 8,
     name: "Rating",
     icon: StarIcon,
-    link: "/",
+    link: `${prefix}/rating`,
   },
   {
     id: 9,
     name: "Notifications",
     icon: NotificationIcon,
-    link: "/",
+    link: `${prefix}/notifications`,
   },
+];
+export const sidebarAdminNavigation: ISideBarItem[] = [
+  ...sidebarNavigation("/admin"),
   {
     id: 10,
     name: "Providers",
     icon: NotificationIcon,
-    link: "/",
+    link: "/admin/providers",
   },
   {
     id: 11,
     name: "Manage Users",
     icon: UserIcon,
-    link: "/",
+    link: "/admin/users",
   },
 ];
 export const SettingsNavigation: ISideBarItem[] = [
@@ -111,12 +120,12 @@ export const SettingsNavigation: ISideBarItem[] = [
     id: 1,
     name: "Subscription",
     icon: PaymentIcon,
-    link: "/",
+    link: "/subscription",
   },
   {
     id: 2,
     name: "Settings",
     icon: SettingsIcon,
-    link: "/",
+    link: "/settings",
   },
 ];

@@ -1,5 +1,8 @@
+"use client"
+
 import Navbar from "@/components/navbar/Navbar"
 import Sidebar from "@/components/sidebar/Sidebar"
+import { sidebarNavigation } from "@/constants/constants"
 
 export default function AuthLayout({
     children,
@@ -8,7 +11,7 @@ export default function AuthLayout({
         <div className="h-full w-full bg-screen relative" >
             <Navbar />
             <div className="flex w-full h-[calc(100%-80px)]">
-                <Sidebar />
+                <Sidebar navigation={sidebarNavigation("/")} />
                 {children}
 
             </div>

@@ -4,3 +4,7 @@ interface ISideBarItem {
   icon: (props: SVGProps<SVGSVGElement>) => JSX.Element;
   link: string;
 }
+
+interface ISideBarProps {
+  navigation: ISideBarItem[];
+}

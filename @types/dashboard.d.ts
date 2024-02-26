@@ -1,4 +1,4 @@
-import { ColorsEnum } from "@/constants/enums";
+import { ColorsEnum, ReportTypesEnum } from "@/constants/enums";
 
 interface IHeaderInfoProps {
   title: string;
@@ -15,4 +15,9 @@ interface IPromotionItemProps {
   startDate: string;
   endDate: string;
   active: boolean;
+}
+
+interface IReportWidgetProps {
+  type: ReportTypesEnum;
+  className?: string;
 }
