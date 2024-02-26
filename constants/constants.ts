@@ -28,6 +28,7 @@ export const messages = {
   EXPORT: "Export",
   APPLY_FILTER: "Apply Filter",
   REPORTS: "Reports",
+  EMPLOYEES: "Employees",
   SELECT: "Select",
   COMPLETE: "Complete",
   TOTAL_REQ: "Total Requests",
