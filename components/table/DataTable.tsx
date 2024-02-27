@@ -10,6 +10,10 @@ import {
 
 import {
     Button,
+
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
     Table,
     TableBody,
     TableCell,
@@ -17,6 +21,9 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui"
+import { ChevronDownIcon } from "@/svgs"
+import Pagination from "./Pagination"
+import { useState } from "react"
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
@@ -27,7 +34,7 @@ export function DataTable<TData, TValue>({
     columns,
     data,
 }: DataTableProps<TData, TValue>) {
-
+    const [currentPage, setCurrentPage] = useState(1)
 
     const table = useReactTable({
         data,
@@ -80,23 +87,26 @@ export function DataTable<TData, TValue>({
                     )}
                 </TableBody>
             </Table>
-            <div className="flex items-center justify-end space-x-2 py-4">
-                <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => table.previousPage()}
-                    disabled={!table.getCanPreviousPage()}
-                >
-                    Previous
-                </Button>
-                <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => table.nextPage()}
-                    disabled={!table.getCanNextPage()}
-                >
-                    Next
-                </Button>
+            <div className="flex items-center justify-between space-x-2 p-4">
+                <div className="flex gap-2 items-center text-sm text-gray-500">
+                    <p>Rows per page:</p>
+                    <Popover>
+                        <PopoverTrigger asChild>
+                            <Button variant={"default"} className="bg-indigo-800 bg-opacity-5 hover:bg-indigo-100  rounded-md justify-center items-center gap-2 inline-flex">
+                                <p className="text-center text-indigo-800  text-sm font-normal  leading-normal">7</p>
+                                <ChevronDownIcon />
+                            </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className='flex flex-col items-center justify-center w-full select-none'>
+                            {Array.from({ length: 5 }, (_, index) => index).map(i => (
+                                <p className="w-8 p-2 rounded text-center hover:bg-appcard" key={i}>{i + 1}</p>
+                            ))}
+                        </PopoverContent>
+                    </Popover>
+                </div>
+                <div>
+                    <Pagination currentPage={currentPage} onPageChange={(num: number) => setCurrentPage(num)} totalPages={12} />
+                </div>
             </div>
         </div>
     )

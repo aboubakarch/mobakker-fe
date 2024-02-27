@@ -71,6 +71,17 @@ export const ChevronDownIcon = (props: SVGProps<SVGSVGElement>) => (
         />
     </svg>
 )
+export const ChevronLeftIcon = (props: SVGProps<SVGSVGElement>) => (
+    <svg width="13" height="13" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+        <path d="M8.79529 11.6393C8.67341 11.6393 8.55154 11.5986 8.47029 11.4971L3.87966 6.8252C3.69685 6.64238 3.69685 6.35801 3.87966 6.1752L8.47029 1.50332C8.6531 1.32051 8.93748 1.32051 9.12029 1.50332C9.3031 1.68613 9.3031 1.97051 9.12029 2.15332L4.85466 6.5002L9.1406 10.8471C9.32341 11.0299 9.32341 11.3143 9.1406 11.4971C9.01873 11.5783 8.91716 11.6393 8.79529 11.6393Z" fill="#637381" />
+    </svg>
+
+)
+export const ChevronRightIcon = (props: SVGProps<SVGSVGElement>) => (
+    <svg width="13" height="13" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+        <path d="M4.20479 11.6393C4.08291 11.6393 3.98135 11.5986 3.87979 11.5174C3.69697 11.3346 3.69697 11.0502 3.87979 10.8674L8.14541 6.5002L3.87979 2.15332C3.69697 1.97051 3.69697 1.68613 3.87979 1.50332C4.0626 1.32051 4.34697 1.32051 4.52978 1.50332L9.12041 6.1752C9.30322 6.35801 9.30322 6.64238 9.12041 6.8252L4.52978 11.4971C4.44853 11.5783 4.32666 11.6393 4.20479 11.6393Z" fill="#637381" />
+    </svg>
+)
 export const SettingsIcon = (props: SVGProps<SVGSVGElement>) => (
     <svg fill="none" xmlns="http://www.w3.org/2000/svg" {...props} >
         <g clipPath="url(#clip0_1777_16683)">
