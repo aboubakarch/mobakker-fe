@@ -14,3 +14,9 @@ export enum ReportTypesEnum {
   Month = "Month",
   Year = "Year",
 }
+
+export enum NavigationTypeEnum {
+  Manager = "manager",
+  Provider = "provider",
+  SuperAdmin = "superAdmin",
+}

@@ -3,9 +3,11 @@ import { SettingsNavigation } from '@/constants/constants'
 import Image from 'next/image'
 import React, { FC } from 'react'
 import SideListItem from './SideListItem'
+import { ISideBarProps } from '@/@types/sidebar'
+import { NavigationHelperMap } from '@/constants/maps'
 
 const Sidebar: FC<ISideBarProps> = ({ navigation }) => {
-
+    const nav = NavigationHelperMap[navigation] ?? []
 
     return (
         <div className='bg-white w-1/6 h-full flex flex-col gap-3 px-3 py-4 overflow-auto shadow-sm scrollbar'>
@@ -22,7 +24,7 @@ const Sidebar: FC<ISideBarProps> = ({ navigation }) => {
                 </div>
             </div>
             <div className='w-full flex flex-col gap-3'>
-                {navigation.map((item) => (
+                {nav.map((item) => (
                     <SideListItem key={item.id} {...item} />
                 ))}
                 <hr className='w-2/3 self-center' />

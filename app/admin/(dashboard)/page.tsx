@@ -1,4 +1,3 @@
-"use client"
 import LineChart from "@/components/charts/LineChart";
 import HeaderInfoItem from "@/components/header/HeaderInfoItem";
 import { Button } from "@/components/ui";

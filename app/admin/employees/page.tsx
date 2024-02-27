@@ -1,4 +1,3 @@
-"use client"
 import { Button } from '@/components/ui'
 import { messages } from '@/constants/constants'
 import React from 'react'

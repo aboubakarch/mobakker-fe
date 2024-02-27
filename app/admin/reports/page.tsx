@@ -1,4 +1,3 @@
-"use client"
 import HeaderInfoItem from '@/components/header/HeaderInfoItem'
 import PerformanceChart from '@/components/header/PerformanceChart'
 import ReportWidget from '@/components/header/ReportWidget'

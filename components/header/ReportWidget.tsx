@@ -1,4 +1,5 @@
 
+"use client"
 import React, { FC, useState } from 'react'
 import { Button } from '../ui'
 import { ExportIcon } from '@/svgs'
