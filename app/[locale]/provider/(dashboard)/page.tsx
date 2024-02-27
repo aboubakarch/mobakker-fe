@@ -1,4 +1,3 @@
-"use client"
 import BarChart from "@/components/charts/Bar";
 import DoughnutChart from "@/components/charts/Doughnut";
 import StackedBarChart from "@/components/charts/StackedBar";

@@ -1,3 +1,4 @@
+import { ISideBarItem } from "@/@types/sidebar";
 import {
   ClipboardIcon,
   HomeIcon,
