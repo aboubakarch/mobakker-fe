@@ -1,70 +1,54 @@
+"use client"
 import { DataTable } from '@/components/table/DataTable';
 import { Button } from '@/components/ui'
 import { messages } from '@/constants/constants'
-import { ColumnDef } from '@tanstack/react-table';
 import React from 'react'
+import { columns } from './columns';
 
 const Employees = () => {
-    interface Sample {
-        name: string;
-        jobDesc: string;
-        bookedToday: string;
-        workingHours: string;
-        rating: number;
-    }
-    const data: Sample[] = [
-        {
-            name: 'Zaire',
-            jobDesc: "Washer",
-            bookedToday: "9-10pm",
-            workingHours: "9-10pm",
-            rating: 3.5
-        },
-        {
-            name: 'Zaire',
-            jobDesc: "Washer",
-            bookedToday: "9-10pm",
-            workingHours: "9-10pm",
-            rating: 3.5
-        },
-        {
-            name: 'Zaire',
-            jobDesc: "Washer",
-            bookedToday: "9-10pm",
-            workingHours: "9-10pm",
-            rating: 3.5
-        },
-        {
-            name: 'Zaire',
-            jobDesc: "Washer",
-            bookedToday: "9-10pm",
-            workingHours: "9-10pm",
-            rating: 3.5
-        },
-    ]
 
-    const columns: ColumnDef<Sample>[] = [
+    const data: SampleEmployee[] = [
         {
-            accessorKey: "name",
-            header: "Name",
+            name: 'Zaire',
+            jobDesc: "Washer",
+            bookedToday: ["9-10pm", "9-10pm", "9-10pm", "9-10pm", "9-10pm", "9-10pm", "9-10pm", "9-10pm"],
+            workingHours: "9-10pm",
+            rating: 3.5,
+            profilePicture: "/assets/sampleImage.jpg",
+            status: "Available"
         },
         {
-            accessorKey: "jobDesc",
-            header: "Job Description",
-        },
-        {
-            accessorKey: "bookedToday",
-            header: "Booked Today",
-        },
-        {
-            accessorKey: "workingHours",
-            header: "Working Hours",
-        },
-        {
-            accessorKey: "rating",
-            header: "Rating",
-        },
+            name: 'Zaire',
+            jobDesc: "Washer",
+            bookedToday: ["9-10pm", "9-10pm", "9-10pm", "9-10pm", "9-10pm", "9-10pm", "9-10pm", "9-10pm"],
+            workingHours: "9-10pm",
+            rating: 3.5,
+            profilePicture: "/assets/sampleImage.jpg",
+            status: "Booked"
 
+
+        },
+        {
+            name: 'Zaire',
+            jobDesc: "Washer",
+            bookedToday: ["9-10pm", "9-10pm", "9-10pm", "9-10pm", "9-10pm", "9-10pm", "9-10pm", "9-10pm"],
+            workingHours: "9-10pm",
+            rating: 3.5,
+            profilePicture: "/assets/sampleImage.jpg",
+            status: "Working"
+
+
+        },
+        {
+            name: 'Zaire',
+            jobDesc: "Washer",
+            bookedToday: ["9-10pm", "9-10pm", "9-10pm", "9-10pm", "9-10pm", "9-10pm", "9-10pm", "9-10pm"],
+            workingHours: "9-10pm",
+            rating: 3.5,
+            profilePicture: "/assets/sampleImage.jpg",
+            status: "Booked"
+
+        },
     ]
 
 
@@ -81,7 +65,7 @@ const Employees = () => {
 
 
             <div>
-                <DataTable data={data} columns={columns} filterKey='name' />
+                <DataTable data={data} columns={columns} filterKey='name' count={4} />
             </div>
 
         </div>

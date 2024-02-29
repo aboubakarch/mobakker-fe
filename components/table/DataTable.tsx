@@ -3,6 +3,7 @@
 import {
     ColumnDef,
     ColumnFiltersState,
+    PaginationState,
     SortingState,
     flexRender,
     getCoreRowModel,
@@ -38,18 +39,24 @@ interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
     data: TData[]
     filterKey: string,
+    count: number
 }
 
 export function DataTable<TData, TValue>({
     columns,
     data,
-    filterKey
+    filterKey,
+    count = 10
 }: DataTableProps<TData, TValue>) {
-    const [currentPage, setCurrentPage] = useState(1)
+    // const [currentPage, setCurrentPage] = useState(1)
     const [sorting, setSorting] = useState<SortingState>([])
-    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
-        []
-    )
+    // const [rowsPerPage, setRowsPerPage] = useState(10)
+    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+    const [pagination, setPagination] = useState<PaginationState>({
+        pageIndex: 0,
+        pageSize: 10,
+    })
+
     const [currFilter, setCurrFilter] = useState(filterKey)
 
 
@@ -62,10 +69,15 @@ export function DataTable<TData, TValue>({
         getSortedRowModel: getSortedRowModel(),
         onColumnFiltersChange: setColumnFilters,
         getFilteredRowModel: getFilteredRowModel(),
+        // manualPagination: true,
+        onPaginationChange: setPagination,
+        rowCount: count,
         state: {
             sorting,
-            columnFilters
+            columnFilters,
+            pagination
         },
+        debugTable: true
     })
 
     return (
@@ -156,19 +168,19 @@ export function DataTable<TData, TValue>({
                     <Popover>
                         <PopoverTrigger asChild>
                             <Button variant={"default"} className="bg-indigo-800 bg-opacity-5 hover:bg-indigo-100  rounded-md justify-center items-center gap-2 inline-flex">
-                                <p className="text-center text-indigo-800  text-sm font-normal  leading-normal">7</p>
+                                <p className="text-center text-indigo-800  text-sm font-normal  leading-normal">{pagination.pageSize}</p>
                                 <ChevronDownIcon />
                             </Button>
                         </PopoverTrigger>
                         <PopoverContent className='flex flex-col items-center justify-center w-full select-none'>
-                            {Array.from({ length: 5 }, (_, index) => index).map(i => (
-                                <p className="w-8 p-2 rounded text-center hover:bg-appcard" key={i}>{i + 1}</p>
+                            {Array.from({ length: 10 }, (_, index) => index).map(i => (
+                                <div onClick={() => setPagination({ ...pagination, pageSize: i + 1 })} className="w-8 p-2 rounded text-center hover:bg-appcard" key={i}>{i + 1}</div>
                             ))}
                         </PopoverContent>
                     </Popover>
                 </div>
                 <div>
-                    <Pagination currentPage={currentPage} onPageChange={(num: number) => setCurrentPage(num)} totalPages={12} />
+                    <Pagination currentPage={pagination.pageIndex} onPageChange={(num: number) => table.setPageIndex(num)} totalPages={Math.floor(count / pagination.pageSize) === 0 ? Math.floor(count / pagination.pageSize) + 1 : Math.floor(count / pagination.pageSize)} />
                 </div>
             </div>
         </div>
