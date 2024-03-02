@@ -29,6 +29,18 @@ interface SampleAppointments {
   time: string;
   price: number;
 }
+interface SampleLoyalPrograms {
+  rank: string;
+  customerName: string;
+  customerNumber: number;
+  totalBookings: number;
+  serviceType: string;
+  serviceBooked: string;
+  servicePicture: string;
+  lastBooking: string;
+  branchName: string;
+  rating: number;
+}
 
 interface IBadgeProps {
   textStyle?: string;

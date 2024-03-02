@@ -35,6 +35,7 @@ export const messages = {
   ADD_SERVICES: "Add Services",
   APPOINTMENTS: "Appointments",
   ADD_APPOINTMENTS: "Add Appointments",
+  LOYAL_PROGRAM: "Loyal Program",
   SELECT: "Select",
   COMPLETE: "Complete",
   TOTAL_REQ: "Total Requests",
@@ -64,6 +65,11 @@ export const tableHeader = {
   SERVICES_BOOKED: "Services Booked",
   BRANCH_NAME: "Branch Name",
   TIME: "Time",
+  RANK: "Rank",
+  LOYAL_CUSTOMER: "Loyal Customer",
+  TOTAL_BOOKING: "Total Bookings",
+  MOST_BOOKED: "Most Booked Service",
+  LAST_BOOKING: "Last Booking",
 };
 
 export const formConstants = {

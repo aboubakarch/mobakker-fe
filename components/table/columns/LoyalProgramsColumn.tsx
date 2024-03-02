@@ -16,52 +16,31 @@ import Badge from "@/components/ui/Badge";
 // import { Checkbox } from "@/components/ui/Checkbox";
 
 
-export const appointmentsColumns: ColumnDef<SampleAppointments>[] = [
-    // {
-    //     id: "select",
-    //     header: ({ table }) => (
-    //         <Checkbox
-    //             checked={
-    //                 table.getIsAllPageRowsSelected() ||
-    //                 (table.getIsSomePageRowsSelected() && "indeterminate")
-    //             }
-    //             onCheckedChange={(value: any) => table.toggleAllPageRowsSelected(!!value)}
-    //             aria-label="Select all"
-    //         />
-    //     ),
-    //     cell: ({ row }) => (
-    //         <Checkbox
-    //             checked={row.getIsSelected()}
-    //             onCheckedChange={(value: any) => row.toggleSelected(!!value)}
-    //             aria-label="Select row"
-    //         />
-    //     ),
+export const loyalProgramsColumns: ColumnDef<SampleLoyalPrograms>[] = [
 
-
-    // },
     {
-        accessorKey: "bookingId",
-        header: () => <div className="text-center">{tableHeader.BOOKING_ID}</div>,
+        accessorKey: "rank",
+        header: () => <div className="text-center">{tableHeader.RANK}</div>,
 
         cell: ({ row }) => {
-            const bookingId: string = row.getValue("bookingId");
+            const rank: string = row.getValue("rank");
             return (
                 <div className="w-max flex items-center justify-center text-center justify-self-center">
 
-                    <p className="text-sm line-clamp-1">{bookingId}</p>
+                    <p className="text-sm line-clamp-1">{rank}</p>
                 </div>
             )
         },
     },
     {
-        accessorKey: "name",
-        header: () => <div className="text-center">{tableHeader.CUSTOMER_NAME}</div>,
+        accessorKey: "customerName",
+        header: () => <div className="text-center">{tableHeader.LOYAL_CUSTOMER}</div>,
 
         cell: ({ row }) => {
-            const name: string = row.getValue("name");
+            const customerName: string = row.getValue("customerName");
             return (
                 <div className="w-max flex items-center justify-center text-center">
-                    <p className="text-sm line-clamp-1 ">{name}</p>
+                    <p className="text-sm line-clamp-1 ">{customerName}</p>
                 </div>
             )
         },
@@ -81,7 +60,7 @@ export const appointmentsColumns: ColumnDef<SampleAppointments>[] = [
     },
     {
         accessorKey: "serviceBooked",
-        header: () => <div className="text-center">{tableHeader.SERVICES_BOOKED}</div>,
+        header: () => <div className="text-center">{tableHeader.MOST_BOOKED}</div>,
         cell: ({ row }) => {
             const rowItem = row.original
             return (
@@ -96,7 +75,6 @@ export const appointmentsColumns: ColumnDef<SampleAppointments>[] = [
                     </div>
                     <div className="flex flex-col text-sm font-medium leading-snug">
                         <p className="text-gray-900">{rowItem.serviceBooked}</p>
-                        <p className="text-gray-900">{rowItem.serviceTime}</p>
                     </div>
                 </div>
             )
@@ -125,38 +103,28 @@ export const appointmentsColumns: ColumnDef<SampleAppointments>[] = [
         }
     },
     {
-        accessorKey: "serviceTime",
-        header: () => <div className="text-center">{tableHeader.TIME_SLOT}</div>,
+        accessorKey: "lastBooking",
+        header: () => <div className="text-center">{tableHeader.LAST_BOOKING}</div>,
 
         cell: ({ row }) => {
-            const serviceTime: string = row.getValue("serviceTime");
+            const lastBooking: string = row.getValue("lastBooking");
             return (
-                <Badge text={serviceTime} />
+                <Badge text={lastBooking} />
             )
         },
     },
     {
-        accessorKey: "time",
+        accessorKey: "rating",
         header: () => <div className="text-center">{tableHeader.TIME}</div>,
 
         cell: ({ row }) => {
-            const time: string = row.getValue("time");
+            const rating: string = row.getValue("rating");
             return (
-                <TextColumn text={time} />
+                <Badge text={rating} containerStyle="bg-emerald-500" textStyle="text-emerald-500" />
             )
         },
     },
-    {
-        accessorKey: "price",
-        header: () => <div className="text-center">{tableHeader.PRICE}</div>,
 
-        cell: ({ row }) => {
-            const price: number = row.getValue("price");
-            return (
-                <TextColumn text={`${price} S.R`} />
-            )
-        },
-    },
 
     {
         id: "actions",
