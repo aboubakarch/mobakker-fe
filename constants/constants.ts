@@ -30,11 +30,30 @@ export const messages = {
   APPLY_FILTER: "Apply Filter",
   REPORTS: "Reports",
   EMPLOYEES: "Employees",
+  SERVICES: "Services",
   SELECT: "Select",
   COMPLETE: "Complete",
   TOTAL_REQ: "Total Requests",
   CANCELLED: "Cancelled",
   ENTERED_MAN: "Entered Manually",
+  EDIT: "Edit",
+  DELETE: "Delete",
+  TRANSFER: "Transfer",
+  ACTIONS: "Actions",
+};
+
+export const tableHeader = {
+  NAME: "Name",
+  SERVICE_NAME: "Service Name",
+  JOB_DESC: "Job Description",
+  DETAILS: "Details",
+  SERVICE_TYPE: "Type of Service",
+  BOOKED_TODAY: "Booked Today",
+  WORKING_HOURS: "Working Hours",
+  RATING: "Rating",
+  EMPLOYEE_NUM: "Number of Employees",
+  TIME_SLOT: "Time Slot",
+  PRICE: "Price",
 };
 
 export const formConstants = {
@@ -87,7 +106,7 @@ export const sidebarNavigation = (prefix: string): ISideBarItem[] => [
     id: 7,
     name: "Promotions",
     icon: SpeakerIcon,
-    link: `${prefix}/services`,
+    link: `${prefix}/promotions`,
   },
   {
     id: 8,

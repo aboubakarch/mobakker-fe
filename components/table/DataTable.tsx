@@ -33,20 +33,29 @@ import { ChevronDownIcon } from "@/svgs"
 import Pagination from "./Pagination"
 import { useState } from "react"
 import { Input } from "@/components/ui"
-import { ChevronDown } from "lucide-react"
+import { Filter } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
     data: TData[]
     filterKey: string,
-    count: number
+    count: number,
+    rowStyle?: string,
+    headerStyle?: string,
+    tableStyle?: string,
+    tableBodyStyle?: string
 }
 
 export function DataTable<TData, TValue>({
     columns,
     data,
     filterKey,
-    count = 10
+    count = 10,
+    headerStyle = "",
+    tableStyle = "",
+    rowStyle = "",
+    tableBodyStyle = ""
 }: DataTableProps<TData, TValue>) {
     // const [currentPage, setCurrentPage] = useState(1)
     const [sorting, setSorting] = useState<SortingState>([])
@@ -56,7 +65,7 @@ export function DataTable<TData, TValue>({
         pageIndex: 0,
         pageSize: 10,
     })
-
+    const [rowSelection, setRowSelection] = useState({})
     const [currFilter, setCurrFilter] = useState(filterKey)
 
 
@@ -71,11 +80,13 @@ export function DataTable<TData, TValue>({
         getFilteredRowModel: getFilteredRowModel(),
         // manualPagination: true,
         onPaginationChange: setPagination,
+        onRowSelectionChange: setRowSelection,
         rowCount: count,
         state: {
             sorting,
             columnFilters,
-            pagination
+            pagination,
+            rowSelection,
         },
         debugTable: true
     })
@@ -93,8 +104,9 @@ export function DataTable<TData, TValue>({
                 />
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <Button variant="outline" className="ml-auto bg-indigo-800 bg-opacity-5 hover:bg-indigo-100">
-                            Filter <ChevronDown className="ml-2 h-4 w-4" />
+                        <Button variant="outline" className="ml-auto bg-indigo-800 text-indigo-800 bg-opacity-5 hover:bg-indigo-100">
+                            <Filter className="mr-2 h-4 w-4" />
+                            <p>Filter</p>
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
@@ -119,10 +131,10 @@ export function DataTable<TData, TValue>({
                 </DropdownMenu>
             </div>
             <div className="rounded-md border">
-                <Table>
+                <Table className={tableStyle}>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
-                            <TableRow key={headerGroup.id}>
+                            <TableRow className={headerStyle} key={headerGroup.id}>
                                 {headerGroup.headers.map((header) => {
                                     return (
                                         <TableHead key={header.id}>
@@ -138,10 +150,11 @@ export function DataTable<TData, TValue>({
                             </TableRow>
                         ))}
                     </TableHeader>
-                    <TableBody>
+                    <TableBody className={tableBodyStyle}>
                         {table.getRowModel().rows?.length ? (
                             table.getRowModel().rows.map((row) => (
                                 <TableRow
+                                    className={rowStyle}
                                     key={row.id}
                                     data-state={row.getIsSelected() && "selected"}
                                 >
@@ -172,15 +185,15 @@ export function DataTable<TData, TValue>({
                                 <ChevronDownIcon />
                             </Button>
                         </PopoverTrigger>
-                        <PopoverContent className='flex flex-col items-center justify-center w-full select-none'>
+                        <PopoverContent className='flex px-1 w-16 flex-col items-center justify-center select-none'>
                             {Array.from({ length: 10 }, (_, index) => index).map(i => (
-                                <div onClick={() => setPagination({ ...pagination, pageSize: i + 1 })} className="w-8 p-2 rounded text-center hover:bg-appcard" key={i}>{i + 1}</div>
+                                <div onClick={() => setPagination({ ...pagination, pageSize: i + 1 })} className={cn("w-full p-2 rounded text-center hover:bg-appcard", i + 1 === pagination.pageSize ? "bg-appcard" : "")} key={i}>{i + 1}</div>
                             ))}
                         </PopoverContent>
                     </Popover>
                 </div>
                 <div>
-                    <Pagination currentPage={pagination.pageIndex} onPageChange={(num: number) => table.setPageIndex(num)} totalPages={Math.floor(count / pagination.pageSize) === 0 ? Math.floor(count / pagination.pageSize) + 1 : Math.floor(count / pagination.pageSize)} />
+                    <Pagination currentPage={pagination.pageIndex} onPageChange={(num: number) => table.setPageIndex(num)} totalPages={Math.ceil(count / pagination.pageSize)} />
                 </div>
             </div>
         </div>

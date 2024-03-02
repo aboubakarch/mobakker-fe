@@ -10,10 +10,37 @@ import {
 import { MoreVertical } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-export const columns: ColumnDef<SampleEmployee>[] = [
+// import { Checkbox } from "@/components/ui/Checkbox"
+import { messages, tableHeader } from "@/constants/constants";
+import TextColumn from "../TextColumn";
+import Badge from "@/components/ui/Badge";
+
+
+export const employeeColumns: ColumnDef<SampleEmployee>[] = [
+    // {
+    //     id: "select",
+    //     header: ({ table }) => (
+    //         <Checkbox
+    //             checked={
+    //                 table.getIsAllPageRowsSelected() ||
+    //                 (table.getIsSomePageRowsSelected() && "indeterminate")
+    //             }
+    //             onCheckedChange={(value: any) => table.toggleAllPageRowsSelected(!!value)}
+    //             aria-label="Select all"
+    //         />
+    //     ),
+    //     cell: ({ row }) => (
+    //         <Checkbox
+    //             checked={row.getIsSelected()}
+    //             onCheckedChange={(value: any) => row.toggleSelected(!!value)}
+    //             aria-label="Select row"
+    //         />
+    //     ),
+
+    // },
     {
         accessorKey: "name",
-        header: () => <div className="text-center">Name</div>,
+        header: () => <div className="text-center">{tableHeader.NAME}</div>,
         cell: ({ row }) => {
             const rowItem = row.original
             return (
@@ -36,22 +63,18 @@ export const columns: ColumnDef<SampleEmployee>[] = [
     },
     {
         accessorKey: "jobDesc",
-        header: () => <div className="text-center">Job Description</div>,
+        header: () => <div className="text-center">{tableHeader.JOB_DESC}</div>,
 
         cell: ({ row }) => {
             const job: string = row.getValue("jobDesc");
             return (
-                <div className="w-full flex items-center justify-center">
-                    <div className="h-7 px-3 py-[3px] select-none bg-indigo-800 bg-opacity-10 rounded-[30px] justify-center items-center gap-px inline-flex">
-                        <div className="text-indigo-800 text-xs font-medium leading-tight">{job}</div>
-                    </div>
-                </div>
+                <Badge text={job} />
             )
         },
     },
     {
         accessorKey: "bookedToday",
-        header: () => <div className="text-center">Booked Today</div>,
+        header: () => <div className="text-center">{tableHeader.BOOKED_TODAY}</div>,
 
         cell: ({ row }) => {
             const booking: string[] = row.getValue("bookedToday");
@@ -66,29 +89,23 @@ export const columns: ColumnDef<SampleEmployee>[] = [
     },
     {
         accessorKey: "workingHours",
-        header: () => <div className="text-center">Working Hours</div>,
+        header: () => <div className="text-center">{tableHeader.WORKING_HOURS}</div>,
 
         cell: ({ row }) => {
             const hours: string = row.getValue("workingHours")
             return (
-                <div className="w-full flex items-center justify-center">
-                    <div className="text-gray-500 text-sm flex items-center font-normal leading-snug">{hours}</div>
-                </div>
+                <TextColumn text={hours} />
             )
         }
     },
     {
         accessorKey: "rating",
-        header: () => <div className="text-center">Rating</div>,
+        header: () => <div className="text-center">{tableHeader.RATING}</div>,
 
         cell: ({ row }) => {
             const rating: string = row.getValue("rating");
             return (
-                <div className="w-full flex items-center justify-center">
-                    <div className="h-7 px-3 py-[3px] select-none bg-emerald-500 bg-opacity-10 rounded-[30px] justify-center items-center gap-px inline-flex">
-                        <div className="text-emerald-500 text-xs font-medium leading-tight">{rating}</div>
-                    </div>
-                </div>
+                <Badge containerStyle="bg-emerald-500" textStyle="text-emerald-500" text={rating} />
             )
         },
     },
@@ -121,10 +138,12 @@ export const columns: ColumnDef<SampleEmployee>[] = [
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem
-                        >
-                            Test
+                        <DropdownMenuLabel>{messages.ACTIONS}</DropdownMenuLabel>
+                        <DropdownMenuItem className="text-indigo-800 hover:bg-indigo-800 hover:bg-opacity-25">
+                            {messages.EDIT}
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="text-red-400 hover:bg-red-400 hover:bg-opacity-25">
+                            {messages.DELETE}
                         </DropdownMenuItem>
 
                     </DropdownMenuContent>
