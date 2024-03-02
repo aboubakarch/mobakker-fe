@@ -1,6 +1,7 @@
 import HeaderInfoItem from '@/components/header/HeaderInfoItem'
 import PerformanceChart from '@/components/header/PerformanceChart'
 import ReportWidget from '@/components/header/ReportWidget'
+import PageHeader from '@/components/ui/PageHeader'
 import { messages } from '@/constants/constants'
 import { ColorsEnum, ReportTypesEnum } from '@/constants/enums'
 import React from 'react'
@@ -8,10 +9,10 @@ import React from 'react'
 const Report = () => {
     return (
         <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
-            <div className="md:w-1/2 w-full flex flex-col">
-                <h1 className="font-medium text-2xl ">{messages.REPORTS}</h1>
-                <p className="line-clamp-2 text-sm">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, asperiores rerum? Earum quod, maxime fugiat dolore laborum, illo minima aperiam amet ipsam, architecto voluptatum fugit laudantium aliquid quisquam reprehenderit natus.</p>
-            </div>
+            <PageHeader title={messages.REPORTS}
+                description="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis asperiores, aperiam ipsum corrupti minus recusandae exercitationem dolorum temporibus esse at officia iure in hic consequatur ea nisi placeat praesentium officiis."
+            >
+            </PageHeader>
 
             <div className="w-full grid grid-cols-1 md:grid-cols-4 md:grid-row-1 gap-3">
                 <PerformanceChart />
