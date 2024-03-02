@@ -7,8 +7,8 @@ const Badge: FC<IBadgeProps> = ({
     textStyle = "text-indigo-800",
 }) => {
     return (
-        <div className=" flex items-center justify-center">
-            <div className={cn("h-7 px-3 py-[3px]  select-none bg-opacity-10 rounded-[30px] justify-center items-center gap-px inline-flex", containerStyle)}>
+        <div className=" flex items-center justify-center w-max text-center">
+            <div className={cn("h-7 px-3 py-[3px]  select-none bg-opacity-10 rounded-[30px] justify-center items-center gap-px inline-flex text-center", containerStyle)}>
                 <div className={cn("text-indigo-800 w-full text-xs font-medium leading-tight", textStyle)}>{text}</div>
             </div>
         </div>

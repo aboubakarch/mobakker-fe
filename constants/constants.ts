@@ -58,6 +58,12 @@ export const tableHeader = {
   EMPLOYEE_NUM: "Number of Employees",
   TIME_SLOT: "Time Slot",
   PRICE: "Price",
+  BOOKING_ID: "Booking ID",
+  CUSTOMER_NAME: "Customer Name",
+  CUSTOMER_NUMBER: "Customer Number",
+  SERVICES_BOOKED: "Services Booked",
+  BRANCH_NAME: "Branch Name",
+  TIME: "Time",
 };
 
 export const formConstants = {

@@ -17,6 +17,18 @@ interface SampleServices {
   price: number;
   servicePicture: string;
 }
+interface SampleAppointments {
+  bookingId: string;
+  name: string;
+  customerNumber: number;
+  serviceType: string;
+  serviceBooked: string;
+  servicePicture: string;
+  serviceTime: string;
+  branchName: string;
+  time: string;
+  price: number;
+}
 
 interface IBadgeProps {
   textStyle?: string;

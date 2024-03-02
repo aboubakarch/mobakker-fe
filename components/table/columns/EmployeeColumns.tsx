@@ -44,7 +44,7 @@ export const employeeColumns: ColumnDef<SampleEmployee>[] = [
         cell: ({ row }) => {
             const rowItem = row.original
             return (
-                <div className="flex gap-3 items-center justify-center">
+                <div className="flex gap-3 items-center justify-center w-max">
                     <div className="rounded-full h-11 w-11 relative">
                         <Image
                             src={rowItem.profilePicture}

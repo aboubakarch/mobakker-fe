@@ -1,4 +1,4 @@
-import ServicesTable from '@/components/table/ServicesTable'
+import AppointmentsTable from '@/components/table/AppointmentsTable'
 import { Button } from '@/components/ui'
 import PageHeader from '@/components/ui/PageHeader'
 import { messages } from '@/constants/constants'
@@ -16,7 +16,7 @@ const Employees = () => {
 
 
 
-            <ServicesTable />
+            <AppointmentsTable />
         </div>
     )
 }

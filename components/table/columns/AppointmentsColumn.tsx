@@ -16,7 +16,7 @@ import Badge from "@/components/ui/Badge";
 import { Checkbox } from "@/components/ui/Checkbox";
 
 
-export const serviceColumns: ColumnDef<SampleServices>[] = [
+export const appointmentsColumns: ColumnDef<SampleAppointments>[] = [
     {
         id: "select",
         header: ({ table }) => (
@@ -37,14 +37,55 @@ export const serviceColumns: ColumnDef<SampleServices>[] = [
             />
         ),
 
+
+    },
+    {
+        accessorKey: "bookingId",
+        header: () => <div className="text-center">{tableHeader.BOOKING_ID}</div>,
+
+        cell: ({ row }) => {
+            const bookingId: string = row.getValue("bookingId");
+            return (
+                <div className="w-max flex items-center justify-center text-center">
+
+                    <p className="text-sm line-clamp-1">{bookingId}</p>
+                </div>
+            )
+        },
     },
     {
         accessorKey: "name",
-        header: () => <div className="text-center">{tableHeader.SERVICE_NAME}</div>,
+        header: () => <div className="text-center">{tableHeader.CUSTOMER_NAME}</div>,
+
+        cell: ({ row }) => {
+            const name: string = row.getValue("name");
+            return (
+                <div className="w-max flex items-center justify-center text-center">
+                    <p className="text-sm line-clamp-1 ">{name}</p>
+                </div>
+            )
+        },
+    },
+    {
+        accessorKey: "customerNumber",
+        header: () => <div className="text-center">{tableHeader.CUSTOMER_NUMBER}</div>,
+
+        cell: ({ row }) => {
+            const customerNumber: number = row.getValue("customerNumber");
+            return (
+                <div className="w-max flex items-center justify-center text-center">
+                    <p className="text-sm line-clamp-1">{customerNumber}</p>
+                </div>
+            )
+        },
+    },
+    {
+        accessorKey: "serviceBooked",
+        header: () => <div className="text-center">{tableHeader.SERVICES_BOOKED}</div>,
         cell: ({ row }) => {
             const rowItem = row.original
             return (
-                <div className="flex gap-3 items-center justify-center w-max">
+                <div className="w-max flex gap-3 items-center justify-center">
                     <div className="rounded-full h-11 w-11 relative">
                         <Image
                             src={rowItem.servicePicture}
@@ -54,20 +95,10 @@ export const serviceColumns: ColumnDef<SampleServices>[] = [
                         />
                     </div>
                     <div className="flex flex-col text-sm font-medium leading-snug">
-                        <p className="text-gray-900">{rowItem.name}</p>
+                        <p className="text-gray-900">{rowItem.serviceBooked}</p>
+                        <p className="text-gray-900">{rowItem.serviceTime}</p>
                     </div>
                 </div>
-            )
-        },
-    },
-    {
-        accessorKey: "details",
-        header: () => <div className="text-center">{tableHeader.DETAILS}</div>,
-
-        cell: ({ row }) => {
-            const details: string = row.getValue("details");
-            return (
-                <p className="text-sm line-clamp-2 w-44">{details}</p>
             )
         },
     },
@@ -83,35 +114,35 @@ export const serviceColumns: ColumnDef<SampleServices>[] = [
         },
     },
     {
-        accessorKey: "employeeCount",
-        header: () => <div className="text-center">{tableHeader.EMPLOYEE_NUM}</div>,
+        accessorKey: "branchName",
+        header: () => <div className="text-center">{tableHeader.BRANCH_NAME}</div>,
 
         cell: ({ row }) => {
-            const employeeCount: number = row.getValue("employeeCount")
+            const branchName: string = row.getValue("branchName")
             return (
-                <TextColumn text={employeeCount} />
+                <TextColumn text={branchName} />
             )
         }
     },
     {
-        accessorKey: "timeSlot",
+        accessorKey: "serviceTime",
         header: () => <div className="text-center">{tableHeader.TIME_SLOT}</div>,
 
         cell: ({ row }) => {
-            const timeSlot: string = row.getValue("timeSlot");
+            const serviceTime: string = row.getValue("serviceTime");
             return (
-                <Badge containerStyle="bg-emerald-500" textStyle="text-emerald-500" text={timeSlot} />
+                <Badge text={serviceTime} />
             )
         },
     },
     {
-        accessorKey: "workingHours",
-        header: () => <div className="text-center">{tableHeader.WORKING_HOURS}</div>,
+        accessorKey: "time",
+        header: () => <div className="text-center">{tableHeader.TIME}</div>,
 
         cell: ({ row }) => {
-            const workingHours: string = row.getValue("workingHours");
+            const time: string = row.getValue("time");
             return (
-                <TextColumn text={workingHours} />
+                <TextColumn text={time} />
             )
         },
     },
