@@ -1,5 +1,6 @@
 import { ISideBarItem } from "@/@types/sidebar";
 import {
+  BranchIcon,
   ClipboardIcon,
   HomeIcon,
   NotificationIcon,
@@ -102,6 +103,12 @@ export const sidebarNavigation = (prefix: string): ISideBarItem[] => [
     link: `${prefix}`,
   },
   {
+    id: 13,
+    name: "Branch",
+    icon: BranchIcon,
+    link: `${prefix}/branch`,
+  },
+  {
     id: 2,
     name: "Reports",
     icon: ClipboardIcon,
@@ -165,17 +172,17 @@ export const sidebarAdminNavigation: ISideBarItem[] = [
     link: "/admin/users",
   },
 ];
-export const SettingsNavigation: ISideBarItem[] = [
+export const SettingsNavigation = (prefix: string): ISideBarItem[] => [
   {
     id: 1,
     name: "Subscription",
     icon: PaymentIcon,
-    link: "/subscription",
+    link: `${prefix}/subscription`,
   },
   {
     id: 2,
     name: "Settings",
     icon: SettingsIcon,
-    link: "/settings",
+    link: `${prefix}/settings`,
   },
 ];
