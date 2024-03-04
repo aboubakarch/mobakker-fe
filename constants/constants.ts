@@ -38,6 +38,9 @@ export const messages = {
   ADD_APPOINTMENTS: "Add Appointments",
   LOYAL_PROGRAM: "Loyal Program",
   Promotions: "Promotions",
+  BRANCH: "Branch",
+  PROVIDERS: "Providers",
+  MANAGE_USERS: "Manage Users",
   SUBSCRIPTION: "Subcription",
   SELECT: "Select",
   COMPLETE: "Complete",
@@ -67,6 +70,8 @@ export const tableHeader = {
   CUSTOMER_NUMBER: "Customer Number",
   SERVICES_BOOKED: "Services Booked",
   BRANCH_NAME: "Branch Name",
+  PROVIDER_NAME: "Provider Name",
+  USER_NAME: "User Name",
   TIME: "Time",
   RANK: "Rank",
   LOYAL_CUSTOMER: "Loyal Customer",
@@ -84,6 +89,9 @@ export const tableHeader = {
   RENEWAL: "Renewal",
   DAY_LEFT: "Day Left",
   SUBCRIPTION: "Subscription#",
+  LOCATION: "Location",
+  DESC: "Description",
+  PASSWORD: "Password",
 };
 
 export const formConstants = {

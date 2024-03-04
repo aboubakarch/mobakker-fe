@@ -64,6 +64,23 @@ interface SampleSubscription {
   renewal: number;
   dayLeft: number;
 }
+interface SampleBranch {
+  name: string;
+  location: string;
+  pasword: string;
+  description: string;
+}
+
+interface SampleProvider {
+  name: string;
+  pasword: string;
+  description: string;
+}
+interface SampleUser {
+  name: string;
+  pasword: string;
+  description: string;
+}
 
 interface IBadgeProps {
   textStyle?: string;
