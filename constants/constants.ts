@@ -36,6 +36,8 @@ export const messages = {
   APPOINTMENTS: "Appointments",
   ADD_APPOINTMENTS: "Add Appointments",
   LOYAL_PROGRAM: "Loyal Program",
+  Promotions: "Promotions",
+  SUBSCRIPTION: "Subcription",
   SELECT: "Select",
   COMPLETE: "Complete",
   TOTAL_REQ: "Total Requests",
@@ -70,6 +72,17 @@ export const tableHeader = {
   TOTAL_BOOKING: "Total Bookings",
   MOST_BOOKED: "Most Booked Service",
   LAST_BOOKING: "Last Booking",
+  PROMOTION_NAME: "Promotion Name",
+  START_DATE: "Start Date",
+  END_DATE: "End Date",
+  STATUS: "Status",
+  CAPACITY: "Capacity",
+  AVAILABLE: "Available",
+  TYPE: "Type",
+  PAID: "Paid",
+  RENEWAL: "Renewal",
+  DAY_LEFT: "Day Left",
+  SUBCRIPTION: "Subscription#",
 };
 
 export const formConstants = {

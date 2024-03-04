@@ -13,54 +13,55 @@ import Image from "next/image";
 import { messages, tableHeader } from "@/constants/constants";
 import TextColumn from "../TextColumn";
 import Badge from "@/components/ui/Badge";
+import { Switch } from "@/components/ui/Switch";
 // import { Checkbox } from "@/components/ui/Checkbox";
 
 
-export const loyalProgramsColumns: ColumnDef<SampleLoyalPrograms>[] = [
+export const promotionsColumns: ColumnDef<SamplePromotions>[] = [
 
     {
-        accessorKey: "rank",
-        header: () => <div className="text-center">{tableHeader.RANK}</div>,
+        accessorKey: "promotionName",
+        header: () => <div className="text-center">{tableHeader.PROMOTION_NAME}</div>,
 
         cell: ({ row }) => {
-            const rank: string = row.getValue("rank");
+            const promotionName: string = row.getValue("promotionName");
             return (
                 <div className="w-max flex items-center justify-center text-center justify-self-center">
 
-                    <p className="text-sm line-clamp-1">{rank}</p>
+                    <p className="text-sm line-clamp-1">{promotionName}</p>
                 </div>
             )
         },
     },
     {
-        accessorKey: "customerName",
-        header: () => <div className="text-center">{tableHeader.LOYAL_CUSTOMER}</div>,
+        accessorKey: "startDate",
+        header: () => <div className="text-center">{tableHeader.START_DATE}</div>,
 
         cell: ({ row }) => {
-            const customerName: string = row.getValue("customerName");
+            const startDate: string = row.getValue("startDate");
             return (
                 <div className="w-max flex items-center justify-center text-center">
-                    <p className="text-sm line-clamp-1 ">{customerName}</p>
+                    <p className="text-sm line-clamp-1 ">{startDate}</p>
                 </div>
             )
         },
     },
     {
-        accessorKey: "customerNumber",
-        header: () => <div className="text-center">{tableHeader.CUSTOMER_NUMBER}</div>,
+        accessorKey: "endDate",
+        header: () => <div className="text-center">{tableHeader.END_DATE}</div>,
 
         cell: ({ row }) => {
-            const customerNumber: number = row.getValue("customerNumber");
+            const endDate: string = row.getValue("endDate");
             return (
                 <div className="w-max flex items-center justify-center text-center justify-self-center">
-                    <p className="text-sm line-clamp-1">{customerNumber}</p>
+                    <p className="text-sm line-clamp-1">{endDate}</p>
                 </div>
             )
         },
     },
     {
-        accessorKey: "serviceBooked",
-        header: () => <div className="text-center">{tableHeader.MOST_BOOKED}</div>,
+        accessorKey: "serviceName",
+        header: () => <div className="text-center">{tableHeader.SERVICE_NAME}</div>,
         cell: ({ row }) => {
             const rowItem = row.original
             return (
@@ -74,7 +75,7 @@ export const loyalProgramsColumns: ColumnDef<SampleLoyalPrograms>[] = [
                         />
                     </div>
                     <div className="flex flex-col text-sm font-medium leading-snug">
-                        <p className="text-gray-900">{rowItem.serviceBooked}</p>
+                        <p className="text-gray-900">{rowItem.serviceName}</p>
                     </div>
                 </div>
             )
@@ -103,24 +104,35 @@ export const loyalProgramsColumns: ColumnDef<SampleLoyalPrograms>[] = [
         }
     },
     {
-        accessorKey: "lastBooking",
-        header: () => <div className="text-center">{tableHeader.LAST_BOOKING}</div>,
+        accessorKey: "capacity",
+        header: () => <div className="text-center">{tableHeader.CAPACITY}</div>,
 
         cell: ({ row }) => {
-            const lastBooking: string = row.getValue("lastBooking");
+            const capacity: string = row.getValue("capacity");
             return (
-                <Badge text={lastBooking} />
+                <Badge text={capacity} />
             )
         },
     },
     {
-        accessorKey: "rating",
-        header: () => <div className="text-center">{tableHeader.RATING}</div>,
+        accessorKey: "availableCount",
+        header: () => <div className="text-center">{tableHeader.AVAILABLE}</div>,
 
         cell: ({ row }) => {
-            const rating: string = row.getValue("rating");
+            const availableCount: string = row.getValue("availableCount");
             return (
-                <Badge text={rating} containerStyle="bg-emerald-500" textStyle="text-emerald-500" />
+                <TextColumn text={availableCount} />
+            )
+        },
+    },
+    {
+        accessorKey: "status",
+        header: () => <div className="text-center">{tableHeader.STATUS}</div>,
+
+        cell: ({ row }) => {
+            const status: boolean = row.getValue("status");
+            return (
+                <Switch className='data-[state=checked]:bg-indigo-800 data-[state=unchecked]:bg-red-400 ' checked={status} />
             )
         },
     },

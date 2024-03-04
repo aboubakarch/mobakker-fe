@@ -7,34 +7,34 @@ import {
     DropdownMenuLabel,
     DropdownMenuTrigger,
 } from "@/components/ui"
-import { MoreVertical } from "lucide-react";
-import Image from "next/image";
+import { MoreVertical, Pause, RefreshCw } from "lucide-react";
 // import { Checkbox } from "@/components/ui/Checkbox"
 import { messages, tableHeader } from "@/constants/constants";
 import TextColumn from "../TextColumn";
 import Badge from "@/components/ui/Badge";
+import { Switch } from "@/components/ui/Switch";
 // import { Checkbox } from "@/components/ui/Checkbox";
 
 
-export const loyalProgramsColumns: ColumnDef<SampleLoyalPrograms>[] = [
+export const subscriptionColumns: ColumnDef<SampleSubscription>[] = [
 
     {
-        accessorKey: "rank",
-        header: () => <div className="text-center">{tableHeader.RANK}</div>,
+        accessorKey: "subscriptionId",
+        header: () => <div className="text-center">{tableHeader.SUBCRIPTION}</div>,
 
         cell: ({ row }) => {
-            const rank: string = row.getValue("rank");
+            const subscriptionId: string = row.getValue("subscriptionId");
             return (
                 <div className="w-max flex items-center justify-center text-center justify-self-center">
 
-                    <p className="text-sm line-clamp-1">{rank}</p>
+                    <p className="text-sm line-clamp-1">{subscriptionId}</p>
                 </div>
             )
         },
     },
     {
         accessorKey: "customerName",
-        header: () => <div className="text-center">{tableHeader.LOYAL_CUSTOMER}</div>,
+        header: () => <div className="text-center">{tableHeader.CUSTOMER_NAME}</div>,
 
         cell: ({ row }) => {
             const customerName: string = row.getValue("customerName");
@@ -59,73 +59,80 @@ export const loyalProgramsColumns: ColumnDef<SampleLoyalPrograms>[] = [
         },
     },
     {
-        accessorKey: "serviceBooked",
-        header: () => <div className="text-center">{tableHeader.MOST_BOOKED}</div>,
+        accessorKey: "type",
+        header: () => <div className="text-center">{tableHeader.TYPE}</div>,
+
         cell: ({ row }) => {
-            const rowItem = row.original
+            const type: string = row.getValue("type");
             return (
-                <div className="w-max flex gap-3 items-center justify-center">
-                    <div className="rounded-full h-11 w-11 relative">
-                        <Image
-                            src={rowItem.servicePicture}
-                            alt="pfp"
-                            fill
-                            className="rounded-full"
-                        />
-                    </div>
-                    <div className="flex flex-col text-sm font-medium leading-snug">
-                        <p className="text-gray-900">{rowItem.serviceBooked}</p>
-                    </div>
-                </div>
+                <Badge text={type} />
             )
         },
     },
     {
-        accessorKey: "serviceType",
-        header: () => <div className="text-center">{tableHeader.SERVICE_TYPE}</div>,
+        accessorKey: "paid",
+        header: () => <div className="text-center">{tableHeader.PAID}</div>,
 
         cell: ({ row }) => {
-            const serviceType: string = row.getValue("serviceType");
+            const paid: string = row.getValue("paid")
             return (
-                <TextColumn text={serviceType} />
-            )
-        },
-    },
-    {
-        accessorKey: "branchName",
-        header: () => <div className="text-center">{tableHeader.BRANCH_NAME}</div>,
-
-        cell: ({ row }) => {
-            const branchName: string = row.getValue("branchName")
-            return (
-                <TextColumn text={branchName} />
+                <TextColumn text={paid} />
             )
         }
     },
     {
-        accessorKey: "lastBooking",
-        header: () => <div className="text-center">{tableHeader.LAST_BOOKING}</div>,
+        accessorKey: "status",
+        header: () => <div className="text-center">{tableHeader.STATUS}</div>,
 
         cell: ({ row }) => {
-            const lastBooking: string = row.getValue("lastBooking");
+            const status: string = row.getValue("status") ? "Active" : "Inactive";
             return (
-                <Badge text={lastBooking} />
+                <Badge text={status} />
             )
         },
     },
     {
-        accessorKey: "rating",
-        header: () => <div className="text-center">{tableHeader.RATING}</div>,
+        accessorKey: "renewal",
+        header: () => <div className="text-center">{tableHeader.RENEWAL}</div>,
 
         cell: ({ row }) => {
-            const rating: string = row.getValue("rating");
+            const renewal: string = row.getValue("renewal")
             return (
-                <Badge text={rating} containerStyle="bg-emerald-500" textStyle="text-emerald-500" />
+                <TextColumn text={renewal} />
+            )
+        }
+    },
+    {
+        accessorKey: "dayLeft",
+        header: () => <div className="text-center">{tableHeader.DAY_LEFT}</div>,
+
+        cell: ({ row }) => {
+            const dayLeft: string = row.getValue("dayLeft")
+            return (
+                <TextColumn text={dayLeft} />
+            )
+        }
+    },
+
+    {
+        id: "subcriptionAction",
+
+        cell: ({ row }) => {
+            const status: boolean = row.getValue("status");
+            return (
+                <div className="flex w-full items-center justify-center gap-2">
+                    <Button variant="ghost" className="h-8 w-8 p-0">
+                        <Pause className="h-4 w-4" />
+                    </Button>
+                    <Button variant="ghost" className="h-8 w-8 p-0">
+                        <RefreshCw className="h-4 w-4" />
+                    </Button>
+                    <Switch className='data-[state=checked]:bg-indigo-800 data-[state=unchecked]:bg-red-400 ' checked={status} />
+
+                </div>
             )
         },
     },
-
-
     {
         id: "actions",
         cell: () => {
