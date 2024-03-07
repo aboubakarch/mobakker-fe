@@ -41,6 +41,28 @@ interface SampleLoyalPrograms {
   branchName: string;
   rating: number;
 }
+interface SampleComplaint {
+  complaint: string;
+  customerName: string;
+  customerNumber: number;
+  customerType: string;
+  complainMessage: string;
+  attachment: boolean;
+  city: string;
+  bookingId: string;
+}
+interface SampleAppointmentRatings {
+  rank: string;
+  customerName: string;
+  customerNumber: number;
+  totalBookings: number;
+  serviceType: string;
+  serviceBooked: string;
+  servicePicture: string;
+  lastBooking: string;
+  branchName: string;
+  rating: number;
+}
 interface SamplePromotions {
   promotionName: string;
   startDate: string;

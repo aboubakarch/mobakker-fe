@@ -33,6 +33,10 @@ export const messages = {
   EMPLOYEES: "Employees",
   ADD_EMPLOYEES: "Add Employees",
   SERVICES: "Services",
+  COMPLAINTS: "Complaints",
+  RATINGS: "Ratings",
+  RATING_APPOINTMENT: "Ratings of Appointments",
+  RATING_EMPLOYEE: "Ratings of Employees",
   ADD_SERVICES: "Add Services",
   APPOINTMENTS: "Appointments",
   ADD_APPOINTMENTS: "Add Appointments",
@@ -92,6 +96,12 @@ export const tableHeader = {
   LOCATION: "Location",
   DESC: "Description",
   PASSWORD: "Password",
+  COMPLAINT: "Complaint",
+  TYPE_USER: "User Type",
+  ATTACHMENT: "Attachment",
+  CITY: "City",
+  BOOKING_ID_SUB: "Booking ID/Subscription",
+  COMPLAINT_MESSAGE: "Complaint Message",
 };
 
 export const formConstants = {
@@ -156,13 +166,19 @@ export const sidebarNavigation = (prefix: string): ISideBarItem[] => [
     id: 8,
     name: "Rating",
     icon: StarIcon,
-    link: `${prefix}/rating`,
+    link: `${prefix}/ratings`,
   },
   {
     id: 9,
     name: "Notifications",
     icon: NotificationIcon,
     link: `${prefix}/notifications`,
+  },
+  {
+    id: 14,
+    name: "Complaints",
+    icon: ClipboardIcon,
+    link: `${prefix}/complaints`,
   },
 ];
 export const sidebarAdminNavigation: ISideBarItem[] = [
