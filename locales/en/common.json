@@ -38,5 +38,6 @@
   "delete": "Delete",
   "transfer": "Transfer",
   "actions": "Actions",
-  "login": "Login"
+  "login": "Login",
+  "selectLanguage": "Select Language"
 }

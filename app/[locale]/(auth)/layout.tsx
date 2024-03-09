@@ -19,7 +19,7 @@ export default async function AuthLayout({
         namespaces={i18nNamespaces}
       >
         <div className="flex h-full w-full bg-screen justify-center items-center relative">
-          <LanguageChanger />
+          <LanguageChanger className='absolute top-5 right-10' hasDesc />
           <div className="bg-white/90 w-3/5 h-1/2 rounded-lg shadow-md">
             {children}
           </div>

@@ -3,6 +3,7 @@ import Sidebar from "@/components/sidebar/Sidebar"
 import { NavigationTypeEnum } from "@/constants/enums"
 import initTranslations from "@/i18n";
 import TranslationsProvider from '@/components/TranslationProvider';
+import StoreProvider from "../storeProvider";
 
 const i18nNamespaces = ['common'];
 
@@ -12,20 +13,24 @@ export default async function AuthLayout({
 }: LocaleParams) {
     const { resources } = await initTranslations(locale, i18nNamespaces);
     return (
-        <TranslationsProvider
-            locale={locale}
-            resources={resources}
-            namespaces={i18nNamespaces}
-        >
+        <StoreProvider>
 
-            <div className="h-full w-full bg-screen relative" >
-                <Navbar />
-                <div className="flex w-full h-[calc(100%-80px)]">
-                    <Sidebar navigation={NavigationTypeEnum.Manager} />
-                    {children}
+            <TranslationsProvider
+                locale={locale}
+                resources={resources}
+                namespaces={i18nNamespaces}
+            >
 
-                </div>
-            </div >
-        </TranslationsProvider>
+                <div className="h-full w-full bg-screen relative" >
+                    <Navbar />
+                    <div className="flex w-full h-[calc(100%-80px)]">
+                        <Sidebar navigation={NavigationTypeEnum.Manager} />
+                        {children}
+
+                    </div>
+                </div >
+            </TranslationsProvider>
+        </StoreProvider>
+
     )
 }

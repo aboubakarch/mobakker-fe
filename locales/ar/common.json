@@ -38,5 +38,6 @@
   "delete": "حذف",
   "transfer": "نقل",
   "actions": "الإجراءات",
-  "login": "تسجيل الدخول"
+  "login": "تسجيل الدخول",
+  "selectLanguage": "اختر اللغة"
 }

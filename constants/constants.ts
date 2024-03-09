@@ -56,6 +56,7 @@ export const messages = {
   TRANSFER: "common:transfer",
   ACTIONS: "common:actions",
   LOGIN: "common:login",
+  SELECT_LANGUAGE: "common:selectLanguage",
 };
 
 export const tableHeader = {

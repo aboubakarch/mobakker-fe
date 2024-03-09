@@ -6,9 +6,12 @@ import { useTranslation } from 'react-i18next';
 import i18nConfig from '@/i18nConfig';
 import { useAppDispatch } from '@/redux/app/hooks';
 import { setLocale } from '@/redux/features';
+import { FC } from 'react';
+import { cn } from '@/lib/utils';
+import { messages } from '@/constants/constants';
 
-const LanguageChanger = () => {
-    const { i18n } = useTranslation();
+const LanguageChanger: FC<ILanguageChangerProps> = ({ className = "", hasDesc = false, selectClassName = "" }) => {
+    const { i18n, t } = useTranslation();
     const currentLocale = i18n.language;
     const router = useRouter();
     const currentPathname = usePathname();
@@ -43,10 +46,13 @@ const LanguageChanger = () => {
     };
 
     return (
-        <select onChange={handleChange} value={currentLocale}>
-            <option value="en">English</option>
-            <option value="ar">Arabic</option>
-        </select>
+        <div className={cn('flex gap-2', className)}>
+            {hasDesc && <p>{t(messages.SELECT_LANGUAGE)}:</p>}
+            <select className={cn("border-black/40 border px-2 rounded", selectClassName)} onChange={handleChange} value={currentLocale}>
+                <option value="en">English</option>
+                <option value="ar">Arabic</option>
+            </select>
+        </div>
     );
 }
 export default LanguageChanger

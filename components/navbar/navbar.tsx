@@ -4,6 +4,7 @@ import React from 'react'
 import { SearchInput } from '../ui/SearchInput'
 import { BellIcon, BulbIcon, ChevronDownIcon } from '@/svgs'
 import IconButton from '../buttons/IconButton'
+import LanguageChanger from '../languageChanger/LanguageChanger'
 
 const Navbar = () => {
     return (
@@ -22,6 +23,7 @@ const Navbar = () => {
             </div>
             <div className='flex-[0.5] flex justify-end pr-4 items-center h-full gap-2'>
                 <div className='flex gap-2'>
+                    <LanguageChanger selectClassName='border-[#EEF5E4] bg-screen' />
                     <IconButton>
                         <BulbIcon className='h-6 w-6' />
                     </IconButton>

@@ -109,3 +109,9 @@ interface IBadgeProps {
   containerStyle?: string;
   text: string;
 }
+
+interface ILanguageChangerProps {
+  className?: string;
+  hasDesc?: boolean;
+  selectClassName?: string;
+}
