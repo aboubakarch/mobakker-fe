@@ -3,9 +3,11 @@ import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { FC } from 'react'
+import { useTranslation } from 'react-i18next'
 
 const SideListItem: FC<ISideBarItem> = (props) => {
     const path = usePathname()
+    const { t } = useTranslation()
     const isSelected = path === props.link || path === `/ar${props.link}`
 
     return (
@@ -16,7 +18,7 @@ const SideListItem: FC<ISideBarItem> = (props) => {
                 <props.icon className={cn('h-6 w-6', (isSelected) ? "text-indigo-800" : "")} />
             </div>
             <div className={cn('text-sm text-icon', isSelected ? "text-indigo-800 font-medium" : "")}>
-                {props.name}
+                {t(props.name)}
             </div>
         </Link>
     )

@@ -3,7 +3,7 @@ import LanguageChanger from '@/components/languageChanger/LanguageChanger';
 import initTranslations from '@/i18n';
 import StoreProvider from '../storeProvider';
 
-const i18nNamespaces = ['auth', 'common'];
+const i18nNamespaces = ['auth', 'common', "navigation"];
 
 export default async function AuthLayout({
   children,
