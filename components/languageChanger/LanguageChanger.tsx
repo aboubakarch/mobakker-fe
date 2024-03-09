@@ -7,9 +7,8 @@ import i18nConfig from '@/i18nConfig';
 import { useAppDispatch } from '@/redux/app/hooks';
 import { setLocale } from '@/redux/features';
 
-export default function LanguageChanger() {
+const LanguageChanger = () => {
     const { i18n } = useTranslation();
-    // console.log(i18n)
     const currentLocale = i18n.language;
     const router = useRouter();
     const currentPathname = usePathname();
@@ -50,3 +49,4 @@ export default function LanguageChanger() {
         </select>
     );
 }
+export default LanguageChanger

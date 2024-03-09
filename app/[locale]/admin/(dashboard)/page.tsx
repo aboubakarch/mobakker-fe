@@ -1,19 +1,21 @@
+"use client"
 import LineChart from "@/components/charts/LineChart";
 import HeaderInfoItem from "@/components/header/HeaderInfoItem";
 import { Button } from "@/components/ui";
 import { messages } from "@/constants/constants";
 import { ColorsEnum } from "@/constants/enums";
 import { ExportIcon } from "@/svgs";
+import { useTranslation } from "react-i18next";
 
 
 export default function Home() {
-
+  const { t } = useTranslation()
 
   return (
 
     <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
       <div className="md:w-1/2 w-full flex flex-col">
-        <h1 className="font-medium text-2xl ">{messages.GOOD_MORNING + "User"}</h1>
+        <h1 className="font-medium text-2xl ">{t(messages.GOOD_MORNING) + "User"}</h1>
         <p className="line-clamp-2 text-sm">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, asperiores rerum? Earum quod, maxime fugiat dolore laborum, illo minima aperiam amet ipsam, architecto voluptatum fugit laudantium aliquid quisquam reprehenderit natus.</p>
       </div>
       <div className="bg-white rounded-sm w-full grid md:grid-rows-2 grid-cols-2 md:grid-cols-4 px-4 py-2 gap-3 ">
@@ -27,7 +29,7 @@ export default function Home() {
         <div className="bg-white rounded-sm md:col-span-3 flex flex-col gap-2 p-3">
           <div className="flex justify-between ">
             <div >
-              <p className="text-gray-900 text-lg font-medium leading-[30px]">{messages.TODAYS_PERFORMANCE}</p>
+              <p className="text-gray-900 text-lg font-medium leading-[30px]">{t(messages.TODAYS_PERFORMANCE)}</p>
               <p className="text-gray-500 text-sm font-normal leading-normal">25 Jan 2023, 09:41 PM</p>
             </div>
 
@@ -35,10 +37,10 @@ export default function Home() {
             <div className="flex gap-3">
               <Button variant={"default"} className="bg-indigo-800  bg-opacity-5 hover:bg-indigo-300  rounded-md justify-center items-center gap-2 inline-flex">
                 <ExportIcon />
-                <p className="text-center text-indigo-800  text-sm font-normal  leading-normal">{messages.EXPORT}</p>
+                <p className="text-center text-indigo-800  text-sm font-normal  leading-normal">{t(messages.EXPORT)}</p>
               </Button>
               <Button variant={"default"} className="bg-indigo-800 hover:bg-indigo-600 rounded-md justify-center items-center gap-2 inline-flex">
-                <p className="text-center text-white text-sm font-normal leading-normal">{messages.APPLY_FILTER}</p>
+                <p className="text-center text-white text-sm font-normal leading-normal">{t(messages.APPLY_FILTER)}</p>
               </Button>
             </div>
           </div>

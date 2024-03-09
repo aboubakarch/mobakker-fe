@@ -1,10 +1,14 @@
+"use client"
 import { messages } from '@/constants/constants'
 import Image from 'next/image'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 const Card = ({
     children
 }: ILayoutProps) => {
+    const { t } = useTranslation();
+
     return (
         <div className='h-full w-full flex md:flex-row flex-col-reverse'>
             <div className='flex-[0.5] h-full'>
@@ -20,7 +24,7 @@ const Card = ({
                         />
                     </div>
                     <div className=' w-[100px] text-white font-3xl font-semibold'>
-                        {messages.WELCOME}
+                        {t(messages.WELCOME)}
                     </div>
                 </div>
             </div>

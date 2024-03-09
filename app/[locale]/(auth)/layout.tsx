@@ -10,6 +10,7 @@ export default async function AuthLayout({
   params: { locale },
 }: LocaleParams) {
   const { resources } = await initTranslations(locale, i18nNamespaces);
+
   return (
     <StoreProvider>
       <TranslationsProvider

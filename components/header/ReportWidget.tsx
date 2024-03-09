@@ -8,8 +8,10 @@ import { IReportWidgetProps } from '@/@types/dashboard'
 import { cn } from '@/lib/utils'
 import ReportWidgetButton from '../buttons/ReportWidgetButton'
 import { ReportTypesEnum } from '@/constants/enums'
+import { useTranslation } from 'react-i18next'
 
 const ReportWidget: FC<IReportWidgetProps> = ({ className = "", type }) => {
+    const { t } = useTranslation()
 
     const [date, setDate] = useState<Date | undefined>(new Date());
     const [month, setMonth] = useState("");
@@ -33,12 +35,12 @@ const ReportWidget: FC<IReportWidgetProps> = ({ className = "", type }) => {
     return (
         <div className={cn('w-full h-full flex flex-col p-4 gap-3 bg-white', className)}>
             <p className='text-gray-900 text-lg font-medium leading-[30px]'>
-                {`${type} ${messages.REPORTS}`}
+                {`${type} ${t(messages.REPORTS)}`}
             </p>
             <div className="flex gap-3 w-full justify-end">
                 <Button variant={"default"} className="bg-indigo-800  bg-opacity-5 hover:bg-indigo-300  rounded-md justify-center items-center gap-2 inline-flex">
                     <ExportIcon />
-                    <p className="text-center text-indigo-800  text-sm font-normal  leading-normal">{messages.EXPORT}</p>
+                    <p className="text-center text-indigo-800  text-sm font-normal  leading-normal">{t(messages.EXPORT)}</p>
                 </Button>
                 <ReportWidgetButton
                     onDateChange={onDateChange}
@@ -49,19 +51,19 @@ const ReportWidget: FC<IReportWidgetProps> = ({ className = "", type }) => {
             </div>
             <div className='w-full flex flex-col gap-3 '>
                 <div className="w-full px-4 py-3 flex justify-between bg-indigo-800 bg-opacity-5 rounded">
-                    <div className=" text-gray-900 text-sm font-medium leading-snug">{messages.TOTAL_REQ}</div>
+                    <div className=" text-gray-900 text-sm font-medium leading-snug">{t(messages.TOTAL_REQ)}</div>
                     <div className="text-right text-gray-500 text-sm font-medium leading-snug">4234</div>
                 </div>
                 <div className="w-full px-4 py-3 flex justify-between bg-indigo-800 bg-opacity-5 rounded">
-                    <div className=" text-gray-900 text-sm font-medium leading-snug">{messages.COMPLETE}</div>
+                    <div className=" text-gray-900 text-sm font-medium leading-snug">{t(messages.COMPLETE)}</div>
                     <div className="text-right text-gray-500 text-sm font-medium leading-snug">4234</div>
                 </div>
                 <div className="w-full px-4 py-3 flex justify-between bg-red-500 bg-opacity-5 rounded">
-                    <div className=" text-red-500 text-sm font-medium leading-snug">{messages.CANCELLED}</div>
+                    <div className=" text-red-500 text-sm font-medium leading-snug">{t(messages.CANCELLED)}</div>
                     <div className="text-right text-red-500 text-sm font-medium leading-snug">4234</div>
                 </div>
                 <div className="w-full px-4 py-3 flex justify-between bg-indigo-800 bg-opacity-5 rounded">
-                    <div className=" text-gray-900 text-sm font-medium leading-snug">{messages.ENTERED_MAN}</div>
+                    <div className=" text-gray-900 text-sm font-medium leading-snug">{t(messages.ENTERED_MAN)}</div>
                     <div className="text-right text-gray-500 text-sm font-medium leading-snug">4234</div>
                 </div>
 
