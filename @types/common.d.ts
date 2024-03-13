@@ -115,3 +115,7 @@ interface ILanguageChangerProps {
   hasDesc?: boolean;
   selectClassName?: string;
 }
+
+interface IDropzonProps {
+  title: string;
+}

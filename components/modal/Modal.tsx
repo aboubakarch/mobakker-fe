@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import React, { ReactNode } from 'react';
 
 interface ModalProps {
@@ -6,11 +7,11 @@ interface ModalProps {
     closeModal: () => void;
     position?: 1 | 2 | 3 | 4,
     place?: 'top' | 'center' | 'end';
-    width?: 'small' | 'large'
+    className?: string
 }
 
 function Modal({
-    children, visibility, closeModal, position = 1, place = 'center', width = 'small',
+    children, visibility, closeModal, position = 1, place = 'center', className = '',
 }: ModalProps) {
     const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
         // Prevent the click event from reaching the outer div
@@ -37,7 +38,7 @@ function Modal({
         >
             <div
                 style={{ zIndex: 100 * position }}
-                className={`w-[80%]  ${width === 'small' ? 'md:w-[35%]' : 'md:w-[45%]'} shadow-xl rounded-md bg-white`}
+                className={cn(`w-[80%] md:w-[40%] shadow-xl rounded-md bg-white`, className)}
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Stop propagation within the children */}

@@ -39,5 +39,6 @@
   "transfer": "نقل",
   "actions": "الإجراءات",
   "login": "تسجيل الدخول",
-  "selectLanguage": "اختر اللغة"
+  "selectLanguage": "اختر اللغة",
+  "addBranch": "إضافة فرع"
 }

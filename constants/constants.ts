@@ -57,6 +57,7 @@ export const messages = {
   ACTIONS: "common:actions",
   LOGIN: "common:login",
   SELECT_LANGUAGE: "common:selectLanguage",
+  ADD_BRANCH: "common:addBranch",
 };
 
 export const tableHeader = {
@@ -107,12 +108,16 @@ export const tableHeader = {
 };
 
 export const formConstants = {
-  EMAIL_PLACEHOLDER: "emailPlaceholder",
-  EMAIL_LABEL: "emailLabel",
-  EMAIL: "email",
-  PASS_PLACEHOLDER: "passPlaceholder",
-  PASS_LABEL: "passLabel",
-  PASS: "pass",
+  EMAIL_PLACEHOLDER: "auth:emailPlaceholder",
+  EMAIL_LABEL: "auth:emailLabel",
+  EMAIL: "auth:email",
+  PASS_PLACEHOLDER: "auth:passPlaceholder",
+  PASS_LABEL: "auth:passLabel",
+  PASS: "auth:pass",
+  NAME_PLACEHOLER: "auth:namePlaceholder",
+  BRANCH_NAME_LABEL: "auth:branchNameLabel",
+  DETAILS: "auth:detailsPlaceholder",
+  LOCATION: "auth:locationPlaceholder",
 };
 
 export const sidebarNavigation = (prefix: string): ISideBarItem[] => [

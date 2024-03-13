@@ -8,3 +8,9 @@ export const loginValidationSchema = yup.object().shape({
     .required(),
   password: yup.string().min(8).max(32).required(),
 });
+export const branchValidationSchema = yup.object().shape({
+  name: yup.string().min(4).max(100).required(),
+  password: yup.string().min(8).max(32).required(),
+  location: yup.string().required(),
+  details: yup.string().min(8).max(300).required(),
+});

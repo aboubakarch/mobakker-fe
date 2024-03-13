@@ -8,3 +8,8 @@ interface IModal {
 interface ModalSlice {
   test: IModal;
 }
+
+interface IModalCompProps {
+  visible: boolean;
+  closeModal: () => void;
+}

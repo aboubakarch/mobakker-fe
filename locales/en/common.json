@@ -39,5 +39,6 @@
   "transfer": "Transfer",
   "actions": "Actions",
   "login": "Login",
-  "selectLanguage": "Select Language"
+  "selectLanguage": "Select Language",
+  "addBranch": "Add Branch"
 }

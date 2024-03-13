@@ -1,10 +1,24 @@
-import { IFormValueObj, ILoginFormValues } from "@/@types/forms";
-import { loginValidationSchema } from "./validationSchemas";
+import {
+  IBranchFormValues,
+  IFormValueObj,
+  ILoginFormValues,
+} from "@/@types/forms";
+import {
+  branchValidationSchema,
+  loginValidationSchema,
+} from "./validationSchemas";
 import { formConstants } from "./constants";
+import { FieldTypesEnum } from "./enums";
 
 export const loginDefaultValues: ILoginFormValues = {
   email: "",
   password: "",
+};
+export const branchDefaultValues: IBranchFormValues = {
+  name: "",
+  password: "",
+  details: "",
+  location: "",
 };
 export const loginFormVals: IFormValueObj<ILoginFormValues> = {
   validationSchema: loginValidationSchema,
@@ -21,6 +35,37 @@ export const loginFormVals: IFormValueObj<ILoginFormValues> = {
       hasError: false,
       name: "password",
       label: t(formConstants.PASS_LABEL),
+    },
+  }),
+};
+export const branchFormVals: IFormValueObj<IBranchFormValues> = {
+  validationSchema: branchValidationSchema,
+  initialValues: branchDefaultValues,
+  info: (t) => ({
+    name: {
+      placeHolder: t(formConstants.NAME_PLACEHOLER),
+      hasError: false,
+      name: "name",
+      label: t(formConstants.BRANCH_NAME_LABEL),
+    },
+    password: {
+      placeHolder: t(formConstants.PASS_PLACEHOLDER),
+      hasError: false,
+      name: "password",
+      label: t(formConstants.PASS_PLACEHOLDER),
+    },
+    location: {
+      placeHolder: t(formConstants.LOCATION),
+      hasError: false,
+      name: "location",
+      label: t(formConstants.LOCATION),
+    },
+    details: {
+      placeHolder: t(formConstants.DETAILS),
+      hasError: false,
+      name: "details",
+      label: t(formConstants.DETAILS),
+      type: FieldTypesEnum.Textarea,
     },
   }),
 };

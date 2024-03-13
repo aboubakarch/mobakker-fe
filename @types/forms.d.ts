@@ -1,9 +1,16 @@
+import { FieldTypesEnum } from "@/constants/enums";
 import { ReactNode } from "react";
 import * as yup from "yup";
 
 interface ILoginFormValues {
   email: string;
   password: string;
+}
+interface IBranchFormValues {
+  name: string;
+  password: string;
+  location: string;
+  details: string;
 }
 
 type IFormTemplate = IAppFormProps;
@@ -24,6 +31,7 @@ interface IFormField {
   label?: string;
   hasError: boolean;
   desc?: string;
+  type?: FieldTypesEnum;
 }
 
 interface IFormValueObj<T> {
