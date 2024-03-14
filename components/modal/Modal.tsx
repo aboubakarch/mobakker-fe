@@ -33,11 +33,11 @@ function Modal({
 
         <div
             onClick={handleClick}
-            style={{ zIndex: 99 * position }}
+            style={{ zIndex: 9 * position }}
             className={`fixed top-0 bottom-0 left-0 right-0 h-screen w-screen overflow-auto scrollbar bg-white/60 flex ${posStyle[place]}  justify-center`}
         >
             <div
-                style={{ zIndex: 100 * position }}
+                style={{ zIndex: 10 * position }}
                 className={cn(`w-[80%] md:w-[40%] shadow-xl rounded-md bg-white`, className)}
                 onClick={(e) => e.stopPropagation()}
             >

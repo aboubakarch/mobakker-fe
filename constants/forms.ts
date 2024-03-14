@@ -98,6 +98,7 @@ export const employeeFormVals: IFormValueObj<IEmployeeFormValues> = {
       hasError: false,
       name: "hours",
       label: t(formConstants.WORKING_HOURS),
+      type: FieldTypesEnum.Select,
     },
     jobDesc: {
       placeHolder: t(formConstants.JOB_DESC),
