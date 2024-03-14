@@ -32,6 +32,7 @@ export const messages = {
   REPORTS: "common:reports",
   EMPLOYEES: "common:employees",
   ADD_EMPLOYEES: "common:addEmployees",
+  ADD_EMPLOYEE: "common:addEmployee",
   SERVICES: "common:services",
   COMPLAINTS: "common:complaints",
   RATINGS: "common:ratings",
@@ -58,6 +59,8 @@ export const messages = {
   LOGIN: "common:login",
   SELECT_LANGUAGE: "common:selectLanguage",
   ADD_BRANCH: "common:addBranch",
+  SAVE: "common:save",
+  CANCEL: "common:cancel",
 };
 
 export const tableHeader = {
@@ -118,6 +121,12 @@ export const formConstants = {
   BRANCH_NAME_LABEL: "auth:branchNameLabel",
   DETAILS: "auth:detailsPlaceholder",
   LOCATION: "auth:locationPlaceholder",
+  EMPLOYEE_NAME: "auth:employeeName",
+  JOB_DESC: "auth:jobDesc",
+  DESC: "auth:desc",
+  WORKING_HOURS: "auth:workingHours",
+  HOURS: "auth:hours",
+  EMPLOYEE_NUM: "auth:employeeNum",
 };
 
 export const sidebarNavigation = (prefix: string): ISideBarItem[] => [

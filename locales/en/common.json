@@ -40,5 +40,8 @@
   "actions": "Actions",
   "login": "Login",
   "selectLanguage": "Select Language",
-  "addBranch": "Add Branch"
+  "addBranch": "Add Branch",
+  "addEmployee": "Add Employee",
+  "save": "Save",
+  "cancel": "Cancel"
 }

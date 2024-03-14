@@ -1,10 +1,12 @@
 import {
   IBranchFormValues,
+  IEmployeeFormValues,
   IFormValueObj,
   ILoginFormValues,
 } from "@/@types/forms";
 import {
   branchValidationSchema,
+  employeeValidationSchema,
   loginValidationSchema,
 } from "./validationSchemas";
 import { formConstants } from "./constants";
@@ -19,6 +21,12 @@ export const branchDefaultValues: IBranchFormValues = {
   password: "",
   details: "",
   location: "",
+};
+export const employeeDefaultValues: IEmployeeFormValues = {
+  name: "",
+  hours: "",
+  employeeNum: "",
+  jobDesc: "",
 };
 export const loginFormVals: IFormValueObj<ILoginFormValues> = {
   validationSchema: loginValidationSchema,
@@ -66,6 +74,36 @@ export const branchFormVals: IFormValueObj<IBranchFormValues> = {
       name: "details",
       label: t(formConstants.DETAILS),
       type: FieldTypesEnum.Textarea,
+    },
+  }),
+};
+export const employeeFormVals: IFormValueObj<IEmployeeFormValues> = {
+  validationSchema: employeeValidationSchema,
+  initialValues: employeeDefaultValues,
+  info: (t) => ({
+    name: {
+      placeHolder: t(formConstants.NAME_PLACEHOLER),
+      hasError: false,
+      name: "name",
+      label: t(formConstants.EMPLOYEE_NAME),
+    },
+    employeeNum: {
+      placeHolder: t(formConstants.EMPLOYEE_NUM),
+      hasError: false,
+      name: "employeeNum",
+      label: t(formConstants.EMPLOYEE_NUM),
+    },
+    hours: {
+      placeHolder: t(formConstants.HOURS),
+      hasError: false,
+      name: "hours",
+      label: t(formConstants.WORKING_HOURS),
+    },
+    jobDesc: {
+      placeHolder: t(formConstants.JOB_DESC),
+      hasError: false,
+      name: "jobDesc",
+      label: t(formConstants.DESC),
     },
   }),
 };

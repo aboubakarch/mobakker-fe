@@ -12,6 +12,12 @@ interface IBranchFormValues {
   location: string;
   details: string;
 }
+interface IEmployeeFormValues {
+  name: string;
+  hours: string;
+  employeeNum: string;
+  jobDesc: string;
+}
 
 type IFormTemplate = IAppFormProps;
 

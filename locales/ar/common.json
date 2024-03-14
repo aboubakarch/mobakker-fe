@@ -40,5 +40,8 @@
   "actions": "الإجراءات",
   "login": "تسجيل الدخول",
   "selectLanguage": "اختر اللغة",
-  "addBranch": "إضافة فرع"
+  "addBranch": "إضافة فرع",
+  "addEmployee": "إضافة موظف",
+  "save": "حفظ",
+  "cancel": "إلغاء"
 }

@@ -14,3 +14,9 @@ export const branchValidationSchema = yup.object().shape({
   location: yup.string().required(),
   details: yup.string().min(8).max(300).required(),
 });
+export const employeeValidationSchema = yup.object().shape({
+  name: yup.string().min(4).max(100).required(),
+  jobDesc: yup.string().max(52).required(),
+  employeeNum: yup.number().required(),
+  hours: yup.string().required(),
+});
