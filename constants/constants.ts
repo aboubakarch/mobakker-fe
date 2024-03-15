@@ -61,6 +61,8 @@ export const messages = {
   ADD_BRANCH: "common:addBranch",
   SAVE: "common:save",
   CANCEL: "common:cancel",
+  ADD_PROVIDER: "common:addProvider",
+  ADD_NEW_PROVIDER: "common:addNewProvider",
 };
 
 export const tableHeader = {
@@ -127,6 +129,8 @@ export const formConstants = {
   WORKING_HOURS: "auth:workingHours",
   HOURS: "auth:hours",
   EMPLOYEE_NUM: "auth:employeeNum",
+  PROVIDER_NAME: "auth:providerName",
+  ABOUT_PROVIDER: "auth:aboutProvider",
 };
 
 export const sidebarNavigation = (prefix: string): ISideBarItem[] => [

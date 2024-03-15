@@ -12,6 +12,11 @@ interface IBranchFormValues {
   location: string;
   details: string;
 }
+interface IProviderFormValues {
+  name: string;
+  password: string;
+  details: string;
+}
 interface IEmployeeFormValues {
   name: string;
   hours: string;

@@ -43,5 +43,7 @@
   "addBranch": "Add Branch",
   "addEmployee": "Add Employee",
   "save": "Save",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "addProvider": "Add Provider",
+  "addNewProvider": "Add New Provider"
 }

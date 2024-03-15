@@ -3,11 +3,13 @@ import {
   IEmployeeFormValues,
   IFormValueObj,
   ILoginFormValues,
+  IProviderFormValues,
 } from "@/@types/forms";
 import {
   branchValidationSchema,
   employeeValidationSchema,
   loginValidationSchema,
+  providerValidationSchema,
 } from "./validationSchemas";
 import { formConstants } from "./constants";
 import { FieldTypesEnum } from "./enums";
@@ -21,6 +23,11 @@ export const branchDefaultValues: IBranchFormValues = {
   password: "",
   details: "",
   location: "",
+};
+export const providerDefaultValues: IProviderFormValues = {
+  name: "",
+  password: "",
+  details: "",
 };
 export const employeeDefaultValues: IEmployeeFormValues = {
   name: "",
@@ -105,6 +112,32 @@ export const employeeFormVals: IFormValueObj<IEmployeeFormValues> = {
       hasError: false,
       name: "jobDesc",
       label: t(formConstants.DESC),
+    },
+  }),
+};
+
+export const providerFormVals: IFormValueObj<IProviderFormValues> = {
+  validationSchema: providerValidationSchema,
+  initialValues: providerDefaultValues,
+  info: (t) => ({
+    name: {
+      placeHolder: t(formConstants.NAME_PLACEHOLER),
+      hasError: false,
+      name: "name",
+      label: t(formConstants.PROVIDER_NAME),
+    },
+    password: {
+      placeHolder: t(formConstants.PASS_PLACEHOLDER),
+      hasError: false,
+      name: "password",
+      label: t(formConstants.PASS_PLACEHOLDER),
+    },
+    details: {
+      placeHolder: t(formConstants.DETAILS),
+      hasError: false,
+      name: "details",
+      label: t(formConstants.ABOUT_PROVIDER),
+      type: FieldTypesEnum.Textarea,
     },
   }),
 };

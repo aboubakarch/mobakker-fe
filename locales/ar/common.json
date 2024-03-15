@@ -43,5 +43,7 @@
   "addBranch": "إضافة فرع",
   "addEmployee": "إضافة موظف",
   "save": "حفظ",
-  "cancel": "إلغاء"
+  "cancel": "إلغاء",
+  "addProvider": "إضافة مزود",
+  "addNewProvider": "إضافة مزود جديد"
 }
