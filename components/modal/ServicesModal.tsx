@@ -16,7 +16,7 @@ import { EmployeeMultiSelect } from '../form/MultiSelect'
 
 const ServiceModal: FC<IModalCompProps> = ({ closeModal, visible }) => {
     const { t } = useTranslation();
-    const [selected, setSelected] = useState<number[]>([])
+    const [selected, setSelected] = useState<string[]>([])
 
     const onSubmit = (values: yup.InferType<typeof employeeValidationSchema>) => {
         console.log(values);

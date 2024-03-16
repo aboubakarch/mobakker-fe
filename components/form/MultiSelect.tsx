@@ -15,6 +15,7 @@ import {
 import _ from "lodash"
 import Image from "next/image"
 import { SearchInput } from "../ui/SearchInput"
+import { ChevronsUpDown } from "lucide-react"
 
 // type Checked = DropdownMenuCheckboxItemProps["checked"]
 
@@ -28,7 +29,8 @@ const people = [
 
 
 export const EmployeeMultiSelect: React.FC<{ selected: any[], setSelected: (arg: any) => void }> = ({ selected, setSelected }) => {
-
+    const [search, setSearch] = React.useState("")
+    const filteredPeople = React.useMemo(() => people.filter(per => per.name.toLowerCase().includes(search.toLowerCase())), [search])
     // function addOrRemoveValue<T>(array: T[], value: T): T[] {
     //     _.pull(array, value); // Remove the value if it exists
     //     array = _.union(array, [value]); // Add the value to the array
@@ -48,15 +50,35 @@ export const EmployeeMultiSelect: React.FC<{ selected: any[], setSelected: (arg:
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button variant="outline">Open</Button>
+                <Button
+                    variant="outline"
+                    className=" justify-between"
+                >
+
+                    <p>{selected.length === 0 ? "Select Employees" : `${selected.length} Employees Selected`}</p>
+                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56">
+            <DropdownMenuContent className="full">
                 <DropdownMenuLabel>Employees</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <SearchInput />
+
+                <SearchInput
+                    value={search}
+                    onChange={(e: any) => setSearch(e.target.value)}
+                    placeholder="Search"
+                    className='bg-screen focus-visible:ring-0 border-0 w-80'
+                    onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => e.stopPropagation()} />
+
                 <DropdownMenuSeparator />
 
-                {people.map(per => (
+                {filteredPeople.length === 0 ? (
+                    <div className="h-10 w-full text-center flex items-center justify-center text-sm">
+                        No Emplyees found
+                    </div>
+                ) : null}
+
+                {filteredPeople.map(per => (
 
                     <DropdownMenuCheckboxItem
                         key={per.id}
