@@ -6,11 +6,35 @@ import { IFormField } from '@/@types/forms'
 import { FieldTypesEnum } from '@/constants/enums'
 import { Textarea } from '../ui/Textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/Select'
+import { EmployeeMultiSelect } from './MultiSelect'
 
 const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, type = FieldTypesEnum.Text }) => {
     const form = useFormContext()
 
     switch (type) {
+        case FieldTypesEnum.EmployeeSelect:
+            return (
+                <FormField
+                    control={form.control}
+                    name={name}
+                    render={({ field }) => (
+                        <FormItem >
+                            {label && <FormLabel>{label}</FormLabel>}
+                            <div className='flex h-10 w-full items-center rounded-md  bg-background text-sm placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1"'>
+
+                                <EmployeeMultiSelect selected={field.value} setSelected={field.onChange as any} />
+                            </div>
+                            {desc && <FormDescription>
+                                {desc}
+                            </FormDescription>}
+                            {hasError && <FormMessage />}
+                        </FormItem>
+                    )}
+
+                />
+
+            )
+
         case FieldTypesEnum.Select:
             return (
                 <FormField

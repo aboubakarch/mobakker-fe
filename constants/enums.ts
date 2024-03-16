@@ -25,4 +25,5 @@ export enum FieldTypesEnum {
   Text = "text",
   Select = "select",
   Textarea = "textarea",
+  EmployeeSelect = "employeesSelect",
 }

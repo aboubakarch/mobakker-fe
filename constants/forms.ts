@@ -4,12 +4,14 @@ import {
   IFormValueObj,
   ILoginFormValues,
   IProviderFormValues,
+  IServiceFormValues,
 } from "@/@types/forms";
 import {
   branchValidationSchema,
   employeeValidationSchema,
   loginValidationSchema,
   providerValidationSchema,
+  serviceValidationSchema,
 } from "./validationSchemas";
 import { formConstants } from "./constants";
 import { FieldTypesEnum } from "./enums";
@@ -34,6 +36,11 @@ export const employeeDefaultValues: IEmployeeFormValues = {
   hours: "",
   employeeNum: "",
   jobDesc: "",
+};
+export const serviceDefaultValues: IServiceFormValues = {
+  name: "",
+  hours: "",
+  employees: [],
 };
 export const loginFormVals: IFormValueObj<ILoginFormValues> = {
   validationSchema: loginValidationSchema,
@@ -138,6 +145,33 @@ export const providerFormVals: IFormValueObj<IProviderFormValues> = {
       name: "details",
       label: t(formConstants.ABOUT_PROVIDER),
       type: FieldTypesEnum.Textarea,
+    },
+  }),
+};
+
+export const serviceFormVals: IFormValueObj<IServiceFormValues> = {
+  validationSchema: serviceValidationSchema,
+  initialValues: serviceDefaultValues,
+  info: (t) => ({
+    name: {
+      placeHolder: t(formConstants.NAME_PLACEHOLER),
+      hasError: false,
+      name: "name",
+      label: t(formConstants.EMPLOYEE_NAME),
+    },
+    hours: {
+      placeHolder: t(formConstants.HOURS),
+      hasError: false,
+      name: "hours",
+      label: t(formConstants.WORKING_HOURS),
+      type: FieldTypesEnum.Select,
+    },
+    employees: {
+      placeHolder: t(formConstants.JOB_DESC),
+      hasError: false,
+      name: "employees",
+      label: t(formConstants.DESC),
+      type: FieldTypesEnum.EmployeeSelect,
     },
   }),
 };

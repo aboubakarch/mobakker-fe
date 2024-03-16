@@ -20,6 +20,11 @@ export const employeeValidationSchema = yup.object().shape({
   employeeNum: yup.number().required(),
   hours: yup.string().required(),
 });
+export const serviceValidationSchema = yup.object().shape({
+  name: yup.string().min(4).max(100).required(),
+  employeed: yup.array().of(yup.string()).required(),
+  hours: yup.string().required(),
+});
 export const providerValidationSchema = yup.object().shape({
   name: yup.string().min(4).max(100).required(),
   password: yup.string().min(8).max(32).required(),

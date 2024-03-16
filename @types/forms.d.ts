@@ -23,6 +23,11 @@ interface IEmployeeFormValues {
   employeeNum: string;
   jobDesc: string;
 }
+interface IServiceFormValues {
+  name: string;
+  hours: string;
+  employees: string[];
+}
 
 type IFormTemplate = IAppFormProps;
 

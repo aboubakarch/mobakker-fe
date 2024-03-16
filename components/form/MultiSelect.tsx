@@ -52,7 +52,7 @@ export const EmployeeMultiSelect: React.FC<{ selected: any[], setSelected: (arg:
             <DropdownMenuTrigger asChild>
                 <Button
                     variant="outline"
-                    className=" justify-between"
+                    className=" justify-between w-full"
                 >
 
                     <p>{selected.length === 0 ? "Select Employees" : `${selected.length} Employees Selected`}</p>
@@ -85,7 +85,7 @@ export const EmployeeMultiSelect: React.FC<{ selected: any[], setSelected: (arg:
                         checked={_.includes(selected, per.id)}
                         onCheckedChange={(checked: boolean) => handleCheck(per.id, checked)}
                     >
-                        <div className="flex gap-3 items-center justify-center w-max">
+                        <div className="flex gap-3 items-center justify-center">
                             <div className="rounded-full h-8 w-8 relative">
                                 <Image
                                     src={per.image}
