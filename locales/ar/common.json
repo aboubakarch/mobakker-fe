@@ -45,5 +45,6 @@
   "save": "حفظ",
   "cancel": "إلغاء",
   "addProvider": "إضافة مزود",
-  "addNewProvider": "إضافة مزود جديد"
+  "addNewProvider": "إضافة مزود جديد",
+  "addService": "إضافة خدمة"
 }

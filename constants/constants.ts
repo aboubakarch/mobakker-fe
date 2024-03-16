@@ -63,6 +63,7 @@ export const messages = {
   CANCEL: "common:cancel",
   ADD_PROVIDER: "common:addProvider",
   ADD_NEW_PROVIDER: "common:addNewProvider",
+  ADD_SERVICE: "common:addService",
 };
 
 export const tableHeader = {
@@ -131,6 +132,14 @@ export const formConstants = {
   EMPLOYEE_NUM: "auth:employeeNum",
   PROVIDER_NAME: "auth:providerName",
   ABOUT_PROVIDER: "auth:aboutProvider",
+  SERVICE_NAME: "auth:serviceName",
+  PRICE: "auth:price",
+  TYPE_OF_SERVICE: "auth:typeOfService",
+  SELECT_EMPLOYEES: "auth:selectEmployees",
+  SERVICE_AVAILABILITY: "auth:serviceAvailability",
+  FROM: "auth:from",
+  TO: "auth:to",
+  EMPLOYEES: "auth:employees",
 };
 
 export const sidebarNavigation = (prefix: string): ISideBarItem[] => [
@@ -229,4 +238,14 @@ export const SettingsNavigation = (prefix: string): ISideBarItem[] => [
     icon: SettingsIcon,
     link: `${prefix}/settings`,
   },
+];
+
+export const DaysOfWeek: string[] = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
 ];

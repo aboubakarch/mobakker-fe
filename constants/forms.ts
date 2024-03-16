@@ -39,8 +39,12 @@ export const employeeDefaultValues: IEmployeeFormValues = {
 };
 export const serviceDefaultValues: IServiceFormValues = {
   name: "",
-  hours: "",
   employees: [],
+  price: "",
+  serviceType: "",
+  serviceAvailabilty: [],
+  startHour: "",
+  endHour: "",
 };
 export const loginFormVals: IFormValueObj<ILoginFormValues> = {
   validationSchema: loginValidationSchema,
@@ -157,21 +161,46 @@ export const serviceFormVals: IFormValueObj<IServiceFormValues> = {
       placeHolder: t(formConstants.NAME_PLACEHOLER),
       hasError: false,
       name: "name",
-      label: t(formConstants.EMPLOYEE_NAME),
+      label: t(formConstants.SERVICE_NAME),
     },
-    hours: {
-      placeHolder: t(formConstants.HOURS),
+    price: {
+      placeHolder: t(formConstants.PRICE),
       hasError: false,
-      name: "hours",
+      name: "price",
+      label: t(formConstants.PRICE),
+    },
+    employees: {
+      hasError: false,
+      name: "employees",
+      label: t(formConstants.EMPLOYEES),
+      type: FieldTypesEnum.EmployeeSelect,
+    },
+    serviceAvailabilty: {
+      hasError: false,
+      name: "serviceAvailabilty",
+      label: t(formConstants.SERVICE_AVAILABILITY),
+      type: FieldTypesEnum.DaysRadio,
+    },
+    endHour: {
+      placeHolder: t(formConstants.TO),
+      hasError: false,
+      name: "endHour",
+      // label: t(formConstants.WORKING_HOURS),
+      type: FieldTypesEnum.Select,
+    },
+    startHour: {
+      placeHolder: t(formConstants.FROM),
+      hasError: false,
+      name: "startHour",
       label: t(formConstants.WORKING_HOURS),
       type: FieldTypesEnum.Select,
     },
-    employees: {
-      placeHolder: t(formConstants.JOB_DESC),
+    serviceType: {
+      placeHolder: t(formConstants.TYPE_OF_SERVICE),
       hasError: false,
-      name: "employees",
-      label: t(formConstants.DESC),
-      type: FieldTypesEnum.EmployeeSelect,
+      name: "serviceType",
+      label: t(formConstants.TYPE_OF_SERVICE),
+      type: FieldTypesEnum.Select,
     },
   }),
 };

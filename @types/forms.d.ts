@@ -25,8 +25,12 @@ interface IEmployeeFormValues {
 }
 interface IServiceFormValues {
   name: string;
-  hours: string;
   employees: string[];
+  price: string;
+  serviceType: string;
+  serviceAvailabilty: string[];
+  startHour: string;
+  endHour: string;
 }
 
 type IFormTemplate = IAppFormProps;

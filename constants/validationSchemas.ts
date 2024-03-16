@@ -20,10 +20,15 @@ export const employeeValidationSchema = yup.object().shape({
   employeeNum: yup.number().required(),
   hours: yup.string().required(),
 });
+
 export const serviceValidationSchema = yup.object().shape({
   name: yup.string().min(4).max(100).required(),
-  employeed: yup.array().of(yup.string()).required(),
-  hours: yup.string().required(),
+  employees: yup.array().of(yup.string()).required(),
+  price: yup.number().required(),
+  serviceType: yup.string().required(),
+  serviceAvailabilty: yup.array().of(yup.string()).required(),
+  startHour: yup.number().required(),
+  endHour: yup.number().required(),
 });
 export const providerValidationSchema = yup.object().shape({
   name: yup.string().min(4).max(100).required(),

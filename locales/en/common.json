@@ -45,5 +45,6 @@
   "save": "Save",
   "cancel": "Cancel",
   "addProvider": "Add Provider",
-  "addNewProvider": "Add New Provider"
+  "addNewProvider": "Add New Provider",
+  "addService": "Add Service"
 }

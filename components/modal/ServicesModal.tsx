@@ -1,3 +1,4 @@
+"use client"
 import React, { FC } from 'react'
 import Modal from './Modal'
 import Dropzone from '../ui/Dropzone'
@@ -13,6 +14,7 @@ import { X } from 'lucide-react'
 import { IModalCompProps } from '@/@types/modals'
 import { Button } from '../ui'
 
+
 const ServiceModal: FC<IModalCompProps> = ({ closeModal, visible }) => {
     const { t } = useTranslation();
 
@@ -26,33 +28,39 @@ const ServiceModal: FC<IModalCompProps> = ({ closeModal, visible }) => {
                 className="px-3 py-4 flex gap-4 flex-col"
                 {...serviceFormVals}>
                 <div className='flex justify-between w-full'>
-                    <p className='text-black text-xl font-medium  leading-[30px]'>{t(messages.ADD_EMPLOYEE)}</p>
+                    <p className='text-black text-xl font-medium  leading-[30px]'>{t(messages.ADD_SERVICES)}</p>
                     <X onClick={closeModal} className='w-4 h-4 relative text-black' />
                 </div>
                 <div>
 
-                    <Dropzone title='Upload Profile' />
+                    <Dropzone title='Upload Service Logo' />
                 </div>
-                <div className='flex gap-3 w-full'>
-                    <div className='flex-1'>
+                <div className='flex flex-row gap-2'>
+                    <div className='flex-1 flex flex-col gap-4'>
                         <InputField {...serviceFormVals.info(t).name} />
-
-                    </div>
-                    <div className='flex-1'>
+                        <InputField {...serviceFormVals.info(t).serviceType} />
                         <InputField {...serviceFormVals.info(t).employees} />
 
                     </div>
+                    <div className='flex-1 flex flex-col gap-4'>
+                        <InputField {...serviceFormVals.info(t).price} />
+                        <div className='flex gap-2'>
+                            <div className='flex-1'>
+                                <InputField {...serviceFormVals.info(t).startHour} />
 
-                </div>
-                <div className='flex gap-3 w-full'>
+                            </div>
+                            <div className='flex-1 self-end '>
 
-                    <div className='flex-1'>
-                        <InputField {...serviceFormVals.info(t).hours} />
+                                <InputField {...serviceFormVals.info(t).endHour} />
+                            </div>
+                        </div>
+                        <InputField {...serviceFormVals.info(t).serviceAvailabilty} />
+
 
                     </div>
 
-                </div>
 
+                </div>
 
                 <div className='self-end flex gap-3'>
                     <SubmitButton title={t(messages.SAVE)} className=" bg-primaryBlue" />
