@@ -30,6 +30,15 @@ export const serviceValidationSchema = yup.object().shape({
   startHour: yup.number().required(),
   endHour: yup.number().required(),
 });
+export const promotionValidationSchema = yup.object().shape({
+  name: yup.string().max(100).required(),
+  employees: yup.array().of(yup.string()).required(),
+  category: yup.string().max(100).required(),
+  capacity: yup.string().max(100).required(),
+  date: yup.date().required(),
+  time: yup.date().required(),
+  status: yup.string().max(100).required(),
+});
 export const providerValidationSchema = yup.object().shape({
   name: yup.string().min(4).max(100).required(),
   password: yup.string().min(8).max(32).required(),

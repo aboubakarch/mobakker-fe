@@ -3,6 +3,7 @@ import {
   IEmployeeFormValues,
   IFormValueObj,
   ILoginFormValues,
+  IPromotionFormValues,
   IProviderFormValues,
   IServiceFormValues,
 } from "@/@types/forms";
@@ -10,6 +11,7 @@ import {
   branchValidationSchema,
   employeeValidationSchema,
   loginValidationSchema,
+  promotionValidationSchema,
   providerValidationSchema,
   serviceValidationSchema,
 } from "./validationSchemas";
@@ -46,6 +48,16 @@ export const serviceDefaultValues: IServiceFormValues = {
   startHour: "",
   endHour: "",
 };
+export const promotionDefaultValues: IPromotionFormValues = {
+  name: "",
+  employees: [],
+  category: "",
+  capacity: "",
+  date: "",
+  time: "",
+  status: "",
+};
+
 export const loginFormVals: IFormValueObj<ILoginFormValues> = {
   validationSchema: loginValidationSchema,
   initialValues: loginDefaultValues,
@@ -172,7 +184,7 @@ export const serviceFormVals: IFormValueObj<IServiceFormValues> = {
     employees: {
       hasError: false,
       name: "employees",
-      label: t(formConstants.EMPLOYEES),
+      label: t(formConstants.SELECT_EMPLOYEES),
       type: FieldTypesEnum.EmployeeSelect,
     },
     serviceAvailabilty: {
@@ -200,6 +212,58 @@ export const serviceFormVals: IFormValueObj<IServiceFormValues> = {
       hasError: false,
       name: "serviceType",
       label: t(formConstants.TYPE_OF_SERVICE),
+      type: FieldTypesEnum.Select,
+    },
+  }),
+};
+export const promotionFormVals: IFormValueObj<IPromotionFormValues> = {
+  validationSchema: promotionValidationSchema,
+  initialValues: promotionDefaultValues,
+  info: (t) => ({
+    name: {
+      placeHolder: t(formConstants.NAME_PLACEHOLER),
+      hasError: false,
+      name: "name",
+      label: t(formConstants.PROMOTION_NAME),
+    },
+    employees: {
+      hasError: false,
+      name: "employees",
+      label: t(formConstants.SELECT_EMPLOYEES),
+      type: FieldTypesEnum.EmployeeSelect,
+    },
+    category: {
+      placeHolder: t(formConstants.CATEGORY),
+      hasError: false,
+      name: "category",
+      label: t(formConstants.SELECT_CATEGORY),
+      type: FieldTypesEnum.Select,
+    },
+    capacity: {
+      placeHolder: t(formConstants.CAPACITY),
+      hasError: false,
+      name: "capacity",
+      label: t(formConstants.CAPACITY),
+    },
+    date: {
+      placeHolder: t(formConstants.DATE),
+      hasError: false,
+      name: "date",
+      label: t(formConstants.SELECT_DATE),
+      type: FieldTypesEnum.DatePicker,
+    },
+    time: {
+      placeHolder: t(formConstants.SELECT_TIME),
+      hasError: false,
+      name: "time",
+      label: t(formConstants.SELECT_TIME),
+      type: FieldTypesEnum.DatePicker,
+    },
+    status: {
+      placeHolder: t(formConstants.STATUS),
+      hasError: false,
+      name: "status",
+      label: t(formConstants.STATUS),
       type: FieldTypesEnum.Select,
     },
   }),

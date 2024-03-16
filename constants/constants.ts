@@ -64,6 +64,8 @@ export const messages = {
   ADD_PROVIDER: "common:addProvider",
   ADD_NEW_PROVIDER: "common:addNewProvider",
   ADD_SERVICE: "common:addService",
+  ADD_PROMOTION: "common:addPromotion", // Added Add Promotion
+  ADD_NEW_PROMOTION: "common:addNewPromotion", // Added Add New Promotion
 };
 
 export const tableHeader = {
@@ -140,6 +142,14 @@ export const formConstants = {
   FROM: "auth:from",
   TO: "auth:to",
   EMPLOYEES: "auth:employees",
+  PROMOTION_NAME: "auth:promotionName",
+  SELECT_CATEGORY: "auth:selectCategory",
+  CATEGORY: "auth:category",
+  CAPACITY: "auth:capacity",
+  SELECT_DATE: "auth:selectDate",
+  DATE: "auth:date",
+  SELECT_TIME: "auth:selectTime",
+  STATUS: "auth:status",
 };
 
 export const sidebarNavigation = (prefix: string): ISideBarItem[] => [

@@ -32,6 +32,15 @@ interface IServiceFormValues {
   startHour: string;
   endHour: string;
 }
+interface IPromotionFormValues {
+  name: string;
+  employees: string[];
+  category: string;
+  capacity: string;
+  date: string;
+  time: string;
+  status: string;
+}
 
 type IFormTemplate = IAppFormProps;
 

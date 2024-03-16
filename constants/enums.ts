@@ -27,4 +27,5 @@ export enum FieldTypesEnum {
   Textarea = "textarea",
   EmployeeSelect = "employeesSelect",
   DaysRadio = "daysRadio",
+  DatePicker = "datePicker",
 }

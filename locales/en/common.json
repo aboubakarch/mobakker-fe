@@ -46,5 +46,7 @@
   "cancel": "Cancel",
   "addProvider": "Add Provider",
   "addNewProvider": "Add New Provider",
-  "addService": "Add Service"
+  "addService": "Add Service",
+  "addPromotion": "Add Promotion",
+  "addNewPromotion": "Add New Promotion"
 }
