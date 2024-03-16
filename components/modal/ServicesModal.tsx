@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import Modal from './Modal'
 import Dropzone from '../ui/Dropzone'
 import AppForm from '../form/Form'
@@ -12,14 +12,15 @@ import { messages } from '@/constants/constants'
 import { X } from 'lucide-react'
 import { IModalCompProps } from '@/@types/modals'
 import { Button } from '../ui'
+import { EmployeeMultiSelect } from '../form/MultiSelect'
 
-const EmployeeModal: FC<IModalCompProps> = ({ closeModal, visible }) => {
+const ServiceModal: FC<IModalCompProps> = ({ closeModal, visible }) => {
     const { t } = useTranslation();
+    const [selected, setSelected] = useState<number[]>([])
+
     const onSubmit = (values: yup.InferType<typeof employeeValidationSchema>) => {
         console.log(values);
     };
-
-
     return (
         <Modal visibility={visible} closeModal={closeModal}>
             <AppForm
@@ -56,6 +57,7 @@ const EmployeeModal: FC<IModalCompProps> = ({ closeModal, visible }) => {
                     </div>
 
                 </div>
+                <EmployeeMultiSelect selected={selected} setSelected={setSelected as any} />
                 <div className='self-end flex gap-3'>
                     <SubmitButton title={t(messages.SAVE)} className=" bg-primaryBlue" />
                     <Button onClick={closeModal} variant={"outline"} >
@@ -69,4 +71,4 @@ const EmployeeModal: FC<IModalCompProps> = ({ closeModal, visible }) => {
     )
 }
 
-export default EmployeeModal
+export default ServiceModal
