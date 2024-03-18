@@ -23,21 +23,20 @@ const Page = () => {
         className="flex flex-col gap-6 justify-center h-full px-10"
         {...loginFormVals}
       >
-        <h1 className="text-xl font-bold">{t('common:signin')}</h1>
+        <h1 className="text-xl font-bold">{t(messages.SIGN_IN)}</h1>
         <div className="flex flex-col gap-3">
-          <InputField {...loginFormVals.info.email} label={t('emailAddress')} />
+          <InputField {...loginFormVals.info(t).email} />
           <InputField
-            {...loginFormVals.info.password}
-            placeHolder={t('password')}
+            {...loginFormVals.info(t).password}
           />
         </div>
 
-        <SubmitButton title="Login" className="w-full bg-primaryBlue" />
+        <SubmitButton title={t(messages.LOGIN)} className="w-full bg-primaryBlue" />
         <div className="flex justify-between text-sm">
-          <p className="">{messages.FORGOT_PASSWORD}</p>
+          <p className="">{t(messages.FORGOT_PASSWORD)}</p>
           <div className="flex gap-1 items-center">
-            <p>{messages.DONT_HAVE_ACCOUNT}</p>
-            <p className="text-primaryBlue">{messages.SIGN_Up}</p>
+            <p>{t(messages.DONT_HAVE_ACCOUNT)}</p>
+            <p className="text-primaryBlue">{t(messages.SIGN_UP)}</p>
           </div>
         </div>
       </AppForm>

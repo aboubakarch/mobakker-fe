@@ -1,3 +1,5 @@
+import { NavigationTypeEnum } from "@/constants/enums";
+
 interface ISideBarItem {
   id: number;
   name: string;
@@ -6,5 +8,5 @@ interface ISideBarItem {
 }
 
 interface ISideBarProps {
-  navigation: ISideBarItem[];
+  navigation: NavigationTypeEnum;
 }

@@ -71,6 +71,17 @@ export const ChevronDownIcon = (props: SVGProps<SVGSVGElement>) => (
         />
     </svg>
 )
+export const ChevronLeftIcon = (props: SVGProps<SVGSVGElement>) => (
+    <svg width="13" height="13" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+        <path d="M8.79529 11.6393C8.67341 11.6393 8.55154 11.5986 8.47029 11.4971L3.87966 6.8252C3.69685 6.64238 3.69685 6.35801 3.87966 6.1752L8.47029 1.50332C8.6531 1.32051 8.93748 1.32051 9.12029 1.50332C9.3031 1.68613 9.3031 1.97051 9.12029 2.15332L4.85466 6.5002L9.1406 10.8471C9.32341 11.0299 9.32341 11.3143 9.1406 11.4971C9.01873 11.5783 8.91716 11.6393 8.79529 11.6393Z" fill="#637381" />
+    </svg>
+
+)
+export const ChevronRightIcon = (props: SVGProps<SVGSVGElement>) => (
+    <svg width="13" height="13" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+        <path d="M4.20479 11.6393C4.08291 11.6393 3.98135 11.5986 3.87979 11.5174C3.69697 11.3346 3.69697 11.0502 3.87979 10.8674L8.14541 6.5002L3.87979 2.15332C3.69697 1.97051 3.69697 1.68613 3.87979 1.50332C4.0626 1.32051 4.34697 1.32051 4.52978 1.50332L9.12041 6.1752C9.30322 6.35801 9.30322 6.64238 9.12041 6.8252L4.52978 11.4971C4.44853 11.5783 4.32666 11.6393 4.20479 11.6393Z" fill="#637381" />
+    </svg>
+)
 export const SettingsIcon = (props: SVGProps<SVGSVGElement>) => (
     <svg fill="none" xmlns="http://www.w3.org/2000/svg" {...props} >
         <g clipPath="url(#clip0_1777_16683)">
@@ -83,6 +94,25 @@ export const SettingsIcon = (props: SVGProps<SVGSVGElement>) => (
             </clipPath>
         </defs>
     </svg>
+
+)
+export const BranchIcon = (props: SVGProps<SVGSVGElement>) => (
+    <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+        <g clipPath="url(#clip0_3611_17114)">
+            <path d="M5 18C5 18.5304 5.21071 19.0391 5.58579 19.4142C5.96086 19.7893 6.46957 20 7 20C7.53043 20 8.03914 19.7893 8.41421 19.4142C8.78929 19.0391 9 18.5304 9 18C9 17.4696 8.78929 16.9609 8.41421 16.5858C8.03914 16.2107 7.53043 16 7 16C6.46957 16 5.96086 16.2107 5.58579 16.5858C5.21071 16.9609 5 17.4696 5 18Z" stroke="#637381" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M5 6C5 6.53043 5.21071 7.03914 5.58579 7.41421C5.96086 7.78929 6.46957 8 7 8C7.53043 8 8.03914 7.78929 8.41421 7.41421C8.78929 7.03914 9 6.53043 9 6C9 5.46957 8.78929 4.96086 8.41421 4.58579C8.03914 4.21071 7.53043 4 7 4C6.46957 4 5.96086 4.21071 5.58579 4.58579C5.21071 4.96086 5 5.46957 5 6Z" stroke="#637381" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M15 6C15 6.53043 15.2107 7.03914 15.5858 7.41421C15.9609 7.78929 16.4696 8 17 8C17.5304 8 18.0391 7.78929 18.4142 7.41421C18.7893 7.03914 19 6.53043 19 6C19 5.46957 18.7893 4.96086 18.4142 4.58579C18.0391 4.21071 17.5304 4 17 4C16.4696 4 15.9609 4.21071 15.5858 4.58579C15.2107 4.96086 15 5.46957 15 6Z" stroke="#637381" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M7 8V16" stroke="#637381" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M9 18H15C15.5304 18 16.0391 17.7893 16.4142 17.4142C16.7893 17.0391 17 16.5304 17 16V11" stroke="#637381" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M14 14L17 11L20 14" stroke="#637381" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </g>
+        <defs>
+            <clipPath id="clip0_3611_17114">
+                <rect width="24" height="24" fill="white" />
+            </clipPath>
+        </defs>
+    </svg>
+
 
 )
 export const PaymentIcon = (props: SVGProps<SVGSVGElement>) => (

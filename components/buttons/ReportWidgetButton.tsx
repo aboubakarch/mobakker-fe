@@ -6,6 +6,7 @@ import { FC } from "react";
 import { ReportTypesEnum } from "@/constants/enums";
 import { getAllMonths, getLastNYears } from "@/lib/helpers";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 const ReportWidgetButton: FC<IReportWidgetPopoverProps> = ({
     type,
@@ -18,7 +19,7 @@ const ReportWidgetButton: FC<IReportWidgetPopoverProps> = ({
     const years = getLastNYears(10)
     const itemClasses = " py-3 px-5 hover:bg-appcard active:bg-screen w-full rounded-md"
 
-
+    const { t } = useTranslation()
 
     const renderSelectButton = () => {
         switch (type) {
@@ -62,7 +63,7 @@ const ReportWidgetButton: FC<IReportWidgetPopoverProps> = ({
         <Popover>
             <PopoverTrigger asChild>
                 <Button variant={"default"} className="bg-indigo-800  bg-opacity-5 hover:bg-indigo-300  rounded-md justify-center items-center gap-2 inline-flex">
-                    <p className="text-center text-indigo-800  text-sm font-normal  leading-normal">{`${messages.SELECT} ${type}`}</p>
+                    <p className="text-center text-indigo-800  text-sm font-normal  leading-normal">{`${t(messages.SELECT)} ${type}`}</p>
                     <ChevronDownIcon />
                 </Button>
             </PopoverTrigger>

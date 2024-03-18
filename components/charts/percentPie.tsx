@@ -1,3 +1,5 @@
+"use client"
+
 import { cleanPercentage } from "@/lib/helpers";
 
 

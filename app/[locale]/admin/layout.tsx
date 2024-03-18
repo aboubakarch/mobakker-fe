@@ -1,19 +1,36 @@
-"use client"
 import Navbar from "@/components/navbar/Navbar"
 import Sidebar from "@/components/sidebar/Sidebar"
-import { sidebarAdminNavigation } from "@/constants/constants"
+import { NavigationTypeEnum } from "@/constants/enums"
+import TranslationsProvider from '@/components/TranslationProvider';
+import initTranslations from '@/i18n';
+import StoreProvider from "../storeProvider";
 
-export default function AuthLayout({
+const i18nNamespaces = ['common', "navigation"];
+
+export default async function AuthLayout({
     children,
-}: ILayoutProps) {
-    return (
-        <div className="h-full w-full bg-screen relative" >
-            <Navbar />
-            <div className="flex w-full h-[calc(100%-80px)]">
-                <Sidebar navigation={sidebarAdminNavigation} />
-                {children}
+    params: { locale },
+}: LocaleParams) {
+    const { resources } = await initTranslations(locale, i18nNamespaces);
 
-            </div>
-        </div >
+    return (
+        <StoreProvider>
+            <TranslationsProvider
+                locale={locale}
+                resources={resources}
+                namespaces={i18nNamespaces}
+            >
+
+                <div className="h-full w-full bg-screen relative" >
+                    <Navbar />
+                    <div className="flex w-full h-[calc(100%-80px)]">
+                        <Sidebar navigation={NavigationTypeEnum.SuperAdmin} />
+                        {children}
+
+                    </div>
+                </div >
+            </TranslationsProvider>
+        </StoreProvider>
+
     )
 }

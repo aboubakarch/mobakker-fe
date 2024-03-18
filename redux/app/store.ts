@@ -1,8 +1,10 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import modalSlice from "../features/modals/modalSlice";
+import appConfigSlice from "../features/appConfig/appConfigSlice";
 
 const rootReducer = combineReducers({
   modal: modalSlice,
+  appConfig: appConfigSlice,
 });
 
 export function setupStore(preloadedState?: Partial<RootState>) {

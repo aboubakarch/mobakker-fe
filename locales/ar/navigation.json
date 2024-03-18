@@ -1,0 +1,17 @@
+{
+  "dashboard": "لوحة التحكم",
+  "branch": "الفرع",
+  "reports": "التقارير",
+  "appointments": "المواعيد",
+  "employees": "الموظفين",
+  "loyalPrograms": "برامج الولاء",
+  "services": "الخدمات",
+  "promotions": "العروض",
+  "rating": "التقييم",
+  "notifications": "الإشعارات",
+  "complaints": "الشكاوي",
+  "providers": "مقدمي الخدمة",
+  "manageUsers": "إدارة المستخدمين",
+  "subscription": "الاشتراك",
+  "settings": "الإعدادات"
+}

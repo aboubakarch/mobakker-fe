@@ -1,0 +1,17 @@
+{
+  "dashboard": "Dashboard",
+  "branch": "Branch",
+  "reports": "Reports",
+  "appointments": "Appointments",
+  "employees": "Employees",
+  "loyalPrograms": "Loyal Programs",
+  "services": "Services",
+  "promotions": "Promotions",
+  "rating": "Rating",
+  "notifications": "Notifications",
+  "complaints": "Complaints",
+  "providers": "Providers",
+  "manageUsers": "Manage Users",
+  "subscription": "Subscription",
+  "settings": "Settings"
+}

@@ -9,18 +9,18 @@ export const loginDefaultValues: ILoginFormValues = {
 export const loginFormVals: IFormValueObj<ILoginFormValues> = {
   validationSchema: loginValidationSchema,
   initialValues: loginDefaultValues,
-  info: {
+  info: (t) => ({
     email: {
-      placeHolder: formConstants.EMAIL_PLACEHOLDER,
+      placeHolder: t(formConstants.EMAIL_PLACEHOLDER),
       hasError: false,
-      name: formConstants.EMAIL,
-      label: formConstants.EMAIL_LABEL,
+      name: "email",
+      label: t(formConstants.EMAIL_LABEL),
     },
     password: {
-      placeHolder: formConstants.PASS_PLACEHOLDER,
+      placeHolder: t(formConstants.PASS_PLACEHOLDER),
       hasError: false,
-      name: formConstants.PASS,
-      label: formConstants.PASS_LABEL,
+      name: "password",
+      label: t(formConstants.PASS_LABEL),
     },
-  },
+  }),
 };
