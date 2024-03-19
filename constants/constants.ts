@@ -65,7 +65,8 @@ export const messages = {
   ADD_NEW_PROVIDER: "common:addNewProvider",
   ADD_SERVICE: "common:addService",
   ADD_PROMOTION: "common:addPromotion", // Added Add Promotion
-  ADD_NEW_PROMOTION: "common:addNewPromotion", // Added Add New Promotion
+  ADD_NEW_PROMOTION: "common:addNewPromotion", // Added Add New Promotion,
+  ADD_NEW_APPOINTMENT: "common:addNewAppointment",
 };
 
 export const tableHeader = {
@@ -150,6 +151,13 @@ export const formConstants = {
   DATE: "auth:date",
   SELECT_TIME: "auth:selectTime",
   STATUS: "auth:status",
+  SELECT_SERVICE: "auth:selectService",
+  PAYMENT_TYPE: "auth:paymentType",
+  SELECT_APPOINTMENT_TIME: "auth:selectAppointmentTime",
+  SELECT_ALL: "auth:selectAll",
+  REPEAT_FOR_DAY: "auth:repeatForDay",
+  REPEAT_FOR_WEEK: "auth:repeatForWeek",
+  REPEAT_FOR_MONTH: "auth:repeatForMonth",
 };
 
 export const sidebarNavigation = (prefix: string): ISideBarItem[] => [
@@ -258,4 +266,14 @@ export const DaysOfWeek: string[] = [
   "Thursday",
   "Friday",
   "Saturday",
+];
+export const HourTimes: string[] = [
+  "10:00 AM",
+  "11:00 AM",
+  "12:00 PM",
+  "01:00 PM",
+  "02:00 PM",
+  "03:00 PM",
+  "04:00 PM",
+  "05:00 PM",
 ];

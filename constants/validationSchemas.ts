@@ -39,6 +39,17 @@ export const promotionValidationSchema = yup.object().shape({
   time: yup.date().required(),
   status: yup.string().max(100).required(),
 });
+export const appointmentValidationSchema = yup.object().shape({
+  employees: yup.array().of(yup.string()).required(),
+  category: yup.string().max(100).required(),
+  paymentType: yup.string().max(100).required(),
+  service: yup.string().max(100).required(),
+  date: yup.date().required(),
+  hours: yup.array().of(yup.string()).required(),
+  repeatDay: yup.boolean().required(),
+  repeatWeek: yup.boolean().required(),
+  repeatMonth: yup.boolean().required(),
+});
 export const providerValidationSchema = yup.object().shape({
   name: yup.string().min(4).max(100).required(),
   password: yup.string().min(8).max(32).required(),

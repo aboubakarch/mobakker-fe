@@ -1,4 +1,5 @@
 import {
+  IAppointmentFormValues,
   IBranchFormValues,
   IEmployeeFormValues,
   IFormValueObj,
@@ -8,6 +9,7 @@ import {
   IServiceFormValues,
 } from "@/@types/forms";
 import {
+  appointmentValidationSchema,
   branchValidationSchema,
   employeeValidationSchema,
   loginValidationSchema,
@@ -56,6 +58,17 @@ export const promotionDefaultValues: IPromotionFormValues = {
   date: "",
   time: "",
   status: "",
+};
+export const appointmentDefaultValues: IAppointmentFormValues = {
+  employees: [],
+  category: "",
+  service: "",
+  date: "",
+  paymentType: "",
+  hours: [],
+  repeatDay: false,
+  repeatWeek: false,
+  repeatMonth: false,
 };
 
 export const loginFormVals: IFormValueObj<ILoginFormValues> = {
@@ -265,6 +278,70 @@ export const promotionFormVals: IFormValueObj<IPromotionFormValues> = {
       name: "status",
       label: t(formConstants.STATUS),
       type: FieldTypesEnum.Select,
+    },
+  }),
+};
+export const appointmentFormVals: IFormValueObj<IAppointmentFormValues> = {
+  validationSchema: appointmentValidationSchema,
+  initialValues: appointmentDefaultValues,
+  info: (t) => ({
+    employees: {
+      hasError: false,
+      name: "employees",
+      label: t(formConstants.SELECT_EMPLOYEES),
+      type: FieldTypesEnum.EmployeeSelect,
+    },
+    category: {
+      placeHolder: t(formConstants.CATEGORY),
+      hasError: false,
+      name: "category",
+      label: t(formConstants.SELECT_CATEGORY),
+      type: FieldTypesEnum.Select,
+    },
+    paymentType: {
+      placeHolder: t(formConstants.PAYMENT_TYPE),
+      hasError: false,
+      name: "paymentType",
+      label: t(formConstants.PAYMENT_TYPE),
+      type: FieldTypesEnum.Select,
+    },
+    service: {
+      placeHolder: t(formConstants.SELECT_SERVICE),
+      hasError: false,
+      name: "service",
+      label: t(formConstants.SELECT_SERVICE),
+      type: FieldTypesEnum.Select,
+    },
+    date: {
+      placeHolder: t(formConstants.DATE),
+      hasError: false,
+      name: "date",
+      label: t(formConstants.SELECT_DATE),
+      type: FieldTypesEnum.DatePicker,
+    },
+    hours: {
+      hasError: false,
+      name: "hours",
+      label: t(formConstants.SELECT_APPOINTMENT_TIME),
+      type: FieldTypesEnum.HoursCheck,
+    },
+    repeatDay: {
+      hasError: false,
+      name: "repeatDay",
+      label: t(formConstants.REPEAT_FOR_DAY),
+      type: FieldTypesEnum.Checkbox,
+    },
+    repeatWeek: {
+      hasError: false,
+      name: "repeatWeek",
+      label: t(formConstants.REPEAT_FOR_WEEK),
+      type: FieldTypesEnum.Checkbox,
+    },
+    repeatMonth: {
+      hasError: false,
+      name: "repeatMonth",
+      label: t(formConstants.REPEAT_FOR_MONTH),
+      type: FieldTypesEnum.Checkbox,
     },
   }),
 };

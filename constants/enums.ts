@@ -28,4 +28,6 @@ export enum FieldTypesEnum {
   EmployeeSelect = "employeesSelect",
   DaysRadio = "daysRadio",
   DatePicker = "datePicker",
+  HoursCheck = "hoursCheck",
+  Checkbox = "checkbox",
 }

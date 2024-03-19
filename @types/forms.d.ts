@@ -41,6 +41,17 @@ interface IPromotionFormValues {
   time: string;
   status: string;
 }
+interface IAppointmentFormValues {
+  employees: string[];
+  category: string;
+  service: string;
+  date: string;
+  hours: string[];
+  paymentType: string;
+  repeatDay: boolean;
+  repeatWeek: boolean;
+  repeatMonth: boolean;
+}
 
 type IFormTemplate = IAppFormProps;
 

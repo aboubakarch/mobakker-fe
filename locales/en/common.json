@@ -48,5 +48,6 @@
   "addNewProvider": "Add New Provider",
   "addService": "Add Service",
   "addPromotion": "Add Promotion",
-  "addNewPromotion": "Add New Promotion"
+  "addNewPromotion": "Add New Promotion",
+  "addNewAppointment": "Add New Appointment"
 }
