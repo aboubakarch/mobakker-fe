@@ -29,7 +29,9 @@ const ServiceModal: FC<IModalCompProps> = ({ closeModal, visible }) => {
                 {...serviceFormVals}>
                 <div className='flex justify-between w-full'>
                     <p className='text-black text-xl font-medium  leading-[30px]'>{t(messages.ADD_SERVICE)}</p>
-                    <X onClick={closeModal} className='w-4 h-4 relative text-black' />
+                    <Button variant={'ghost'} onClick={closeModal} className='px-3 py-0'>
+                        <X className='w-4 h-4 relative text-black' />
+                    </Button>
                 </div>
                 <div>
 

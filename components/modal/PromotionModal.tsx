@@ -24,11 +24,13 @@ const PromotionModal: FC<IModalCompProps> = ({ closeModal, visible }) => {
         <Modal visibility={visible} closeModal={closeModal}>
             <AppForm
                 onSubmit={onSubmit}
-                className="px-3 py-4 flex gap-4 flex-col"
+                className="px-5 py-4 flex gap-4 flex-col"
                 {...promotionFormVals}>
                 <div className='flex justify-between w-full'>
                     <p className='text-black text-xl font-medium  leading-[30px]'>{t(messages.ADD_NEW_PROMOTION)}</p>
-                    <X onClick={closeModal} className='w-4 h-4 relative text-black' />
+                    <Button variant={'ghost'} onClick={closeModal} className='px-3 py-0'>
+                        <X className='w-4 h-4 relative text-black' />
+                    </Button>
                 </div>
 
                 <div className='flex flex-row gap-2'>
