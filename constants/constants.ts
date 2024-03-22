@@ -67,6 +67,27 @@ export const messages = {
   ADD_PROMOTION: "common:addPromotion", // Added Add Promotion
   ADD_NEW_PROMOTION: "common:addNewPromotion", // Added Add New Promotion,
   ADD_NEW_APPOINTMENT: "common:addNewAppointment",
+
+  PRICING_TABLE: "common:pricingTable",
+  OUR_PRICING_PLAN: "common:ourPricingPlan",
+  YOUR_CURRENT_PACKAGE: "common:yourCurrentPackage",
+  RENEW_PACKAGE: "common:renewPackage",
+  CHOOSE_BASIC: "common:chooseBasic",
+  BASIC_PACKAGE: "common:basicPackage",
+  USER: "common:user",
+  ALL_UI_COMPONENTS: "common:allUIComponents",
+  LIFETIME_ACCESS: "common:lifetimeAccess",
+  FREE_UPDATES: "common:freeUpdates",
+  USE_ON_PROJECT: "common:useOnProject",
+  SUPPORT: "common:support",
+  CHOOSE_FULL: "common:chooseFull",
+  PAUSE: "common:pause",
+  CHOOSE_PRO: "common:choosePro",
+  FULL_PACKAGE: "common:fullPackage",
+  PRO_PACKAGE: "common:proPackage",
+  CREATE_SUBSCRIPTION: "common:createSubscription",
+  PERSONAL_WEBSITE_PROJECT: "common:personalWebsiteProject",
+  THREE_MONTHS_SUPPORT: "auth:threeMonthsSupport",
 };
 
 export const tableHeader = {
