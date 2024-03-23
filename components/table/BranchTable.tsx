@@ -2,8 +2,11 @@
 import React from 'react'
 import { DataTable } from './DataTable'
 import { branchColumns } from './columns/BranchColumn'
+import { useTranslation } from 'react-i18next'
 
 const BranchTable = () => {
+    const { t } = useTranslation()
+
     const data: SampleBranch[] = [
         {
             name: "Branch Lorem",
@@ -32,7 +35,7 @@ const BranchTable = () => {
     ]
     return (
         <div>
-            <DataTable data={data} columns={branchColumns} filterKey='name' count={data.length} rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5' />
+            <DataTable data={data} columns={branchColumns(t)} filterKey='name' count={data.length} rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5' />
         </div>
     )
 }

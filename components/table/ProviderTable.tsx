@@ -2,8 +2,11 @@
 import React from 'react'
 import { DataTable } from './DataTable'
 import { providerColumns } from './columns/ProviderColumn'
+import { useTranslation } from 'react-i18next'
 
 const ProviderTable = () => {
+    const { t } = useTranslation()
+
     const data: SampleProvider[] = [
         {
             name: "Branch Lorem",
@@ -28,7 +31,7 @@ const ProviderTable = () => {
     ]
     return (
         <div>
-            <DataTable data={data} columns={providerColumns} filterKey='name' count={data.length} rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5' />
+            <DataTable data={data} columns={providerColumns(t)} filterKey='name' count={data.length} rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5' />
         </div>
     )
 }

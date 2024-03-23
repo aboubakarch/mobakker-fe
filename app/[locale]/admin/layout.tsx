@@ -5,7 +5,7 @@ import TranslationsProvider from '@/components/TranslationProvider';
 import initTranslations from '@/i18n';
 import StoreProvider from "../storeProvider";
 
-const i18nNamespaces = ['common', "navigation", "auth"];
+const i18nNamespaces = ['common', "navigation", "auth", "table"];
 
 export default async function AuthLayout({
     children,

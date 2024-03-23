@@ -10,9 +10,10 @@ import {
 import { MoreVertical } from "lucide-react";
 import { messages, tableHeader } from "@/constants/constants";
 import { Checkbox } from "@/components/ui/Checkbox";
+import { TFunction } from "i18next";
 
 
-export const providerColumns: ColumnDef<SampleProvider>[] = [
+export const providerColumns: (t: TFunction<"translation", undefined>) => ColumnDef<SampleProvider>[] = (t: TFunction<"translation", undefined>) => [
     {
         id: "select",
         header: ({ table }) => (
@@ -37,7 +38,7 @@ export const providerColumns: ColumnDef<SampleProvider>[] = [
     },
     {
         accessorKey: "name",
-        header: () => <div className="text-center">{tableHeader.PROVIDER_NAME}</div>,
+        header: () => <div className="text-center">{t(tableHeader.PROVIDER_NAME)}</div>,
 
         cell: ({ row }) => {
             const name: string = row.getValue("name");
@@ -52,7 +53,7 @@ export const providerColumns: ColumnDef<SampleProvider>[] = [
 
     {
         accessorKey: "password",
-        header: () => <div className="text-center">{tableHeader.PASSWORD}</div>,
+        header: () => <div className="text-center">{t(tableHeader.PASSWORD)}</div>,
 
         cell: ({ }) => {
             // const password: string = row.getValue("password")
@@ -67,7 +68,7 @@ export const providerColumns: ColumnDef<SampleProvider>[] = [
     },
     {
         accessorKey: "description",
-        header: () => <div className="text-center">{tableHeader.DETAILS}</div>,
+        header: () => <div className="text-center">{t(tableHeader.DETAILS)}</div>,
 
         cell: ({ row }) => {
             const description: string = row.getValue("description");

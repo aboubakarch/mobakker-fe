@@ -2,8 +2,11 @@
 import React from 'react'
 import { DataTable } from './DataTable'
 import { employeeColumns } from './columns/EmployeeColumns'
+import { useTranslation } from 'react-i18next'
 
 const EmployeeTable = () => {
+    const { t } = useTranslation()
+
     const data: SampleEmployee[] = [
         {
             name: 'Zaire',
@@ -50,7 +53,7 @@ const EmployeeTable = () => {
 
     return (
         <div>
-            <DataTable data={data} columns={employeeColumns} filterKey='name' count={data.length} rowStyle='bg-white' tableStyle='border-x-0' />
+            <DataTable data={data} columns={employeeColumns(t)} filterKey='name' count={data.length} rowStyle='bg-white' tableStyle='border-x-0' />
         </div>
     )
 }

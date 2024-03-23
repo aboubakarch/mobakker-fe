@@ -2,8 +2,11 @@
 import React from 'react'
 import { DataTable } from './DataTable'
 import { promotionsColumns } from './columns/PromotionsColumns'
+import { useTranslation } from 'react-i18next'
 
 const PromotionsTable = () => {
+    const { t } = useTranslation()
+
     const data: SamplePromotions[] = [
         {
             promotionName: 'Ramzan Offer',
@@ -58,7 +61,7 @@ const PromotionsTable = () => {
 
     return (
         <div>
-            <DataTable data={data} columns={promotionsColumns} filterKey='name' count={data.length} rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5' />
+            <DataTable data={data} columns={promotionsColumns(t)} filterKey='name' count={data.length} rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5' />
         </div>
     )
 }

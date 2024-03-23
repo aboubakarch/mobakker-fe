@@ -14,9 +14,10 @@ import Image from "next/image";
 import { messages, tableHeader } from "@/constants/constants";
 import TextColumn from "../TextColumn";
 import Badge from "@/components/ui/Badge";
+import { TFunction } from "i18next";
 
 
-export const employeeColumns: ColumnDef<SampleEmployee>[] = [
+export const employeeColumns: (t: TFunction<"translation", undefined>) => ColumnDef<SampleEmployee>[] = (t: TFunction<"translation", undefined>) => [
     // {
     //     id: "select",
     //     header: ({ table }) => (
@@ -40,7 +41,7 @@ export const employeeColumns: ColumnDef<SampleEmployee>[] = [
     // },
     {
         accessorKey: "name",
-        header: () => <div className="text-center">{tableHeader.NAME}</div>,
+        header: () => <div className="text-center">{t(tableHeader.NAME)}</div>,
         cell: ({ row }) => {
             const rowItem = row.original
             return (
@@ -63,7 +64,7 @@ export const employeeColumns: ColumnDef<SampleEmployee>[] = [
     },
     {
         accessorKey: "jobDesc",
-        header: () => <div className="text-center">{tableHeader.JOB_DESC}</div>,
+        header: () => <div className="text-center">{t(tableHeader.JOB_DESC)}</div>,
 
         cell: ({ row }) => {
             const job: string = row.getValue("jobDesc");
@@ -74,7 +75,7 @@ export const employeeColumns: ColumnDef<SampleEmployee>[] = [
     },
     {
         accessorKey: "bookedToday",
-        header: () => <div className="text-center">{tableHeader.BOOKED_TODAY}</div>,
+        header: () => <div className="text-center">{t(tableHeader.BOOKED_TODAY)}</div>,
 
         cell: ({ row }) => {
             const booking: string[] = row.getValue("bookedToday");
@@ -89,7 +90,7 @@ export const employeeColumns: ColumnDef<SampleEmployee>[] = [
     },
     {
         accessorKey: "workingHours",
-        header: () => <div className="text-center">{tableHeader.WORKING_HOURS}</div>,
+        header: () => <div className="text-center">{t(tableHeader.WORKING_HOURS)}</div>,
 
         cell: ({ row }) => {
             const hours: string = row.getValue("workingHours")
@@ -100,7 +101,7 @@ export const employeeColumns: ColumnDef<SampleEmployee>[] = [
     },
     {
         accessorKey: "rating",
-        header: () => <div className="text-center">{tableHeader.RATING}</div>,
+        header: () => <div className="text-center">{t(tableHeader.RATING)}</div>,
 
         cell: ({ row }) => {
             const rating: string = row.getValue("rating");

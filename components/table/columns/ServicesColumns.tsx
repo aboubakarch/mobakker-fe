@@ -14,9 +14,10 @@ import { messages, tableHeader } from "@/constants/constants";
 import TextColumn from "../TextColumn";
 import Badge from "@/components/ui/Badge";
 import { Checkbox } from "@/components/ui/Checkbox";
+import { TFunction } from "i18next";
 
 
-export const serviceColumns: ColumnDef<SampleServices>[] = [
+export const serviceColumns: (t: TFunction<"translation", undefined>) => ColumnDef<SampleServices>[] = (t: TFunction<"translation", undefined>) => [
     {
         id: "select",
         header: ({ table }) => (
@@ -40,7 +41,7 @@ export const serviceColumns: ColumnDef<SampleServices>[] = [
     },
     {
         accessorKey: "name",
-        header: () => <div className="text-center">{tableHeader.SERVICE_NAME}</div>,
+        header: () => <div className="text-center">{t(tableHeader.SERVICE_NAME)}</div>,
         cell: ({ row }) => {
             const rowItem = row.original
             return (
@@ -62,7 +63,7 @@ export const serviceColumns: ColumnDef<SampleServices>[] = [
     },
     {
         accessorKey: "details",
-        header: () => <div className="text-center">{tableHeader.DETAILS}</div>,
+        header: () => <div className="text-center">{t(tableHeader.DETAILS)}</div>,
 
         cell: ({ row }) => {
             const details: string = row.getValue("details");
@@ -73,7 +74,7 @@ export const serviceColumns: ColumnDef<SampleServices>[] = [
     },
     {
         accessorKey: "serviceType",
-        header: () => <div className="text-center">{tableHeader.SERVICE_TYPE}</div>,
+        header: () => <div className="text-center">{t(tableHeader.SERVICE_TYPE)}</div>,
 
         cell: ({ row }) => {
             const serviceType: string = row.getValue("serviceType");
@@ -84,7 +85,7 @@ export const serviceColumns: ColumnDef<SampleServices>[] = [
     },
     {
         accessorKey: "employeeCount",
-        header: () => <div className="text-center">{tableHeader.EMPLOYEE_NUM}</div>,
+        header: () => <div className="text-center">{t(tableHeader.EMPLOYEE_NUM)}</div>,
 
         cell: ({ row }) => {
             const employeeCount: number = row.getValue("employeeCount")
@@ -95,7 +96,7 @@ export const serviceColumns: ColumnDef<SampleServices>[] = [
     },
     {
         accessorKey: "timeSlot",
-        header: () => <div className="text-center">{tableHeader.TIME_SLOT}</div>,
+        header: () => <div className="text-center">{t(tableHeader.TIME_SLOT)}</div>,
 
         cell: ({ row }) => {
             const timeSlot: string = row.getValue("timeSlot");
@@ -106,7 +107,7 @@ export const serviceColumns: ColumnDef<SampleServices>[] = [
     },
     {
         accessorKey: "workingHours",
-        header: () => <div className="text-center">{tableHeader.WORKING_HOURS}</div>,
+        header: () => <div className="text-center">{t(tableHeader.WORKING_HOURS)}</div>,
 
         cell: ({ row }) => {
             const workingHours: string = row.getValue("workingHours");
@@ -117,7 +118,7 @@ export const serviceColumns: ColumnDef<SampleServices>[] = [
     },
     {
         accessorKey: "price",
-        header: () => <div className="text-center">{tableHeader.PRICE}</div>,
+        header: () => <div className="text-center">{t(tableHeader.PRICE)}</div>,
 
         cell: ({ row }) => {
             const price: number = row.getValue("price");

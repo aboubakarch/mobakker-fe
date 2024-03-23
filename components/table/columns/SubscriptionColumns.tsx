@@ -13,14 +13,15 @@ import { messages, tableHeader } from "@/constants/constants";
 import TextColumn from "../TextColumn";
 import Badge from "@/components/ui/Badge";
 import { Switch } from "@/components/ui/Switch";
+import { TFunction } from "i18next";
 // import { Checkbox } from "@/components/ui/Checkbox";
 
 
-export const subscriptionColumns: ColumnDef<SampleSubscription>[] = [
+export const subscriptionColumns: (t: TFunction<"translation", undefined>) => ColumnDef<SampleSubscription>[] = (t: TFunction<"translation", undefined>) => [
 
     {
         accessorKey: "subscriptionId",
-        header: () => <div className="text-center">{tableHeader.SUBCRIPTION}</div>,
+        header: () => <div className="text-center">{t(tableHeader.SUBSCRIPTION)}</div>,
 
         cell: ({ row }) => {
             const subscriptionId: string = row.getValue("subscriptionId");
@@ -34,7 +35,7 @@ export const subscriptionColumns: ColumnDef<SampleSubscription>[] = [
     },
     {
         accessorKey: "customerName",
-        header: () => <div className="text-center">{tableHeader.CUSTOMER_NAME}</div>,
+        header: () => <div className="text-center">{t(tableHeader.CUSTOMER_NAME)}</div>,
 
         cell: ({ row }) => {
             const customerName: string = row.getValue("customerName");
@@ -47,7 +48,7 @@ export const subscriptionColumns: ColumnDef<SampleSubscription>[] = [
     },
     {
         accessorKey: "customerNumber",
-        header: () => <div className="text-center">{tableHeader.CUSTOMER_NUMBER}</div>,
+        header: () => <div className="text-center">{t(tableHeader.CUSTOMER_NUMBER)}</div>,
 
         cell: ({ row }) => {
             const customerNumber: number = row.getValue("customerNumber");
@@ -60,7 +61,7 @@ export const subscriptionColumns: ColumnDef<SampleSubscription>[] = [
     },
     {
         accessorKey: "type",
-        header: () => <div className="text-center">{tableHeader.TYPE}</div>,
+        header: () => <div className="text-center">{t(tableHeader.TYPE)}</div>,
 
         cell: ({ row }) => {
             const type: string = row.getValue("type");
@@ -71,7 +72,7 @@ export const subscriptionColumns: ColumnDef<SampleSubscription>[] = [
     },
     {
         accessorKey: "paid",
-        header: () => <div className="text-center">{tableHeader.PAID}</div>,
+        header: () => <div className="text-center">{t(tableHeader.PAID)}</div>,
 
         cell: ({ row }) => {
             const paid: string = row.getValue("paid")
@@ -82,7 +83,7 @@ export const subscriptionColumns: ColumnDef<SampleSubscription>[] = [
     },
     {
         accessorKey: "status",
-        header: () => <div className="text-center">{tableHeader.STATUS}</div>,
+        header: () => <div className="text-center">{t(tableHeader.STATUS)}</div>,
 
         cell: ({ row }) => {
             const status: string = row.getValue("status") ? "Active" : "Inactive";
@@ -93,7 +94,7 @@ export const subscriptionColumns: ColumnDef<SampleSubscription>[] = [
     },
     {
         accessorKey: "renewal",
-        header: () => <div className="text-center">{tableHeader.RENEWAL}</div>,
+        header: () => <div className="text-center">{t(tableHeader.RENEWAL)}</div>,
 
         cell: ({ row }) => {
             const renewal: string = row.getValue("renewal")
@@ -104,7 +105,7 @@ export const subscriptionColumns: ColumnDef<SampleSubscription>[] = [
     },
     {
         accessorKey: "dayLeft",
-        header: () => <div className="text-center">{tableHeader.DAY_LEFT}</div>,
+        header: () => <div className="text-center">{t(tableHeader.DAY_LEFT)}</div>,
 
         cell: ({ row }) => {
             const dayLeft: string = row.getValue("dayLeft")

@@ -12,14 +12,15 @@ import { MoreVertical } from "lucide-react";
 import { messages, tableHeader } from "@/constants/constants";
 import TextColumn from "../TextColumn";
 import Badge from "@/components/ui/Badge";
+import { TFunction } from "i18next";
 // import { Checkbox } from "@/components/ui/Checkbox";
 
 
-export const complaintColumns: ColumnDef<SampleComplaint>[] = [
+export const complaintColumns: (t: TFunction<"translation", undefined>) => ColumnDef<SampleComplaint>[] = (t: TFunction<"translation", undefined>) => [
 
     {
         accessorKey: "complaint",
-        header: () => <div className="text-center">{tableHeader.COMPLAINT}</div>,
+        header: () => <div className="text-center">{t(tableHeader.COMPLAINT)}</div>,
 
         cell: ({ row }) => {
             const complaint: string = row.getValue("complaint");
@@ -33,7 +34,7 @@ export const complaintColumns: ColumnDef<SampleComplaint>[] = [
     },
     {
         accessorKey: "customerName",
-        header: () => <div className="text-center">{tableHeader.LOYAL_CUSTOMER}</div>,
+        header: () => <div className="text-center">{t(tableHeader.LOYAL_CUSTOMER)}</div>,
 
         cell: ({ row }) => {
             const customerName: string = row.getValue("customerName");
@@ -46,7 +47,7 @@ export const complaintColumns: ColumnDef<SampleComplaint>[] = [
     },
     {
         accessorKey: "customerNumber",
-        header: () => <div className="text-center">{tableHeader.CUSTOMER_NUMBER}</div>,
+        header: () => <div className="text-center">{t(tableHeader.CUSTOMER_NUMBER)}</div>,
 
         cell: ({ row }) => {
             const customerNumber: number = row.getValue("customerNumber");
@@ -60,7 +61,7 @@ export const complaintColumns: ColumnDef<SampleComplaint>[] = [
 
     {
         accessorKey: "customerType",
-        header: () => <div className="text-center">{tableHeader.TYPE_USER}</div>,
+        header: () => <div className="text-center">{t(tableHeader.TYPE_USER)}</div>,
 
         cell: ({ row }) => {
             const customerType: string = row.getValue("customerType");
@@ -71,7 +72,7 @@ export const complaintColumns: ColumnDef<SampleComplaint>[] = [
     },
     {
         accessorKey: "complainMessage",
-        header: () => <div className="text-center">{tableHeader.COMPLAINT_MESSAGE}</div>,
+        header: () => <div className="text-center">{t(tableHeader.COMPLAINT_MESSAGE)}</div>,
 
         cell: ({ row }) => {
             const complainMessage: string = row.getValue("complainMessage");
@@ -83,7 +84,7 @@ export const complaintColumns: ColumnDef<SampleComplaint>[] = [
 
     {
         accessorKey: "city",
-        header: () => <div className="text-center">{tableHeader.CITY}</div>,
+        header: () => <div className="text-center">{t(tableHeader.CITY)}</div>,
 
         cell: ({ row }) => {
             const city: string = row.getValue("city")
@@ -95,7 +96,7 @@ export const complaintColumns: ColumnDef<SampleComplaint>[] = [
 
     {
         accessorKey: "bookingId",
-        header: () => <div className="text-center">{tableHeader.BOOKING_ID_SUB}</div>,
+        header: () => <div className="text-center">{t(tableHeader.BOOKING_ID_SUB)}</div>,
 
         cell: ({ row }) => {
             const bookingId: string = row.getValue("bookingId")

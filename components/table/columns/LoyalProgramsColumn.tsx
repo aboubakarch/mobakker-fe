@@ -13,14 +13,15 @@ import Image from "next/image";
 import { messages, tableHeader } from "@/constants/constants";
 import TextColumn from "../TextColumn";
 import Badge from "@/components/ui/Badge";
+import { TFunction } from "i18next";
 // import { Checkbox } from "@/components/ui/Checkbox";
 
 
-export const loyalProgramsColumns: ColumnDef<SampleLoyalPrograms>[] = [
+export const loyalProgramsColumns: (t: TFunction<"translation", undefined>) => ColumnDef<SampleLoyalPrograms>[] = (t: TFunction<"translation", undefined>) => [
 
     {
         accessorKey: "rank",
-        header: () => <div className="text-center">{tableHeader.RANK}</div>,
+        header: () => <div className="text-center">{t(tableHeader.RANK)}</div>,
 
         cell: ({ row }) => {
             const rank: string = row.getValue("rank");
@@ -34,7 +35,7 @@ export const loyalProgramsColumns: ColumnDef<SampleLoyalPrograms>[] = [
     },
     {
         accessorKey: "customerName",
-        header: () => <div className="text-center">{tableHeader.LOYAL_CUSTOMER}</div>,
+        header: () => <div className="text-center">{t(tableHeader.LOYAL_CUSTOMER)}</div>,
 
         cell: ({ row }) => {
             const customerName: string = row.getValue("customerName");
@@ -47,7 +48,7 @@ export const loyalProgramsColumns: ColumnDef<SampleLoyalPrograms>[] = [
     },
     {
         accessorKey: "customerNumber",
-        header: () => <div className="text-center">{tableHeader.CUSTOMER_NUMBER}</div>,
+        header: () => <div className="text-center">{t(tableHeader.CUSTOMER_NUMBER)}</div>,
 
         cell: ({ row }) => {
             const customerNumber: number = row.getValue("customerNumber");
@@ -60,7 +61,7 @@ export const loyalProgramsColumns: ColumnDef<SampleLoyalPrograms>[] = [
     },
     {
         accessorKey: "serviceBooked",
-        header: () => <div className="text-center">{tableHeader.MOST_BOOKED}</div>,
+        header: () => <div className="text-center">{t(tableHeader.MOST_BOOKED)}</div>,
         cell: ({ row }) => {
             const rowItem = row.original
             return (
@@ -82,7 +83,7 @@ export const loyalProgramsColumns: ColumnDef<SampleLoyalPrograms>[] = [
     },
     {
         accessorKey: "serviceType",
-        header: () => <div className="text-center">{tableHeader.SERVICE_TYPE}</div>,
+        header: () => <div className="text-center">{t(tableHeader.SERVICE_TYPE)}</div>,
 
         cell: ({ row }) => {
             const serviceType: string = row.getValue("serviceType");
@@ -93,7 +94,7 @@ export const loyalProgramsColumns: ColumnDef<SampleLoyalPrograms>[] = [
     },
     {
         accessorKey: "branchName",
-        header: () => <div className="text-center">{tableHeader.BRANCH_NAME}</div>,
+        header: () => <div className="text-center">{t(tableHeader.BRANCH_NAME)}</div>,
 
         cell: ({ row }) => {
             const branchName: string = row.getValue("branchName")
@@ -104,7 +105,7 @@ export const loyalProgramsColumns: ColumnDef<SampleLoyalPrograms>[] = [
     },
     {
         accessorKey: "lastBooking",
-        header: () => <div className="text-center">{tableHeader.LAST_BOOKING}</div>,
+        header: () => <div className="text-center">{t(tableHeader.LAST_BOOKING)}</div>,
 
         cell: ({ row }) => {
             const lastBooking: string = row.getValue("lastBooking");
@@ -115,7 +116,7 @@ export const loyalProgramsColumns: ColumnDef<SampleLoyalPrograms>[] = [
     },
     {
         accessorKey: "rating",
-        header: () => <div className="text-center">{tableHeader.RATING}</div>,
+        header: () => <div className="text-center">{t(tableHeader.RATING)}</div>,
 
         cell: ({ row }) => {
             const rating: string = row.getValue("rating");

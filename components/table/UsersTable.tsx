@@ -2,8 +2,11 @@
 import React from 'react'
 import { DataTable } from './DataTable'
 import { userColumns } from './columns/UsersColumn'
+import { useTranslation } from 'react-i18next'
 
 const UsersTable = () => {
+    const { t } = useTranslation()
+
     const data: SampleUser[] = [
         {
             name: "Branch Lorem",
@@ -28,7 +31,7 @@ const UsersTable = () => {
     ]
     return (
         <div>
-            <DataTable data={data} columns={userColumns} filterKey='name' count={data.length} rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5' />
+            <DataTable data={data} columns={userColumns(t)} filterKey='name' count={data.length} rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5' />
         </div>
     )
 }
