@@ -80,5 +80,8 @@
   "integration": "التكامل",
   "advertisement": "الإعلان",
   "createUser": "إنشاء مستخدم",
-  "notifications": "الإشعارات"
+  "notifications": "الإشعارات",
+  "createAppointment": "إنشاء موعد",
+  "branchEmployees": "موظفو الفرع",
+  "uploadAppointment": "تحميل الموعد"
 }

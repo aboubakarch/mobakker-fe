@@ -99,6 +99,9 @@ export const messages = {
   ADVERTISEMENT: "common:advertisement",
   CREATE_USER: "common:createUser",
   NOTIFICATIONS: "common:notifications",
+  CREATE_APPOINTMENT: "common:createAppointment",
+  BRANCH_EMPLOYEES: "common:branchEmployees",
+  UPLOAD_APPOINTMENT: "common:uploadAppointment",
 };
 
 export const tableHeader = {
