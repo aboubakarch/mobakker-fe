@@ -98,6 +98,7 @@ export const messages = {
   INTEGRATION: "common:integration",
   ADVERTISEMENT: "common:advertisement",
   CREATE_USER: "common:createUser",
+  NOTIFICATIONS: "common:notifications",
 };
 
 export const tableHeader = {
@@ -191,89 +192,113 @@ export const formConstants = {
   REPEAT_FOR_MONTH: "auth:repeatForMonth",
 };
 
-export const sidebarNavigation = (prefix: string): ISideBarItem[] => [
-  {
+export const SideBarItems = {
+  Dashboard: (prefix: string) => ({
     id: 1,
     name: "navigation:dashboard",
     icon: HomeIcon,
     link: `${prefix}`,
-  },
-  {
+  }),
+  Branch: (prefix: string) => ({
     id: 13,
     name: "navigation:branch",
     icon: BranchIcon,
     link: `${prefix}/branch`,
-  },
-  {
+  }),
+  Reports: (prefix: string) => ({
     id: 2,
     name: "navigation:reports",
     icon: ClipboardIcon,
     link: `${prefix}/reports`,
-  },
-  {
+  }),
+  Appointment: (prefix: string) => ({
     id: 3,
     name: "navigation:appointments",
     icon: TicketIcon,
     link: `${prefix}/appointments`,
-  },
-  {
+  }),
+  Employee: (prefix: string) => ({
     id: 4,
     name: "navigation:employees",
     icon: PeopleIcon,
     link: `${prefix}/employees`,
-  },
-  {
+  }),
+  LoyalProgram: (prefix: string) => ({
     id: 5,
     name: "navigation:loyalPrograms",
     icon: PersonStarIcon,
     link: `${prefix}/loyal-program`,
-  },
-  {
+  }),
+  Services: (prefix: string) => ({
     id: 6,
     name: "navigation:services",
     icon: PageIcon,
     link: `${prefix}/services`,
-  },
-  {
+  }),
+  Promotions: (prefix: string) => ({
     id: 7,
     name: "navigation:promotions",
     icon: SpeakerIcon,
     link: `${prefix}/promotions`,
-  },
-  {
+  }),
+  Rating: (prefix: string) => ({
     id: 8,
     name: "navigation:rating",
     icon: StarIcon,
     link: `${prefix}/ratings`,
-  },
-  {
+  }),
+  Notification: (prefix: string) => ({
     id: 9,
     name: "navigation:notifications",
     icon: NotificationIcon,
     link: `${prefix}/notifications`,
-  },
-  {
+  }),
+  Complaints: (prefix: string) => ({
     id: 14,
     name: "navigation:complaints",
     icon: ClipboardIcon,
     link: `${prefix}/complaints`,
-  },
-];
-export const sidebarAdminNavigation: ISideBarItem[] = [
-  ...sidebarNavigation("/admin"),
-  {
+  }),
+  Providers: (prefix: string) => ({
     id: 10,
     name: "navigation:providers",
     icon: NotificationIcon,
-    link: "/admin/providers",
-  },
-  {
+    link: `${prefix}/providers`,
+  }),
+  Users: (prefix: string) => ({
     id: 11,
     name: "navigation:manageUsers",
     icon: UserIcon,
-    link: "/admin/users",
-  },
+    link: `${prefix}/users`,
+  }),
+};
+export const sidebarAdminNavigation: ISideBarItem[] = Object.values(
+  SideBarItems
+).map((i) => i("/admin"));
+export const sidebarProvidernavigation: ISideBarItem[] = [
+  SideBarItems.Dashboard("/provider"),
+  SideBarItems.Branch("/provider"),
+  SideBarItems.Reports("/provider"),
+  SideBarItems.Appointment("/provider"),
+  SideBarItems.Employee("/provider"),
+  SideBarItems.LoyalProgram("/provider"),
+  SideBarItems.Services("/provider"),
+  SideBarItems.Promotions("/provider"),
+  SideBarItems.Rating("/provider"),
+  SideBarItems.Notification("/provider"),
 ];
+export const sidebarManagerNavigation: ISideBarItem[] = [
+  SideBarItems.Dashboard(""),
+  SideBarItems.Reports(""),
+  SideBarItems.Appointment(""),
+  SideBarItems.Employee(""),
+  SideBarItems.LoyalProgram(""),
+  SideBarItems.Services(""),
+  SideBarItems.Promotions(""),
+  SideBarItems.Rating(""),
+  SideBarItems.Notification(""),
+];
+
 export const SettingsNavigation = (prefix: string): ISideBarItem[] => [
   {
     id: 1,

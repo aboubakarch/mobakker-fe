@@ -79,5 +79,6 @@
   "notification": "Notification",
   "integration": "Integration",
   "advertisement": "Advertisement",
-  "createUser": "Create User"
+  "createUser": "Create User",
+  "notifications": "Notifications"
 }
