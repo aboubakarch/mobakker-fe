@@ -87,7 +87,17 @@ export const messages = {
   PRO_PACKAGE: "common:proPackage",
   CREATE_SUBSCRIPTION: "common:createSubscription",
   PERSONAL_WEBSITE_PROJECT: "common:personalWebsiteProject",
-  THREE_MONTHS_SUPPORT: "auth:threeMonthsSupport",
+  THREE_MONTHS_SUPPORT: "common:threeMonthsSupport",
+  SETTINGS: "common:settings",
+  CANCEL_APP_APPOINTMENTS: "auth:cancelAppAppointments",
+  BLOCK_USER: "common:blockUser",
+  LANGUAGES: "common:languages",
+  TECHNICAL_SUPPORT: "common:technicalSupport",
+  BRANCH_CERTIFICATES: "common:branchCertificates",
+  NOTIFICATION: "common:notification",
+  INTEGRATION: "common:integration",
+  ADVERTISEMENT: "common:advertisement",
+  CREATE_USER: "common:createUser",
 };
 
 export const tableHeader = {

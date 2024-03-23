@@ -69,5 +69,15 @@
   "proPackage": "حزمة محترفة",
   "createSubscription": "إنشاء اشتراك",
   "personalWebsiteProject": "مثالي للاستخدام في موقع شخصي أو مشروع عميل",
-  "threeMonthsSupport": "دعم لمدة 3 أشهر"
+  "threeMonthsSupport": "دعم لمدة 3 أشهر",
+  "settings": "الإعدادات",
+  "cancelAppAppointments": "إلغاء مواعيد التطبيق",
+  "blockUser": "حظر المستخدم",
+  "languages": "اللغات",
+  "technicalSupport": "الدعم الفني",
+  "branchCertificates": "شهادات الفرع",
+  "notification": "الإشعارات",
+  "integration": "التكامل",
+  "advertisement": "الإعلان",
+  "createUser": "إنشاء مستخدم"
 }
