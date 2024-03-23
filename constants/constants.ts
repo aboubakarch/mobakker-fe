@@ -291,7 +291,7 @@ export const sidebarProvidernavigation: ISideBarItem[] = [
   SideBarItems.Notification("/provider"),
 ];
 export const sidebarManagerNavigation: ISideBarItem[] = [
-  SideBarItems.Dashboard(""),
+  SideBarItems.Dashboard("/"),
   SideBarItems.Reports(""),
   SideBarItems.Appointment(""),
   SideBarItems.Employee(""),
