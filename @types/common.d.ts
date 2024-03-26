@@ -118,4 +118,5 @@ interface ILanguageChangerProps {
 
 interface IDropzonProps {
   title: string;
+  subtitle?: string;
 }

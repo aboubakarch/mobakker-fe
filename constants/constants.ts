@@ -102,6 +102,11 @@ export const messages = {
   CREATE_APPOINTMENT: "common:createAppointment",
   BRANCH_EMPLOYEES: "common:branchEmployees",
   UPLOAD_APPOINTMENT: "common:uploadAppointment",
+  UPDATE: "common:update",
+  UPLOAD_IMAGE: "common:uploadImage",
+  IMAGE_FORMATS: "common:imageFormats",
+  BRANCH_PROFILE: "common:branchProfile",
+  LOGO: "common:logo",
 };
 
 export const tableHeader = {

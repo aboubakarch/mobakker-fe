@@ -22,7 +22,7 @@ import { cn } from '@/lib/utils'
 import moment from 'moment'
 
 
-const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, type = FieldTypesEnum.Text }) => {
+const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, type = FieldTypesEnum.Text, disabled = false }) => {
     const form = useFormContext()
 
     const handleDaySelect = (day: string, checked: boolean, setDays: (...event: any[]) => void, value: string[]) => {
@@ -56,6 +56,7 @@ const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, 
                                 {label && <FormLabel>{label}</FormLabel>}
                                 <FormControl>
                                     <Checkbox
+                                        disabled={disabled}
                                         checked={field.value}
                                         onCheckedChange={field.onChange}
                                     />
@@ -81,6 +82,7 @@ const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, 
                             {label && <FormLabel>{label}</FormLabel>}
                             <div className='flex items-center justify-center gap-4  px-2 py-2 rounded-sm self-start'>
                                 <Checkbox
+                                    disabled={disabled}
                                     checked={field.value.length === 8}
                                     onCheckedChange={() => handleSelectAll(HourTimes, field.value.length === 8, field.onChange)}
                                 // className='data-[state=checked]:bg-primaryBlue'
@@ -91,6 +93,7 @@ const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, 
                                 {HourTimes.map(hour => (
                                     <div key={hour} className='flex items-center justify-center gap-4 bg-white px-2 py-2 rounded-sm'>
                                         <Checkbox
+                                            disabled={disabled}
                                             checked={_.includes(field.value, hour)}
                                             onCheckedChange={() => handleDaySelect(hour, _.includes(field.value, hour), field.onChange, field.value)}
                                         // className='data-[state=checked]:bg-primaryBlue'
@@ -121,6 +124,7 @@ const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, 
                                 <PopoverTrigger asChild>
                                     <FormControl>
                                         <Button
+                                            disabled={disabled}
                                             variant={"outline"}
                                             className={cn(
                                                 "w-full pl-3 text-left font-normal",
@@ -171,6 +175,7 @@ const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, 
                                     <div key={day} className='flex gap-2'>
                                         <p className=''>{day.substring(0, 3)}</p>
                                         <Switch
+                                            disabled={disabled}
                                             checked={_.includes(field.value, day)}
                                             onCheckedChange={() => handleDaySelect(day, _.includes(field.value, day), field.onChange, field.value)}
                                             className='data-[state=checked]:bg-primaryBlue' />
@@ -219,7 +224,7 @@ const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, 
                         <FormItem>
                             {label && <FormLabel>{label}</FormLabel>}
 
-                            <Select onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
+                            <Select disabled={disabled} onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
                                 <FormControl>
                                     <SelectTrigger >
                                         <SelectValue placeholder={placeHolder} />
@@ -250,7 +255,10 @@ const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, 
                         <FormItem>
                             {label && <FormLabel>{label}</FormLabel>}
                             <FormControl>
-                                <Textarea placeholder={placeHolder} {...field} />
+                                <Textarea
+                                    disabled={disabled}
+                                    placeholder={placeHolder}
+                                    {...field} />
                             </FormControl>
                             {desc && <FormDescription>
                                 {desc}
@@ -271,7 +279,10 @@ const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, 
                         <FormItem>
                             {label && <FormLabel>{label}</FormLabel>}
                             <FormControl>
-                                <Input placeholder={placeHolder} {...field} />
+                                <Input
+                                    disabled={disabled}
+                                    placeholder={placeHolder}
+                                    {...field} />
                             </FormControl>
                             {desc && <FormDescription>
                                 {desc}

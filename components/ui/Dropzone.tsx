@@ -2,7 +2,7 @@ import { Upload } from 'lucide-react'
 import React, { FC } from 'react'
 
 
-const Dropzone: FC<IDropzonProps> = ({ title }) => {
+const Dropzone: FC<IDropzonProps> = ({ title, subtitle }) => {
     return (
 
         <div >
@@ -11,7 +11,11 @@ const Dropzone: FC<IDropzonProps> = ({ title }) => {
                     <div className='w-10 h-10 flex justify-center items-center bg-white rounded-full border border-neutral-200'>
                         <Upload className='w-4 h-4 text-indigo-800' />
                     </div>
-                    <p className="text-center text-indigo-800 text-xs font-normal leading-tight select-none">{title}</p>
+                    <div className='flex flex-col gap-1'>
+                        <p className="text-center text-indigo-800 text-xs font-normal leading-tight select-none">{title}</p>
+                        {subtitle && <p className="text-center text-indigo-800 text-xs font-normal leading-tight select-none">{subtitle}</p>}
+
+                    </div>
                 </div>
                 <input id="dropzone-file" type="file" className="hidden" />
             </label>

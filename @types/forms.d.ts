@@ -72,6 +72,7 @@ interface IFormField {
   hasError: boolean;
   desc?: string;
   type?: FieldTypesEnum;
+  disabled?: boolean;
 }
 
 interface IFormValueObj<T> {

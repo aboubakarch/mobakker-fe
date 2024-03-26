@@ -83,5 +83,10 @@
   "notifications": "الإشعارات",
   "createAppointment": "إنشاء موعد",
   "branchEmployees": "موظفو الفرع",
-  "uploadAppointment": "تحميل الموعد"
+  "uploadAppointment": "تحميل الموعد",
+  "update": "تحديث",
+  "uploadImage": "انقر للتحميل أو قم بالسحب والإفلات",
+  "imageFormats": "SVG، PNG، JPG، أو GIF (بحد أقصى 800 × 800 بكسل)",
+  "branchProfile": "ملف الفرع",
+  "logo": "شعار"
 }
