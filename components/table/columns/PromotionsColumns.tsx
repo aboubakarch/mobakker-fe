@@ -14,14 +14,15 @@ import { messages, tableHeader } from "@/constants/constants";
 import TextColumn from "../TextColumn";
 import Badge from "@/components/ui/Badge";
 import { Switch } from "@/components/ui/Switch";
+import { TFunction } from "i18next";
 // import { Checkbox } from "@/components/ui/Checkbox";
 
 
-export const promotionsColumns: ColumnDef<SamplePromotions>[] = [
+export const promotionsColumns: (t: TFunction<"translation", undefined>) => ColumnDef<SamplePromotions>[] = (t: TFunction<"translation", undefined>) => [
 
     {
         accessorKey: "promotionName",
-        header: () => <div className="text-center">{tableHeader.PROMOTION_NAME}</div>,
+        header: () => <div className="text-center">{t(tableHeader.PROMOTION_NAME)}</div>,
 
         cell: ({ row }) => {
             const promotionName: string = row.getValue("promotionName");
@@ -35,7 +36,7 @@ export const promotionsColumns: ColumnDef<SamplePromotions>[] = [
     },
     {
         accessorKey: "startDate",
-        header: () => <div className="text-center">{tableHeader.START_DATE}</div>,
+        header: () => <div className="text-center">{t(tableHeader.START_DATE)}</div>,
 
         cell: ({ row }) => {
             const startDate: string = row.getValue("startDate");
@@ -48,7 +49,7 @@ export const promotionsColumns: ColumnDef<SamplePromotions>[] = [
     },
     {
         accessorKey: "endDate",
-        header: () => <div className="text-center">{tableHeader.END_DATE}</div>,
+        header: () => <div className="text-center">{t(tableHeader.END_DATE)}</div>,
 
         cell: ({ row }) => {
             const endDate: string = row.getValue("endDate");
@@ -61,7 +62,7 @@ export const promotionsColumns: ColumnDef<SamplePromotions>[] = [
     },
     {
         accessorKey: "serviceName",
-        header: () => <div className="text-center">{tableHeader.SERVICE_NAME}</div>,
+        header: () => <div className="text-center">{t(tableHeader.SERVICE_NAME)}</div>,
         cell: ({ row }) => {
             const rowItem = row.original
             return (
@@ -83,7 +84,7 @@ export const promotionsColumns: ColumnDef<SamplePromotions>[] = [
     },
     {
         accessorKey: "serviceType",
-        header: () => <div className="text-center">{tableHeader.SERVICE_TYPE}</div>,
+        header: () => <div className="text-center">{t(tableHeader.SERVICE_TYPE)}</div>,
 
         cell: ({ row }) => {
             const serviceType: string = row.getValue("serviceType");
@@ -94,7 +95,7 @@ export const promotionsColumns: ColumnDef<SamplePromotions>[] = [
     },
     {
         accessorKey: "branchName",
-        header: () => <div className="text-center">{tableHeader.BRANCH_NAME}</div>,
+        header: () => <div className="text-center">{t(tableHeader.BRANCH_NAME)}</div>,
 
         cell: ({ row }) => {
             const branchName: string = row.getValue("branchName")
@@ -105,7 +106,7 @@ export const promotionsColumns: ColumnDef<SamplePromotions>[] = [
     },
     {
         accessorKey: "capacity",
-        header: () => <div className="text-center">{tableHeader.CAPACITY}</div>,
+        header: () => <div className="text-center">{t(tableHeader.CAPACITY)}</div>,
 
         cell: ({ row }) => {
             const capacity: string = row.getValue("capacity");
@@ -116,7 +117,7 @@ export const promotionsColumns: ColumnDef<SamplePromotions>[] = [
     },
     {
         accessorKey: "availableCount",
-        header: () => <div className="text-center">{tableHeader.AVAILABLE}</div>,
+        header: () => <div className="text-center">{t(tableHeader.AVAILABLE)}</div>,
 
         cell: ({ row }) => {
             const availableCount: string = row.getValue("availableCount");
@@ -127,7 +128,7 @@ export const promotionsColumns: ColumnDef<SamplePromotions>[] = [
     },
     {
         accessorKey: "status",
-        header: () => <div className="text-center">{tableHeader.STATUS}</div>,
+        header: () => <div className="text-center">{t(tableHeader.STATUS)}</div>,
 
         cell: ({ row }) => {
             const status: boolean = row.getValue("status");

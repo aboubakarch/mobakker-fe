@@ -2,8 +2,11 @@
 import React from 'react'
 import { DataTable } from './DataTable'
 import { subscriptionColumns } from './columns/SubscriptionColumns'
+import { useTranslation } from 'react-i18next'
 
 const SubscriptionTable = () => {
+    const { t } = useTranslation()
+
     const data: SampleSubscription[] = [
         {
             subscriptionId: "548390",
@@ -50,7 +53,7 @@ const SubscriptionTable = () => {
 
     return (
         <div>
-            <DataTable data={data} columns={subscriptionColumns} filterKey='name' count={data.length} rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5' />
+            <DataTable data={data} columns={subscriptionColumns(t)} filterKey='name' count={data.length} rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5' />
         </div>
     )
 }

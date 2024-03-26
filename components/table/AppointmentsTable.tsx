@@ -2,8 +2,11 @@
 import React from 'react'
 import { DataTable } from './DataTable'
 import { appointmentsColumns } from './columns/AppointmentsColumn'
+import { useTranslation } from 'react-i18next'
 
 const AppointmentsTable = () => {
+    const { t } = useTranslation()
+
     const data: SampleAppointments[] = [
         {
             bookingId: "#123445",
@@ -58,7 +61,7 @@ const AppointmentsTable = () => {
 
     return (
         <div>
-            <DataTable data={data} columns={appointmentsColumns} filterKey='name' count={data.length} rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5' />
+            <DataTable data={data} columns={appointmentsColumns(t)} filterKey='name' count={data.length} rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5' />
         </div>
     )
 }

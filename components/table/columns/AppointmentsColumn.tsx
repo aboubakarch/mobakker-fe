@@ -13,10 +13,11 @@ import Image from "next/image";
 import { messages, tableHeader } from "@/constants/constants";
 import TextColumn from "../TextColumn";
 import Badge from "@/components/ui/Badge";
+import { TFunction } from "i18next";
 // import { Checkbox } from "@/components/ui/Checkbox";
 
 
-export const appointmentsColumns: ColumnDef<SampleAppointments>[] = [
+export const appointmentsColumns: (t: TFunction<"translation", undefined>) => ColumnDef<SampleAppointments>[] = (t: TFunction<"translation", undefined>) => ([
     // {
     //     id: "select",
     //     header: ({ table }) => (
@@ -41,7 +42,7 @@ export const appointmentsColumns: ColumnDef<SampleAppointments>[] = [
     // },
     {
         accessorKey: "bookingId",
-        header: () => <div className="text-center">{tableHeader.BOOKING_ID}</div>,
+        header: () => <div className="text-center">{t(tableHeader.BOOKING_ID)}</div>,
 
         cell: ({ row }) => {
             const bookingId: string = row.getValue("bookingId");
@@ -55,7 +56,7 @@ export const appointmentsColumns: ColumnDef<SampleAppointments>[] = [
     },
     {
         accessorKey: "name",
-        header: () => <div className="text-center">{tableHeader.CUSTOMER_NAME}</div>,
+        header: () => <div className="text-center">{t(tableHeader.CUSTOMER_NAME)}</div>,
 
         cell: ({ row }) => {
             const name: string = row.getValue("name");
@@ -68,7 +69,7 @@ export const appointmentsColumns: ColumnDef<SampleAppointments>[] = [
     },
     {
         accessorKey: "customerNumber",
-        header: () => <div className="text-center">{tableHeader.CUSTOMER_NUMBER}</div>,
+        header: () => <div className="text-center">{t(tableHeader.CUSTOMER_NUMBER)}</div>,
 
         cell: ({ row }) => {
             const customerNumber: number = row.getValue("customerNumber");
@@ -81,7 +82,7 @@ export const appointmentsColumns: ColumnDef<SampleAppointments>[] = [
     },
     {
         accessorKey: "serviceBooked",
-        header: () => <div className="text-center">{tableHeader.SERVICES_BOOKED}</div>,
+        header: () => <div className="text-center">{t(tableHeader.SERVICES_BOOKED)}</div>,
         cell: ({ row }) => {
             const rowItem = row.original
             return (
@@ -104,7 +105,7 @@ export const appointmentsColumns: ColumnDef<SampleAppointments>[] = [
     },
     {
         accessorKey: "serviceType",
-        header: () => <div className="text-center">{tableHeader.SERVICE_TYPE}</div>,
+        header: () => <div className="text-center">{t(tableHeader.SERVICE_TYPE)}</div>,
 
         cell: ({ row }) => {
             const serviceType: string = row.getValue("serviceType");
@@ -115,7 +116,7 @@ export const appointmentsColumns: ColumnDef<SampleAppointments>[] = [
     },
     {
         accessorKey: "branchName",
-        header: () => <div className="text-center">{tableHeader.BRANCH_NAME}</div>,
+        header: () => <div className="text-center">{t(tableHeader.BRANCH_NAME)}</div>,
 
         cell: ({ row }) => {
             const branchName: string = row.getValue("branchName")
@@ -126,7 +127,7 @@ export const appointmentsColumns: ColumnDef<SampleAppointments>[] = [
     },
     {
         accessorKey: "serviceTime",
-        header: () => <div className="text-center">{tableHeader.TIME_SLOT}</div>,
+        header: () => <div className="text-center">{t(tableHeader.TIME_SLOT)}</div>,
 
         cell: ({ row }) => {
             const serviceTime: string = row.getValue("serviceTime");
@@ -137,7 +138,7 @@ export const appointmentsColumns: ColumnDef<SampleAppointments>[] = [
     },
     {
         accessorKey: "time",
-        header: () => <div className="text-center">{tableHeader.TIME}</div>,
+        header: () => <div className="text-center">{t(tableHeader.TIME)}</div>,
 
         cell: ({ row }) => {
             const time: string = row.getValue("time");
@@ -148,7 +149,7 @@ export const appointmentsColumns: ColumnDef<SampleAppointments>[] = [
     },
     {
         accessorKey: "price",
-        header: () => <div className="text-center">{tableHeader.PRICE}</div>,
+        header: () => <div className="text-center">{t(tableHeader.PRICE)}</div>,
 
         cell: ({ row }) => {
             const price: number = row.getValue("price");
@@ -186,4 +187,4 @@ export const appointmentsColumns: ColumnDef<SampleAppointments>[] = [
         },
     },
 
-]
+])

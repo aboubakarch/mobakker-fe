@@ -2,8 +2,11 @@
 import React from 'react'
 import { DataTable } from './DataTable'
 import { serviceColumns } from './columns/ServicesColumns'
+import { useTranslation } from 'react-i18next'
 
 const ServicesTable = () => {
+    const { t } = useTranslation()
+
     const data: SampleServices[] = [
         {
             name: 'Full Body Massage',
@@ -50,7 +53,7 @@ const ServicesTable = () => {
 
     return (
         <div>
-            <DataTable data={data} columns={serviceColumns} filterKey='name' count={data.length} rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5' />
+            <DataTable data={data} columns={serviceColumns(t)} filterKey='name' count={data.length} rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5' />
         </div>
     )
 }

@@ -2,8 +2,11 @@
 import React from 'react'
 import { DataTable } from './DataTable'
 import { loyalProgramsColumns } from './columns/LoyalProgramsColumn'
+import { useTranslation } from 'react-i18next'
 
 const LoyalProgramTable = () => {
+    const { t } = useTranslation()
+
     const data: SampleLoyalPrograms[] = [
         {
             rank: "#1",
@@ -58,7 +61,7 @@ const LoyalProgramTable = () => {
 
     return (
         <div>
-            <DataTable data={data} columns={loyalProgramsColumns} filterKey='name' count={data.length} rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5' />
+            <DataTable data={data} columns={loyalProgramsColumns(t)} filterKey='name' count={data.length} rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5' />
         </div>
     )
 }

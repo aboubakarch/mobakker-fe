@@ -1,13 +1,14 @@
 import {
   SettingsNavigation,
   sidebarAdminNavigation,
-  sidebarNavigation,
+  sidebarManagerNavigation,
+  sidebarProvidernavigation,
 } from "./constants";
 import { NavigationTypeEnum } from "./enums";
 
 export const NavigationHelperMap = {
-  [NavigationTypeEnum.Manager]: sidebarNavigation(""),
-  [NavigationTypeEnum.Provider]: sidebarNavigation("/provider"),
+  [NavigationTypeEnum.Manager]: sidebarManagerNavigation,
+  [NavigationTypeEnum.Provider]: sidebarProvidernavigation,
   [NavigationTypeEnum.SuperAdmin]: sidebarAdminNavigation,
 };
 export const SettingsNavigationHelperMap = {
