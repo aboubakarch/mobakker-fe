@@ -32,6 +32,7 @@ export const messages = {
   REPORTS: "common:reports",
   EMPLOYEES: "common:employees",
   ADD_EMPLOYEES: "common:addEmployees",
+  ADD_EMPLOYEE: "common:addEmployee",
   SERVICES: "common:services",
   COMPLAINTS: "common:complaints",
   RATINGS: "common:ratings",
@@ -57,6 +58,15 @@ export const messages = {
   ACTIONS: "common:actions",
   LOGIN: "common:login",
   SELECT_LANGUAGE: "common:selectLanguage",
+  ADD_BRANCH: "common:addBranch",
+  SAVE: "common:save",
+  CANCEL: "common:cancel",
+  ADD_PROVIDER: "common:addProvider",
+  ADD_NEW_PROVIDER: "common:addNewProvider",
+  ADD_SERVICE: "common:addService",
+  ADD_PROMOTION: "common:addPromotion", // Added Add Promotion
+  ADD_NEW_PROMOTION: "common:addNewPromotion", // Added Add New Promotion,
+  ADD_NEW_APPOINTMENT: "common:addNewAppointment",
 };
 
 export const tableHeader = {
@@ -107,12 +117,47 @@ export const tableHeader = {
 };
 
 export const formConstants = {
-  EMAIL_PLACEHOLDER: "emailPlaceholder",
-  EMAIL_LABEL: "emailLabel",
-  EMAIL: "email",
-  PASS_PLACEHOLDER: "passPlaceholder",
-  PASS_LABEL: "passLabel",
-  PASS: "pass",
+  EMAIL_PLACEHOLDER: "auth:emailPlaceholder",
+  EMAIL_LABEL: "auth:emailLabel",
+  EMAIL: "auth:email",
+  PASS_PLACEHOLDER: "auth:passPlaceholder",
+  PASS_LABEL: "auth:passLabel",
+  PASS: "auth:pass",
+  NAME_PLACEHOLER: "auth:namePlaceholder",
+  BRANCH_NAME_LABEL: "auth:branchNameLabel",
+  DETAILS: "auth:detailsPlaceholder",
+  LOCATION: "auth:locationPlaceholder",
+  EMPLOYEE_NAME: "auth:employeeName",
+  JOB_DESC: "auth:jobDesc",
+  DESC: "auth:desc",
+  WORKING_HOURS: "auth:workingHours",
+  HOURS: "auth:hours",
+  EMPLOYEE_NUM: "auth:employeeNum",
+  PROVIDER_NAME: "auth:providerName",
+  ABOUT_PROVIDER: "auth:aboutProvider",
+  SERVICE_NAME: "auth:serviceName",
+  PRICE: "auth:price",
+  TYPE_OF_SERVICE: "auth:typeOfService",
+  SELECT_EMPLOYEES: "auth:selectEmployees",
+  SERVICE_AVAILABILITY: "auth:serviceAvailability",
+  FROM: "auth:from",
+  TO: "auth:to",
+  EMPLOYEES: "auth:employees",
+  PROMOTION_NAME: "auth:promotionName",
+  SELECT_CATEGORY: "auth:selectCategory",
+  CATEGORY: "auth:category",
+  CAPACITY: "auth:capacity",
+  SELECT_DATE: "auth:selectDate",
+  DATE: "auth:date",
+  SELECT_TIME: "auth:selectTime",
+  STATUS: "auth:status",
+  SELECT_SERVICE: "auth:selectService",
+  PAYMENT_TYPE: "auth:paymentType",
+  SELECT_APPOINTMENT_TIME: "auth:selectAppointmentTime",
+  SELECT_ALL: "auth:selectAll",
+  REPEAT_FOR_DAY: "auth:repeatForDay",
+  REPEAT_FOR_WEEK: "auth:repeatForWeek",
+  REPEAT_FOR_MONTH: "auth:repeatForMonth",
 };
 
 export const sidebarNavigation = (prefix: string): ISideBarItem[] => [
@@ -211,4 +256,24 @@ export const SettingsNavigation = (prefix: string): ISideBarItem[] => [
     icon: SettingsIcon,
     link: `${prefix}/settings`,
   },
+];
+
+export const DaysOfWeek: string[] = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+export const HourTimes: string[] = [
+  "10:00 AM",
+  "11:00 AM",
+  "12:00 PM",
+  "01:00 PM",
+  "02:00 PM",
+  "03:00 PM",
+  "04:00 PM",
+  "05:00 PM",
 ];

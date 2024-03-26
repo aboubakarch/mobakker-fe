@@ -20,3 +20,14 @@ export enum NavigationTypeEnum {
   Provider = "provider",
   SuperAdmin = "superAdmin",
 }
+
+export enum FieldTypesEnum {
+  Text = "text",
+  Select = "select",
+  Textarea = "textarea",
+  EmployeeSelect = "employeesSelect",
+  DaysRadio = "daysRadio",
+  DatePicker = "datePicker",
+  HoursCheck = "hoursCheck",
+  Checkbox = "checkbox",
+}

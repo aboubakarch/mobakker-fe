@@ -9,3 +9,5 @@ export * from './Pagination'
 export * from './DropdownMenu'
 export * from './Badge'
 export * from './Tabs'
+export * from './Checkbox'
+export * from "./Popover"

@@ -39,5 +39,15 @@
   "transfer": "نقل",
   "actions": "الإجراءات",
   "login": "تسجيل الدخول",
-  "selectLanguage": "اختر اللغة"
+  "selectLanguage": "اختر اللغة",
+  "addBranch": "إضافة فرع",
+  "addEmployee": "إضافة موظف",
+  "save": "حفظ",
+  "cancel": "إلغاء",
+  "addProvider": "إضافة مزود",
+  "addNewProvider": "إضافة مزود جديد",
+  "addService": "إضافة خدمة",
+  "addPromotion": "إضافة ترقية",
+  "addNewPromotion": "إضافة ترقية جديدة",
+  "addNewAppointment": "إضافة موعد جديد"
 }

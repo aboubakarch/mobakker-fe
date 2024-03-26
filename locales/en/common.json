@@ -39,5 +39,15 @@
   "transfer": "Transfer",
   "actions": "Actions",
   "login": "Login",
-  "selectLanguage": "Select Language"
+  "selectLanguage": "Select Language",
+  "addBranch": "Add Branch",
+  "addEmployee": "Add Employee",
+  "save": "Save",
+  "cancel": "Cancel",
+  "addProvider": "Add Provider",
+  "addNewProvider": "Add New Provider",
+  "addService": "Add Service",
+  "addPromotion": "Add Promotion",
+  "addNewPromotion": "Add New Promotion",
+  "addNewAppointment": "Add New Appointment"
 }
