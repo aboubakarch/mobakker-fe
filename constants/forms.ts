@@ -1,5 +1,6 @@
 import {
   IAppointmentFormValues,
+  IBranchEditFormValues,
   IBranchFormValues,
   IEmployeeFormValues,
   IFormValueObj,
@@ -10,6 +11,7 @@ import {
 } from "@/@types/forms";
 import {
   appointmentValidationSchema,
+  branchEditValidationSchema,
   branchValidationSchema,
   employeeValidationSchema,
   loginValidationSchema,
@@ -27,6 +29,11 @@ export const loginDefaultValues: ILoginFormValues = {
 export const branchDefaultValues: IBranchFormValues = {
   name: "",
   password: "",
+  details: "",
+  location: "",
+};
+export const branchEditDefaultValues: IBranchEditFormValues = {
+  name: "",
   details: "",
   location: "",
 };
@@ -105,6 +112,32 @@ export const branchFormVals: IFormValueObj<IBranchFormValues> = {
       name: "password",
       label: t(formConstants.PASS_PLACEHOLDER),
     },
+    location: {
+      placeHolder: t(formConstants.LOCATION),
+      hasError: false,
+      name: "location",
+      label: t(formConstants.LOCATION),
+    },
+    details: {
+      placeHolder: t(formConstants.DETAILS),
+      hasError: false,
+      name: "details",
+      label: t(formConstants.DETAILS),
+      type: FieldTypesEnum.Textarea,
+    },
+  }),
+};
+export const branchEditFormVals: IFormValueObj<IBranchEditFormValues> = {
+  validationSchema: branchEditValidationSchema,
+  initialValues: branchEditDefaultValues,
+  info: (t) => ({
+    name: {
+      placeHolder: t(formConstants.NAME_PLACEHOLER),
+      hasError: false,
+      name: "name",
+      label: t(formConstants.BRANCH_NAME_LABEL),
+    },
+
     location: {
       placeHolder: t(formConstants.LOCATION),
       hasError: false,

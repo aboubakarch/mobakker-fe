@@ -12,6 +12,11 @@ interface IBranchFormValues {
   location: string;
   details: string;
 }
+interface IBranchEditFormValues {
+  name: string;
+  location: string;
+  details: string;
+}
 interface IProviderFormValues {
   name: string;
   password: string;

@@ -1,16 +1,24 @@
 "use client"
+import AppForm from '@/components/form/Form'
+import InputField from '@/components/form/FormField'
 import { Button } from '@/components/ui'
 import Dropzone from '@/components/ui/Dropzone'
 import PageHeader from '@/components/ui/PageHeader'
 import { messages } from '@/constants/constants'
+import { branchFormVals } from '@/constants/forms'
+import { branchEditValidationSchema } from '@/constants/validationSchemas'
 import Image from 'next/image'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import * as yup from 'yup';
+
 
 const BranchProfile = () => {
     const { t } = useTranslation()
 
-
+    const onSubmit = (values: yup.InferType<typeof branchEditValidationSchema>) => {
+        console.log(values);
+    };
     return (
         <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
             <PageHeader title={t(messages.BRANCH_PROFILE)}
@@ -44,6 +52,21 @@ const BranchProfile = () => {
 
                 </div>
                 <div className='flex-[0.70] bg-white rounded'>
+
+                    <AppForm
+                        onSubmit={onSubmit}
+                        className="px-3 py-4 flex gap-4 flex-col"
+                        {...branchFormVals}>
+
+
+                        <InputField {...branchFormVals.info(t).name} disabled={true} />
+
+
+                        <InputField {...branchFormVals.info(t).location} disabled={true} />
+                        <InputField {...branchFormVals.info(t).details} disabled={true} />
+
+
+                    </AppForm>
 
                 </div>
 
