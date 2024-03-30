@@ -33,7 +33,7 @@ const PromotionModal: FC<IModalCompProps> = ({ closeModal, visible }) => {
                     </Button>
                 </div>
 
-                <div className='flex flex-row gap-2'>
+                <div className='flex gap-2'>
                     <div className='flex-1 flex flex-col gap-4'>
                         <InputField {...promotionFormVals.info(t).name} />
                         <InputField {...promotionFormVals.info(t).date} />

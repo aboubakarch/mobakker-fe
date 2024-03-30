@@ -100,14 +100,14 @@ export function DataTable<TData, TValue>({
                     className="max-w-sm capitalize bg-indigo-800 bg-opacity-5"
                 />
                 <div className="flex gap-3">
-                    <Button variant="outline" className="ml-auto bg-indigo-800 text-indigo-800 bg-opacity-5 hover:bg-indigo-100">
-                        <SortAsc className="mr-2 h-4 w-4" />
+                    <Button variant="outline" className="ltr:ml-auto rtl:mr-auto bg-indigo-800 text-indigo-800 bg-opacity-5 hover:bg-indigo-100">
+                        <SortAsc className="ltr:mr-2 rtl:ml-2 h-4 w-4" />
                         <p>Sort</p>
                     </Button>
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <Button variant="outline" className="ml-auto bg-indigo-800 text-indigo-800 bg-opacity-5 hover:bg-indigo-100">
-                                <Filter className="mr-2 h-4 w-4" />
+                            <Button variant="outline" className="ltr:ml-auto rtl:mr-auto bg-indigo-800 text-indigo-800 bg-opacity-5 hover:bg-indigo-100">
+                                <Filter className="ltr:mr-2 rtl:ml-2 h-4 w-4" />
                                 <p>Filter</p>
                             </Button>
                         </DropdownMenuTrigger>

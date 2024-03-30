@@ -48,7 +48,7 @@ const AppointmentModal: FC<IModalCompProps> = ({ closeModal, visible }) => {
 
 
                     <InputField {...appointmentFormVals.info(t).hours} />
-                    <div className='flex flex-row gap-2'>
+                    <div className='flex gap-2'>
                         <InputField {...appointmentFormVals.info(t).repeatDay} />
                         <InputField {...appointmentFormVals.info(t).repeatWeek} />
                         <InputField {...appointmentFormVals.info(t).repeatMonth} />

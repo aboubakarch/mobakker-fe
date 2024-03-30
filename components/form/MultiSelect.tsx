@@ -56,7 +56,7 @@ export const EmployeeMultiSelect: React.FC<{ selected: any[], setSelected: (arg:
                 >
 
                     <p>{selected.length === 0 ? "Select Employees" : `${selected.length} Employees Selected`}</p>
-                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                    <ChevronsUpDown className="ltr:ml-2 rtl:mr-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="full">

@@ -29,7 +29,7 @@ const Sidebar: FC<ISideBarProps> = ({ navigation }) => {
                 ))}
                 <hr className='w-2/3 self-center' />
             </div>
-            <div className='w-full flex flex-col gap-3 pl-5'>
+            <div className='w-full flex flex-col gap-3 ltr:pl-5 rtl:pr-5'>
                 {settingsNav.map((item) => (
                     <SideListItem key={item.id} {...item} />
                 ))}

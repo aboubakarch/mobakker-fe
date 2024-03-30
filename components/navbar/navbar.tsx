@@ -21,7 +21,7 @@ const Navbar = () => {
                 </div>
                 <SearchInput placeholder='Search' className='bg-screen w-[60%] focus-visible:ring-0 border-0' />
             </div>
-            <div className='flex-[0.5] flex justify-end pr-4 items-center h-full gap-2'>
+            <div className='flex-[0.5] flex justify-end ltr:pr-4 rtl:pl-4 items-center h-full gap-2'>
                 <div className='flex gap-2'>
                     <LanguageChanger selectClassName='border-[#EEF5E4] bg-screen' />
                     <IconButton>

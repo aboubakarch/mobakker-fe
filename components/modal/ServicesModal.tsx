@@ -37,7 +37,7 @@ const ServiceModal: FC<IModalCompProps> = ({ closeModal, visible }) => {
 
                     <Dropzone title='Upload Service Logo' />
                 </div>
-                <div className='flex flex-row gap-2'>
+                <div className='flex gap-2'>
                     <div className='flex-1 flex flex-col gap-4'>
                         <InputField {...serviceFormVals.info(t).name} />
                         <InputField {...serviceFormVals.info(t).serviceType} />

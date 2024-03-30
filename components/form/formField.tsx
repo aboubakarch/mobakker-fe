@@ -127,7 +127,7 @@ const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, 
                                             disabled={disabled}
                                             variant={"outline"}
                                             className={cn(
-                                                "w-full pl-3 text-left font-normal",
+                                                "w-full ltr:pl-3 rtl:pr-3 text-left font-normal",
                                                 !field.value && "text-muted-foreground"
                                             )}
                                         >
@@ -136,7 +136,7 @@ const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, 
                                             ) : (
                                                 <span>Pick a date</span>
                                             )}
-                                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                            <CalendarIcon className="ltr:ml-auto rtl:mr-auto h-4 w-4 opacity-50" />
                                         </Button>
                                     </FormControl>
                                 </PopoverTrigger>

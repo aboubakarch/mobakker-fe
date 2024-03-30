@@ -15,8 +15,8 @@ export default function RootLayout({
   children,
 }: Readonly<ILayoutProps>) {
   return (
-    <html lang="en">
-      <body className={cn(inter.className, "h-screen w-screen")}>{children}</body>
+    <html lang="en" dir="ltr">
+      <body className={cn(inter.className, "h-screen w-screen ")}>{children}</body>
     </html>
   );
 }
