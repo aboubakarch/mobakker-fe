@@ -88,5 +88,7 @@
   "uploadImage": "Click to upload or drag and drop",
   "imageFormats": "SVG, PNG, JPG, or GIF (max, 800 X 800px)",
   "branchProfile": "Branch Profile",
-  "logo": "Logo"
+  "logo": "Logo",
+  "deleteConfirmation": "You want to delete this?",
+  "areYouSure": "Are you sure?"
 }

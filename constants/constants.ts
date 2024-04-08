@@ -107,6 +107,8 @@ export const messages = {
   IMAGE_FORMATS: "common:imageFormats",
   BRANCH_PROFILE: "common:branchProfile",
   LOGO: "common:logo",
+  DELETE_CONFIRMATION: "common:deleteConfirmation",
+  ARE_YOU_SURE: "common:areYouSure",
 };
 
 export const tableHeader = {

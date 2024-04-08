@@ -13,3 +13,8 @@ interface IModalCompProps {
   visible: boolean;
   closeModal: () => void;
 }
+
+interface IDeleteModalProps extends IModalCompProps {
+  title: string;
+  onDelete: () => void;
+}
