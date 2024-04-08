@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 
 import { cn } from "@/lib/utils";
+import { Toaster } from "@/components/ui/Toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +17,10 @@ export default function RootLayout({
 }: Readonly<ILayoutProps>) {
   return (
     <html lang="en" dir="ltr">
-      <body className={cn(inter.className, "h-screen w-screen ")}>{children}</body>
+      <body className={cn(inter.className, "h-screen w-screen ")}>
+        {children}
+        <Toaster />
+      </body>
     </html>
   );
 }

@@ -13,8 +13,9 @@ import { X } from 'lucide-react'
 import { IModalCompProps } from '@/@types/modals'
 import { Button } from '../ui'
 
-const BranchModal: FC<IModalCompProps> = ({ closeModal, visible }) => {
+const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, val }) => {
     const { t } = useTranslation();
+    const branchFormVal = branchFormVals(val)
     const onSubmit = (values: yup.InferType<typeof branchValidationSchema>) => {
         console.log(values);
     };
@@ -23,7 +24,7 @@ const BranchModal: FC<IModalCompProps> = ({ closeModal, visible }) => {
             <AppForm
                 onSubmit={onSubmit}
                 className="px-3 py-4 flex gap-4 flex-col"
-                {...branchFormVals}>
+                {...branchFormVal}>
                 <div className='flex justify-between w-full'>
                     <p className='text-black text-xl font-medium  leading-[30px]'>{t(messages.ADD_BRANCH)}</p>
                     <Button variant={'ghost'} onClick={closeModal} className='px-3 py-0'>
@@ -36,17 +37,17 @@ const BranchModal: FC<IModalCompProps> = ({ closeModal, visible }) => {
                 </div>
                 <div className='flex gap-3 w-full'>
                     <div className='flex-1'>
-                        <InputField {...branchFormVals.info(t).name} />
+                        <InputField {...branchFormVal.info(t).name} />
 
                     </div>
                     <div className='flex-1'>
-                        <InputField {...branchFormVals.info(t).password} />
+                        <InputField {...branchFormVal.info(t).password} />
 
                     </div>
 
                 </div>
-                <InputField {...branchFormVals.info(t).location} />
-                <InputField {...branchFormVals.info(t).details} />
+                <InputField {...branchFormVal.info(t).location} />
+                <InputField {...branchFormVal.info(t).details} />
                 <div className='self-end flex gap-3'>
                     <SubmitButton title={t(messages.ADD_BRANCH)} className="self-end bg-primaryBlue" />
                     <Button onClick={closeModal} variant={"outline"} >

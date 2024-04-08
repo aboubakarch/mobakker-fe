@@ -9,9 +9,10 @@ interface ModalSlice {
   test: IModal;
 }
 
-interface IModalCompProps {
+interface IModalCompProps<T = any> {
   visible: boolean;
   closeModal: () => void;
+  val?: T;
 }
 
 interface IDeleteModalProps extends IModalCompProps {

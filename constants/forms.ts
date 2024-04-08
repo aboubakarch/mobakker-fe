@@ -26,12 +26,14 @@ export const loginDefaultValues: ILoginFormValues = {
   email: "",
   password: "",
 };
-export const branchDefaultValues: IBranchFormValues = {
-  name: "",
-  password: "",
-  details: "",
-  location: "",
-};
+export const branchDefaultValues: (val?: SampleBranch) => IBranchFormValues = (
+  val
+) => ({
+  name: val ? val.name : "",
+  password: val ? val.pasword : "",
+  details: val ? val.description : "",
+  location: val ? val.location : "",
+});
 export const branchEditDefaultValues: IBranchEditFormValues = {
   name: "",
   details: "",
@@ -96,9 +98,11 @@ export const loginFormVals: IFormValueObj<ILoginFormValues> = {
     },
   }),
 };
-export const branchFormVals: IFormValueObj<IBranchFormValues> = {
+export const branchFormVals: (
+  val?: SampleBranch
+) => IFormValueObj<IBranchFormValues> = (val) => ({
   validationSchema: branchValidationSchema,
-  initialValues: branchDefaultValues,
+  initialValues: branchDefaultValues(val),
   info: (t) => ({
     name: {
       placeHolder: t(formConstants.NAME_PLACEHOLER),
@@ -126,7 +130,7 @@ export const branchFormVals: IFormValueObj<IBranchFormValues> = {
       type: FieldTypesEnum.Textarea,
     },
   }),
-};
+});
 export const branchEditFormVals: IFormValueObj<IBranchEditFormValues> = {
   validationSchema: branchEditValidationSchema,
   initialValues: branchEditDefaultValues,

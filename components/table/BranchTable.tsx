@@ -1,10 +1,10 @@
 "use client"
-import React from 'react'
+import React, { FC } from 'react'
 import { DataTable } from './DataTable'
 import { branchColumns } from './columns/BranchColumn'
 import { useTranslation } from 'react-i18next'
 
-const BranchTable = () => {
+const BranchTable: FC<ITableProps<SampleBranch>> = ({ handleEdit, handleDelete }) => {
     const { t } = useTranslation()
 
     const data: SampleBranch[] = [
@@ -33,9 +33,16 @@ const BranchTable = () => {
             pasword: "Password@123"
         },
     ]
+
+
     return (
         <div>
-            <DataTable data={data} columns={branchColumns(t)} filterKey='name' count={data.length} rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5' />
+            <DataTable
+                data={data}
+                columns={branchColumns(t, handleEdit, handleDelete)}
+                filterKey='name' count={data.length}
+                rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5'
+            />
         </div>
     )
 }
