@@ -156,6 +156,7 @@ export const tableHeader = {
   CITY: "table:city",
   BOOKING_ID_SUB: "table:bookingIdSubscription",
   COMPLAINT_MESSAGE: "table:complaintMessage",
+  STATE: "table:state",
 };
 
 export const formConstants = {
@@ -200,6 +201,8 @@ export const formConstants = {
   REPEAT_FOR_DAY: "auth:repeatForDay",
   REPEAT_FOR_WEEK: "auth:repeatForWeek",
   REPEAT_FOR_MONTH: "auth:repeatForMonth",
+  STATE: "auth:state",
+  CITY: "auth:city",
 };
 
 export const SideBarItems = {

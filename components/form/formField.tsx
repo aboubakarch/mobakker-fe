@@ -21,9 +21,17 @@ import { CalendarIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import moment from 'moment'
 
+const testSelectData = [{
+    name: "Test 3",
+    value: "Test1"
+}, {
+    name: "Test 2",
+    value: "Test2"
+}]
 
-const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, type = FieldTypesEnum.Text, disabled = false }) => {
+const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, type = FieldTypesEnum.Text, disabled = false, data }) => {
     const form = useFormContext()
+    const selectData = data ? data : testSelectData
 
     const handleDaySelect = (day: string, checked: boolean, setDays: (...event: any[]) => void, value: string[]) => {
         let newArray: (string)[] = []
@@ -231,8 +239,9 @@ const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, 
                                     </SelectTrigger>
                                 </FormControl>
                                 <SelectContent>
-                                    <SelectItem value="test">Test 1</SelectItem>
-                                    <SelectItem value="test2">Test 2</SelectItem>
+                                    {selectData.map(item => (
+                                        <SelectItem key={item.value} value={`${item.value}`}>{item.name}</SelectItem>
+                                    ))}
                                 </SelectContent>
                             </Select>
                             {desc && <FormDescription>

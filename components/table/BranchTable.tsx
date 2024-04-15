@@ -11,25 +11,29 @@ const BranchTable: FC<ITableProps<SampleBranch>> = ({ handleEdit, handleDelete }
         {
             name: "Branch Lorem",
             location: "Abcd",
-            description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, earum! Debitis, aspernatur qui nesciunt magnam laboriosam culpa nisi error maiores sunt fugit? Vitae nemo et odit, accusantium rem quos excepturi.",
+            pasword: "Password@123",
+            state: "01",
+            city: "ABC"
+        },
+        {
+            name: "Branch Lorem",
+            location: "Abcd",
+            state: "01",
+            city: "ABC",
             pasword: "Password@123"
         },
         {
             name: "Branch Lorem",
             location: "Abcd",
-            description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, earum! Debitis, aspernatur qui nesciunt magnam laboriosam culpa nisi error maiores sunt fugit? Vitae nemo et odit, accusantium rem quos excepturi.",
+            state: "01",
+            city: "ABC",
             pasword: "Password@123"
         },
         {
             name: "Branch Lorem",
             location: "Abcd",
-            description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, earum! Debitis, aspernatur qui nesciunt magnam laboriosam culpa nisi error maiores sunt fugit? Vitae nemo et odit, accusantium rem quos excepturi.",
-            pasword: "Password@123"
-        },
-        {
-            name: "Branch Lorem",
-            location: "Abcd",
-            description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, earum! Debitis, aspernatur qui nesciunt magnam laboriosam culpa nisi error maiores sunt fugit? Vitae nemo et odit, accusantium rem quos excepturi.",
+            state: "01",
+            city: "ABC",
             pasword: "Password@123"
         },
     ]

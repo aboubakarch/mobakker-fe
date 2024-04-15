@@ -40,12 +40,12 @@ export const branchColumns: (t: TFunction<"translation", undefined>, handleEdit?
         },
         {
             accessorKey: "name",
-            header: () => <div className="text-center">{t(tableHeader.BRANCH_NAME)}</div>,
+            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.BRANCH_NAME)}</div>,
 
             cell: ({ row }) => {
                 const name: string = row.getValue("name");
                 return (
-                    <div className="w-max flex items-center justify-center text-center justify-self-center">
+                    <div className="w-max flex items-center justify-center ltr:text-left rtl:text-right justify-self-center">
 
                         <p className="text-sm line-clamp-1">{name}</p>
                     </div>
@@ -55,7 +55,7 @@ export const branchColumns: (t: TFunction<"translation", undefined>, handleEdit?
 
         {
             accessorKey: "location",
-            header: () => <div className="text-center">{t(tableHeader.LOCATION)}</div>,
+            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.LOCATION)}</div>,
 
             cell: ({ row }) => {
                 const location: string = row.getValue("location");
@@ -66,7 +66,7 @@ export const branchColumns: (t: TFunction<"translation", undefined>, handleEdit?
         },
         {
             accessorKey: "password",
-            header: () => <div className="text-center">{t(tableHeader.PASSWORD)}</div>,
+            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.PASSWORD)}</div>,
 
             cell: ({ }) => {
                 // const password: string = row.getValue("password")
@@ -80,14 +80,24 @@ export const branchColumns: (t: TFunction<"translation", undefined>, handleEdit?
             }
         },
         {
-            accessorKey: "description",
-            header: () => <div className="text-center">{t(tableHeader.DETAILS)}</div>,
+            accessorKey: "city",
+            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.CITY)}</div>,
 
             cell: ({ row }) => {
-                const description: string = row.getValue("description");
+                const city: string = row.getValue("city");
                 return (
-                    <p className="text-sm line-clamp-3">{description}</p>
+                    <TextColumn text={city} />
+                )
+            },
+        },
+        {
+            accessorKey: "state",
+            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.STATE)}</div>,
 
+            cell: ({ row }) => {
+                const state: string = row.getValue("state");
+                return (
+                    <TextColumn text={state} />
                 )
             },
         },

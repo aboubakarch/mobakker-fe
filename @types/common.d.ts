@@ -90,7 +90,8 @@ interface SampleBranch {
   name: string;
   location: string;
   pasword: string;
-  description: string;
+  state: string;
+  city: string;
 }
 
 interface SampleProvider {

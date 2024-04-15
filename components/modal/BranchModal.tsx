@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect, useMemo, useState } from 'react'
 import Modal from './Modal'
 import Dropzone from '../ui/Dropzone'
 import AppForm from '../form/Form'
@@ -12,10 +12,52 @@ import { messages } from '@/constants/constants'
 import { X } from 'lucide-react'
 import { IModalCompProps } from '@/@types/modals'
 import { Button } from '../ui'
+import { City, State } from 'country-state-city';
+import { IBranchFormValues, IFormValueObj } from '@/@types/forms'
+import { TFunction } from 'i18next'
+import { useFormContext } from 'react-hook-form'
+
+
+
+const CityPicker: FC<{
+    branchFormVal: IFormValueObj<IBranchFormValues>, states: any[], t: TFunction<"translation", undefined>
+}> = ({ branchFormVal, states, t }) => {
+
+    const [cities, setCites] = useState<any[]>([])
+    const form = useFormContext()
+    const state = form.watch("state")
+    // console.log("state changed", state)
+    useEffect(() => {
+        const tcities = City.getCitiesOfState("SA", state)
+        // const cities = State.getStatesOfCountry("SA")
+        setCites(tcities.map(st => ({ name: st.name, value: st.name })))
+    }, [state])
+
+    return (
+        <div className='flex gap-3 w-full'>
+            <div className='flex-1'>
+                <InputField {...branchFormVal.info(t).state} data={states} />
+
+            </div>
+            <div className='flex-1'>
+                <InputField {...branchFormVal.info(t).city} data={cities} disabled={cities.length === 0} />
+            </div>
+
+        </div>
+    )
+}
+
 
 const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, val }) => {
     const { t } = useTranslation();
     const branchFormVal = branchFormVals(val)
+    const states = useMemo(() => {
+        const temp = State.getStatesOfCountry("SA")
+        return temp.map(st => ({ name: st.name, value: st.isoCode }))
+    }, [])
+    // console.log("states", states)
+
+
     const onSubmit = (values: yup.InferType<typeof branchValidationSchema>) => {
         console.log(values);
     };
@@ -47,9 +89,10 @@ const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, v
 
                 </div>
                 <InputField {...branchFormVal.info(t).location} />
-                <InputField {...branchFormVal.info(t).details} />
+                <CityPicker branchFormVal={branchFormVal} states={states} t={t} />
+
                 <div className='self-end flex gap-3'>
-                    <SubmitButton title={t(messages.ADD_BRANCH)} className="self-end bg-primaryBlue" />
+                    <SubmitButton title={val ? t(messages.EDIT) : t(messages.ADD_BRANCH)} className="self-end bg-primaryBlue" />
                     <Button onClick={closeModal} variant={"outline"} >
                         {t(messages.CANCEL)}
                     </Button>

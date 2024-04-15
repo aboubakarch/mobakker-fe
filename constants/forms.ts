@@ -31,7 +31,8 @@ export const branchDefaultValues: (val?: SampleBranch) => IBranchFormValues = (
 ) => ({
   name: val ? val.name : "",
   password: val ? val.pasword : "",
-  details: val ? val.description : "",
+  state: val ? val.state : "",
+  city: val ? val.city : "",
   location: val ? val.location : "",
 });
 export const branchEditDefaultValues: IBranchEditFormValues = {
@@ -122,12 +123,19 @@ export const branchFormVals: (
       name: "location",
       label: t(formConstants.LOCATION),
     },
-    details: {
-      placeHolder: t(formConstants.DETAILS),
+    state: {
+      placeHolder: t(formConstants.STATE),
       hasError: false,
-      name: "details",
-      label: t(formConstants.DETAILS),
-      type: FieldTypesEnum.Textarea,
+      name: "state",
+      label: t(formConstants.STATE),
+      type: FieldTypesEnum.Select,
+    },
+    city: {
+      placeHolder: t(formConstants.CITY),
+      hasError: false,
+      name: "city",
+      label: t(formConstants.CITY),
+      type: FieldTypesEnum.Select,
     },
   }),
 });

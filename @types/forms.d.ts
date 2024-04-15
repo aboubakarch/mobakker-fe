@@ -10,7 +10,8 @@ interface IBranchFormValues {
   name: string;
   password: string;
   location: string;
-  details: string;
+  state: string;
+  city: string;
 }
 interface IBranchEditFormValues {
   name: string;
@@ -78,6 +79,10 @@ interface IFormField {
   desc?: string;
   type?: FieldTypesEnum;
   disabled?: boolean;
+  data?: {
+    name: string | number;
+    value: string | number;
+  }[];
 }
 
 interface IFormValueObj<T> {
