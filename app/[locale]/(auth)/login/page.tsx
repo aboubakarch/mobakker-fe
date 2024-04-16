@@ -6,14 +6,36 @@ import InputField from '@/components/form/FormField';
 import { messages } from '@/constants/constants';
 import { loginFormVals } from '@/constants/forms';
 import { loginValidationSchema } from '@/constants/validationSchemas';
-import React from 'react';
+import { useToast } from '@/hooks/use-toast';
+import APIService from '@/services/api';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 
 const Page = () => {
   const { t } = useTranslation();
-  const onSubmit = (values: yup.InferType<typeof loginValidationSchema>) => {
-    console.log(values);
+  const [loading, setLoading] = useState(false)
+  const { toast } = useToast()
+  const onSubmit = async (values: yup.InferType<typeof loginValidationSchema>) => {
+    setLoading(true)
+    console.log(values)
+    try {
+      const res = await APIService.getInstance().login(values);
+      console.log(res)
+      setLoading(false)
+
+      toast({
+        description: "Login Successful",
+      })
+
+    } catch (error) {
+      setLoading(false)
+
+      toast({
+        variant: "destructive",
+        description: "Error! Something went wrong",
+      })
+    }
   };
 
   return (
@@ -31,7 +53,7 @@ const Page = () => {
           />
         </div>
 
-        <SubmitButton title={t(messages.LOGIN)} className="w-full bg-primaryBlue" />
+        <SubmitButton title={t(messages.LOGIN)} loading={loading} className="w-full bg-indigo-800 disabled:bg-opacity-30" />
         <div className="flex justify-between text-sm">
           <p className="">{t(messages.FORGOT_PASSWORD)}</p>
           <div className="flex gap-1 items-center">

@@ -19,6 +19,9 @@ class APIService extends HTTPService {
   public createBranch<T = any>(payload: object): Promise<T> {
     return this.post<T>(endpoints.CREATE_BRANCH, payload)
   }
+  public login<T = any>(payload: ILoginPayload): Promise<T> {
+    return this.post<T>(endpoints.LOGIN, payload)
+  }
 
 }
 
