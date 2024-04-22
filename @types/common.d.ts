@@ -89,14 +89,17 @@ interface SampleSubscription {
 interface SampleBranch {
   name: string;
   location: string;
-  pasword: string;
+  password: string;
   state: string;
   city: string;
 }
 
 interface SampleProvider {
-  name: string;
-  pasword: string;
+  firstName: string;
+  lastName: string;
+  password: string;
+  email: string;
+  phone: string;
   description: string;
 }
 interface SampleUser {

@@ -19,7 +19,10 @@ interface IBranchEditFormValues {
   details: string;
 }
 interface IProviderFormValues {
-  name: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
   password: string;
   details: string;
 }

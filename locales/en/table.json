@@ -43,5 +43,7 @@
   "city": "City",
   "bookingIdSubscription": "Booking ID/Subscription",
   "complaintMessage": "Complaint Message",
-  "state": "State"
+  "state": "State",
+  "email": "Email",
+  "phone": "Phone"
 }

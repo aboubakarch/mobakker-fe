@@ -11,7 +11,7 @@ const BranchTable: FC<ITableProps<SampleBranch>> = ({ handleEdit, handleDelete }
         {
             name: "Branch Lorem",
             location: "Abcd",
-            pasword: "Password@123",
+            password: "Password@123",
             state: "01",
             city: "ABC"
         },
@@ -20,21 +20,21 @@ const BranchTable: FC<ITableProps<SampleBranch>> = ({ handleEdit, handleDelete }
             location: "Abcd",
             state: "01",
             city: "ABC",
-            pasword: "Password@123"
+            password: "Password@123"
         },
         {
             name: "Branch Lorem",
             location: "Abcd",
             state: "01",
             city: "ABC",
-            pasword: "Password@123"
+            password: "Password@123"
         },
         {
             name: "Branch Lorem",
             location: "Abcd",
             state: "01",
             city: "ABC",
-            pasword: "Password@123"
+            password: "Password@123"
         },
     ]
 

@@ -30,7 +30,7 @@ export const branchDefaultValues: (val?: SampleBranch) => IBranchFormValues = (
   val
 ) => ({
   name: val ? val.name : "",
-  password: val ? val.pasword : "",
+  password: val ? val.password : "",
   state: val ? val.state : "",
   city: val ? val.city : "",
   location: val ? val.location : "",
@@ -40,11 +40,16 @@ export const branchEditDefaultValues: IBranchEditFormValues = {
   details: "",
   location: "",
 };
-export const providerDefaultValues: IProviderFormValues = {
-  name: "",
-  password: "",
-  details: "",
-};
+export const providerDefaultValues: (
+  val?: SampleProvider
+) => IProviderFormValues = (val) => ({
+  firstName: val ? val.firstName : "",
+  lastName: val ? val.lastName : "",
+  email: val ? val.email : "",
+  phone: val ? val.phone : "",
+  password: val ? val.password : "",
+  details: val ? val.description : "",
+});
 export const employeeDefaultValues: IEmployeeFormValues = {
   name: "",
   hours: "",
@@ -199,21 +204,42 @@ export const employeeFormVals: IFormValueObj<IEmployeeFormValues> = {
   }),
 };
 
-export const providerFormVals: IFormValueObj<IProviderFormValues> = {
+export const providerFormVals: (
+  val?: SampleProvider
+) => IFormValueObj<IProviderFormValues> = (val) => ({
   validationSchema: providerValidationSchema,
-  initialValues: providerDefaultValues,
+  initialValues: providerDefaultValues(val),
   info: (t) => ({
-    name: {
-      placeHolder: t(formConstants.NAME_PLACEHOLER),
+    firstName: {
+      placeHolder: t(formConstants.FIRST_NAME),
       hasError: false,
-      name: "name",
-      label: t(formConstants.PROVIDER_NAME),
+      name: "firstName",
+      label: t(formConstants.FIRST_NAME),
+    },
+    lastName: {
+      placeHolder: t(formConstants.LAST_NAME),
+      hasError: false,
+      name: "lastName",
+      label: t(formConstants.LAST_NAME),
+    },
+    email: {
+      placeHolder: t(formConstants.EMAIL_PLACEHOLDER),
+      hasError: false,
+      name: "email",
+      label: t(formConstants.EMAIL_LABEL),
+    },
+    phone: {
+      placeHolder: t("+966 *******"),
+      hasError: false,
+      name: "phone",
+      label: t(formConstants.PHONE),
     },
     password: {
       placeHolder: t(formConstants.PASS_PLACEHOLDER),
       hasError: false,
       name: "password",
       label: t(formConstants.PASS_PLACEHOLDER),
+      type: "password",
     },
     details: {
       placeHolder: t(formConstants.DETAILS),
@@ -223,7 +249,7 @@ export const providerFormVals: IFormValueObj<IProviderFormValues> = {
       fieldType: FieldTypesEnum.Textarea,
     },
   }),
-};
+});
 
 export const serviceFormVals: IFormValueObj<IServiceFormValues> = {
   validationSchema: serviceValidationSchema,

@@ -43,5 +43,7 @@
   "city": "المدينة",
   "bookingIdSubscription": "معرف الحجز/الاشتراك",
   "complaintMessage": "رسالة الشكوى",
-  "state": "الولاية"
+  "state": "الولاية",
+  "email": "البريد الإلكتروني",
+  "phone": "الهاتف"
 }
