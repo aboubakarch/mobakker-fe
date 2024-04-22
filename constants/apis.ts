@@ -1,5 +1,6 @@
 export const URLs = {
-  BASE_URL: "https://cyan-carrots-tan.loca.lt",
+  BASE_URL:
+    "https://4532-2400-adc5-412-7c00-85de-a26b-e8fe-5967.ngrok-free.app",
 };
 
 export const endpoints = {

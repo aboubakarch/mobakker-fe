@@ -29,7 +29,7 @@ const testSelectData = [{
     value: "Test2"
 }]
 
-const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, type = FieldTypesEnum.Text, disabled = false, data }) => {
+const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, fieldType = FieldTypesEnum.Text, disabled = false, data, type }) => {
     const form = useFormContext()
     const selectData = data ? data : testSelectData
 
@@ -52,7 +52,7 @@ const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, 
         setDays(newArray)
     }
 
-    switch (type) {
+    switch (fieldType) {
         case FieldTypesEnum.Checkbox:
             return (
                 <FormField
@@ -291,7 +291,8 @@ const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, 
                                 <Input
                                     disabled={disabled}
                                     placeholder={placeHolder}
-                                    {...field} />
+                                    {...field}
+                                    type={type} />
                             </FormControl>
                             {desc && <FormDescription>
                                 {desc}

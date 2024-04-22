@@ -26,6 +26,7 @@ const Page = () => {
 
       toast({
         description: "Login Successful",
+        variant: "default"
       })
 
     } catch (error) {

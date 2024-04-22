@@ -77,7 +77,8 @@ interface IFormField {
   label?: string;
   hasError: boolean;
   desc?: string;
-  type?: FieldTypesEnum;
+  fieldType?: FieldTypesEnum;
+  type?: string;
   disabled?: boolean;
   data?: {
     name: string | number;

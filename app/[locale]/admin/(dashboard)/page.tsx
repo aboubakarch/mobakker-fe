@@ -6,11 +6,16 @@ import { Button } from "@/components/ui";
 import { messages } from "@/constants/constants";
 import { ColorsEnum } from "@/constants/enums";
 import { ExportIcon } from "@/svgs";
+// import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 
 export default function Home() {
   const { t } = useTranslation()
+  // useEffect(() => {
+  //   document.cookie = "username=John Doe";
+  //   console.log(document.cookie)
+  // }, [])
 
   return (
 
