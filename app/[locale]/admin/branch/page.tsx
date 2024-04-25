@@ -9,7 +9,7 @@ import { useToast } from '@/hooks/use-toast'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-const LoyalProgram = () => {
+const Branch = () => {
     const { t } = useTranslation()
     const [modalOpen, setModalOpen] = useState(false);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
@@ -66,4 +66,4 @@ const LoyalProgram = () => {
     )
 }
 
-export default LoyalProgram
+export default Branch

@@ -74,17 +74,19 @@ export const promotionDefaultValues: IPromotionFormValues = {
   time: "",
   status: "",
 };
-export const appointmentDefaultValues: IAppointmentFormValues = {
-  employees: [],
-  category: "",
-  service: "",
-  date: "",
-  paymentType: "",
-  hours: [],
-  repeatDay: false,
-  repeatWeek: false,
-  repeatMonth: false,
-};
+export const appointmentDefaultValues: (
+  val?: SampleAppointments
+) => IAppointmentFormValues = (val) => ({
+  employees: val ? val.employees : [],
+  category: val ? val.category : "",
+  service: val ? val.serviceBooked : "",
+  date: val ? val.date : "",
+  paymentType: val ? val.paymentType : "",
+  hours: val ? val.hours : [],
+  repeatDay: val ? val.repeatDay : false,
+  repeatWeek: val ? val.repeatWeek : false,
+  repeatMonth: val ? val.repeatMonth : false,
+});
 
 export const loginFormVals: IFormValueObj<ILoginFormValues> = {
   validationSchema: loginValidationSchema,
@@ -354,9 +356,11 @@ export const promotionFormVals: IFormValueObj<IPromotionFormValues> = {
     },
   }),
 };
-export const appointmentFormVals: IFormValueObj<IAppointmentFormValues> = {
+export const appointmentFormVals: (
+  val?: SampleAppointments
+) => IFormValueObj<IAppointmentFormValues> = (val) => ({
   validationSchema: appointmentValidationSchema,
-  initialValues: appointmentDefaultValues,
+  initialValues: appointmentDefaultValues(val),
   info: (t) => ({
     employees: {
       hasError: false,
@@ -417,4 +421,4 @@ export const appointmentFormVals: IFormValueObj<IAppointmentFormValues> = {
       fieldType: FieldTypesEnum.Checkbox,
     },
   }),
-};
+});

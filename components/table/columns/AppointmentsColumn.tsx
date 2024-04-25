@@ -17,7 +17,7 @@ import { TFunction } from "i18next";
 // import { Checkbox } from "@/components/ui/Checkbox";
 
 
-export const appointmentsColumns: (t: TFunction<"translation", undefined>) => ColumnDef<SampleAppointments>[] = (t: TFunction<"translation", undefined>) => ([
+export const appointmentsColumns: (t: TFunction<"translation", undefined>, handleEdit?: (val: SampleAppointments) => void, handleDelete?: (val: SampleAppointments) => void) => ColumnDef<SampleAppointments>[] = (t, handleEdit, handleDelete) => ([
     // {
     //     id: "select",
     //     header: ({ table }) => (
@@ -137,13 +137,13 @@ export const appointmentsColumns: (t: TFunction<"translation", undefined>) => Co
         },
     },
     {
-        accessorKey: "time",
+        accessorKey: "hours",
         header: () => <div className="text-center">{t(tableHeader.TIME)}</div>,
 
         cell: ({ row }) => {
-            const time: string = row.getValue("time");
+            const hours: string = row.getValue("hours");
             return (
-                <TextColumn text={time} />
+                <TextColumn text={hours[0]} />
             )
         },
     },
@@ -161,8 +161,8 @@ export const appointmentsColumns: (t: TFunction<"translation", undefined>) => Co
 
     {
         id: "actions",
-        cell: () => {
-            // const row = row.original()
+        cell: ({ row }) => {
+            const rowVal = row.original
 
             return (
                 <DropdownMenu>
@@ -173,12 +173,12 @@ export const appointmentsColumns: (t: TFunction<"translation", undefined>) => Co
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>{messages.ACTIONS}</DropdownMenuLabel>
-                        <DropdownMenuItem className="text-indigo-800 hover:bg-indigo-800 hover:bg-opacity-25">
-                            {messages.EDIT}
+                        <DropdownMenuLabel>{t(messages.ACTIONS)}</DropdownMenuLabel>
+                        <DropdownMenuItem onClick={handleEdit ? () => handleEdit(rowVal) : undefined} className="text-indigo-800 hover:bg-indigo-800 hover:bg-opacity-25">
+                            {t(messages.EDIT)}
                         </DropdownMenuItem>
-                        <DropdownMenuItem className="text-red-400 hover:bg-red-400 hover:bg-opacity-25">
-                            {messages.DELETE}
+                        <DropdownMenuItem onClick={handleDelete ? () => handleDelete(rowVal) : undefined} className="text-red-400 hover:bg-red-400 hover:bg-opacity-25">
+                            {t(messages.DELETE)}
                         </DropdownMenuItem>
 
                     </DropdownMenuContent>

@@ -54,7 +54,7 @@ interface IAppointmentFormValues {
   employees: string[];
   category: string;
   service: string;
-  date: string;
+  date: string | Date;
   hours: string[];
   paymentType: string;
   repeatDay: boolean;

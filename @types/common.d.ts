@@ -26,8 +26,15 @@ interface SampleAppointments {
   servicePicture: string;
   serviceTime: string;
   branchName: string;
-  time: string;
+  category: string;
+  hours: string[];
+  employees: [];
   price: number;
+  repeatDay: boolean;
+  repeatWeek: boolean;
+  repeatMonth: boolean;
+  paymentType: string;
+  date: Date;
 }
 interface SampleLoyalPrograms {
   rank: string;
