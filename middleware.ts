@@ -5,7 +5,7 @@ import i18nConfig from "./i18nConfig";
 export function middleware(request: NextRequest) {
   console.log(request.cookies.getAll());
   const token = true;
-  // const role: string = "csrep";
+  const role: string = "csrep";
   const url = request.nextUrl.clone();
   const basePath = url.pathname.split("/");
   console.log(basePath);
@@ -13,21 +13,30 @@ export function middleware(request: NextRequest) {
     url.pathname = "/login";
     return NextResponse.redirect(url);
   }
-  // const sampleRoles = ["admin", "provider"];
-  // if (
-  //   (role && role === basePath[0]) ||
-  //   (role === "manager" && basePath[0] === "") ||
-  //   (role === "csrep" && basePath[0] === "")
-  // ) {
-  // } else {
-  //   if (role === "manager" || role === "csrep") {
-  //     url.pathname = `/${basePath[1]}`;
-  //     return NextResponse.redirect(url);
-  //   } else if (sampleRoles.includes(role)) {
-  //     url.pathname = `/${role}/${basePath[1]}`;
-  //     return NextResponse.redirect(url);
-  //   }
-  // }
+  const sampleRoles = ["admin", "provider"];
+  const baseIndex = basePath[1] === "ar" ? 2 : 1;
+  if (role === "admin" && basePath[baseIndex] !== "admin") {
+    url.pathname = `/admin`;
+    return NextResponse.redirect(url);
+  }
+  if (role === "provider" && basePath[baseIndex] !== "provider") {
+    url.pathname = `/provider`;
+    return NextResponse.redirect(url);
+  }
+  if (
+    role === "manager" &&
+    ((basePath.length !== 2 && basePath[1] !== "ar") ||
+      sampleRoles.includes(basePath[baseIndex]) ||
+      (basePath.length > 2 && basePath[1] !== "ar"))
+  ) {
+    url.pathname = `/`;
+    return NextResponse.redirect(url);
+  }
+  //@ts-ignore
+  if (role === "csrep" && !["", "appointments"].includes(basePath[baseIndex])) {
+    url.pathname = `/`;
+    return NextResponse.redirect(url);
+  }
   return i18nRouter(request, i18nConfig);
 }
 
