@@ -158,6 +158,9 @@ class HTTPService {
     try {
       const tokem = await this.get(`${endpoints.REFRESH_TOKEN}/${this.refreshToken}`)
       // console.log(tokem)
+      if (document) {
+        document.cookie = `accessToken=${tokem.accessToken};path=/`
+      }
       this.setAccessToken(tokem.accessToken);
       return tokem.accessToken
     } catch (error) {
