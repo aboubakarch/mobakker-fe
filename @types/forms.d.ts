@@ -31,7 +31,6 @@ interface IProviderFormValues {
   email: string;
   phone: string;
   password: string;
-  details: string;
 }
 interface IEmployeeFormValues {
   name: string;

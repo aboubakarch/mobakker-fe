@@ -91,5 +91,10 @@
   "logo": "شعار",
   "deleteConfirmation": "هل تريد حذف هذا؟",
   "areYouSure": "هل أنت متأكد؟",
-  "alreadyHaveAccount": "هل لديك حساب بالفعل؟"
+  "alreadyHaveAccount": "هل لديك حساب بالفعل؟",
+  "branchManagers": "مديري الفرع",
+  "managers": "المديرين",
+  "customerCare": "خدمة العملاء",
+  "addManager": "إضافة مدير",
+  "addRepresentative": "إضافة ممثل"
 }

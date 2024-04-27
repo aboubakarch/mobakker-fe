@@ -109,6 +109,22 @@ interface SampleProvider {
   phone: string;
   description: string;
 }
+interface SampleCustomerCare {
+  firstName: string;
+  lastName: string;
+  password: string;
+  email: string;
+  phone: string;
+  description: string;
+}
+interface SampleBranchManager {
+  firstName: string;
+  lastName: string;
+  password: string;
+  email: string;
+  phone: string;
+  description: string;
+}
 interface SampleUser {
   name: string;
   pasword: string;

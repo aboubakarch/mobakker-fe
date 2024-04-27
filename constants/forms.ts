@@ -291,13 +291,6 @@ export const providerFormVals: (
       label: t(formConstants.PASS_PLACEHOLDER),
       type: "password",
     },
-    details: {
-      placeHolder: t(formConstants.DETAILS),
-      hasError: false,
-      name: "details",
-      label: t(formConstants.ABOUT_PROVIDER),
-      fieldType: FieldTypesEnum.Textarea,
-    },
   }),
 });
 

@@ -91,5 +91,10 @@
   "logo": "Logo",
   "deleteConfirmation": "You want to delete this?",
   "areYouSure": "Are you sure?",
-  "alreadyHaveAccount": "Already have an account?"
+  "alreadyHaveAccount": "Already have an account?",
+  "branchManagers": "Branch Managers",
+  "managers": "Managers",
+  "customerCare": "Customer Care",
+  "addManager": "Add Manager",
+  "addRepresentative": "Add Representative"
 }

@@ -6,6 +6,8 @@ import TranslationsProvider from '@/components/TranslationProvider';
 import initTranslations from '@/i18n';
 import StoreProvider from "../storeProvider";
 import { useEffect, useState } from "react";
+import { getCookie } from "@/lib/helpers";
+import APIService from "@/services/api";
 
 const i18nNamespaces = ['common', "navigation", "auth", "table"];
 
@@ -36,6 +38,15 @@ export default function AuthLayout({
         };
 
     }, [locale]);
+    useEffect(() => {
+        const aToken = getCookie("accessToken")
+        const rToken = getCookie("refreshToken")
+        if (aToken && rToken) {
+            APIService.getInstance().setAccessToken(aToken)
+            APIService.getInstance().setRefresToken(rToken)
+
+        }
+    }, [])
 
     if (!resources) {
         // You can return a loading indicator or null while resources are being fetched

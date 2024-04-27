@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import Modal from './Modal'
 import Dropzone from '../ui/Dropzone'
 import AppForm from '../form/Form'
@@ -12,13 +12,34 @@ import { messages } from '@/constants/constants'
 import { X } from 'lucide-react'
 import { IModalCompProps } from '@/@types/modals'
 import { Button } from '../ui'
+import { useToast } from '@/hooks/use-toast'
+import APIService from '@/services/api'
 
-const ProviderModal: FC<IModalCompProps<SampleProvider>> = ({ closeModal, visible, val }) => {
+const CustomerCareModal: FC<IModalCompProps<SampleProvider>> = ({ closeModal, visible, val }) => {
     const { t } = useTranslation();
     const providerFormVal = providerFormVals(val)
+    const [loading, setLoading] = useState(false)
+    const { toast } = useToast()
 
-    const onSubmit = (values: yup.InferType<typeof providerValidationSchema>) => {
-        console.log(values);
+    const onSubmit = async (values: yup.InferType<typeof providerValidationSchema>) => {
+        setLoading(true)
+        try {
+            await APIService.getInstance().registerCustomerCare(values as any);
+            setLoading(false)
+
+            toast({
+                description: "Customer Care Representative added!",
+                variant: "default"
+            })
+        } catch (error) {
+            setLoading(false)
+
+            toast({
+                variant: "destructive",
+                description: "Error! Something went wrong",
+            })
+        }
+        closeModal()
     };
     return (
         <Modal visibility={visible} closeModal={closeModal}>
@@ -27,7 +48,7 @@ const ProviderModal: FC<IModalCompProps<SampleProvider>> = ({ closeModal, visibl
                 className="px-3 py-4 flex gap-4 flex-col"
                 {...providerFormVal}>
                 <div className='flex justify-between w-full'>
-                    <p className='text-black text-xl font-medium  leading-[30px]'>{t(messages.ADD_NEW_PROVIDER)}</p>
+                    <p className='text-black text-xl font-medium  leading-[30px]'>{t(messages.ADD_REPRESENTATIVE)}</p>
                     <Button variant={'ghost'} onClick={closeModal} className='px-3 py-0'>
                         <X className='w-4 h-4 relative text-black' />
                     </Button>
@@ -60,7 +81,7 @@ const ProviderModal: FC<IModalCompProps<SampleProvider>> = ({ closeModal, visibl
                 </div>
                 <InputField {...providerFormVal.info(t).password} />
                 <div className='self-end flex gap-3'>
-                    <SubmitButton title={t(messages.ADD_PROVIDER)} className="self-end bg-primaryBlue" />
+                    <SubmitButton loading={loading} title={t(messages.ADD_REPRESENTATIVE)} className="self-end bg-primaryBlue" />
                     <Button onClick={closeModal} variant={"outline"} >
                         {t(messages.CANCEL)}
                     </Button>
@@ -74,4 +95,4 @@ const ProviderModal: FC<IModalCompProps<SampleProvider>> = ({ closeModal, visibl
     )
 }
 
-export default ProviderModal
+export default CustomerCareModal

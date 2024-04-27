@@ -1,7 +1,7 @@
 "use client"
+import CustomerCareModal from '@/components/modal/CustomerCareModal'
 import DeleteModal from '@/components/modal/DeleteModal'
-import ProviderModal from '@/components/modal/ProviderModal'
-import ProviderTable from '@/components/table/ProviderTable'
+import CustomerCareTable from '@/components/table/CustomerCareTable'
 import { Button } from '@/components/ui'
 import PageHeader from '@/components/ui/PageHeader'
 import { messages } from '@/constants/constants'
@@ -9,7 +9,7 @@ import { useToast } from '@/hooks/use-toast'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-const Providers = () => {
+const CustomerCare = () => {
     const { t } = useTranslation()
     const [modalOpen, setModalOpen] = useState(false);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
@@ -50,22 +50,22 @@ const Providers = () => {
 
     return (
         <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
-            <ProviderModal visible={modalOpen} closeModal={handleModalClose} val={selectedProvider} />
+            <CustomerCareModal visible={modalOpen} closeModal={handleModalClose} val={selectedProvider} />
             <DeleteModal
                 visible={deleteModalOpen}
                 closeModal={handleDeleteModalClose}
                 onDelete={onDeleteProvider}
-                title={messages.PROVIDERS}
+                title={messages.CUSTOMER_CARE}
             />
-            <PageHeader title={t(messages.PROVIDERS)}
+            <PageHeader title={t(messages.CUSTOMER_CARE)}
                 description="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis asperiores, aperiam ipsum corrupti minus recusandae exercitationem dolorum temporibus esse at officia iure in hic consequatur ea nisi placeat praesentium officiis."
             >
-                <Button onClick={() => setModalOpen(true)} className='bg-indigo-800 hover:bg-indigo-600'>{t(messages.ADD_PROVIDER)}</Button>
+                <Button onClick={() => setModalOpen(true)} className='bg-indigo-800 hover:bg-indigo-600'>{t(messages.ADD_REPRESENTATIVE)}</Button>
 
             </PageHeader>
-            <ProviderTable handleEdit={handleEdit} handleDelete={handleDelete} />
+            <CustomerCareTable handleEdit={handleEdit} handleDelete={handleDelete} />
         </div>
     )
 }
 
-export default Providers
+export default CustomerCare

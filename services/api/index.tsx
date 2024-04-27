@@ -1,19 +1,19 @@
 
 import { endpoints } from '@/constants/apis'
 import HTTPService from '../http'
-import { IProviderRegistrationFormValues } from '@/@types/forms'
+import { IProviderFormValues, IProviderRegistrationFormValues } from '@/@types/forms'
 
 class APIService extends HTTPService {
   private static apiInstance: APIService | null = null
 
-  private constructor(baseURL?: string | undefined, token?: string | undefined) {
-    super(baseURL, token)
+  private constructor(baseURL?: string | undefined) {
+    super(baseURL)
   }
 
   // Static method to get the singleton apiInstance
-  public static getInstance(baseURL?: string | undefined, token?: string | undefined): APIService {
+  public static getInstance(baseURL?: string | undefined): APIService {
     if (!APIService.apiInstance) {
-      APIService.apiInstance = new APIService(baseURL, token)
+      APIService.apiInstance = new APIService(baseURL)
     }
     return APIService.apiInstance
   }
@@ -25,6 +25,12 @@ class APIService extends HTTPService {
   }
   public registerProvider<T = any>(payload: IProviderRegistrationFormValues): Promise<T> {
     return this.post<T>(endpoints.PROVIER_REGISTRATION, payload)
+  }
+  public registerBranchManager<T = any>(payload: IProviderFormValues): Promise<T> {
+    return this.post<T>(endpoints.BRANCH_MANAGER_REGISTRATION, payload)
+  }
+  public registerCustomerCare<T = any>(payload: IProviderFormValues): Promise<T> {
+    return this.post<T>(endpoints.CUSTOMER_CARE_REGISTRATION, payload)
   }
 
 }

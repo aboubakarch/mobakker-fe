@@ -7,6 +7,7 @@ import TranslationsProvider from '@/components/TranslationProvider';
 import StoreProvider from "../storeProvider";
 import { useEffect, useState } from "react";
 import { getCookie } from "@/lib/helpers";
+import APIService from "@/services/api";
 
 const i18nNamespaces = ['common', "navigation", "auth", "table"];
 
@@ -44,8 +45,15 @@ export default function AuthLayout({
 
     useEffect(() => {
         const tempR = getCookie("role")
+        const aToken = getCookie("accessToken")
+        const rToken = getCookie("refreshToken")
         if (role) {
             setRole(tempR as RoleType)
+        }
+        if (aToken && rToken) {
+            APIService.getInstance().setAccessToken(aToken)
+            APIService.getInstance().setRefresToken(rToken)
+
         }
         setRoleFetched(true)
 

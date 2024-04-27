@@ -110,6 +110,11 @@ export const messages = {
   DELETE_CONFIRMATION: "common:deleteConfirmation",
   ARE_YOU_SURE: "common:areYouSure",
   ALREADY_HAVE_ACCOUNT: "common:alreadyHaveAccount",
+  BRANCH_MANAGERS: "common:branchManagers",
+  MANAGERS: "common:managers",
+  CUSTOMER_CARE: "common:customerCare",
+  ADD_MANAGER: "common:addManager",
+  ADD_REPRESENTATIVE: "common:addRepresentative",
 };
 
 export const tableHeader = {

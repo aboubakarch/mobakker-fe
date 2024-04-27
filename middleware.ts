@@ -9,7 +9,12 @@ export function middleware(request: NextRequest) {
   const roleCookie: any = request.cookies.get("role");
   const url = request.nextUrl.clone();
   const basePath = url.pathname.split("/");
-  const publicRoutes = ["/provider-registration", "/login"];
+  const publicRoutes = [
+    "/provider-registration",
+    "/login",
+    "/ar/provider-registration",
+    "/ar/login",
+  ];
   if ((!token || !roleCookie) && !publicRoutes.includes(url.pathname)) {
     console.log("first", url.pathname, token, roleCookie);
     request.cookies.delete("accessToken");
@@ -44,9 +49,12 @@ export function middleware(request: NextRequest) {
       return NextResponse.redirect(url);
     }
     //@ts-ignore
+    // console.log(basePath, baseIndex, role);
     if (
       role === RoleType.CUSTOMER_CARE &&
-      !["", "appointments"].includes(basePath[baseIndex])
+      !["/", "/appointments", "/ar", "/ar/", "/ar/appointments"].includes(
+        url.pathname
+      )
     ) {
       url.pathname = `/`;
       return NextResponse.redirect(url);

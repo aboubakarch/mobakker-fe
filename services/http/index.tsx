@@ -1,13 +1,15 @@
-import { URLs } from '@/constants/apis'
+import { URLs, endpoints } from '@/constants/apis'
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 
 class HTTPService {
   private static instance: HTTPService | null = null
   private baseURL!: string
+  private refreshToken!: string
+  private accessToken!: string
   private axiosInstance!: AxiosInstance
   private defaultHeaders!: { [key: string]: string | null }
 
-  protected constructor(baseURL?: string, token?: string) {
+  protected constructor(baseURL?: string) {
     if (HTTPService.instance && HTTPService.instance.getBaseURL() === (baseURL ?? URLs.BASE_URL)) {
       return HTTPService.instance
     }
@@ -17,7 +19,7 @@ class HTTPService {
 
     this.defaultHeaders = {
       'Content-Type': 'application/json',
-      Authorization: token ? token : null,
+      // Authorization: token ? token : null,
     }
     this.axiosInstance = axios.create({
       baseURL,
@@ -27,11 +29,10 @@ class HTTPService {
     HTTPService.instance = this
   }
 
-  public static getInstance(baseURL?: string, token?: string): HTTPService {
+  public static getInstance(baseURL?: string): HTTPService {
     if (!HTTPService.instance || HTTPService.instance.getBaseURL() !== (baseURL ?? URLs.BASE_URL)) {
-      HTTPService.instance = new HTTPService(baseURL, token)
+      HTTPService.instance = new HTTPService(baseURL)
     }
-    console.log('old instance', HTTPService.instance)
     return HTTPService.instance
   }
 
@@ -54,13 +55,12 @@ class HTTPService {
     this.axiosInstance.interceptors.response.use(
       (response: AxiosResponse) => response,
       async (error: any) => {
-        // console.log('error inter', error?.response?.config?.url)
+        console.log('error inter', error?.response?.config?.url)
 
         if (error.response && error.response.status === 401) {
-          const refreshToken: string | null = 'accessToken'
-          if (refreshToken) {
+          if (this.refreshToken) {
             try {
-              const refreshedToken: string = await this.refreshAccessToken(refreshToken)
+              const refreshedToken: string = await this.refreshAccessToken()
               error.config.headers['Authorization'] = `Bearer ${refreshedToken}`
               return axios(error.config)
             } catch (refreshError) {
@@ -148,20 +148,35 @@ class HTTPService {
   public delete<T = any>(endpoint: string, customConfig: AxiosRequestConfig = {}): Promise<any> {
     return this.request<T>('delete', endpoint, undefined, customConfig)
   }
-  private async refreshAccessToken(refreshToken: string): Promise<string> {
-    // Add logic here to refresh the access token using the refresh token
-    // For example, make a request to your server to refresh the token
-    // and return the new access token
-    // const response = await axios.post('/refresh-token', { refreshToken });
-    // const newAccessToken = response.data.accessToken;
-    // return newAccessToken;
-
-    // For simplicity, assuming a synchronous refresh (replace with your logic)
-    return refreshToken
+  private async refreshAccessToken(): Promise<string> {
+    try {
+      const tokem = await this.get(`${endpoints.REFRESH_TOKEN}/${this.refreshToken}`)
+      console.log(tokem)
+      this.setAccessToken(tokem.accessToken);
+      return tokem.accessTokem
+    } catch (error) {
+      throw error
+    }
   }
   public setBaseUrl(newUrl: string): void {
     this.baseURL = newUrl
     this.axiosInstance.defaults.baseURL = newUrl
+  }
+
+  public getAccessToken() {
+    return this.axiosInstance.defaults.headers.common.authorization;
+  }
+
+  public setAccessToken(token: string) {
+    this.axiosInstance.defaults.headers.common.authorization = `Bearer ${token}`;
+    this.accessToken = token
+  }
+  public setRefresToken(token: string) {
+    this.refreshToken = token;
+  }
+
+  public setHeaderIpAddress(ipAddress: string) {
+    this.axiosInstance.defaults.headers.common.requestIp = ipAddress;
   }
 }
 

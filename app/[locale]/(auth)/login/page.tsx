@@ -37,8 +37,9 @@ const Page = () => {
     try {
       const res = await APIService.getInstance().login(values);
 
-      document.cookie = `accessToken=${res.token.accessToken}`
-      document.cookie = `role=${res.user.role}`
+      document.cookie = `accessToken=${res.token.accessToken};path=/`
+      document.cookie = `refreshToken=${res.token.refreshToken};path=/`
+      document.cookie = `role=${res.user.role};path=/`
       setLoading(false)
 
       toast({
@@ -46,7 +47,7 @@ const Page = () => {
         variant: "default"
       })
 
-      router.refresh()
+      router.push('/')
     } catch (error) {
       setLoading(false)
 

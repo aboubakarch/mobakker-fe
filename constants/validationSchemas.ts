@@ -64,7 +64,7 @@ export const providerValidationSchema = yup.object().shape({
     .string()
     .test("phone-validation", "Invalid phone number", function (value: any) {
       // Pakistani phone number regex pattern
-      const pakistanPhoneRegex = /^\+92[0-9]{2}-[0-9]{7,8}$/;
+      const pakistanPhoneRegex = /^\+92[0-9]{2}[0-9]{7,8}$/;
       // Saudi Arabian phone number regex pattern
       const saudiPhoneRegex = /^\+966[1-9][0-9]{7}$/;
 
@@ -77,7 +77,6 @@ export const providerValidationSchema = yup.object().shape({
     })
     .required(),
   password: yup.string().min(8).max(32).required(),
-  details: yup.string().min(8).max(300).required(),
 });
 
 export const providerRegistrationValidationSchema = yup.object().shape({
