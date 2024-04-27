@@ -316,6 +316,10 @@ export const sidebarManagerNavigation: ISideBarItem[] = [
   SideBarItems.Rating(""),
   SideBarItems.Notification(""),
 ];
+export const sidebarCustomerServiceNavigation: ISideBarItem[] = [
+  SideBarItems.Dashboard("/"),
+  SideBarItems.Appointment(""),
+];
 
 export const SettingsNavigation = (prefix: string): ISideBarItem[] => [
   {

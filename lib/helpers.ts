@@ -37,3 +37,25 @@ export const getLastNYears = (n: number) => {
 
   return years;
 };
+
+export function getCookie(cookieName: string) {
+  // Split the document.cookie string into individual cookies
+  var cookies = document.cookie.split(";");
+
+  // Iterate over the cookies
+  for (var i = 0; i < cookies.length; i++) {
+    var cookie = cookies[i];
+
+    // Trim any leading or trailing spaces
+    cookie = cookie.trim();
+
+    // Check if this cookie is the one we're looking for
+    if (cookie.indexOf(cookieName + "=") === 0) {
+      // If found, return the value of the cookie
+      return cookie.substring(cookieName.length + 1);
+    }
+  }
+
+  // If the cookie is not found, return null or an empty string
+  return null;
+}

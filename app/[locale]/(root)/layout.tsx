@@ -1,11 +1,12 @@
 "use client"
 import Navbar from "@/components/navbar/Navbar"
 import Sidebar from "@/components/sidebar/Sidebar"
-import { NavigationTypeEnum } from "@/constants/enums"
+import { NavigationTypeEnum, RoleType } from "@/constants/enums"
 import initTranslations from "@/i18n";
 import TranslationsProvider from '@/components/TranslationProvider';
 import StoreProvider from "../storeProvider";
 import { useEffect, useState } from "react";
+import { getCookie } from "@/lib/helpers";
 
 const i18nNamespaces = ['common', "navigation", "auth", "table"];
 
@@ -15,6 +16,8 @@ export default function AuthLayout({
 }: LocaleParams) {
     // const { resources } = await initTranslations(locale, i18nNamespaces);
     const [resources, setResources] = useState(null);
+    const [role, setRole] = useState(RoleType.CUSTOMER_CARE);
+    const [roleFetched, setRoleFetched] = useState(false);
     // const [i18n, setI18n] = useState(null);
 
     useEffect(() => {
@@ -23,6 +26,7 @@ export default function AuthLayout({
             setResources(resources);
             // setI18n(i18n);
             var htmlElement = document.documentElement;
+            // document.cookie = "role=ADMIN"
 
             // Set attributes programmatically
             htmlElement.setAttribute('lang', i18n.language);
@@ -38,7 +42,15 @@ export default function AuthLayout({
 
     }, [locale]);
 
-    if (!resources) {
+    useEffect(() => {
+        const tempR = getCookie("role")
+        if (role) {
+            setRole(tempR as RoleType)
+        }
+        setRoleFetched(true)
+
+    }, [])
+    if (!resources && !roleFetched) {
         // You can return a loading indicator or null while resources are being fetched
         return (
             <div className="w-full h-full flex items-center justify-center">
@@ -58,7 +70,7 @@ export default function AuthLayout({
                 <div className="h-full w-full bg-screen relative" >
                     <Navbar />
                     <div className="flex w-full h-[calc(100%-80px)]">
-                        <Sidebar navigation={NavigationTypeEnum.Manager} />
+                        <Sidebar navigation={role === RoleType.BRANCH_MANAGER ? NavigationTypeEnum.Manager : NavigationTypeEnum.CustomerService} />
                         {children}
 
                     </div>
