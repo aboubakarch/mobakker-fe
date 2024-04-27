@@ -109,6 +109,7 @@ export const messages = {
   LOGO: "common:logo",
   DELETE_CONFIRMATION: "common:deleteConfirmation",
   ARE_YOU_SURE: "common:areYouSure",
+  ALREADY_HAVE_ACCOUNT: "common:alreadyHaveAccount",
 };
 
 export const tableHeader = {
@@ -289,16 +290,34 @@ export const SideBarItems = {
     icon: UserIcon,
     link: `${prefix}/users`,
   }),
+  BranchMangers: (prefix: string) => ({
+    id: 15,
+    name: "navigation:branchManagers",
+    // icon: Badge as any,
+    icon: BranchIcon,
+    link: `${prefix}/branch-managers`,
+  }),
+  CustomerCare: (prefix: string) => ({
+    id: 16,
+    name: "navigation:customerCare",
+    // icon: ShieldQuestionIcon as any,
+    icon: UserIcon,
+    link: `${prefix}/customer-care`,
+  }),
 };
 export const sidebarAdminNavigation: ISideBarItem[] = Object.values(
   SideBarItems
-).map((i) => i("/admin"));
+)
+  .map((i) => i("/admin"))
+  .filter((i: any) => i.id !== 15 || i.id !== 16);
 export const sidebarProvidernavigation: ISideBarItem[] = [
   SideBarItems.Dashboard("/provider"),
   SideBarItems.Branch("/provider"),
   SideBarItems.Reports("/provider"),
   SideBarItems.Appointment("/provider"),
   SideBarItems.Employee("/provider"),
+  SideBarItems.BranchMangers("/provider"),
+  SideBarItems.CustomerCare("/provider"),
   SideBarItems.LoyalProgram("/provider"),
   SideBarItems.Services("/provider"),
   SideBarItems.Promotions("/provider"),

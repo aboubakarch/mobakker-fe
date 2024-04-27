@@ -7,6 +7,7 @@ import {
   ILoginFormValues,
   IPromotionFormValues,
   IProviderFormValues,
+  IProviderRegistrationFormValues,
   IServiceFormValues,
 } from "@/@types/forms";
 import {
@@ -16,6 +17,7 @@ import {
   employeeValidationSchema,
   loginValidationSchema,
   promotionValidationSchema,
+  providerRegistrationValidationSchema,
   providerValidationSchema,
   serviceValidationSchema,
 } from "./validationSchemas";
@@ -26,6 +28,14 @@ export const loginDefaultValues: ILoginFormValues = {
   email: "",
   password: "",
 };
+export const providerRegistrationDefaultValues: IProviderRegistrationFormValues =
+  {
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    password: "",
+  };
 export const branchDefaultValues: (val?: SampleBranch) => IBranchFormValues = (
   val
 ) => ({
@@ -108,6 +118,44 @@ export const loginFormVals: IFormValueObj<ILoginFormValues> = {
     },
   }),
 };
+export const providerRegistrationFormVals: IFormValueObj<IProviderRegistrationFormValues> =
+  {
+    validationSchema: providerRegistrationValidationSchema,
+    initialValues: providerRegistrationDefaultValues,
+    info: (t) => ({
+      firstName: {
+        placeHolder: t(formConstants.FIRST_NAME),
+        hasError: false,
+        name: "firstName",
+        label: t(formConstants.FIRST_NAME),
+      },
+      lastName: {
+        placeHolder: t(formConstants.LAST_NAME),
+        hasError: false,
+        name: "lastName",
+        label: t(formConstants.LAST_NAME),
+      },
+      email: {
+        placeHolder: t(formConstants.EMAIL_PLACEHOLDER),
+        hasError: false,
+        name: "email",
+        label: t(formConstants.EMAIL_LABEL),
+      },
+      phone: {
+        placeHolder: t("+966 *******"),
+        hasError: false,
+        name: "phone",
+        label: t(formConstants.PHONE),
+      },
+      password: {
+        placeHolder: t(formConstants.PASS_PLACEHOLDER),
+        hasError: false,
+        name: "password",
+        label: t(formConstants.PASS_PLACEHOLDER),
+        type: "password",
+      },
+    }),
+  };
 export const branchFormVals: (
   val?: SampleBranch
 ) => IFormValueObj<IBranchFormValues> = (val) => ({

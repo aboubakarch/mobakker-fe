@@ -90,5 +90,6 @@
   "branchProfile": "Branch Profile",
   "logo": "Logo",
   "deleteConfirmation": "You want to delete this?",
-  "areYouSure": "Are you sure?"
+  "areYouSure": "Are you sure?",
+  "alreadyHaveAccount": "Already have an account?"
 }

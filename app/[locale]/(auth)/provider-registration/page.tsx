@@ -4,8 +4,8 @@ import Card from '@/components/card/Card';
 import AppForm from '@/components/form/Form';
 import InputField from '@/components/form/FormField';
 import { messages } from '@/constants/constants';
-import { loginFormVals } from '@/constants/forms';
-import { loginValidationSchema } from '@/constants/validationSchemas';
+import { providerRegistrationFormVals } from '@/constants/forms';
+import { providerRegistrationValidationSchema } from '@/constants/validationSchemas';
 import { useToast } from '@/hooks/use-toast';
 import { getCookie } from '@/lib/helpers';
 import APIService from '@/services/api';
@@ -29,20 +29,18 @@ const Page = () => {
       router.refresh()
     }
 
-  }, [])
+  }, [router])
 
 
-  const onSubmit = async (values: yup.InferType<typeof loginValidationSchema>) => {
+  const onSubmit = async (values: yup.InferType<typeof providerRegistrationValidationSchema>) => {
     setLoading(true)
     try {
-      const res = await APIService.getInstance().login(values);
-
-      document.cookie = `accessToken=${res.token.accessToken}`
-      document.cookie = `role=${res.user.role}`
+      await APIService.getInstance().registerProvider(values as any);
+      router.push('/login')
       setLoading(false)
 
       toast({
-        description: "Login Successful",
+        description: "Registration Successful",
         variant: "default"
       })
 
@@ -62,22 +60,44 @@ const Page = () => {
       <AppForm
         onSubmit={onSubmit}
         className="flex flex-col gap-6 justify-center h-full px-10"
-        {...loginFormVals}
+        {...providerRegistrationFormVals}
       >
-        <h1 className="text-xl font-bold">{t(messages.SIGN_IN)}</h1>
+        <h1 className="text-xl font-bold">{t(messages.SIGN_UP)}</h1>
         <div className="flex flex-col gap-3">
-          <InputField {...loginFormVals.info(t).email} />
+
+          <div className='flex gap-3 w-full'>
+            <div className='flex-1'>
+              <InputField {...providerRegistrationFormVals.info(t).firstName} />
+
+            </div>
+            <div className='flex-1'>
+              <InputField {...providerRegistrationFormVals.info(t).lastName} />
+
+            </div>
+
+          </div>
+          <div className='flex gap-3 w-full'>
+            <div className='flex-1'>
+              <InputField {...providerRegistrationFormVals.info(t).email} />
+
+            </div>
+            <div className='flex-1'>
+              <InputField {...providerRegistrationFormVals.info(t).phone} />
+
+            </div>
+
+          </div>
+
           <InputField
-            {...loginFormVals.info(t).password}
+            {...providerRegistrationFormVals.info(t).password}
           />
         </div>
 
-        <SubmitButton title={t(messages.LOGIN)} loading={loading} className="w-full bg-indigo-800 disabled:bg-opacity-30" />
+        <SubmitButton title={t(messages.SIGN_UP)} loading={loading} className="w-full bg-indigo-800 disabled:bg-opacity-30" />
         <div className="flex justify-between text-sm">
-          <p className="">{t(messages.FORGOT_PASSWORD)}</p>
           <div className="flex gap-1 items-center">
-            <p>{t(messages.DONT_HAVE_ACCOUNT)}</p>
-            <Link href={"/provider-registration"} className="text-primaryBlue cursor-pointer">{t(messages.SIGN_UP)}</Link>
+            <p>{t(messages.ALREADY_HAVE_ACCOUNT)}</p>
+            <Link href={"/login"} className="text-primaryBlue cursor-pointer">{t(messages.SIGN_IN)}</Link>
           </div>
         </div>
       </AppForm>

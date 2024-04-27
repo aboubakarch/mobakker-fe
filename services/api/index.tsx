@@ -1,6 +1,7 @@
 
 import { endpoints } from '@/constants/apis'
 import HTTPService from '../http'
+import { IProviderRegistrationFormValues } from '@/@types/forms'
 
 class APIService extends HTTPService {
   private static apiInstance: APIService | null = null
@@ -21,6 +22,9 @@ class APIService extends HTTPService {
   }
   public login<T = any>(payload: ILoginPayload): Promise<T> {
     return this.post<T>(endpoints.LOGIN, payload)
+  }
+  public registerProvider<T = any>(payload: IProviderRegistrationFormValues): Promise<T> {
+    return this.post<T>(endpoints.PROVIER_REGISTRATION, payload)
   }
 
 }

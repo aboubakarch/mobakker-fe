@@ -16,7 +16,7 @@ const Card = ({
             </div>
             <div className="flex-[0.5] h-full bg-[url(/assets/cardBG.jpg)] bg-cover flex justify-start relative items-center">
                 <div className='flex h-full justify-between flex-col p-4'>
-                    <div className='h-[30%] w-[90px] relative'>
+                    <div className='h-[27%] w-[90px] relative'>
                         <Image
                             src={"/assets/logoLarge.png"}
                             alt='Logo'

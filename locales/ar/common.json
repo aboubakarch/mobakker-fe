@@ -90,5 +90,6 @@
   "branchProfile": "ملف الفرع",
   "logo": "شعار",
   "deleteConfirmation": "هل تريد حذف هذا؟",
-  "areYouSure": "هل أنت متأكد؟"
+  "areYouSure": "هل أنت متأكد؟",
+  "alreadyHaveAccount": "هل لديك حساب بالفعل؟"
 }

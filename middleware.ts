@@ -9,7 +9,8 @@ export function middleware(request: NextRequest) {
   const roleCookie: any = request.cookies.get("role");
   const url = request.nextUrl.clone();
   const basePath = url.pathname.split("/");
-  if ((!token || !roleCookie) && url.pathname !== "/login") {
+  const publicRoutes = ["/provider-registration", "/login"];
+  if ((!token || !roleCookie) && !publicRoutes.includes(url.pathname)) {
     console.log("first", url.pathname, token, roleCookie);
     request.cookies.delete("accessToken");
     request.cookies.delete("role");

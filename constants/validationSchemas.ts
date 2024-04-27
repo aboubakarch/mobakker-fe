@@ -79,3 +79,26 @@ export const providerValidationSchema = yup.object().shape({
   password: yup.string().min(8).max(32).required(),
   details: yup.string().min(8).max(300).required(),
 });
+
+export const providerRegistrationValidationSchema = yup.object().shape({
+  firstName: yup.string().min(4).max(100).required(),
+  lastName: yup.string().min(4).max(100).required(),
+  email: yup.string().email().required(),
+  phone: yup
+    .string()
+    .test("phone-validation", "Invalid phone number", function (value: any) {
+      // Pakistani phone number regex pattern
+      const pakistanPhoneRegex = /^\+92[0-9]{2}[0-9]{7,8}$/;
+      // Saudi Arabian phone number regex pattern
+      const saudiPhoneRegex = /^\+966[1-9][0-9]{7}$/;
+
+      // Check if the phone number matches either pattern
+      if (pakistanPhoneRegex.test(value) || saudiPhoneRegex.test(value)) {
+        return true;
+      }
+
+      return false;
+    })
+    .required(),
+  password: yup.string().min(8).max(32).required(),
+});

@@ -13,5 +13,8 @@
   "providers": "مقدمي الخدمة",
   "manageUsers": "إدارة المستخدمين",
   "subscription": "الاشتراك",
-  "settings": "الإعدادات"
+  "settings": "الإعدادات",
+  "branchManagers": "مديري الفرع",
+  "managers": "المديرين",
+  "customerCare": "خدمة العملاء"
 }

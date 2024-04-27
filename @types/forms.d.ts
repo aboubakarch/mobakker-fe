@@ -6,6 +6,13 @@ interface ILoginFormValues {
   email: string;
   password: string;
 }
+interface IProviderRegistrationFormValues {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  password: string;
+}
 interface IBranchFormValues {
   name: string;
   password: string;
