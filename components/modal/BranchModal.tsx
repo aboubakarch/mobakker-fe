@@ -77,17 +77,9 @@ const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, v
 
                     <Dropzone title='Upload Logo' />
                 </div>
-                <div className='flex gap-3 w-full'>
-                    <div className='flex-1'>
-                        <InputField {...branchFormVal.info(t).name} />
 
-                    </div>
-                    <div className='flex-1'>
-                        <InputField {...branchFormVal.info(t).password} />
+                <InputField {...branchFormVal.info(t).name} />
 
-                    </div>
-
-                </div>
                 <InputField {...branchFormVal.info(t).location} />
                 <CityPicker branchFormVal={branchFormVal} states={states} t={t} />
 

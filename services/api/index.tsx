@@ -32,6 +32,9 @@ class APIService extends HTTPService {
   public registerCustomerCare<T = any>(payload: IProviderFormValues): Promise<T> {
     return this.post<T>(endpoints.CUSTOMER_CARE_REGISTRATION, payload)
   }
+  public getBranches<T = any>(params: any): Promise<T> {
+    return this.get<T>(endpoints.BRANCH, params)
+  }
 
 }
 

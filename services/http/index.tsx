@@ -55,12 +55,11 @@ class HTTPService {
     this.axiosInstance.interceptors.response.use(
       (response: AxiosResponse) => response,
       async (error: any) => {
-        console.log('error inter', error?.response?.config?.url)
-
         if (error.response && error.response.status === 401) {
           if (this.refreshToken) {
             try {
               const refreshedToken: string = await this.refreshAccessToken()
+              // console.log("here", refreshedToken)
               error.config.headers['Authorization'] = `Bearer ${refreshedToken}`
               return axios(error.config)
             } catch (refreshError) {
@@ -151,9 +150,9 @@ class HTTPService {
   private async refreshAccessToken(): Promise<string> {
     try {
       const tokem = await this.get(`${endpoints.REFRESH_TOKEN}/${this.refreshToken}`)
-      console.log(tokem)
+      // console.log(tokem)
       this.setAccessToken(tokem.accessToken);
-      return tokem.accessTokem
+      return tokem.accessToken
     } catch (error) {
       throw error
     }

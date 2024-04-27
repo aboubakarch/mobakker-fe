@@ -64,21 +64,7 @@ export const branchColumns: (t: TFunction<"translation", undefined>, handleEdit?
                 )
             },
         },
-        {
-            accessorKey: "password",
-            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.PASSWORD)}</div>,
 
-            cell: ({ }) => {
-                // const password: string = row.getValue("password")
-                return (
-                    <div className="w-max flex items-center justify-center">
-                        <div className="bg-indigo-800 bg-opacity-5 rounded justify-center items-start gap-2.5 inline-flex py-1 px-2">
-                            <div className="text-indigo-800 text-xs font-medium  leading-tight">***************</div>
-                        </div>
-                    </div>
-                )
-            }
-        },
         {
             accessorKey: "city",
             header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.CITY)}</div>,

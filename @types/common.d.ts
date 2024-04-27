@@ -96,7 +96,6 @@ interface SampleSubscription {
 interface SampleBranch {
   name: string;
   location: string;
-  password: string;
   state: string;
   city: string;
 }

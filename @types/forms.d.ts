@@ -15,7 +15,6 @@ interface IProviderRegistrationFormValues {
 }
 interface IBranchFormValues {
   name: string;
-  password: string;
   location: string;
   state: string;
   city: string;

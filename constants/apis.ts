@@ -9,4 +9,5 @@ export const endpoints = {
   PROVIER_REGISTRATION: "/auth/register/service-provider",
   CUSTOMER_CARE_REGISTRATION: "/auth/register/customer-care",
   BRANCH_MANAGER_REGISTRATION: "/auth/register/branch-manager",
+  BRANCH: "/branch",
 };

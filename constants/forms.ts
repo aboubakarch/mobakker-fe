@@ -40,7 +40,6 @@ export const branchDefaultValues: (val?: SampleBranch) => IBranchFormValues = (
   val
 ) => ({
   name: val ? val.name : "",
-  password: val ? val.password : "",
   state: val ? val.state : "",
   city: val ? val.city : "",
   location: val ? val.location : "",
@@ -167,12 +166,6 @@ export const branchFormVals: (
       hasError: false,
       name: "name",
       label: t(formConstants.BRANCH_NAME_LABEL),
-    },
-    password: {
-      placeHolder: t(formConstants.PASS_PLACEHOLDER),
-      hasError: false,
-      name: "password",
-      label: t(formConstants.PASS_PLACEHOLDER),
     },
     location: {
       placeHolder: t(formConstants.LOCATION),
