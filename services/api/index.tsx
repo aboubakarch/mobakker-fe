@@ -20,6 +20,12 @@ class APIService extends HTTPService {
   public createBranch<T = any>(payload: object): Promise<T> {
     return this.post<T>(endpoints.CREATE_BRANCH, payload)
   }
+  public editBranch<T = any>(id: string, payload: object): Promise<T> {
+    return this.patch<T>(`${endpoints.BRANCH}/${id}`, payload)
+  }
+  public deleteBranch<T = any>(id: string): Promise<T> {
+    return this.delete<T>(`${endpoints.BRANCH}/${id}`)
+  }
   public login<T = any>(payload: ILoginPayload): Promise<T> {
     return this.post<T>(endpoints.LOGIN, payload)
   }

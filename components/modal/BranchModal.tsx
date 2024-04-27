@@ -16,6 +16,9 @@ import { City, State } from 'country-state-city';
 import { IBranchFormValues, IFormValueObj } from '@/@types/forms'
 import { TFunction } from 'i18next'
 import { useFormContext } from 'react-hook-form'
+import APIService from '@/services/api'
+import { useToast } from '@/hooks/use-toast'
+// import { getCookie } from '@/lib/helpers'
 
 
 
@@ -48,18 +51,80 @@ const CityPicker: FC<{
 }
 
 
-const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, val }) => {
+const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, val, onUpdate }) => {
     const { t } = useTranslation();
     const branchFormVal = branchFormVals(val)
+    const [loading, setLoading] = useState(false)
+    const { toast } = useToast()
     const states = useMemo(() => {
         const temp = State.getStatesOfCountry("SA")
         return temp.map(st => ({ name: st.name, value: st.isoCode }))
     }, [])
     // console.log("states", states)
 
+    const createNewBranch = async (values: yup.InferType<typeof branchValidationSchema>) => {
+        // const userId = getCookie("userId");
+        const branch = {
+            name: values.name,
+            address: values.location,
+            city: values.city,
+            cover: "lkldls",
+            // ownerId: userId,
+            ownerId: "9ed6eeca-1659-4667-a2a0-2f68d3ad92d6",
+            country: "Saudi Arab"
+        }
+        await APIService.getInstance().createBranch(branch as any);
+        setLoading(false)
 
-    const onSubmit = (values: yup.InferType<typeof branchValidationSchema>) => {
+        toast({
+            description: "Branch added!",
+            variant: "default"
+        })
+
+    }
+    const editBranch = async (values: yup.InferType<typeof branchValidationSchema>) => {
+
+        const branch = {
+            name: values.name,
+            address: values.location,
+            city: values.city,
+            country: "Saudi Arab"
+        }
+        await APIService.getInstance().editBranch(val?.id as string, branch as any);
+        setLoading(false)
+
+        toast({
+            description: "Branch Updated!",
+            variant: "default"
+        })
+
+    }
+
+
+    const onSubmit = async (values: yup.InferType<typeof branchValidationSchema>) => {
         console.log(values);
+        setLoading(true)
+        try {
+
+            if (val) {
+                await editBranch(values)
+            }
+            else {
+                await createNewBranch(values)
+            }
+            // location.reload()
+            if (onUpdate) {
+                onUpdate()
+            }
+        } catch (error) {
+            setLoading(false)
+
+            toast({
+                variant: "destructive",
+                description: "Error! Something went wrong",
+            })
+        }
+        closeModal()
     };
     return (
         <Modal visibility={visible} closeModal={closeModal}>
@@ -84,7 +149,7 @@ const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, v
                 <CityPicker branchFormVal={branchFormVal} states={states} t={t} />
 
                 <div className='self-end flex gap-3'>
-                    <SubmitButton title={val ? t(messages.EDIT) : t(messages.ADD_BRANCH)} className="self-end bg-primaryBlue" />
+                    <SubmitButton loading={loading} title={val ? t(messages.EDIT) : t(messages.ADD_BRANCH)} className="self-end bg-primaryBlue" />
                     <Button onClick={closeModal} variant={"outline"} >
                         {t(messages.CANCEL)}
                     </Button>

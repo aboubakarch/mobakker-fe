@@ -45,5 +45,6 @@
   "complaintMessage": "Complaint Message",
   "state": "State",
   "email": "Email",
-  "phone": "Phone"
+  "phone": "Phone",
+  "country": "Country"
 }

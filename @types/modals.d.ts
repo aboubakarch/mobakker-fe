@@ -12,6 +12,7 @@ interface ModalSlice {
 interface IModalCompProps<T = any> {
   visible: boolean;
   closeModal: () => void;
+  onUpdate?: () => void;
   val?: T;
 }
 

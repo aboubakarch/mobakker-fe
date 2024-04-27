@@ -54,11 +54,11 @@ export const branchColumns: (t: TFunction<"translation", undefined>, handleEdit?
         },
 
         {
-            accessorKey: "location",
+            accessorKey: "address",
             header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.LOCATION)}</div>,
 
             cell: ({ row }) => {
-                const location: string = row.getValue("location");
+                const location: string = row.getValue("address");
                 return (
                     <TextColumn text={location} />
                 )
@@ -77,13 +77,24 @@ export const branchColumns: (t: TFunction<"translation", undefined>, handleEdit?
             },
         },
         {
-            accessorKey: "state",
-            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.STATE)}</div>,
+            accessorKey: "country",
+            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.COUNTRY)}</div>,
 
             cell: ({ row }) => {
-                const state: string = row.getValue("state");
+                const country: string = row.getValue("country");
                 return (
-                    <TextColumn text={state} />
+                    <TextColumn text={country} />
+                )
+            },
+        },
+        {
+            accessorKey: "isActive",
+            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.STATUS)}</div>,
+
+            cell: ({ row }) => {
+                const isActive: boolean = row.getValue("isActive");
+                return (
+                    <TextColumn text={isActive ? "Active" : "Inactive"} />
                 )
             },
         },

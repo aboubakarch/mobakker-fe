@@ -5,4 +5,5 @@ interface ITextColumnProps {
 interface ITableProps<T = any> {
   handleEdit?: (val: T) => void;
   handleDelete?: (val: T) => void;
+  onUpdateFlag?: boolean;
 }

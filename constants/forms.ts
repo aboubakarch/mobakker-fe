@@ -40,9 +40,9 @@ export const branchDefaultValues: (val?: SampleBranch) => IBranchFormValues = (
   val
 ) => ({
   name: val ? val.name : "",
-  state: val ? val.state : "",
+  state: "",
   city: val ? val.city : "",
-  location: val ? val.location : "",
+  location: val ? val.address : "",
 });
 export const branchEditDefaultValues: IBranchEditFormValues = {
   name: "",

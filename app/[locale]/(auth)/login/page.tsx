@@ -40,6 +40,7 @@ const Page = () => {
       document.cookie = `accessToken=${res.token.accessToken};path=/`
       document.cookie = `refreshToken=${res.token.refreshToken};path=/`
       document.cookie = `role=${res.user.role};path=/`
+      document.cookie = `userId=${res.user.id};path=/`
       setLoading(false)
 
       toast({

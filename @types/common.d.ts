@@ -94,10 +94,18 @@ interface SampleSubscription {
   dayLeft: number;
 }
 interface SampleBranch {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  isActive: boolean;
   name: string;
-  location: string;
-  state: string;
+  address: string;
   city: string;
+  country: string;
+  cover: string;
+  ownerId: string;
+  managerId: string | null; // If managerId can be null
+  owner: Owner;
 }
 
 interface SampleProvider {

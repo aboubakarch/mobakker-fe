@@ -6,6 +6,7 @@ import { Button } from '@/components/ui'
 import PageHeader from '@/components/ui/PageHeader'
 import { messages } from '@/constants/constants'
 import { useToast } from '@/hooks/use-toast'
+import APIService from '@/services/api'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -14,7 +15,9 @@ const Branch = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [selectedBranch, setSelectedBranch] = useState<undefined | SampleBranch>(undefined)
+    const [flag, setFlag] = useState(false)
     const { toast } = useToast()
+
 
     const handleModalClose = () => {
         setModalOpen(false)
@@ -28,7 +31,6 @@ const Branch = () => {
 
 
     const handleEdit = (item: SampleBranch) => {
-        console.log(item)
         setSelectedBranch(item)
         setModalOpen(true)
     }
@@ -37,17 +39,35 @@ const Branch = () => {
         setSelectedBranch(item)
         setDeleteModalOpen(true)
     }
-    const onDeleteBranch = () => {
-        toast({
-            variant: "destructive",
-            description: "Branch Deleted!",
-        })
+    const onDeleteBranch = async () => {
+        try {
+            if (selectedBranch) {
+
+                await APIService.getInstance().deleteBranch(selectedBranch?.id);
+            }
+            else {
+                throw new Error("No branch selected")
+            }
+
+
+            toast({
+                variant: "destructive",
+                description: "Branch Deleted!",
+            })
+            setFlag(!flag)
+        } catch (error) {
+            toast({
+                variant: "destructive",
+                description: "Error deleting branch!",
+            })
+
+        }
         handleDeleteModalClose()
     }
 
     return (
         <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
-            <BranchModal visible={modalOpen} closeModal={handleModalClose} val={selectedBranch} />
+            <BranchModal visible={modalOpen} closeModal={handleModalClose} val={selectedBranch} onUpdate={() => setFlag(!flag)} />
             <DeleteModal
                 visible={deleteModalOpen}
                 closeModal={handleDeleteModalClose}
@@ -61,7 +81,7 @@ const Branch = () => {
                 <Button onClick={() => setModalOpen(true)} className='bg-indigo-800 hover:bg-indigo-600'>{t(messages.ADD_BRANCH)}</Button>
 
             </PageHeader>
-            <BranchTable handleEdit={handleEdit} handleDelete={handleDelete} />
+            <BranchTable handleEdit={handleEdit} handleDelete={handleDelete} onUpdateFlag={flag} />
         </div>
     )
 }

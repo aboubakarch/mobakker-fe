@@ -135,6 +135,13 @@ class HTTPService {
   ): Promise<any> {
     return this.request<T>('post', endpoint, data, customConfig)
   }
+  public patch<T = any>(
+    endpoint: string,
+    data: any = {},
+    customConfig: AxiosRequestConfig = {}
+  ): Promise<any> {
+    return this.request<T>('patch', endpoint, data, customConfig)
+  }
 
   public put<T = any>(
     endpoint: string,
