@@ -96,5 +96,6 @@
   "managers": "المديرين",
   "customerCare": "خدمة العملاء",
   "addManager": "إضافة مدير",
-  "addRepresentative": "إضافة ممثل"
+  "addRepresentative": "إضافة ممثل",
+  "logout": "تسجيل الخروج"
 }

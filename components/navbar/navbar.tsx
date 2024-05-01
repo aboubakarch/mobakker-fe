@@ -5,8 +5,21 @@ import { SearchInput } from '../ui/SearchInput'
 import { BellIcon, BulbIcon, ChevronDownIcon } from '@/svgs'
 import IconButton from '../buttons/IconButton'
 import LanguageChanger from '../languageChanger/LanguageChanger'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui'
+import { messages } from '@/constants/constants'
+import { removeCookie } from '@/lib/helpers'
+import { useTranslation } from 'react-i18next'
 
 const Navbar = () => {
+    const { t } = useTranslation()
+
+    const handleLogout = () => {
+        removeCookie("accessToken")
+        removeCookie("refreshToken")
+        removeCookie("role")
+        removeCookie("userId")
+        location.reload()
+    }
     return (
         <div className='flex w-full bg-white h-[75px] px-4 shadow-sm'>
             <div className='flex-[0.5] flex justify-between items-center'>
@@ -31,20 +44,35 @@ const Navbar = () => {
                         <BellIcon className='h-6 w-6' />
                     </IconButton>
                 </div>
+
                 {/* can be a separate component */}
-                <div className='flex gap-2 bg-screen h-14 text-sm items-center px-3 rounded-md cursor-pointer'>
-                    <div>
-                        <p className='font-semibold'>Branch Manager</p>
-                        <p className='text-end'>Lorem Ipsum</p>
-                    </div>
-                    <Image
-                        src={'/assets/profilePlaceholder.png'}
-                        height={40}
-                        width={40}
-                        alt='profile'
-                    />
-                    <ChevronDownIcon />
-                </div>
+
+
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <div className='flex gap-2 bg-screen h-14 text-sm items-center px-3 rounded-md cursor-pointer'>
+                            <div>
+                                <p className='font-semibold'>Branch Manager</p>
+                                <p className='text-end'>Lorem Ipsum</p>
+                            </div>
+                            <Image
+                                src={'/assets/profilePlaceholder.png'}
+                                height={40}
+                                width={40}
+                                alt='profile'
+                            />
+                            <ChevronDownIcon />
+                        </div>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className='w-56'>
+                        {/* <DropdownMenuLabel>{t(messages.ACTIONS)}</DropdownMenuLabel> */}
+                        <DropdownMenuItem onClick={handleLogout} className="text-black hover:bg-indigo-800 hover:bg-opacity-25">
+                            {t(messages.LOGOUT)}
+                        </DropdownMenuItem>
+
+                    </DropdownMenuContent>
+                </DropdownMenu>
+
             </div>
         </div>
     )

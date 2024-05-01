@@ -115,6 +115,7 @@ export const messages = {
   CUSTOMER_CARE: "common:customerCare",
   ADD_MANAGER: "common:addManager",
   ADD_REPRESENTATIVE: "common:addRepresentative",
+  LOGOUT: "common:logout",
 };
 
 export const tableHeader = {
@@ -166,7 +167,6 @@ export const tableHeader = {
   EMAIL: "table:email",
   PHONE: "table:phone",
   COUNTRY: "table:country",
-
 };
 
 export const formConstants = {

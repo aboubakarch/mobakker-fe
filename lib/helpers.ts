@@ -59,3 +59,8 @@ export function getCookie(cookieName: string) {
   // If the cookie is not found, return null or an empty string
   return null;
 }
+
+export function removeCookie(cookieName: string) {
+  document.cookie =
+    cookieName + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+}

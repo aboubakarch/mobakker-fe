@@ -96,5 +96,6 @@
   "managers": "Managers",
   "customerCare": "Customer Care",
   "addManager": "Add Manager",
-  "addRepresentative": "Add Representative"
+  "addRepresentative": "Add Representative",
+  "logout": "Logout"
 }

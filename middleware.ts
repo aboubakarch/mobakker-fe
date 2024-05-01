@@ -28,7 +28,10 @@ export function middleware(request: NextRequest) {
     const baseIndex = basePath[1] === "ar" ? 2 : 1;
     const role = roleCookie.value;
     // console.log(role, basePath, baseIndex);
-    if (role === RoleType.ADMIN && basePath[baseIndex] !== "admin") {
+    if (
+      (role === RoleType.ADMIN || role === RoleType.SUPER_ADMIN) &&
+      basePath[baseIndex] !== "admin"
+    ) {
       url.pathname = `/admin`;
       return NextResponse.redirect(url);
     }
