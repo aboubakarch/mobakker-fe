@@ -5,7 +5,7 @@ import { branchColumns } from './columns/BranchColumn'
 import { useTranslation } from 'react-i18next'
 import APIService from '@/services/api'
 import { useToast } from '@/hooks/use-toast'
-import { Skeleton } from '../ui/skeleton'
+import { Skeleton } from '../ui/Skeleton'
 
 const BranchTable: FC<ITableProps<SampleBranch>> = ({ handleEdit, handleDelete, onUpdateFlag }) => {
     const { t } = useTranslation()

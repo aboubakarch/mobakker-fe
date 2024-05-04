@@ -8,14 +8,23 @@ interface SampleEmployee {
   status: "Available" | "Booked" | "Working";
 }
 interface SampleServices {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  isActive: boolean;
   name: string;
-  details: string;
-  serviceType: string;
-  employeeCount: number;
-  timeSlot: string;
-  workingHours: string;
+  rating: number;
+  avatar: string;
   price: number;
-  servicePicture: string;
+  slotTime: string;
+  workHourFrom: string;
+  workHourTo: string;
+  availablity: string;
+  serviceTypeId: string;
+  providerId: string;
+  serviceType: ServiceType;
+  provider: Provider;
+  branches: any[];
 }
 interface SampleAppointments {
   bookingId: string;
@@ -153,4 +162,21 @@ interface ILanguageChangerProps {
 interface IDropzonProps {
   title: string;
   subtitle?: string;
+}
+
+interface ServiceType {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  isActive: boolean;
+  name: string;
+  avatar: string;
+}
+
+interface Provider {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  isActive: boolean;
+  userId: string;
 }

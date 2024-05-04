@@ -64,6 +64,7 @@ export function DataTable<TData, TValue>({
     })
     const [rowSelection, setRowSelection] = useState({})
     const [currFilter, setCurrFilter] = useState(filterKey)
+    // const [loading, setLoading] = useState(false)
 
 
     const table = useReactTable({

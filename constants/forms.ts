@@ -65,15 +65,17 @@ export const employeeDefaultValues: IEmployeeFormValues = {
   employeeNum: "",
   jobDesc: "",
 };
-export const serviceDefaultValues: IServiceFormValues = {
-  name: "",
-  employees: [],
-  price: "",
-  serviceType: "",
-  serviceAvailabilty: [],
-  startHour: "",
-  endHour: "",
-};
+export const serviceDefaultValues: (
+  val?: SampleServices
+) => IServiceFormValues = (val) => ({
+  name: val ? val.name : "",
+  price: val ? val.price : 0,
+  serviceType: val ? val.serviceTypeId : "",
+  serviceAvailabilty: val ? val.availablity.split(",") : [],
+  startHour: val ? val.workHourFrom : "",
+  endHour: val ? val.workHourTo : "",
+  slotTime: val ? val.slotTime : "",
+});
 export const promotionDefaultValues: IPromotionFormValues = {
   name: "",
   employees: [],
@@ -287,9 +289,11 @@ export const providerFormVals: (
   }),
 });
 
-export const serviceFormVals: IFormValueObj<IServiceFormValues> = {
+export const serviceFormVals: (
+  val?: SampleServices
+) => IFormValueObj<IServiceFormValues> = (val) => ({
   validationSchema: serviceValidationSchema,
-  initialValues: serviceDefaultValues,
+  initialValues: serviceDefaultValues(val),
   info: (t) => ({
     name: {
       placeHolder: t(formConstants.NAME_PLACEHOLER),
@@ -302,12 +306,7 @@ export const serviceFormVals: IFormValueObj<IServiceFormValues> = {
       hasError: false,
       name: "price",
       label: t(formConstants.PRICE),
-    },
-    employees: {
-      hasError: false,
-      name: "employees",
-      label: t(formConstants.SELECT_EMPLOYEES),
-      fieldType: FieldTypesEnum.EmployeeSelect,
+      type: "number",
     },
     serviceAvailabilty: {
       hasError: false,
@@ -320,14 +319,16 @@ export const serviceFormVals: IFormValueObj<IServiceFormValues> = {
       hasError: false,
       name: "endHour",
       // label: t(formConstants.WORKING_HOURS),
-      fieldType: FieldTypesEnum.Select,
+      // fieldType: FieldTypesEnum.DatePicker,
+      type: "time",
     },
     startHour: {
       placeHolder: t(formConstants.FROM),
       hasError: false,
       name: "startHour",
       label: t(formConstants.WORKING_HOURS),
-      fieldType: FieldTypesEnum.Select,
+      // fieldType: FieldTypesEnum.DatePicker,
+      type: "time",
     },
     serviceType: {
       placeHolder: t(formConstants.TYPE_OF_SERVICE),
@@ -336,8 +337,15 @@ export const serviceFormVals: IFormValueObj<IServiceFormValues> = {
       label: t(formConstants.TYPE_OF_SERVICE),
       fieldType: FieldTypesEnum.Select,
     },
+    slotTime: {
+      placeHolder: t(formConstants.TIME_SLOT),
+      hasError: false,
+      name: "slotTime",
+      label: t(formConstants.TIME_SLOT),
+      fieldType: FieldTypesEnum.Select,
+    },
   }),
-};
+});
 export const promotionFormVals: IFormValueObj<IPromotionFormValues> = {
   validationSchema: promotionValidationSchema,
   initialValues: promotionDefaultValues,

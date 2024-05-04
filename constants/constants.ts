@@ -216,6 +216,7 @@ export const formConstants = {
   PHONE: "auth:phone",
   FIRST_NAME: "auth:firstName",
   LAST_NAME: "auth:lastName",
+  TIME_SLOT: "auth:timeSlot",
 };
 
 export const SideBarItems = {

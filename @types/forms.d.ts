@@ -39,12 +39,12 @@ interface IEmployeeFormValues {
 }
 interface IServiceFormValues {
   name: string;
-  employees: string[];
-  price: string;
+  price: number;
   serviceType: string;
   serviceAvailabilty: string[];
   startHour: string;
   endHour: string;
+  slotTime: string;
 }
 interface IPromotionFormValues {
   name: string;
