@@ -41,6 +41,7 @@ const Page = () => {
       document.cookie = `refreshToken=${res.token.refreshToken};path=/`
       document.cookie = `role=${res.user.role};path=/`
       document.cookie = `userId=${res.user.id};path=/`
+      document.cookie = `user=${JSON.stringify(res.user)};path=/`
       setLoading(false)
 
       toast({

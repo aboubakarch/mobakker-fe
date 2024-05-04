@@ -7,17 +7,19 @@ import IconButton from '../buttons/IconButton'
 import LanguageChanger from '../languageChanger/LanguageChanger'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui'
 import { messages } from '@/constants/constants'
-import { removeCookie } from '@/lib/helpers'
+import { getCookie, removeCookie } from '@/lib/helpers'
 import { useTranslation } from 'react-i18next'
 
 const Navbar = () => {
     const { t } = useTranslation()
+    const user = JSON.parse(getCookie("user") || "null")
 
     const handleLogout = () => {
         removeCookie("accessToken")
         removeCookie("refreshToken")
         removeCookie("role")
         removeCookie("userId")
+        removeCookie("user")
         location.reload()
     }
     return (
@@ -52,7 +54,7 @@ const Navbar = () => {
                     <DropdownMenuTrigger asChild>
                         <div className='flex gap-2 bg-screen h-14 text-sm items-center px-3 rounded-md cursor-pointer'>
                             <div>
-                                <p className='font-semibold'>Branch Manager</p>
+                                <p className='font-semibold'>{user ? `${user.firstName} ${user.lastName}` : "Sample"}</p>
                                 <p className='text-end'>Lorem Ipsum</p>
                             </div>
                             <Image
