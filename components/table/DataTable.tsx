@@ -206,7 +206,7 @@ export function DataTable<TData, TValue>({
                             <TableRow>
                                 <TableCell colSpan={columns.length} rowSpan={2} className=" text-center">
 
-                                    <div className="w-full flex items-center justify-center px-10">
+                                    <div className="w-full flex items-center justify-center py-10">
                                         <div className="loader_smaller"></div>
 
                                     </div>
