@@ -93,7 +93,8 @@ class HTTPService {
     method: string,
     endpoint: string,
     data: any = {},
-    customConfig: AxiosRequestConfig = {}
+    customConfig: AxiosRequestConfig = {},
+    params: any = {},
   ): Promise<T> {
     const url = this.baseURL + endpoint
     const config = this.mergeConfig(
@@ -108,6 +109,7 @@ class HTTPService {
         method,
         url,
         data,
+        params,
         ...config,
       })
       return response.data
@@ -125,7 +127,7 @@ class HTTPService {
     params: any = {},
     customHeaders: AxiosRequestConfig['headers'] = {}
   ): Promise<any> {
-    return this.request<T>('get', endpoint, { params }, { headers: customHeaders })
+    return this.request<T>('get', endpoint, undefined, { headers: customHeaders }, params)
   }
 
   public post<T = any>(

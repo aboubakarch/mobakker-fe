@@ -116,6 +116,29 @@
 .loader:after {
   animation-delay: -0.5s;
 }
+
+.loader_smaller {
+  width: 25px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgb(55 48 163);
+  display: grid;
+  animation: l22-0 2s infinite linear;
+}
+.loader_smaller:before,
+.loader_smaller:after {
+  content: "";
+  grid-area: 1/1;
+  margin: 15%;
+  border-radius: 50%;
+  background: inherit;
+  transform: rotate(0deg) translate(150%);
+  animation: l22 1s infinite;
+}
+.loader_smaller:after {
+  animation-delay: -0.5s;
+}
+
 @keyframes l22-0 {
   100% {
     transform: rotate(1turn);
