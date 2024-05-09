@@ -56,6 +56,15 @@ class APIService extends HTTPService {
   public editService<T = any>(id: string, payload: object): Promise<T> {
     return this.patch<T>(`${endpoints.SERVICE}/${id}`, payload)
   }
+  public createServiceType<T = any>(payload: object): Promise<T> {
+    return this.post<T>(endpoints.CREATE_SERVICE_TYPE, payload)
+  }
+  public editServiceType<T = any>(id: string, payload: object): Promise<T> {
+    return this.patch<T>(`${endpoints.SERVICE_TYPE}/${id}`, payload)
+  }
+  public deleteServiceType<T = any>(id: string): Promise<T> {
+    return this.delete<T>(`${endpoints.SERVICE_TYPE}/${id}`)
+  }
 }
 
 export default APIService

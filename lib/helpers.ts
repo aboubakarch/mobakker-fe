@@ -64,3 +64,11 @@ export function removeCookie(cookieName: string) {
   document.cookie =
     cookieName + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 }
+// Function to validate image source
+export function isValidImageSrc(src: string) {
+  return (
+    src.startsWith("/") ||
+    src.startsWith("http://") ||
+    src.startsWith("https://")
+  );
+}

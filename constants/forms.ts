@@ -9,6 +9,7 @@ import {
   IProviderFormValues,
   IProviderRegistrationFormValues,
   IServiceFormValues,
+  IServiceTypeFormValues,
 } from "@/@types/forms";
 import {
   appointmentValidationSchema,
@@ -19,6 +20,7 @@ import {
   promotionValidationSchema,
   providerRegistrationValidationSchema,
   providerValidationSchema,
+  serviceTypeValidationSchema,
   serviceValidationSchema,
 } from "./validationSchemas";
 import { formConstants } from "./constants";
@@ -43,6 +45,11 @@ export const branchDefaultValues: (val?: SampleBranch) => IBranchFormValues = (
   state: "",
   city: val ? val.city : "",
   location: val ? val.address : "",
+});
+export const serviceTypeDefaultValues: (
+  val?: ServiceType
+) => IServiceTypeFormValues = (val) => ({
+  name: val ? val.name : "",
 });
 export const branchEditDefaultValues: IBranchEditFormValues = {
   name: "",
@@ -188,6 +195,20 @@ export const branchFormVals: (
       name: "city",
       label: t(formConstants.CITY),
       fieldType: FieldTypesEnum.Select,
+    },
+  }),
+});
+export const serviceTypeFormVals: (
+  val?: ServiceType
+) => IFormValueObj<IServiceTypeFormValues> = (val) => ({
+  validationSchema: serviceTypeValidationSchema,
+  initialValues: serviceTypeDefaultValues(val),
+  info: (t) => ({
+    name: {
+      placeHolder: t(formConstants.NAME_PLACEHOLER),
+      hasError: false,
+      name: "name",
+      label: t(formConstants.NAME_PLACEHOLER),
     },
   }),
 });

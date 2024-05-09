@@ -97,5 +97,6 @@
   "customerCare": "Customer Care",
   "addManager": "Add Manager",
   "addRepresentative": "Add Representative",
-  "logout": "Logout"
+  "logout": "Logout",
+  "addServiceType": "Add Service Type"
 }

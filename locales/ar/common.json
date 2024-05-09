@@ -97,5 +97,6 @@
   "customerCare": "خدمة العملاء",
   "addManager": "إضافة مدير",
   "addRepresentative": "إضافة ممثل",
-  "logout": "تسجيل الخروج"
+  "logout": "تسجيل الخروج",
+  "addServiceType": "إضافة نوع الخدمة"
 }

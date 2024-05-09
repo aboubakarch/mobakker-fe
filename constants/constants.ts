@@ -116,6 +116,7 @@ export const messages = {
   ADD_MANAGER: "common:addManager",
   ADD_REPRESENTATIVE: "common:addRepresentative",
   LOGOUT: "common:logout",
+  ADD_SERVICE_TYPE: "common:addServiceType",
 };
 
 export const tableHeader = {
@@ -262,6 +263,12 @@ export const SideBarItems = {
     icon: PageIcon,
     link: `${prefix}/services`,
   }),
+  ServiceTypes: (prefix: string) => ({
+    id: 17,
+    name: "navigation:serviceType",
+    icon: PageIcon,
+    link: `${prefix}/service-types`,
+  }),
   Promotions: (prefix: string) => ({
     id: 7,
     name: "navigation:promotions",
@@ -317,7 +324,7 @@ export const sidebarAdminNavigation: ISideBarItem[] = Object.values(
   SideBarItems
 )
   .map((i) => i("/admin"))
-  .filter((i: any) => i.id !== 15 || i.id !== 16);
+  .filter((i: any) => !(i.id === 15 || i.id === 16));
 export const sidebarProvidernavigation: ISideBarItem[] = [
   SideBarItems.Dashboard("/provider"),
   SideBarItems.Branch("/provider"),
@@ -328,6 +335,7 @@ export const sidebarProvidernavigation: ISideBarItem[] = [
   SideBarItems.CustomerCare("/provider"),
   SideBarItems.LoyalProgram("/provider"),
   SideBarItems.Services("/provider"),
+  SideBarItems.ServiceTypes("/provider"),
   SideBarItems.Promotions("/provider"),
   SideBarItems.Rating("/provider"),
   SideBarItems.Notification("/provider"),

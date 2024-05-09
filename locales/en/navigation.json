@@ -16,5 +16,6 @@
   "settings": "Settings",
   "branchManagers": "Branch Managers",
   "managers": "Managers",
-  "customerCare": "Customer Care"
+  "customerCare": "Customer Care",
+  "serviceType": "Service Type"
 }

@@ -19,6 +19,9 @@ interface IBranchFormValues {
   state: string;
   city: string;
 }
+interface IServiceTypeFormValues {
+  name: string;
+}
 interface IBranchEditFormValues {
   name: string;
   location: string;

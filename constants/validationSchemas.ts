@@ -14,6 +14,9 @@ export const branchValidationSchema = yup.object().shape({
   state: yup.string().min(2).max(300).required(),
   city: yup.string().min(2).max(300).required(),
 });
+export const serviceTypeValidationSchema = yup.object().shape({
+  name: yup.string().min(4).max(100).required(),
+});
 export const branchEditValidationSchema = yup.object().shape({
   name: yup.string().min(4).max(100).required(),
   password: yup.string().min(8).max(32).required(),
