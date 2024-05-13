@@ -6,4 +6,5 @@ interface ITableProps<T = any> {
   handleEdit?: (val: T) => void;
   handleDelete?: (val: T) => void;
   onUpdateFlag?: boolean;
+  onToggle?: (id: string, val: boolean) => void;
 }

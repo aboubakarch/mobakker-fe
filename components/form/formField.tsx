@@ -32,6 +32,7 @@ const testSelectData = [{
 const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, fieldType = FieldTypesEnum.Text, disabled = false, data, type }) => {
     const form = useFormContext()
     const selectData = data ? data : testSelectData
+    console.log("in form", selectData, label)
 
     const handleDaySelect = (day: string, checked: boolean, setDays: (...event: any[]) => void, value: string[]) => {
         let newArray: (string)[] = []
@@ -210,7 +211,7 @@ const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, 
                             {label && <FormLabel>{label}</FormLabel>}
                             <div className='flex h-10 w-full items-center rounded-md  bg-background text-sm placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1"'>
 
-                                <EmployeeMultiSelect selected={field.value} setSelected={field.onChange as any} />
+                                <EmployeeMultiSelect label={label} data={selectData as any} selected={field.value} setSelected={field.onChange as any} />
                             </div>
                             {desc && <FormDescription>
                                 {desc}

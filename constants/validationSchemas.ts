@@ -40,13 +40,12 @@ export const serviceValidationSchema = yup.object().shape({
   slotTime: yup.string().required(),
 });
 export const promotionValidationSchema = yup.object().shape({
-  name: yup.string().max(100).required(),
-  employees: yup.array().of(yup.string()).required(),
-  category: yup.string().max(100).required(),
-  capacity: yup.string().max(100).required(),
-  date: yup.date().required(),
-  time: yup.date().required(),
-  status: yup.string().max(100).required(),
+  promoCode: yup.string().max(100).required(),
+  startDate: yup.date().required(),
+  endDate: yup.date().required(),
+  service: yup.array().of(yup.string()).required(),
+  isActive: yup.boolean().required(),
+  type: yup.string().oneOf(["FIXED", "PERCENTAGE"]).required(),
 });
 export const appointmentValidationSchema = yup.object().shape({
   employees: yup.array().of(yup.string()).required(),

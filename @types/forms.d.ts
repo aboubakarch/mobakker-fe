@@ -50,13 +50,13 @@ interface IServiceFormValues {
   slotTime: string;
 }
 interface IPromotionFormValues {
-  name: string;
-  employees: string[];
-  category: string;
-  capacity: string;
-  date: string;
-  time: string;
-  status: string;
+  promoCode: string;
+  startDate: Date | string;
+  endDate: Date | string;
+  service: string[];
+  isActive: boolean;
+  type: "FIXED" | "PERCENTAGE";
+  description: string;
 }
 interface IAppointmentFormValues {
   employees: string[];

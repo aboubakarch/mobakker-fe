@@ -83,15 +83,18 @@ export const serviceDefaultValues: (
   endHour: val ? val.workHourTo : "",
   slotTime: val ? val.slotTime : "",
 });
-export const promotionDefaultValues: IPromotionFormValues = {
-  name: "",
-  employees: [],
-  category: "",
-  capacity: "",
-  date: "",
-  time: "",
-  status: "",
-};
+
+export const promotionDefaultValues: (
+  val?: SamplePromotions
+) => IPromotionFormValues = (val) => ({
+  promoCode: val ? val.promoCode : "",
+  isActive: val ? val.isActive : false,
+  endDate: val ? val.endDate : "",
+  startDate: val ? val.startDate : "",
+  service: val ? val.services.map((s) => s.id) : [],
+  type: val ? val.type : "FIXED",
+  description: val ? val.description : "",
+});
 export const appointmentDefaultValues: (
   val?: SampleAppointments
 ) => IAppointmentFormValues = (val) => ({
@@ -367,58 +370,64 @@ export const serviceFormVals: (
     },
   }),
 });
-export const promotionFormVals: IFormValueObj<IPromotionFormValues> = {
+export const promotionFormVals: (
+  val?: SamplePromotions
+) => IFormValueObj<IPromotionFormValues> = (val) => ({
   validationSchema: promotionValidationSchema,
-  initialValues: promotionDefaultValues,
+  initialValues: promotionDefaultValues(val),
   info: (t) => ({
-    name: {
+    promoCode: {
       placeHolder: t(formConstants.NAME_PLACEHOLER),
       hasError: false,
-      name: "name",
+      name: "promoCode",
       label: t(formConstants.PROMOTION_NAME),
     },
-    employees: {
+
+    type: {
+      placeHolder: t(formConstants.TYPE_OF_SERVICE),
       hasError: false,
-      name: "employees",
-      label: t(formConstants.SELECT_EMPLOYEES),
-      fieldType: FieldTypesEnum.EmployeeSelect,
-    },
-    category: {
-      placeHolder: t(formConstants.CATEGORY),
-      hasError: false,
-      name: "category",
-      label: t(formConstants.SELECT_CATEGORY),
+      name: "type",
+      label: t(formConstants.TYPE_OF_SERVICE),
       fieldType: FieldTypesEnum.Select,
     },
-    capacity: {
-      placeHolder: t(formConstants.CAPACITY),
-      hasError: false,
-      name: "capacity",
-      label: t(formConstants.CAPACITY),
-    },
-    date: {
+
+    startDate: {
       placeHolder: t(formConstants.DATE),
       hasError: false,
-      name: "date",
+      name: "startDate",
       label: t(formConstants.SELECT_DATE),
       fieldType: FieldTypesEnum.DatePicker,
     },
-    time: {
-      placeHolder: t(formConstants.SELECT_TIME),
+    endDate: {
+      placeHolder: t(formConstants.SELECT_DATE),
       hasError: false,
-      name: "time",
-      label: t(formConstants.SELECT_TIME),
+      name: "endDate",
+      label: t(formConstants.SELECT_DATE),
       fieldType: FieldTypesEnum.DatePicker,
     },
-    status: {
+    isActive: {
       placeHolder: t(formConstants.STATUS),
       hasError: false,
-      name: "status",
+      name: "isActive",
       label: t(formConstants.STATUS),
       fieldType: FieldTypesEnum.Select,
     },
+    service: {
+      placeHolder: t(formConstants.SELECT_SERVICE),
+      hasError: false,
+      name: "service",
+      label: t(formConstants.TYPE_OF_SERVICE),
+      fieldType: FieldTypesEnum.EmployeeSelect,
+    },
+    description: {
+      placeHolder: t(formConstants.DETAILS),
+      hasError: false,
+      name: "description",
+      label: t(formConstants.DETAILS),
+      fieldType: FieldTypesEnum.Textarea,
+    },
   }),
-};
+});
 export const appointmentFormVals: (
   val?: SampleAppointments
 ) => IFormValueObj<IAppointmentFormValues> = (val) => ({

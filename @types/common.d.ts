@@ -80,16 +80,14 @@ interface SampleAppointmentRatings {
   rating: number;
 }
 interface SamplePromotions {
-  promotionName: string;
-  startDate: string;
-  endDate: string;
-  serviceType: string;
-  serviceName: string;
-  servicePicture: string;
-  branchName: string;
-  capacity: string;
-  availableCount: number;
-  status: boolean;
+  promoCode: string;
+  startDate: Date | string;
+  endDate: Date | string;
+  services: any[];
+  isActive: boolean;
+  id: string;
+  type: "FIXED" | "PERCENTAGE";
+  description: string;
 }
 
 interface SampleSubscription {
