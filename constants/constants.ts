@@ -168,6 +168,7 @@ export const tableHeader = {
   EMAIL: "table:email",
   PHONE: "table:phone",
   COUNTRY: "table:country",
+  NUMBER_OF_SERVICES: "table:numberOfServices",
 };
 
 export const formConstants = {
@@ -218,6 +219,8 @@ export const formConstants = {
   FIRST_NAME: "auth:firstName",
   LAST_NAME: "auth:lastName",
   TIME_SLOT: "auth:timeSlot",
+  START_DATE: "auth:startDate",
+  END_DATE: "auth:endDate",
 };
 
 export const SideBarItems = {

@@ -46,5 +46,6 @@
   "state": "State",
   "email": "Email",
   "phone": "Phone",
-  "country": "Country"
+  "country": "Country",
+  "numberOfServices": "Number of Services"
 }

@@ -46,5 +46,6 @@
   "state": "الولاية",
   "email": "البريد الإلكتروني",
   "phone": "الهاتف",
-  "country": "الدولة"
+  "country": "الدولة",
+  "numberOfServices": "عدد الخدمات"
 }

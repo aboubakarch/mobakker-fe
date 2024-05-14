@@ -392,17 +392,17 @@ export const promotionFormVals: (
     },
 
     startDate: {
-      placeHolder: t(formConstants.DATE),
+      placeHolder: t(formConstants.START_DATE),
       hasError: false,
       name: "startDate",
-      label: t(formConstants.SELECT_DATE),
+      label: t(formConstants.START_DATE),
       fieldType: FieldTypesEnum.DatePicker,
     },
     endDate: {
-      placeHolder: t(formConstants.SELECT_DATE),
+      placeHolder: t(formConstants.END_DATE),
       hasError: false,
       name: "endDate",
-      label: t(formConstants.SELECT_DATE),
+      label: t(formConstants.END_DATE),
       fieldType: FieldTypesEnum.DatePicker,
     },
     isActive: {
@@ -416,7 +416,7 @@ export const promotionFormVals: (
       placeHolder: t(formConstants.SELECT_SERVICE),
       hasError: false,
       name: "service",
-      label: t(formConstants.TYPE_OF_SERVICE),
+      label: t(formConstants.SELECT_SERVICE),
       fieldType: FieldTypesEnum.EmployeeSelect,
     },
     description: {

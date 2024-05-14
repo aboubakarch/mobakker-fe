@@ -70,7 +70,7 @@ const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, v
             city: values.city,
             cover: "lkldls",
             // ownerId: userId,
-            ownerId: "9ed6eeca-1659-4667-a2a0-2f68d3ad92d6",
+            // ownerId: "9ed6eeca-1659-4667-a2a0-2f68d3ad92d6",
             country: "Saudi Arab"
         }
         await APIService.getInstance().createBranch(branch as any);
