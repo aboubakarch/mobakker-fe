@@ -1,5 +1,5 @@
 "use client"
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import Modal from './Modal'
 import AppForm from '../form/Form'
 import { useTranslation } from 'react-i18next'
@@ -12,6 +12,8 @@ import { messages } from '@/constants/constants'
 import { X } from 'lucide-react'
 import { IModalCompProps } from '@/@types/modals'
 import { Button } from '../ui'
+import { useToast } from '@/hooks/use-toast'
+import APIService from '@/services/api'
 
 
 const repeatOptions = [
@@ -43,7 +45,38 @@ const statusOptions = [
 
 const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal, visible, val }) => {
     const { t } = useTranslation();
+    const { toast } = useToast()
     const appointmentFormVal = appointmentFormVals(val)
+    const [loading, setLoading] = useState(false)
+    const [services, setServices] = useState<any[] | null>([])
+
+
+    const fetchData = async () => {
+        setLoading(true)
+
+        try {
+            const params = {
+                page: 1, take: 100
+            }
+            const response = await APIService.getInstance().getServices(params)
+
+            const data = response?.items?.map((item: ServiceType) => ({
+                name: item.name,
+                value: item.id
+            }))
+            setServices(data)
+        } catch (error) {
+            toast({
+                variant: "destructive",
+                description: "Error! Something went wrong",
+            })
+        }
+        setLoading(false)
+    }
+
+    useEffect(() => {
+        fetchData()
+    }, [])
 
 
     const onSubmit = (values: yup.InferType<typeof appointmentValidationSchema>) => {
@@ -76,7 +109,7 @@ const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal,
                         <InputField data={statusOptions} {...appointmentFormVal.info(t).status} />
                     </div>
 
-                    <InputField {...appointmentFormVal.info(t).service} />
+                    <InputField data={services as any} disabled={!services} {...appointmentFormVal.info(t).service} />
 
                     <InputField data={repeatOptions} {...appointmentFormVal.info(t).repeat} />
                     <InputField data={paymentTypeOptions} {...appointmentFormVal.info(t).paymentType} />
@@ -91,7 +124,7 @@ const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal,
                 </div>
 
                 <div className='self-end flex gap-3'>
-                    <SubmitButton title={t(messages.SAVE)} className=" bg-primaryBlue" />
+                    <SubmitButton loading={loading} title={t(messages.SAVE)} className=" bg-primaryBlue" />
                     <Button onClick={closeModal} variant={"outline"} >
                         {t(messages.CANCEL)}
                     </Button>
