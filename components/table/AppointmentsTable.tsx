@@ -1,99 +1,71 @@
 "use client"
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { DataTable } from './DataTable'
 import { appointmentsColumns } from './columns/AppointmentsColumn'
 import { useTranslation } from 'react-i18next'
+import { useToast } from '@/hooks/use-toast'
+import { PaginationState } from '@tanstack/react-table'
+import APIService from '@/services/api'
+import { Skeleton } from '../ui/Skeleton'
 
-const AppointmentsTable: FC<ITableProps<SampleAppointments>> = ({ handleDelete, handleEdit }) => {
+const AppointmentsTable: FC<ITableProps<SampleAppointments>> = ({ handleDelete, handleEdit, onUpdateFlag }) => {
     const { t } = useTranslation()
+    const { toast } = useToast()
+    const [data, setData] = useState<SampleAppointments[]>([])
+    const [total, setTotal] = useState<number>(1)
+    const [pageLoaded, setPageLoaded] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [pagination, setPagination] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 })
 
-    const data: SampleAppointments[] = [
-        {
-            bookingId: "#123445",
-            customerNumber: 5637572384,
-            name: 'Abdullah Ali Al-Raddadi',
-            serviceBooked: "Full Body Massage",
-            serviceType: "Massage",
-            servicePicture: "/assets/sampleImage.jpg",
-            serviceTime: "45 minutes",
-            price: 160,
-            branchName: "Median",
-            hours: ["9-10pm"],
-            category: "test3",
-            date: new Date(),
-            employees: [],
-            paymentType: "test2",
-            repeatDay: true,
-            repeatMonth: false,
-            repeatWeek: false,
+    const fetchData = async () => {
 
-        },
-        {
-            bookingId: "#123445",
-            customerNumber: 5637572384,
-            name: 'Abdullah Ali Al-Raddadi',
-            serviceBooked: "Full Body Massage",
-            serviceType: "Massage",
-            servicePicture: "/assets/sampleImage.jpg",
-            serviceTime: "45 minutes",
-            price: 160,
-            branchName: "Median",
-            hours: ["9-10pm"],
-            category: "test3",
-            date: new Date(),
-            employees: [],
-            paymentType: "test2",
-            repeatDay: true,
-            repeatMonth: false,
-            repeatWeek: false,
+        try {
+            setLoading(true)
 
-        },
-        {
-            bookingId: "#123445",
-            customerNumber: 5637572384,
-            name: 'Abdullah Ali Al-Raddadi',
-            serviceBooked: "Full Body Massage",
-            serviceType: "Massage",
-            servicePicture: "/assets/sampleImage.jpg",
-            serviceTime: "45 minutes",
-            price: 160,
-            branchName: "Median",
-            hours: ["9-10pm"],
-            category: "test3",
-            date: new Date(),
-            employees: [],
-            paymentType: "test2",
-            repeatDay: true,
-            repeatMonth: false,
-            repeatWeek: false,
+            const params = {
+                page: pagination.pageIndex + 1, take: pagination.pageSize
+            }
+            const response = await APIService.getInstance().getAppointments(params)
+            setData(response.items)
+            setTotal(response.pageMetaDto.itemCount)
+            // console.log(response)
+        } catch (error) {
+            toast({
+                variant: "destructive",
+                description: "Error! Something went wrong",
+            })
+        }
+        setLoading(false)
+        setPageLoaded(true)
+    }
+    useEffect(() => {
 
-        },
-        {
-            bookingId: "#123445",
-            customerNumber: 5637572384,
-            name: 'Abdullah Ali Al-Raddadi',
-            serviceBooked: "Full Body Massage",
-            serviceType: "Massage",
-            servicePicture: "/assets/sampleImage.jpg",
-            serviceTime: "45 minutes",
-            price: 160,
-            branchName: "Median",
-            hours: ["9-10pm"],
-            category: "test3",
-            date: new Date(),
-            employees: [],
-            paymentType: "test2",
-            repeatDay: true,
-            repeatMonth: false,
-            repeatWeek: false,
+        fetchData()
 
-        },
+    }, [onUpdateFlag])
+    useEffect(() => {
+        fetchData()
 
-    ]
+    }, [pagination])
+
 
     return (
+
         <div>
-            <DataTable data={data} columns={appointmentsColumns(t, handleEdit, handleDelete)} filterKey='name' count={data.length} rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5' />
+            {!pageLoaded && data.length === 0 ? (
+                <div className="flex flex-col space-y-2 bg-white p-4">
+                    <Skeleton className="h-[75px] w-full rounded-xl" />
+                    <Skeleton className="h-[75px] w-full rounded-xl" />
+                </div>
+            ) : (<DataTable
+                data={data}
+                columns={appointmentsColumns(t, handleEdit, handleDelete)}
+                filterKey='name' count={total}
+                onChangePagination={setPagination}
+                tablePagination={pagination}
+                loading={loading}
+                rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5'
+            />)}
         </div>
     )
 }

@@ -48,15 +48,24 @@ export const promotionValidationSchema = yup.object().shape({
   type: yup.string().oneOf(["FIXED", "PERCENTAGE"]).required(),
 });
 export const appointmentValidationSchema = yup.object().shape({
-  employees: yup.array().of(yup.string()).required(),
-  category: yup.string().max(100).required(),
-  paymentType: yup.string().max(100).required(),
-  service: yup.string().max(100).required(),
-  date: yup.date().required(),
-  hours: yup.array().of(yup.string()).required(),
-  repeatDay: yup.boolean().required(),
-  repeatWeek: yup.boolean().required(),
-  repeatMonth: yup.boolean().required(),
+  bookingDate: yup.date().required(),
+  repeat: yup
+    .string()
+    .oneOf(["DAILY", "WEEKLY", "MONTHLY", "YEARLY"])
+    .required(),
+  grossTotalAmount: yup.number().required(),
+  discount: yup.number().required(),
+  netTotalAmount: yup.number().required(),
+  paymentStatus: yup.string().oneOf(["PENDING", "PAID", "APPROVED"]).required(),
+  paymentType: yup.string().oneOf(["CASH", "CARD", "TRANSFER"]).required(),
+  status: yup
+    .string()
+    .oneOf(["PENDING", "STARTED", "COMPLETED", "CANCELED", "REJECTED"])
+    .required(),
+  bookedBy: yup.string().required(),
+  branchId: yup.string().required(),
+  employeeId: yup.string().required(),
+  service: yup.array().of(yup.string()).required(),
 });
 export const providerValidationSchema = yup.object().shape({
   firstName: yup.string().min(4).max(100).required(),

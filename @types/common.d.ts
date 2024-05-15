@@ -27,23 +27,19 @@ interface SampleServices {
   branches: any[];
 }
 interface SampleAppointments {
-  bookingId: string;
-  name: string;
-  customerNumber: number;
-  serviceType: string;
-  serviceBooked: string;
-  servicePicture: string;
-  serviceTime: string;
-  branchName: string;
-  category: string;
-  hours: string[];
-  employees: [];
-  price: number;
-  repeatDay: boolean;
-  repeatWeek: boolean;
-  repeatMonth: boolean;
-  paymentType: string;
-  date: Date;
+  id: string;
+  bookingDate: Date;
+  repeat: "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY";
+  grossTotalAmount: number;
+  discount: number;
+  netTotalAmount: number;
+  paymentStatus: "PENDING" | "PAID" | "APPROVED";
+  paymentType: "CASH" | "CARD" | "TRANSFER";
+  status: "PENDING" | "STARTED" | "COMPLETED" | "CANCELED" | "REJECTED";
+  bookedBy: string;
+  branchId: string;
+  employeeId: string;
+  service: string[];
 }
 interface SampleLoyalPrograms {
   rank: string;

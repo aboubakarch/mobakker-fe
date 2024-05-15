@@ -59,15 +59,18 @@ interface IPromotionFormValues {
   description: string;
 }
 interface IAppointmentFormValues {
-  employees: string[];
-  category: string;
-  service: string;
-  date: string | Date;
-  hours: string[];
-  paymentType: string;
-  repeatDay: boolean;
-  repeatWeek: boolean;
-  repeatMonth: boolean;
+  bookingDate: Date;
+  repeat: "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY";
+  grossTotalAmount: number;
+  discount: number;
+  netTotalAmount: number;
+  paymentStatus: "PENDING" | "PAID" | "APPROVED";
+  paymentType: "CASH" | "CARD" | "TRANSFER";
+  status: "PENDING" | "STARTED" | "COMPLETED" | "CANCELED" | "REJECTED";
+  bookedBy: string;
+  branchId: string;
+  employeeId: string;
+  service: string[];
 }
 
 type IFormTemplate = IAppFormProps;

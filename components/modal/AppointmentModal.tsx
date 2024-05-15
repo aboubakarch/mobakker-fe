@@ -14,6 +14,33 @@ import { IModalCompProps } from '@/@types/modals'
 import { Button } from '../ui'
 
 
+const repeatOptions = [
+    { name: "Daily", value: "DAILY" },
+    { name: "Weekly", value: "WEEKLY" },
+    { name: "Monthly", value: "MONTHLY" },
+    { name: "Yearly", value: "YEARLY" }
+];
+
+const paymentStatusOptions = [
+    { name: "Pending", value: "PENDING" },
+    { name: "Paid", value: "PAID" },
+    { name: "Approved", value: "APPROVED" }
+];
+
+const paymentTypeOptions = [
+    { name: "Cash", value: "CASH" },
+    { name: "Card", value: "CARD" },
+    { name: "Transfer", value: "TRANSFER" }
+];
+
+const statusOptions = [
+    { name: "Pending", value: "PENDING" },
+    { name: "Started", value: "STARTED" },
+    { name: "Completed", value: "COMPLETED" },
+    { name: "Canceled", value: "CANCELED" },
+    { name: "Rejected", value: "REJECTED" }
+];
+
 const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal, visible, val }) => {
     const { t } = useTranslation();
     const appointmentFormVal = appointmentFormVals(val)
@@ -36,24 +63,27 @@ const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal,
 
                 <div className='flex flex-col gap-4'>
                     <div className=' grid grid-cols-3 gap-2 w-full'>
-                        <InputField {...appointmentFormVal.info(t).category} />
-                        <InputField {...appointmentFormVal.info(t).service} />
-                        <InputField {...appointmentFormVal.info(t).employees} />
+                        <InputField {...appointmentFormVal.info(t).branchId} />
+                        <InputField {...appointmentFormVal.info(t).bookedBy} />
+                        <InputField {...appointmentFormVal.info(t).employeeId} />
 
                     </div>
-                    <div className='grid grid-cols-2 gap-2 w-full'>
-                        <InputField {...appointmentFormVal.info(t).date} />
+                    <div className='grid grid-cols-3 gap-2 w-full'>
+                        <InputField {...appointmentFormVal.info(t).bookingDate} />
 
 
-                        <InputField {...appointmentFormVal.info(t).paymentType} />
+                        <InputField data={paymentStatusOptions} {...appointmentFormVal.info(t).paymentStatus} />
+                        <InputField data={statusOptions} {...appointmentFormVal.info(t).status} />
                     </div>
 
+                    <InputField {...appointmentFormVal.info(t).service} />
 
-                    <InputField {...appointmentFormVal.info(t).hours} />
+                    <InputField data={repeatOptions} {...appointmentFormVal.info(t).repeat} />
+                    <InputField data={paymentTypeOptions} {...appointmentFormVal.info(t).paymentType} />
                     <div className='flex gap-2'>
-                        <InputField {...appointmentFormVal.info(t).repeatDay} />
-                        <InputField {...appointmentFormVal.info(t).repeatWeek} />
-                        <InputField {...appointmentFormVal.info(t).repeatMonth} />
+                        <InputField {...appointmentFormVal.info(t).grossTotalAmount} />
+                        <InputField {...appointmentFormVal.info(t).netTotalAmount} />
+                        <InputField {...appointmentFormVal.info(t).discount} />
 
                     </div>
 

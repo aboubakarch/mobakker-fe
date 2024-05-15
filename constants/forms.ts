@@ -98,15 +98,18 @@ export const promotionDefaultValues: (
 export const appointmentDefaultValues: (
   val?: SampleAppointments
 ) => IAppointmentFormValues = (val) => ({
-  employees: val ? val.employees : [],
-  category: val ? val.category : "",
-  service: val ? val.serviceBooked : "",
-  date: val ? val.date : "",
-  paymentType: val ? val.paymentType : "",
-  hours: val ? val.hours : [],
-  repeatDay: val ? val.repeatDay : false,
-  repeatWeek: val ? val.repeatWeek : false,
-  repeatMonth: val ? val.repeatMonth : false,
+  bookingDate: val ? val.bookingDate : new Date(),
+  repeat: val ? val.repeat : "DAILY",
+  grossTotalAmount: val ? val.grossTotalAmount : 0,
+  discount: val ? val.discount : 0,
+  netTotalAmount: val ? val.netTotalAmount : 0,
+  paymentStatus: val ? val.paymentStatus : "PENDING",
+  paymentType: val ? val.paymentType : "CASH",
+  status: val ? val.status : "PENDING",
+  bookedBy: val ? val.bookedBy : "",
+  branchId: val ? val.branchId : "",
+  employeeId: val ? val.employeeId : "",
+  service: val ? val.service : [],
 });
 
 export const loginFormVals: IFormValueObj<ILoginFormValues> = {
@@ -434,63 +437,86 @@ export const appointmentFormVals: (
   validationSchema: appointmentValidationSchema,
   initialValues: appointmentDefaultValues(val),
   info: (t) => ({
-    employees: {
+    bookedBy: {
       hasError: false,
-      name: "employees",
-      label: t(formConstants.SELECT_EMPLOYEES),
-      fieldType: FieldTypesEnum.EmployeeSelect,
-    },
-    category: {
-      placeHolder: t(formConstants.CATEGORY),
-      hasError: false,
-      name: "category",
-      label: t(formConstants.SELECT_CATEGORY),
+      name: "bookedBy",
+      label: t(formConstants.BOOKED_BY_LABEL),
+      placeHolder: t(formConstants.BOOKED_BY_PLACEHOLDER),
       fieldType: FieldTypesEnum.Select,
     },
-    paymentType: {
-      placeHolder: t(formConstants.PAYMENT_TYPE),
+    employeeId: {
       hasError: false,
-      name: "paymentType",
-      label: t(formConstants.PAYMENT_TYPE),
+      name: "employeeId",
+      label: t(formConstants.EMPLOYEE_ID_LABEL),
+      placeHolder: t(formConstants.EMPLOYEE_ID_PLACEHOLDER),
       fieldType: FieldTypesEnum.Select,
     },
     service: {
-      placeHolder: t(formConstants.SELECT_SERVICE),
       hasError: false,
       name: "service",
-      label: t(formConstants.SELECT_SERVICE),
+      label: t(formConstants.SERVICE_LABEL),
+      placeHolder: t(formConstants.SERVICE_PLACEHOLDER),
+      fieldType: FieldTypesEnum.EmployeeSelect,
+    },
+    paymentType: {
+      hasError: false,
+      name: "paymentType",
+      label: t(formConstants.PAYMENT_TYPE_LABEL),
+      placeHolder: t(formConstants.PAYMENT_TYPE_PLACEHOLDER),
       fieldType: FieldTypesEnum.Select,
     },
-    date: {
-      placeHolder: t(formConstants.DATE),
+    paymentStatus: {
       hasError: false,
-      name: "date",
-      label: t(formConstants.SELECT_DATE),
+      name: "paymentStatus",
+      label: t(formConstants.PAYMENT_STATUS_LABEL),
+      placeHolder: t(formConstants.PAYMENT_STATUS_PLACEHOLDER),
+      fieldType: FieldTypesEnum.Select,
+    },
+    bookingDate: {
+      hasError: false,
+      name: "bookingDate",
+      label: t(formConstants.BOOKING_DATE_LABEL),
+      placeHolder: t(formConstants.BOOKING_DATE_PLACEHOLDER),
       fieldType: FieldTypesEnum.DatePicker,
     },
-    hours: {
+    branchId: {
       hasError: false,
-      name: "hours",
-      label: t(formConstants.SELECT_APPOINTMENT_TIME),
-      fieldType: FieldTypesEnum.HoursCheck,
+      name: "branchId",
+      label: t(formConstants.BRANCH_ID_LABEL),
+      placeHolder: t(formConstants.BRANCH_ID_PLACEHOLDER),
+      fieldType: FieldTypesEnum.Select,
     },
-    repeatDay: {
+    repeat: {
       hasError: false,
-      name: "repeatDay",
-      label: t(formConstants.REPEAT_FOR_DAY),
-      fieldType: FieldTypesEnum.Checkbox,
+      name: "repeat",
+      label: t(formConstants.REPEAT_LABEL),
+      placeHolder: t(formConstants.REPEAT_PLACEHOLDER),
+      fieldType: FieldTypesEnum.Select,
     },
-    repeatWeek: {
+    discount: {
       hasError: false,
-      name: "repeatWeek",
-      label: t(formConstants.REPEAT_FOR_WEEK),
-      fieldType: FieldTypesEnum.Checkbox,
+      name: "discount",
+      label: t(formConstants.DISCOUNT_LABEL),
+      placeHolder: t(formConstants.DISCOUNT_PLACEHOLDER),
     },
-    repeatMonth: {
+    status: {
       hasError: false,
-      name: "repeatMonth",
-      label: t(formConstants.REPEAT_FOR_MONTH),
-      fieldType: FieldTypesEnum.Checkbox,
+      name: "isActive",
+      label: t(formConstants.STATUS_LABEL),
+      placeHolder: t(formConstants.STATUS_PLACEHOLDER),
+      fieldType: FieldTypesEnum.Select,
+    },
+    grossTotalAmount: {
+      hasError: false,
+      name: "grossTotalAmount",
+      label: t(formConstants.GROSS_TOTAL_AMOUNT_LABEL),
+      placeHolder: t(formConstants.GROSS_TOTAL_AMOUNT_PLACEHOLDER),
+    },
+    netTotalAmount: {
+      hasError: false,
+      name: "netTotalAmount",
+      label: t(formConstants.NET_TOTAL_AMOUNT_LABEL),
+      placeHolder: t(formConstants.NET_TOTAL_AMOUNT_PLACEHOLDER),
     },
   }),
 });

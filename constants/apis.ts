@@ -12,6 +12,7 @@ export const endpoints = {
   CUSTOMER_CARE_REGISTRATION: "/auth/register/customer-care",
   BRANCH_MANAGER_REGISTRATION: "/auth/register/branch-manager",
   BRANCH: "/branch",
+  APPOINTMENTS: "/appointment",
   SERVICE: "/service",
   SERVICE_TYPE: "/service-type",
   PROMOTION: "/promotion",
