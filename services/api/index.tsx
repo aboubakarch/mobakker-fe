@@ -71,6 +71,9 @@ class APIService extends HTTPService {
   public getPromotions<T = any>(params: any): Promise<T> {
     return this.get<T>(endpoints.PROMOTION, params)
   }
+  public getServiceBranchManager<T = any>(params: any): Promise<T> {
+    return this.get<T>(endpoints.SERVICE_BRANCH_MANAGER, params)
+  }
   public editPromotion<T = any>(id: string, payload: object): Promise<T> {
     return this.patch<T>(`${endpoints.PROMOTION}/${id}`, payload)
   }

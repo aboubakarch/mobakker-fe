@@ -16,4 +16,5 @@ export const endpoints = {
   SERVICE_TYPE: "/service-type",
   PROMOTION: "/promotion",
   CREATE_PROMOTION: "/promotion/create",
+  SERVICE_BRANCH_MANAGER: "/srvice-provider/branch-manager",
 };

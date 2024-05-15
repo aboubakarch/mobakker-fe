@@ -83,13 +83,13 @@ export const branchManagerColumns: (t: TFunction<"translation", undefined>, hand
             },
         },
         {
-            accessorKey: "description",
-            header: () => <div className="text-center">{t(tableHeader.DETAILS)}</div>,
+            accessorKey: "isActive",
+            header: () => <div className="text-center">{t(tableHeader.STATUS)}</div>,
 
             cell: ({ row }) => {
-                const description: string = row.getValue("description");
+                const isActive: boolean = row.getValue("isActive");
                 return (
-                    <p className="text-sm line-clamp-3">{description}</p>
+                    <p className="text-sm line-clamp-3">{isActive ? "Active" : "Inactive"}</p>
 
                 )
             },
