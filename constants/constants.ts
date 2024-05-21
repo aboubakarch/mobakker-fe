@@ -245,6 +245,8 @@ export const formConstants = {
   EMPLOYEE_ID_PLACEHOLDER: "auth:employeeIdPlaceholder",
   SERVICE_LABEL: "auth:serviceLabel",
   SERVICE_PLACEHOLDER: "auth:servicePlaceholder",
+  SELECT_MANAGER: "auth:selectManager",
+  CUSTOMER: "auth:customer",
 };
 
 export const SideBarItems = {

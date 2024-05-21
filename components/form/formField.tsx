@@ -20,6 +20,7 @@ import _ from "lodash"
 import { CalendarIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import moment from 'moment'
+import { SingleSearchSelect } from './SingleSearchSelect'
 
 const testSelectData = [{
     name: "Test 3",
@@ -32,7 +33,7 @@ const testSelectData = [{
 const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, fieldType = FieldTypesEnum.Text, disabled = false, data, type }) => {
     const form = useFormContext()
     const selectData = data ? data : testSelectData
-    console.log("in form", selectData, label)
+    console.log("in form", selectData, label, fieldType)
 
     const handleDaySelect = (day: string, checked: boolean, setDays: (...event: any[]) => void, value: string[]) => {
         let newArray: (string)[] = []
@@ -155,7 +156,7 @@ const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, 
                                         selected={field.value}
                                         onSelect={field.onChange}
                                         disabled={(date) =>
-                                            date > new Date() || date < new Date("1900-01-01")
+                                            date < new Date("1900-01-01")
                                         }
                                         initialFocus
                                     />
@@ -199,6 +200,29 @@ const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, 
                     )}
 
                 />
+            )
+
+        case FieldTypesEnum.SingleSearchSelect:
+            return (
+                <FormField
+                    control={form.control}
+                    name={name}
+                    render={({ field }) => (
+                        <FormItem >
+                            {label && <FormLabel>{label}</FormLabel>}
+                            <div className='flex h-10 w-full items-center rounded-md  bg-background text-sm placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1"'>
+
+                                <SingleSearchSelect label={label} data={selectData as any} selected={field.value} setSelected={field.onChange as any} />
+                            </div>
+                            {desc && <FormDescription>
+                                {desc}
+                            </FormDescription>}
+                            {hasError && <FormMessage />}
+                        </FormItem>
+                    )}
+
+                />
+
             )
 
         case FieldTypesEnum.EmployeeSelect:

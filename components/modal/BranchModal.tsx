@@ -18,6 +18,7 @@ import { TFunction } from 'i18next'
 import { useFormContext } from 'react-hook-form'
 import APIService from '@/services/api'
 import { useToast } from '@/hooks/use-toast'
+import BranchManagerModal from './BranchManagerModal'
 // import { getCookie } from '@/lib/helpers'
 
 
@@ -50,17 +51,78 @@ const CityPicker: FC<{
     )
 }
 
+const ManagerPicker: FC<{
+    branchFormVal: IFormValueObj<IBranchFormValues>, t: TFunction<"translation", undefined>, manager: null | SampleBranchManager, children?: React.ReactNode
+}> = ({ branchFormVal, t, manager, children }) => {
+
+    const [managers, setManagers] = useState<any[] | null>([])
+
+    const form = useFormContext()
+    // console.log("state changed", state)
+    const fetchData = async () => {
+
+        try {
+            const params = {
+                page: 1, take: 100
+            }
+            const response = await APIService.getInstance().getServiceBranchManager(params)
+
+            const data = response?.map((item: SampleBranchManager) => ({
+                name: `${item.firstName} ${item.lastName}`,
+                value: item?.id
+            }))
+            setManagers(data)
+            console.log(data)
+            if (manager) {
+                form.setValue("manager", manager.id)
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        fetchData()
+    }, [manager])
+
+
+
+
+
+    return (
+        <div className='flex gap-3 w-full'>
+
+            <div className='flex-1'>
+                <InputField {...branchFormVal.info(t).manager as any} data={managers ? managers as any : undefined} />
+
+            </div>
+            <div className='flex-1 flex items-end'>
+                {children}
+            </div>
+
+        </div>
+    )
+}
+
+
+
+
 
 const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, val, onUpdate }) => {
     const { t } = useTranslation();
     const branchFormVal = branchFormVals(val)
     const [loading, setLoading] = useState(false)
     const { toast } = useToast()
+    const [newManager, setNewManager] = useState<null | SampleBranchManager>(null)
+    const [managerModal, setManagerModal] = useState(false)
+
     const states = useMemo(() => {
         const temp = State.getStatesOfCountry("SA")
         return temp.map(st => ({ name: st.name, value: st.isoCode }))
     }, [])
     // console.log("states", states)
+
 
     const createNewBranch = async (values: yup.InferType<typeof branchValidationSchema>) => {
         // const userId = getCookie("userId");
@@ -126,8 +188,18 @@ const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, v
         }
         closeModal()
     };
+
+
+    const handleNewManager = (data: any) => {
+        console.log(data)
+        setNewManager(data)
+
+    }
+
     return (
         <Modal visibility={visible} closeModal={closeModal}>
+            <BranchManagerModal visible={managerModal} closeModal={() => setManagerModal(false)} onSubmitData={handleNewManager} />
+
             <AppForm
                 onSubmit={onSubmit}
                 className="px-3 py-4 flex gap-4 flex-col"
@@ -147,7 +219,10 @@ const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, v
 
                 <InputField {...branchFormVal.info(t).location} />
                 <CityPicker branchFormVal={branchFormVal} states={states} t={t} />
+                <ManagerPicker branchFormVal={branchFormVal} manager={newManager} t={t}>
+                    <Button type='button' onClick={() => setManagerModal(true)} className='bg-indigo-800 hover:bg-indigo-600'>{t(messages.ADD_MANAGER)}</Button>
 
+                </ManagerPicker>
                 <div className='self-end flex gap-3'>
                     <SubmitButton loading={loading} title={val ? t(messages.EDIT) : t(messages.ADD_BRANCH)} className="self-end bg-primaryBlue" />
                     <Button onClick={closeModal} variant={"outline"} >

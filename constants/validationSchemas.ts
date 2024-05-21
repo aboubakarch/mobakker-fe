@@ -13,6 +13,7 @@ export const branchValidationSchema = yup.object().shape({
   location: yup.string().required(),
   state: yup.string().min(2).max(300).required(),
   city: yup.string().min(2).max(300).required(),
+  manager: yup.string().optional(),
 });
 export const serviceTypeValidationSchema = yup.object().shape({
   name: yup.string().min(4).max(100).required(),
@@ -51,7 +52,7 @@ export const appointmentValidationSchema = yup.object().shape({
   bookingDate: yup.date().required(),
   repeat: yup
     .string()
-    .oneOf(["DAILY", "WEEKLY", "MONTHLY", "YEARLY"])
+    .oneOf(["DAILY", "WEEKLY", "MONTHLY", "YEARLY", "NEVER"])
     .required(),
   grossTotalAmount: yup.number().required(),
   discount: yup.number().required(),
@@ -65,7 +66,7 @@ export const appointmentValidationSchema = yup.object().shape({
   bookedBy: yup.string().required(),
   branchId: yup.string().required(),
   employeeId: yup.string().required(),
-  service: yup.array().of(yup.string()).required(),
+  service: yup.string().required(),
 });
 export const providerValidationSchema = yup.object().shape({
   firstName: yup.string().min(4).max(100).required(),

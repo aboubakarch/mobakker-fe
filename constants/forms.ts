@@ -45,6 +45,7 @@ export const branchDefaultValues: (val?: SampleBranch) => IBranchFormValues = (
   state: "",
   city: val ? val.city : "",
   location: val ? val.address : "",
+  manager: val ? val.managerId || "" : "",
 });
 export const serviceTypeDefaultValues: (
   val?: ServiceType
@@ -99,7 +100,7 @@ export const appointmentDefaultValues: (
   val?: SampleAppointments
 ) => IAppointmentFormValues = (val) => ({
   bookingDate: val ? val.bookingDate : new Date(),
-  repeat: val ? val.repeat : "DAILY",
+  repeat: val ? val.repeat : "NEVER",
   grossTotalAmount: val ? val.grossTotalAmount : 0,
   discount: val ? val.discount : 0,
   netTotalAmount: val ? val.netTotalAmount : 0,
@@ -109,7 +110,7 @@ export const appointmentDefaultValues: (
   bookedBy: val ? val.bookedBy : "",
   branchId: val ? val.branchId : "",
   employeeId: val ? val.employeeId : "",
-  service: val ? val.service : [],
+  service: val ? val.service[0] : "",
 });
 
 export const loginFormVals: IFormValueObj<ILoginFormValues> = {
@@ -201,6 +202,13 @@ export const branchFormVals: (
       name: "city",
       label: t(formConstants.CITY),
       fieldType: FieldTypesEnum.Select,
+    },
+    manager: {
+      placeHolder: t(formConstants.SELECT_MANAGER),
+      hasError: false,
+      name: "manager",
+      label: t(formConstants.SELECT_MANAGER),
+      fieldType: FieldTypesEnum.SingleSearchSelect,
     },
   }),
 });
@@ -440,7 +448,7 @@ export const appointmentFormVals: (
     bookedBy: {
       hasError: false,
       name: "bookedBy",
-      label: t(formConstants.BOOKED_BY_LABEL),
+      label: t(formConstants.CUSTOMER),
       placeHolder: t(formConstants.BOOKED_BY_PLACEHOLDER),
       fieldType: FieldTypesEnum.Select,
     },
@@ -456,7 +464,7 @@ export const appointmentFormVals: (
       name: "service",
       label: t(formConstants.SERVICE_LABEL),
       placeHolder: t(formConstants.SERVICE_PLACEHOLDER),
-      fieldType: FieldTypesEnum.EmployeeSelect,
+      fieldType: FieldTypesEnum.SingleSearchSelect,
     },
     paymentType: {
       hasError: false,
@@ -484,7 +492,7 @@ export const appointmentFormVals: (
       name: "branchId",
       label: t(formConstants.BRANCH_ID_LABEL),
       placeHolder: t(formConstants.BRANCH_ID_PLACEHOLDER),
-      fieldType: FieldTypesEnum.Select,
+      fieldType: FieldTypesEnum.SingleSearchSelect,
     },
     repeat: {
       hasError: false,

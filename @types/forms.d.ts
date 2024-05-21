@@ -18,6 +18,7 @@ interface IBranchFormValues {
   location: string;
   state: string;
   city: string;
+  manager?: string;
 }
 interface IServiceTypeFormValues {
   name: string;
@@ -60,7 +61,7 @@ interface IPromotionFormValues {
 }
 interface IAppointmentFormValues {
   bookingDate: Date;
-  repeat: "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY";
+  repeat: "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY" | "NEVER";
   grossTotalAmount: number;
   discount: number;
   netTotalAmount: number;
@@ -70,7 +71,7 @@ interface IAppointmentFormValues {
   bookedBy: string;
   branchId: string;
   employeeId: string;
-  service: string[];
+  service: string;
 }
 
 type IFormTemplate = IAppFormProps;

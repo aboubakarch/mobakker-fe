@@ -15,7 +15,7 @@ import { Button } from '../ui'
 import APIService from '@/services/api'
 import { useToast } from '@/hooks/use-toast'
 
-const BranchManagerModal: FC<IModalCompProps<SampleProvider>> = ({ closeModal, visible, val }) => {
+const BranchManagerModal: FC<IModalCompProps<SampleBranchManager>> = ({ closeModal, visible, val, onSubmitData }) => {
     const { t } = useTranslation();
     const providerFormVal = providerFormVals(val)
     const [loading, setLoading] = useState(false)
@@ -24,8 +24,12 @@ const BranchManagerModal: FC<IModalCompProps<SampleProvider>> = ({ closeModal, v
     const onSubmit = async (values: yup.InferType<typeof providerValidationSchema>) => {
         setLoading(true)
         try {
-            await APIService.getInstance().registerBranchManager(values as any);
+            const data = await APIService.getInstance().registerBranchManager(values as any);
+            console.log(data)
             setLoading(false)
+            if (onSubmitData) {
+                onSubmitData(data)
+            }
 
             toast({
                 description: "Branch Manager added!",
@@ -42,7 +46,7 @@ const BranchManagerModal: FC<IModalCompProps<SampleProvider>> = ({ closeModal, v
         closeModal()
     };
     return (
-        <Modal visibility={visible} closeModal={closeModal}>
+        <Modal visibility={visible} closeModal={closeModal} position={2}>
             <AppForm
                 onSubmit={onSubmit}
                 className="px-3 py-4 flex gap-4 flex-col"

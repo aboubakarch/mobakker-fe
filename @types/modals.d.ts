@@ -14,6 +14,7 @@ interface IModalCompProps<T = any> {
   closeModal: () => void;
   onUpdate?: () => void;
   val?: T;
+  onSubmitData?: (data: T) => void;
 }
 
 interface IDeleteModalProps extends IModalCompProps {

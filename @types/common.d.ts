@@ -128,6 +128,7 @@ interface SampleCustomerCare {
   description: string;
 }
 interface SampleBranchManager {
+  id?: string;
   firstName: string;
   lastName: string;
   password: string;

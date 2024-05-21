@@ -2,9 +2,9 @@
 import DeleteModal from '@/components/modal/DeleteModal'
 import ServiceTypeModal from '@/components/modal/ServiceTypeModal'
 import ServiceTypeTable from '@/components/table/ServiceTypeTable'
-import { Button } from '@/components/ui'
+// import { Button } from '@/components/ui'
 import PageHeader from '@/components/ui/PageHeader'
-import { messages } from '@/constants/constants'
+// import { messages } from '@/constants/constants'
 import { useToast } from '@/hooks/use-toast'
 import APIService from '@/services/api'
 import React, { useState } from 'react'
@@ -78,7 +78,7 @@ const ServiceTypes = () => {
             <PageHeader title={t("navigation:serviceType")}
                 description="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis asperiores, aperiam ipsum corrupti minus recusandae exercitationem dolorum temporibus esse at officia iure in hic consequatur ea nisi placeat praesentium officiis."
             >
-                <Button onClick={() => setModalOpen(true)} className='bg-indigo-800 hover:bg-indigo-600'>{t(messages.ADD_SERVICE_TYPE)}</Button>
+                {/* <Button onClick={() => setModalOpen(true)} className='bg-indigo-800 hover:bg-indigo-600'>{t(messages.ADD_SERVICE_TYPE)}</Button> */}
 
             </PageHeader>
             <ServiceTypeTable handleEdit={handleEdit} handleDelete={handleDelete} onUpdateFlag={flag} />

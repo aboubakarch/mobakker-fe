@@ -31,6 +31,7 @@ export enum FieldTypesEnum {
   DatePicker = "datePicker",
   HoursCheck = "hoursCheck",
   Checkbox = "checkbox",
+  SingleSearchSelect = "singleSearchSelect",
 }
 
 export enum RoleType {

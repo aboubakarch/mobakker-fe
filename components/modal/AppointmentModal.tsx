@@ -14,13 +14,18 @@ import { IModalCompProps } from '@/@types/modals'
 import { Button } from '../ui'
 import { useToast } from '@/hooks/use-toast'
 import APIService from '@/services/api'
+import { IAppointmentFormValues, IFormValueObj } from '@/@types/forms'
+import { useFormContext } from 'react-hook-form'
+import { TFunction } from 'i18next'
 
 
 const repeatOptions = [
     { name: "Daily", value: "DAILY" },
     { name: "Weekly", value: "WEEKLY" },
     { name: "Monthly", value: "MONTHLY" },
-    { name: "Yearly", value: "YEARLY" }
+    { name: "Yearly", value: "YEARLY" },
+    { name: "Never", value: "NEVER" },
+
 ];
 
 const paymentStatusOptions = [
@@ -35,13 +40,55 @@ const paymentTypeOptions = [
     { name: "Transfer", value: "TRANSFER" }
 ];
 
-const statusOptions = [
-    { name: "Pending", value: "PENDING" },
-    { name: "Started", value: "STARTED" },
-    { name: "Completed", value: "COMPLETED" },
-    { name: "Canceled", value: "CANCELED" },
-    { name: "Rejected", value: "REJECTED" }
-];
+// const statusOptions = [
+//     { name: "Pending", value: "PENDING" },
+//     { name: "Started", value: "STARTED" },
+//     { name: "Completed", value: "COMPLETED" },
+//     { name: "Canceled", value: "CANCELED" },
+//     { name: "Rejected", value: "REJECTED" }
+// ];
+
+
+const AppointmentForm: FC<{
+    appointmentFormVal: IFormValueObj<IAppointmentFormValues>, t: TFunction<"translation", undefined>, services: any[] | null, branches: any[] | null
+}> = ({ appointmentFormVal, t, services, branches }) => {
+    const form = useFormContext()
+    const service = form.watch("service")
+    const branchId = form.watch("branchId")
+
+    return (
+        <div className='flex flex-col gap-4'>
+            <div className=' grid grid-cols-2 gap-2 w-full'>
+                <InputField {...appointmentFormVal.info(t).branchId} data={branches ? branches : undefined} />
+                <InputField {...appointmentFormVal.info(t).employeeId} disabled={branchId === ""} />
+
+            </div>
+            <InputField {...appointmentFormVal.info(t).bookedBy} />
+            <InputField data={services as any} disabled={!services} {...appointmentFormVal.info(t).service} />
+            <div className='grid grid-cols-2 gap-2 w-full'>
+                <InputField {...appointmentFormVal.info(t).bookingDate} disabled={service === ""} />
+
+                <InputField data={repeatOptions} {...appointmentFormVal.info(t).repeat} />
+
+            </div>
+
+
+            <div className='flex gap-2'>
+                <InputField {...appointmentFormVal.info(t).grossTotalAmount} disabled />
+                <InputField {...appointmentFormVal.info(t).discount} disabled />
+                <InputField {...appointmentFormVal.info(t).netTotalAmount} disabled />
+
+            </div>
+            <div className='grid grid-cols-2 gap-2 w-full'>
+                <InputField data={paymentTypeOptions} {...appointmentFormVal.info(t).paymentType} />
+                <InputField data={paymentStatusOptions} {...appointmentFormVal.info(t).paymentStatus} disabled={service === ""} />
+
+            </div>
+
+
+        </div>
+    )
+}
 
 const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal, visible, val }) => {
     const { t } = useTranslation();
@@ -49,6 +96,7 @@ const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal,
     const appointmentFormVal = appointmentFormVals(val)
     const [loading, setLoading] = useState(false)
     const [services, setServices] = useState<any[] | null>([])
+    const [branches, setBranches] = useState<any[] | null>([])
 
 
     const fetchData = async () => {
@@ -73,9 +121,32 @@ const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal,
         }
         setLoading(false)
     }
+    const fetchBranchData = async () => {
+        setLoading(true)
+
+        try {
+            const params = {
+                page: 1, take: 100
+            }
+            const response = await APIService.getInstance().getBranches(params)
+
+            const data = response?.items?.map((item: ServiceType) => ({
+                name: item.name,
+                value: item.id
+            }))
+            setBranches(data)
+        } catch (error) {
+            toast({
+                variant: "destructive",
+                description: "Error! Something went wrong",
+            })
+        }
+        setLoading(false)
+    }
 
     useEffect(() => {
         fetchData()
+        fetchBranchData()
     }, [])
 
 
@@ -94,34 +165,7 @@ const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal,
                         <X className='w-4 h-4 relative text-black' />
                     </Button>                </div>
 
-                <div className='flex flex-col gap-4'>
-                    <div className=' grid grid-cols-3 gap-2 w-full'>
-                        <InputField {...appointmentFormVal.info(t).branchId} />
-                        <InputField {...appointmentFormVal.info(t).bookedBy} />
-                        <InputField {...appointmentFormVal.info(t).employeeId} />
-
-                    </div>
-                    <div className='grid grid-cols-3 gap-2 w-full'>
-                        <InputField {...appointmentFormVal.info(t).bookingDate} />
-
-
-                        <InputField data={paymentStatusOptions} {...appointmentFormVal.info(t).paymentStatus} />
-                        <InputField data={statusOptions} {...appointmentFormVal.info(t).status} />
-                    </div>
-
-                    <InputField data={services as any} disabled={!services} {...appointmentFormVal.info(t).service} />
-
-                    <InputField data={repeatOptions} {...appointmentFormVal.info(t).repeat} />
-                    <InputField data={paymentTypeOptions} {...appointmentFormVal.info(t).paymentType} />
-                    <div className='flex gap-2'>
-                        <InputField {...appointmentFormVal.info(t).grossTotalAmount} />
-                        <InputField {...appointmentFormVal.info(t).netTotalAmount} />
-                        <InputField {...appointmentFormVal.info(t).discount} />
-
-                    </div>
-
-
-                </div>
+                <AppointmentForm appointmentFormVal={appointmentFormVal} services={services} t={t} branches={branches} />
 
                 <div className='self-end flex gap-3'>
                     <SubmitButton loading={loading} title={t(messages.SAVE)} className=" bg-primaryBlue" />
