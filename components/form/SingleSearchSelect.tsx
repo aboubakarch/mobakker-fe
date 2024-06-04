@@ -36,9 +36,8 @@ export const SingleSearchSelect: React.FC<{
     }[]
 }> = ({ selected, setSelected, label, data }) => {
     const [search, setSearch] = React.useState("")
-    console.log("DATA", data)
     const selectedData = data ? data : people
-    const filteredPeople = React.useMemo(() => selectedData.filter(per => per.name.toLowerCase().includes(search.toLowerCase())), [search])
+    const filteredPeople = React.useMemo(() => selectedData.filter(per => per.name.toLowerCase().includes(search.toLowerCase())), [search, selectedData])
     const [itemName, setItemName] = React.useState("")
     // function addOrRemoveValue<T>(array: T[], value: T): T[] {
     //     _.pull(array, value); // Remove the value if it exists
@@ -89,7 +88,7 @@ export const SingleSearchSelect: React.FC<{
 
                 {filteredPeople.length === 0 ? (
                     <div className="h-10 w-full text-center flex items-center justify-center text-sm">
-                        No Emplyees found
+                        No {label || "Item"} found
                     </div>
                 ) : null}
 

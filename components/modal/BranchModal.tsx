@@ -19,6 +19,7 @@ import { useFormContext } from 'react-hook-form'
 import APIService from '@/services/api'
 import { useToast } from '@/hooks/use-toast'
 import BranchManagerModal from './BranchManagerModal'
+import { RoleType } from '@/constants/enums'
 // import { getCookie } from '@/lib/helpers'
 
 
@@ -63,16 +64,16 @@ const ManagerPicker: FC<{
 
         try {
             const params = {
-                page: 1, take: 100
+                page: 1, take: 100, role: RoleType.BRANCH_MANAGER
             }
-            const response = await APIService.getInstance().getServiceBranchManager(params)
+            const response = await APIService.getInstance().getEmployees(params)
 
-            const data = response?.map((item: SampleBranchManager) => ({
-                name: `${item.firstName} ${item.lastName}`,
+            const data = response?.items?.map((item: any) => ({
+                name: `${item?.user?.firstName} ${item?.user?.lastName}`,
                 value: item?.id
             }))
             setManagers(data)
-            console.log(data)
+            console.log("MANAGERS", data)
             if (manager) {
                 form.setValue("manager", manager.id)
             }

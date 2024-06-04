@@ -43,7 +43,6 @@ export default function AuthLayout({
     useEffect(() => {
         const aToken = getCookie("accessToken")
         const rToken = getCookie("refreshToken")
-        console.log(aToken, rToken)
         if (aToken && rToken) {
             APIService.getInstance().setAccessToken(aToken)
             APIService.getInstance().setRefresToken(rToken)

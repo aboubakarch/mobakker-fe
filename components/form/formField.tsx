@@ -33,7 +33,7 @@ const testSelectData = [{
 const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, fieldType = FieldTypesEnum.Text, disabled = false, data, type }) => {
     const form = useFormContext()
     const selectData = data ? data : testSelectData
-    console.log("in form", selectData, label, fieldType)
+    // console.log("in form", selectData, label, fieldType)
 
     const handleDaySelect = (day: string, checked: boolean, setDays: (...event: any[]) => void, value: string[]) => {
         let newArray: (string)[] = []
@@ -97,10 +97,10 @@ const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, 
                                         <Checkbox
                                             disabled={disabled}
                                             checked={field.value === hour}
-                                            onCheckedChange={() => field.onChange(field.value)}
+                                            onCheckedChange={() => field.onChange(hour)}
                                         // className='data-[state=checked]:bg-primaryBlue'
                                         />
-                                        <p className=''>{hour}</p>
+                                        <p className=''>{hour + "- lmlmdas" + field.value}</p>
                                     </div>
                                 ))}
                             </div>

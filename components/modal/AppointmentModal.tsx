@@ -55,6 +55,7 @@ const AppointmentForm: FC<{
     const form = useFormContext()
     const service = form.watch("service")
     const branchId = form.watch("branchId")
+    console.log("DATA+++++++", branches, employees, customers)
 
     return (
         <div className='flex flex-col gap-4'>
@@ -108,20 +109,82 @@ const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal,
     const [customers, setCustomers] = useState<any[] | null>([])
 
 
-    const fetchData = async (getFunction: (params: any) => any, setState: (state: any) => void) => {
+    const fetchServicesData = async () => {
         setLoading(true)
-
         try {
             const params = {
                 page: 1, take: 100
             }
-            const response = await getFunction(params)
+            const response = await APIService.getInstance().getServices(params)
 
             const data = response?.items?.map((item: ServiceType) => ({
                 name: item.name,
                 value: item.id
             }))
-            setState(data)
+            setServices(data)
+        } catch (error) {
+            toast({
+                variant: "destructive",
+                description: "Error! Something went wrong",
+            })
+        }
+        setLoading(false)
+    }
+    const fetchBranchesData = async () => {
+        setLoading(true)
+        try {
+            const params = {
+                page: 1, take: 100
+            }
+            const response = await APIService.getInstance().getBranches(params)
+
+            const data = response?.items?.map((item: ServiceType) => ({
+                name: item.name,
+                value: item.id
+            }))
+            setBranches(data)
+        } catch (error) {
+            toast({
+                variant: "destructive",
+                description: "Error! Something went wrong",
+            })
+        }
+        setLoading(false)
+    }
+    const fetchCustomersData = async () => {
+        setLoading(true)
+        try {
+            const params = {
+                page: 1, take: 100
+            }
+            const response = await APIService.getInstance().getCustomers(params)
+
+            const data = response?.items?.map((item: any) => ({
+                name: `${item?.user?.firstName || ""} ${item?.user?.lastName || ""}`,
+                value: item.id
+            }))
+            setCustomers(data)
+        } catch (error) {
+            toast({
+                variant: "destructive",
+                description: "Error! Something went wrong",
+            })
+        }
+        setLoading(false)
+    }
+    const fetchEmployeesData = async () => {
+        setLoading(true)
+        try {
+            const params = {
+                page: 1, take: 100
+            }
+            const response = await APIService.getInstance().getEmployees(params)
+
+            const data = response?.items?.map((item: any) => ({
+                name: `${item?.user?.firstName || ""} ${item?.user?.lastName || ""}`,
+                value: item.id
+            }))
+            setEmployees(data)
         } catch (error) {
             toast({
                 variant: "destructive",
@@ -133,10 +196,10 @@ const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal,
 
 
     useEffect(() => {
-        fetchData(APIService.getInstance().getServices, setServices)
-        fetchData(APIService.getInstance().getBranches, setBranches)
-        fetchData(APIService.getInstance().getCustomers, setCustomers)
-        fetchData(APIService.getInstance().getEmployees, setEmployees)
+        fetchServicesData()
+        fetchBranchesData()
+        fetchCustomersData()
+        fetchEmployeesData()
         // fetchBranchData()
     }, [])
 
