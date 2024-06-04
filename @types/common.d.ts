@@ -40,6 +40,7 @@ interface SampleAppointments {
   branchId: string;
   employeeId: string;
   service: string[];
+  timing: string;
 }
 interface SampleLoyalPrograms {
   rank: string;

@@ -72,6 +72,7 @@ interface IAppointmentFormValues {
   branchId: string;
   employeeId: string;
   service: string;
+  timing: string;
 }
 
 type IFormTemplate = IAppFormProps;

@@ -82,6 +82,37 @@ const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, 
                 />
             )
 
+        case FieldTypesEnum.HoursSelect:
+            return (
+                <FormField
+                    control={form.control}
+                    name={name}
+                    render={({ field }) => (
+                        <FormItem className='bg-indigo-800 bg-opacity-5 rounded p-3 flex flex-col'>
+                            {label && <FormLabel>{label}</FormLabel>}
+
+                            <div className='w-full grid grid-cols-4 gap-y-3 gap-x-2 grid-flow-row rounded-md   text-sm placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'>
+                                {HourTimes.map(hour => (
+                                    <div key={hour} className='flex items-center justify-center gap-4 bg-white px-2 py-2 rounded-sm'>
+                                        <Checkbox
+                                            disabled={disabled}
+                                            checked={field.value === hour}
+                                            onCheckedChange={() => field.onChange(field.value)}
+                                        // className='data-[state=checked]:bg-primaryBlue'
+                                        />
+                                        <p className=''>{hour}</p>
+                                    </div>
+                                ))}
+                            </div>
+                            {desc && <FormDescription>
+                                {desc}
+                            </FormDescription>}
+                            {hasError && <FormMessage />}
+                        </FormItem>
+                    )}
+
+                />
+            )
         case FieldTypesEnum.HoursCheck:
             return (
                 <FormField

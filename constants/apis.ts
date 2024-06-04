@@ -18,4 +18,6 @@ export const endpoints = {
   PROMOTION: "/promotion",
   CREATE_PROMOTION: "/promotion/create",
   SERVICE_BRANCH_MANAGER: "/srvice-provider/branch-manager",
+  GET_ALL_EMPLOYEES: "/employees/employee",
+  GET_ALL_CUSTOMERS: "/customers/customer",
 };

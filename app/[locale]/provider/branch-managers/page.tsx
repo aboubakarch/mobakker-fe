@@ -14,6 +14,7 @@ const BranchManager = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [selectedProvider, setSelectedProvider] = useState<undefined | SampleProvider>(undefined)
+    const [flag, setFlag] = useState(false)
     const { toast } = useToast()
 
 
@@ -50,7 +51,7 @@ const BranchManager = () => {
 
     return (
         <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
-            <BranchManagerModal visible={modalOpen} closeModal={handleModalClose} val={selectedProvider} />
+            <BranchManagerModal visible={modalOpen} closeModal={handleModalClose} val={selectedProvider} onUpdate={() => setFlag(!flag)} />
             <DeleteModal
                 visible={deleteModalOpen}
                 closeModal={handleDeleteModalClose}
@@ -63,7 +64,7 @@ const BranchManager = () => {
                 <Button onClick={() => setModalOpen(true)} className='bg-indigo-800 hover:bg-indigo-600'>{t(messages.ADD_MANAGER)}</Button>
 
             </PageHeader>
-            <BranchManagerTable handleEdit={handleEdit} handleDelete={handleDelete} />
+            <BranchManagerTable handleEdit={handleEdit} handleDelete={handleDelete} onUpdateFlag={flag} />
         </div>
     )
 }

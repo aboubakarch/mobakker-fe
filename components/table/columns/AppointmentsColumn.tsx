@@ -8,7 +8,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui"
 import { MoreVertical } from "lucide-react";
-import Image from "next/image";
+// import Image from "next/image";
 // import { Checkbox } from "@/components/ui/Checkbox"
 import { messages, tableHeader } from "@/constants/constants";
 import TextColumn from "../TextColumn";
@@ -17,7 +17,12 @@ import { TFunction } from "i18next";
 // import { Checkbox } from "@/components/ui/Checkbox";
 
 
-export const appointmentsColumns: (t: TFunction<"translation", undefined>, handleEdit?: (val: SampleAppointments) => void, handleDelete?: (val: SampleAppointments) => void) => ColumnDef<SampleAppointments>[] = (t, handleEdit, handleDelete) => ([
+export const appointmentsColumns: (
+    t: TFunction<"translation", undefined>,
+    handleEdit?: (val: SampleAppointments) => void,
+    handleDelete?: (val: SampleAppointments) => void,
+    onAppointmentChange?: (val: SampleAppointments) => void
+) => ColumnDef<SampleAppointments>[] = (t, handleEdit, handleDelete, onAppointmentChange) => ([
     // {
     //     id: "select",
     //     header: ({ table }) => (
@@ -80,29 +85,29 @@ export const appointmentsColumns: (t: TFunction<"translation", undefined>, handl
             )
         },
     },
-    {
-        accessorKey: "serviceBooked",
-        header: () => <div className="text-center">{t(tableHeader.SERVICES_BOOKED)}</div>,
-        cell: ({ row }) => {
-            const rowItem = row.original
-            return (
-                <div className="w-max flex gap-3 items-center justify-center">
-                    <div className="rounded-full h-11 w-11 relative">
-                        <Image
-                            src={rowItem.servicePicture}
-                            alt="pfp"
-                            fill
-                            className="rounded-full"
-                        />
-                    </div>
-                    <div className="flex flex-col text-sm font-medium leading-snug">
-                        <p className="text-gray-900">{rowItem.serviceBooked}</p>
-                        <p className="text-gray-900">{rowItem.serviceTime}</p>
-                    </div>
-                </div>
-            )
-        },
-    },
+    // {
+    //     accessorKey: "serviceBooked",
+    //     header: () => <div className="text-center">{t(tableHeader.SERVICES_BOOKED)}</div>,
+    //     cell: ({ row }) => {
+    //         const rowItem = row.original
+    //         return (
+    //             <div className="w-max flex gap-3 items-center justify-center">
+    //                 {/* <div className="rounded-full h-11 w-11 relative">
+    //                     <Image
+    //                         src={rowItem.}
+    //                         alt="pfp"
+    //                         fill
+    //                         className="rounded-full"
+    //                     />
+    //                 </div> */}
+    //                 <div className="flex flex-col text-sm font-medium leading-snug">
+    //                     {/* <p className="text-gray-900">{rowItem.serviceBooked}</p>
+    //                     <p className="text-gray-900">{rowItem.serviceTime}</p> */}
+    //                 </div>
+    //             </div>
+    //         )
+    //     },
+    // },
     {
         accessorKey: "serviceType",
         header: () => <div className="text-center">{t(tableHeader.SERVICE_TYPE)}</div>,
@@ -155,6 +160,19 @@ export const appointmentsColumns: (t: TFunction<"translation", undefined>, handl
             const price: number = row.getValue("price");
             return (
                 <TextColumn text={`${price} S.R`} />
+            )
+        },
+    },
+    {
+        id: "statusChange",
+        // accessorKey: "price",
+
+        cell: ({ row }) => {
+            const val = row.original
+            return (
+                <Button className='bg-red-500 hover:bg-red-400' onClick={() => { if (onAppointmentChange) { onAppointmentChange(val) } }} >
+                    Cancel
+                </Button>
             )
         },
     },

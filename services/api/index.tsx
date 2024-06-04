@@ -41,6 +41,12 @@ class APIService extends HTTPService {
   public getBranches<T = any>(params: any): Promise<T> {
     return this.get<T>(endpoints.BRANCH, params)
   }
+  public getCustomers<T = any>(params: any): Promise<T> {
+    return this.get<T>(endpoints.GET_ALL_CUSTOMERS, params)
+  }
+  public getEmployees<T = any>(params: any): Promise<T> {
+    return this.get<T>(endpoints.GET_ALL_EMPLOYEES, params)
+  }
   public getAppointments<T = any>(params: any): Promise<T> {
     return this.get<T>(endpoints.APPOINTMENTS, params)
   }

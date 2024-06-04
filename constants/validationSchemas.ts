@@ -67,6 +67,7 @@ export const appointmentValidationSchema = yup.object().shape({
   branchId: yup.string().required(),
   employeeId: yup.string().required(),
   service: yup.string().required(),
+  timing: yup.string().required(),
 });
 export const providerValidationSchema = yup.object().shape({
   firstName: yup.string().min(4).max(100).required(),

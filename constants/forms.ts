@@ -111,6 +111,7 @@ export const appointmentDefaultValues: (
   branchId: val ? val.branchId : "",
   employeeId: val ? val.employeeId : "",
   service: val ? val.service[0] : "",
+  timing: val ? val.timing : "",
 });
 
 export const loginFormVals: IFormValueObj<ILoginFormValues> = {
@@ -465,6 +466,13 @@ export const appointmentFormVals: (
       label: t(formConstants.SERVICE_LABEL),
       placeHolder: t(formConstants.SERVICE_PLACEHOLDER),
       fieldType: FieldTypesEnum.SingleSearchSelect,
+    },
+    timing: {
+      hasError: false,
+      name: "timing",
+      label: t(formConstants.HOURS),
+      placeHolder: t(formConstants.HOURS),
+      fieldType: FieldTypesEnum.HoursSelect,
     },
     paymentType: {
       hasError: false,

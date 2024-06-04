@@ -50,8 +50,8 @@ const paymentTypeOptions = [
 
 
 const AppointmentForm: FC<{
-    appointmentFormVal: IFormValueObj<IAppointmentFormValues>, t: TFunction<"translation", undefined>, services: any[] | null, branches: any[] | null
-}> = ({ appointmentFormVal, t, services, branches }) => {
+    appointmentFormVal: IFormValueObj<IAppointmentFormValues>, t: TFunction<"translation", undefined>, services: any[] | null, branches: any[] | null, employees: any[] | null, customers: any[] | null
+}> = ({ appointmentFormVal, t, services, branches, customers, employees }) => {
     const form = useFormContext()
     const service = form.watch("service")
     const branchId = form.watch("branchId")
@@ -60,15 +60,22 @@ const AppointmentForm: FC<{
         <div className='flex flex-col gap-4'>
             <div className=' grid grid-cols-2 gap-2 w-full'>
                 <InputField {...appointmentFormVal.info(t).branchId} data={branches ? branches : undefined} />
-                <InputField {...appointmentFormVal.info(t).employeeId} disabled={branchId === ""} />
+                <InputField {...appointmentFormVal.info(t).employeeId} disabled={branchId === "" || employees === null} data={employees as any} />
 
             </div>
-            <InputField {...appointmentFormVal.info(t).bookedBy} />
-            <InputField data={services as any} disabled={!services} {...appointmentFormVal.info(t).service} />
+            <div className='grid grid-cols-2 gap-2 w-full'>
+                <InputField {...appointmentFormVal.info(t).bookedBy} data={customers as any} disabled={customers === null} />
+
+                <InputField data={services as any} disabled={!services} {...appointmentFormVal.info(t).service} />
+            </div>
             <div className='grid grid-cols-2 gap-2 w-full'>
                 <InputField {...appointmentFormVal.info(t).bookingDate} disabled={service === ""} />
 
                 <InputField data={repeatOptions} {...appointmentFormVal.info(t).repeat} />
+
+            </div>
+            <div>
+                <InputField {...appointmentFormVal.info(t).timing} />
 
             </div>
 
@@ -97,22 +104,24 @@ const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal,
     const [loading, setLoading] = useState(false)
     const [services, setServices] = useState<any[] | null>([])
     const [branches, setBranches] = useState<any[] | null>([])
+    const [employees, setEmployees] = useState<any[] | null>([])
+    const [customers, setCustomers] = useState<any[] | null>([])
 
 
-    const fetchData = async () => {
+    const fetchData = async (getFunction: (params: any) => any, setState: (state: any) => void) => {
         setLoading(true)
 
         try {
             const params = {
                 page: 1, take: 100
             }
-            const response = await APIService.getInstance().getServices(params)
+            const response = await getFunction(params)
 
             const data = response?.items?.map((item: ServiceType) => ({
                 name: item.name,
                 value: item.id
             }))
-            setServices(data)
+            setState(data)
         } catch (error) {
             toast({
                 variant: "destructive",
@@ -121,32 +130,14 @@ const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal,
         }
         setLoading(false)
     }
-    const fetchBranchData = async () => {
-        setLoading(true)
 
-        try {
-            const params = {
-                page: 1, take: 100
-            }
-            const response = await APIService.getInstance().getBranches(params)
-
-            const data = response?.items?.map((item: ServiceType) => ({
-                name: item.name,
-                value: item.id
-            }))
-            setBranches(data)
-        } catch (error) {
-            toast({
-                variant: "destructive",
-                description: "Error! Something went wrong",
-            })
-        }
-        setLoading(false)
-    }
 
     useEffect(() => {
-        fetchData()
-        fetchBranchData()
+        fetchData(APIService.getInstance().getServices, setServices)
+        fetchData(APIService.getInstance().getBranches, setBranches)
+        fetchData(APIService.getInstance().getCustomers, setCustomers)
+        fetchData(APIService.getInstance().getEmployees, setEmployees)
+        // fetchBranchData()
     }, [])
 
 
@@ -165,7 +156,7 @@ const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal,
                         <X className='w-4 h-4 relative text-black' />
                     </Button>                </div>
 
-                <AppointmentForm appointmentFormVal={appointmentFormVal} services={services} t={t} branches={branches} />
+                <AppointmentForm appointmentFormVal={appointmentFormVal} services={services} t={t} branches={branches} employees={employees} customers={customers} />
 
                 <div className='self-end flex gap-3'>
                     <SubmitButton loading={loading} title={t(messages.SAVE)} className=" bg-primaryBlue" />

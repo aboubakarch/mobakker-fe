@@ -15,7 +15,7 @@ import { Button } from '../ui'
 import APIService from '@/services/api'
 import { useToast } from '@/hooks/use-toast'
 
-const BranchManagerModal: FC<IModalCompProps<SampleBranchManager>> = ({ closeModal, visible, val, onSubmitData }) => {
+const BranchManagerModal: FC<IModalCompProps<SampleBranchManager>> = ({ closeModal, visible, val, onSubmitData, onUpdate }) => {
     const { t } = useTranslation();
     const providerFormVal = providerFormVals(val)
     const [loading, setLoading] = useState(false)
@@ -35,6 +35,10 @@ const BranchManagerModal: FC<IModalCompProps<SampleBranchManager>> = ({ closeMod
                 description: "Branch Manager added!",
                 variant: "default"
             })
+
+            if (onUpdate) {
+                onUpdate()
+            }
         } catch (error) {
             setLoading(false)
 
