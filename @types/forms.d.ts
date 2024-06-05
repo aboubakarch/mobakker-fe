@@ -72,7 +72,7 @@ interface IAppointmentFormValues {
   branchId: string;
   employeeId: string;
   service: string;
-  timing: string;
+  bookingSlot: string;
 }
 
 type IFormTemplate = IAppFormProps;
@@ -100,6 +100,7 @@ interface IFormField {
     name: string | number;
     value: string | number;
   }[];
+  times?: string[];
 }
 
 interface IFormValueObj<T> {

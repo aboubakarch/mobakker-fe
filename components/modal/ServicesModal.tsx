@@ -15,27 +15,134 @@ import { IModalCompProps } from '@/@types/modals'
 import { Button } from '../ui'
 import { useToast } from '@/hooks/use-toast'
 import APIService from '@/services/api'
-
+import { useFormContext } from 'react-hook-form'
+import { IFormValueObj, IServiceFormValues } from '@/@types/forms'
+import { TFunction } from 'i18next'
+import { format, parse, addMinutes, isBefore, isEqual } from 'date-fns';
 
 const timeSlotData = [
     {
         name: "15 minutes",
-        value: "15 minutes"
+        value: "15"
     },
     {
         name: "30 minutes",
-        value: "30 minutes"
+        value: "30"
     },
     {
         name: "45 minutes",
-        value: "45 minutes"
+        value: "45"
     },
     {
         name: "60 minutes",
-        value: "60 minutes"
+        value: "60"
     },
 ]
 
+
+const ServiceForm: FC<{
+    serviceFormVal: IFormValueObj<IServiceFormValues>, t: TFunction<"translation", undefined>, serviceTypes: any[] | null
+}> = ({ serviceFormVal, t, serviceTypes }) => {
+    const form = useFormContext()
+    const startHour = form.watch("startHour")
+    const slotTime = form.watch("slotTime")
+    const endHour = form.watch("endHour")
+    const [timeSlots, setTimeSlots] = useState<string[] | null>(null)
+
+
+    function divideTimeIntoSlots(startTimeStr: string, endTimeStr: string, slotDuration: number): string[] {
+        // Define the input and output time formats
+        const inputTimeFormat = 'HH:mm';
+        const outputTimeFormat = 'hh:mm a';
+
+        // Parse the input time strings into Date objects
+        const startTime = parse(startTimeStr, inputTimeFormat, new Date());
+        let endTime = parse(endTimeStr, inputTimeFormat, new Date());
+
+        // Handle the case where end time is on the next day
+        if (endTime <= startTime) {
+            endTime = addMinutes(endTime, 24 * 60);
+        }
+
+        // Generate the slots
+        const slots: string[] = [];
+        let currentTime = startTime;
+
+        while (isBefore(currentTime, endTime)) {
+            const nextTime = addMinutes(currentTime, slotDuration);
+            if (isBefore(nextTime, endTime) || isEqual(nextTime, endTime)) {
+                const slotStr = `${format(currentTime, outputTimeFormat)}-${format(nextTime, outputTimeFormat)}`;
+                slots.push(slotStr);
+                currentTime = nextTime;
+            } else {
+                const slotStr = `${format(currentTime, outputTimeFormat)}-${format(endTime, outputTimeFormat)}`;
+                slots.push(slotStr);
+                break;
+            }
+        }
+
+        return slots;
+    }
+
+    // useEffect(() => {
+    //     form.register("serviceAvailabilty")
+    //     return form.unregister("serviceAvailabilty")
+    // }, [])
+
+
+
+    useEffect(() => {
+        if (startHour !== "" && endHour !== "" && slotTime && slotTime !== "") {
+            const slots = divideTimeIntoSlots(startHour, endHour, parseInt(slotTime))
+
+            form.setValue("serviceAvailabilty", slots)
+
+            setTimeSlots(slots)
+        }
+        else {
+            form.setValue("serviceAvailabilty", [])
+            setTimeSlots(null)
+        }
+    }, [startHour, endHour, slotTime, form])
+
+    return (
+        <div className='flex flex-col gap-2'>
+
+            <div className='flex gap-2'>
+                <div className='flex-1 flex flex-col gap-4'>
+                    <InputField {...serviceFormVal.info(t).name} />
+                    <InputField data={serviceTypes as any[]} disabled={!serviceTypes} {...serviceFormVal.info(t).serviceType} />
+                    <InputField data={timeSlotData as any[]}  {...serviceFormVal.info(t).slotTime} />
+
+                </div>
+                <div className='flex-1 flex flex-col gap-4'>
+                    <InputField {...serviceFormVal.info(t).price} />
+                    <div className='flex gap-2'>
+                        <div className='flex-1'>
+                            <InputField {...serviceFormVal.info(t).startHour} />
+
+                        </div>
+                        <div className='flex-1 self-end '>
+
+                            <InputField {...serviceFormVal.info(t).endHour} />
+                        </div>
+                    </div>
+
+                    {/* {timeSlots && timeSlots.length > 0 && timeSlots.map((slot: string, i: number) => (
+                    <div key={i}>
+                    {slot}
+                    </div>
+                ))} */}
+
+
+                </div>
+
+
+            </div>
+            <InputField {...serviceFormVal.info(t).serviceAvailabilty} times={timeSlots || undefined} />
+        </div>
+    )
+}
 const ServiceModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate }) => {
     const { t } = useTranslation();
     const serviceFormVal = serviceFormVals(val)
@@ -73,6 +180,7 @@ const ServiceModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate 
 
 
     const createNewService = async (values: yup.InferType<typeof serviceValidationSchema>) => {
+        console.log(values.startHour, values.endHour)
 
         const startTime = values.startHour.split(':').map(Number);
         const endTime = values.endHour.split(':').map(Number);
@@ -86,9 +194,9 @@ const ServiceModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate 
         const service = {
             name: values.name,
             price: values.price,
-            slotTime: values.slotTime,
+            slotTime: `${values.slotTime} minutes`,
             avatar: "string",
-            availablity: values.serviceAvailabilty.join(","),
+            availablity: values.serviceAvailabilty,
             workHourFrom: startDate,
             workHourTo: endDate,
             serviceTypeId: values.serviceType,
@@ -175,33 +283,8 @@ const ServiceModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate 
 
                     <Dropzone title='Upload Service Logo' />
                 </div>
-                <div className='flex gap-2'>
-                    <div className='flex-1 flex flex-col gap-4'>
-                        <InputField {...serviceFormVal.info(t).name} />
-                        <InputField data={serviceTypes as any[]} disabled={!serviceTypes} {...serviceFormVal.info(t).serviceType} />
-                        <InputField data={timeSlotData as any[]}  {...serviceFormVal.info(t).slotTime} />
 
-                    </div>
-                    <div className='flex-1 flex flex-col gap-4'>
-                        <InputField {...serviceFormVal.info(t).price} />
-                        <div className='flex gap-2'>
-                            <div className='flex-1'>
-                                <InputField {...serviceFormVal.info(t).startHour} />
-
-                            </div>
-                            <div className='flex-1 self-end '>
-
-                                <InputField {...serviceFormVal.info(t).endHour} />
-                            </div>
-                        </div>
-                        <InputField {...serviceFormVal.info(t).serviceAvailabilty} />
-
-
-                    </div>
-
-
-                </div>
-
+                <ServiceForm serviceFormVal={serviceFormVal} serviceTypes={serviceTypes} t={t} />
                 <div className='self-end flex gap-3'>
                     <SubmitButton loading={loading} title={t(messages.SAVE)} className=" bg-primaryBlue" />
                     <Button onClick={closeModal} variant={"outline"} >

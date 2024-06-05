@@ -111,7 +111,7 @@ export const appointmentDefaultValues: (
   branchId: val ? val.branchId : "",
   employeeId: val ? val.employeeId : "",
   service: val ? val.service[0] : "",
-  timing: val ? val.timing : "",
+  bookingSlot: val ? val.bookingSlot : "",
 });
 
 export const loginFormVals: IFormValueObj<ILoginFormValues> = {
@@ -348,7 +348,7 @@ export const serviceFormVals: (
       hasError: false,
       name: "serviceAvailabilty",
       label: t(formConstants.SERVICE_AVAILABILITY),
-      fieldType: FieldTypesEnum.DaysRadio,
+      fieldType: FieldTypesEnum.TimeSlots,
     },
     endHour: {
       placeHolder: t(formConstants.TO),
@@ -467,9 +467,9 @@ export const appointmentFormVals: (
       placeHolder: t(formConstants.SERVICE_PLACEHOLDER),
       fieldType: FieldTypesEnum.SingleSearchSelect,
     },
-    timing: {
+    bookingSlot: {
       hasError: false,
-      name: "timing",
+      name: "bookingSlot",
       label: t(formConstants.HOURS),
       placeHolder: t(formConstants.HOURS),
       fieldType: FieldTypesEnum.HoursSelect,

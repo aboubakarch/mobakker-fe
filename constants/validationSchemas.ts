@@ -35,7 +35,7 @@ export const serviceValidationSchema = yup.object().shape({
   name: yup.string().min(4).max(100).required(),
   price: yup.number().required(),
   serviceType: yup.string().required(),
-  serviceAvailabilty: yup.array().of(yup.string()).required(),
+  serviceAvailabilty: yup.array().of(yup.string()).min(1).required(),
   startHour: yup.string().required(),
   endHour: yup.string().required(),
   slotTime: yup.string().required(),
@@ -50,6 +50,7 @@ export const promotionValidationSchema = yup.object().shape({
 });
 export const appointmentValidationSchema = yup.object().shape({
   bookingDate: yup.date().required(),
+  bookingSlot: yup.string().required(),
   repeat: yup
     .string()
     .oneOf(["DAILY", "WEEKLY", "MONTHLY", "YEARLY", "NEVER"])
@@ -67,7 +68,6 @@ export const appointmentValidationSchema = yup.object().shape({
   branchId: yup.string().required(),
   employeeId: yup.string().required(),
   service: yup.string().required(),
-  timing: yup.string().required(),
 });
 export const providerValidationSchema = yup.object().shape({
   firstName: yup.string().min(4).max(100).required(),

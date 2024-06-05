@@ -1,19 +1,24 @@
 "use client"
+import PaymentModal from '@/components/modal/PaymentModal'
 import { Button } from '@/components/ui'
 import PageHeader from '@/components/ui/PageHeader'
 import { messages } from '@/constants/constants'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 const Subscriptions = () => {
     const { t } = useTranslation()
+    const [isModalOpen, setIsModalOpen] = useState(false)
+
+
 
     return (
         <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
+            <PaymentModal visible={isModalOpen} closeModal={() => setIsModalOpen(false)} />
             <PageHeader title={t(messages.SUBSCRIPTION)}
                 description="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis asperiores, aperiam ipsum corrupti minus recusandae exercitationem dolorum temporibus esse at officia iure in hic consequatur ea nisi placeat praesentium officiis."
             >
-                <Button className='bg-indigo-800 hover:bg-indigo-600'>{t(messages.CREATE_SUBSCRIPTION)}</Button>
+                {/* <Button className='bg-indigo-800 hover:bg-indigo-600'>{t(messages.CREATE_SUBSCRIPTION)}</Button> */}
 
             </PageHeader>
             <hr />
@@ -29,7 +34,7 @@ const Subscriptions = () => {
                             <p className='text-sm font-medium '>72 Days Left</p>
                         </div>
                         <div className='h-full flex items-end justify-center'>
-                            <Button variant={'default'} className='w-28 h-[26px] px-2.5 py-[3px] bg-emerald-500 hover:bg-emerald-400 rounded justify-center items-center gap-px inline-flex'>
+                            <Button onClick={() => setIsModalOpen(true)} variant={'default'} className='w-28 h-[26px] px-2.5 py-[3px] bg-emerald-500 hover:bg-emerald-400 rounded justify-center items-center gap-px inline-flex'>
                                 <div className="text-white text-xs font-medium leading-tight">{t(messages.RENEW_PACKAGE)}</div>
                             </Button>
 
@@ -57,7 +62,7 @@ const Subscriptions = () => {
                             <li className="w-full text-gray-500 text-sm font-normal  leading-normal">{t(messages.USE_ON_PROJECT)}</li>
                             <li className="w-full text-gray-500 text-sm font-normal  leading-normal">{t(messages.THREE_MONTHS_SUPPORT)}</li>
                         </ul>
-                        <Button variant={"default"} className='bg-indigo-800 bg-opacity-5 w-full hover:bg-indigo-800 hover:bg-opacity-15 rounded-md border border-zinc-200'>
+                        <Button onClick={() => setIsModalOpen(true)} variant={"default"} className='bg-indigo-800 bg-opacity-5 w-full hover:bg-indigo-800 hover:bg-opacity-15 rounded-md border border-zinc-200'>
                             <p className='text-indigo-800 text-base font-medium'>{t(messages.CHOOSE_BASIC)}</p>
                         </Button>
                     </div>
@@ -107,7 +112,7 @@ const Subscriptions = () => {
                             <li className="w-full text-gray-500 text-sm font-normal  leading-normal">{t(messages.USE_ON_PROJECT)}</li>
                             <li className="w-full text-gray-500 text-sm font-normal  leading-normal">{t(messages.THREE_MONTHS_SUPPORT)}</li>
                         </ul>
-                        <Button variant={"default"} className='bg-indigo-800 bg-opacity-5 w-full hover:bg-indigo-800 hover:bg-opacity-15 rounded-md border border-zinc-200'>
+                        <Button onClick={() => setIsModalOpen(true)} variant={"default"} className='bg-indigo-800 bg-opacity-5 w-full hover:bg-indigo-800 hover:bg-opacity-15 rounded-md border border-zinc-200'>
                             <p className='text-indigo-800 text-base font-medium'>{t(messages.CHOOSE_FULL)}</p>
                         </Button>
                     </div>

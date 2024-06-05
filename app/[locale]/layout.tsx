@@ -17,6 +17,12 @@ export default function RootLayout({
 }: Readonly<ILayoutProps>) {
   return (
     <html lang="en" dir="ltr">
+      <head>
+
+        <link rel="stylesheet" href="https://cdn.moyasar.com/mpf/1.13.0/moyasar.css" />
+
+        <script src="https://cdn.moyasar.com/mpf/1.13.0/moyasar.js"></script>
+      </head>
       <body className={cn(inter.className, "h-screen w-screen ")}>
         {children}
         <Toaster />

@@ -30,7 +30,7 @@ const testSelectData = [{
     value: "Test2"
 }]
 
-const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, fieldType = FieldTypesEnum.Text, disabled = false, data, type }) => {
+const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, fieldType = FieldTypesEnum.Text, disabled = false, data, type, times }) => {
     const form = useFormContext()
     const selectData = data ? data : testSelectData
     // console.log("in form", selectData, label, fieldType)
@@ -100,9 +100,37 @@ const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, 
                                             onCheckedChange={() => field.onChange(hour)}
                                         // className='data-[state=checked]:bg-primaryBlue'
                                         />
-                                        <p className=''>{hour + "- lmlmdas" + field.value}</p>
+                                        <p className=''>{hour}</p>
                                     </div>
                                 ))}
+                            </div>
+                            {desc && <FormDescription>
+                                {desc}
+                            </FormDescription>}
+                            {hasError && <FormMessage />}
+                        </FormItem>
+                    )}
+
+                />
+            )
+        case FieldTypesEnum.TimeSlots:
+            return (
+                <FormField
+                    control={form.control}
+                    name={name}
+                    render={() => (
+                        <FormItem className='bg-indigo-800 bg-opacity-5 rounded p-3 flex flex-col'>
+                            {label && <FormLabel>{label}</FormLabel>}
+
+                            <div className='w-full grid grid-cols-4 gap-y-3 gap-x-2 grid-flow-row rounded-md   text-sm placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'>
+                                {times && times.length > 0 ? times.map((hour: string) => (
+                                    <div key={hour} className='flex  items-center justify-center gap-4 bg-white px-2 py-2 rounded-sm'>
+
+                                        <p className=''>{hour}</p>
+                                    </div>
+                                )) : (
+                                    <div><p>Please select times and slot</p></div>
+                                )}
                             </div>
                             {desc && <FormDescription>
                                 {desc}

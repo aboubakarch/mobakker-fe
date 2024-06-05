@@ -50,12 +50,19 @@ const paymentTypeOptions = [
 
 
 const AppointmentForm: FC<{
-    appointmentFormVal: IFormValueObj<IAppointmentFormValues>, t: TFunction<"translation", undefined>, services: any[] | null, branches: any[] | null, employees: any[] | null, customers: any[] | null
-}> = ({ appointmentFormVal, t, services, branches, customers, employees }) => {
+    appointmentFormVal: IFormValueObj<IAppointmentFormValues>, t: TFunction<"translation", undefined>, services: any[] | null, branches: any[] | null, employees: any[] | null, customers: any[] | null, fetchEmployeesData: (branchId: string) => Promise<void>
+}> = ({ appointmentFormVal, t, services, branches, customers, employees, fetchEmployeesData }) => {
     const form = useFormContext()
     const service = form.watch("service")
     const branchId = form.watch("branchId")
     console.log("DATA+++++++", branches, employees, customers)
+
+    useEffect(() => {
+        if (branchId && branchId !== "") {
+            fetchEmployeesData(branchId)
+
+        }
+    }, [branchId])
 
     return (
         <div className='flex flex-col gap-4'>
@@ -76,7 +83,7 @@ const AppointmentForm: FC<{
 
             </div>
             <div>
-                <InputField {...appointmentFormVal.info(t).timing} />
+                <InputField {...appointmentFormVal.info(t).bookingSlot} />
 
             </div>
 
@@ -172,11 +179,11 @@ const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal,
         }
         setLoading(false)
     }
-    const fetchEmployeesData = async () => {
+    const fetchEmployeesData = async (branchId: string) => {
         setLoading(true)
         try {
             const params = {
-                page: 1, take: 100
+                page: 1, take: 100, branchId
             }
             const response = await APIService.getInstance().getEmployees(params)
 
@@ -199,7 +206,6 @@ const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal,
         fetchServicesData()
         fetchBranchesData()
         fetchCustomersData()
-        fetchEmployeesData()
         // fetchBranchData()
     }, [])
 
@@ -219,7 +225,7 @@ const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal,
                         <X className='w-4 h-4 relative text-black' />
                     </Button>                </div>
 
-                <AppointmentForm appointmentFormVal={appointmentFormVal} services={services} t={t} branches={branches} employees={employees} customers={customers} />
+                <AppointmentForm appointmentFormVal={appointmentFormVal} services={services} t={t} branches={branches} employees={employees} fetchEmployeesData={fetchEmployeesData} customers={customers} />
 
                 <div className='self-end flex gap-3'>
                     <SubmitButton loading={loading} title={t(messages.SAVE)} className=" bg-primaryBlue" />
