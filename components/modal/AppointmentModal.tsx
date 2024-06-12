@@ -50,12 +50,13 @@ const paymentTypeOptions = [
 
 
 const AppointmentForm: FC<{
-    appointmentFormVal: IFormValueObj<IAppointmentFormValues>, t: TFunction<"translation", undefined>, services: any[] | null, branches: any[] | null, employees: any[] | null, customers: any[] | null, fetchEmployeesData: (branchId: string) => Promise<void>
-}> = ({ appointmentFormVal, t, services, branches, customers, employees, fetchEmployeesData }) => {
+    appointmentFormVal: IFormValueObj<IAppointmentFormValues>, t: TFunction<"translation", undefined>, services: any[] | null, branches: any[] | null, employees: any[] | null, customers: any[] | null,
+    fetchEmployeesData: (branchId: string) => Promise<void>, servMap: any | null
+}> = ({ appointmentFormVal, t, services, branches, customers, employees, fetchEmployeesData, servMap }) => {
     const form = useFormContext()
     const service = form.watch("service")
     const branchId = form.watch("branchId")
-    console.log("DATA+++++++", branches, employees, customers)
+    const [hours, setHours] = useState<string[] | undefined>(undefined)
 
     useEffect(() => {
         if (branchId && branchId !== "") {
@@ -63,6 +64,23 @@ const AppointmentForm: FC<{
 
         }
     }, [branchId])
+
+    useEffect(() => {
+        if (service !== "") {
+            const ser = servMap[service]
+            if (ser) {
+                setHours(ser.availablity.split(","))
+
+            } else {
+                setHours(undefined)
+
+            }
+        }
+        else {
+            setHours(undefined)
+        }
+
+    }, [service])
 
     return (
         <div className='flex flex-col gap-4'>
@@ -83,7 +101,7 @@ const AppointmentForm: FC<{
 
             </div>
             <div>
-                <InputField {...appointmentFormVal.info(t).bookingSlot} />
+                <InputField {...appointmentFormVal.info(t).bookingSlot} disabled={service === "" || !hours} times={hours} />
 
             </div>
 
@@ -114,6 +132,7 @@ const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal,
     const [branches, setBranches] = useState<any[] | null>([])
     const [employees, setEmployees] = useState<any[] | null>([])
     const [customers, setCustomers] = useState<any[] | null>([])
+    const [serviceMap, setServiceMap] = useState<any | null>(null)
 
 
     const fetchServicesData = async () => {
@@ -123,12 +142,17 @@ const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal,
                 page: 1, take: 100
             }
             const response = await APIService.getInstance().getServices(params)
-
-            const data = response?.items?.map((item: ServiceType) => ({
-                name: item.name,
-                value: item.id
-            }))
+            const servMap: any = {}
+            const data = response?.items?.map((item: ServiceType) => {
+                const i = {
+                    name: item.name,
+                    value: item.id
+                }
+                servMap[item.id] = item;
+                return i
+            })
             setServices(data)
+            setServiceMap(servMap)
         } catch (error) {
             toast({
                 variant: "destructive",
@@ -225,7 +249,11 @@ const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal,
                         <X className='w-4 h-4 relative text-black' />
                     </Button>                </div>
 
-                <AppointmentForm appointmentFormVal={appointmentFormVal} services={services} t={t} branches={branches} employees={employees} fetchEmployeesData={fetchEmployeesData} customers={customers} />
+                <AppointmentForm appointmentFormVal={appointmentFormVal}
+                    services={services} t={t} branches={branches} employees={employees} fetchEmployeesData={fetchEmployeesData}
+                    customers={customers}
+                    servMap={serviceMap}
+                />
 
                 <div className='self-end flex gap-3'>
                     <SubmitButton loading={loading} title={t(messages.SAVE)} className=" bg-primaryBlue" />

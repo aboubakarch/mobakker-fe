@@ -180,7 +180,6 @@ const ServiceModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate 
 
 
     const createNewService = async (values: yup.InferType<typeof serviceValidationSchema>) => {
-        console.log(values.startHour, values.endHour)
 
         const startTime = values.startHour.split(':').map(Number);
         const endTime = values.endHour.split(':').map(Number);
@@ -196,11 +195,11 @@ const ServiceModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate 
             price: values.price,
             slotTime: `${values.slotTime} minutes`,
             avatar: "string",
-            availablity: values.serviceAvailabilty,
+            availablity: values.serviceAvailabilty.join(","),
             workHourFrom: startDate,
             workHourTo: endDate,
             serviceTypeId: values.serviceType,
-            providerId: "9ed6eeca-1659-4667-a2a0-2f68d3ad92d6",
+            providerId: "f59263b4-0b5f-4622-9ca3-0857c6c15ed4",
         }
         await APIService.getInstance().createService(service as any);
         setLoading(false)
@@ -229,7 +228,7 @@ const ServiceModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate 
             workHourFrom: startDate,
             workHourTo: endDate,
             serviceTypeId: values.serviceType,
-            providerId: "9ed6eeca-1659-4667-a2a0-2f68d3ad92d6",
+            providerId: "f59263b4-0b5f-4622-9ca3-0857c6c15ed4",
         }
         await APIService.getInstance().editService(val?.id as string, service as any);
         setLoading(false)

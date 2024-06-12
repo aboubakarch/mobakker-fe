@@ -89,11 +89,16 @@ export const serviceColumns: (t: TFunction<"translation", undefined>, handleEdit
         header: () => <div >{t(tableHeader.AVAILABLE)}</div>,
 
         cell: ({ row }) => {
-            const availablity: number = row.getValue("availablity")
+            let availablity: any = row.getValue("availablity")
+            availablity = availablity.split(",");
             return (
-                <TextColumn text={availablity} />
+                <div className="grid grid-rows-2 grid-cols-4 gap-3 items-center">
+                    {availablity.map((a: any, i: number) => (
+                        <div className={"p-2  rounded justify-center items-center text-white text-[9px] font-medium leading-tight text-center bg-indigo-800"} key={i}>{a}</div>
+                    ))}
+                </div>
             )
-        }
+        },
     },
     {
         accessorKey: "slotTime",

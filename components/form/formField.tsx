@@ -92,7 +92,7 @@ const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, 
                             {label && <FormLabel>{label}</FormLabel>}
 
                             <div className='w-full grid grid-cols-4 gap-y-3 gap-x-2 grid-flow-row rounded-md   text-sm placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'>
-                                {HourTimes.map(hour => (
+                                {times && times.length > 0 ? times.map(hour => (
                                     <div key={hour} className='flex items-center justify-center gap-4 bg-white px-2 py-2 rounded-sm'>
                                         <Checkbox
                                             disabled={disabled}
@@ -102,7 +102,7 @@ const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, 
                                         />
                                         <p className=''>{hour}</p>
                                     </div>
-                                ))}
+                                )) : <p>No Slots Available</p>}
                             </div>
                             {desc && <FormDescription>
                                 {desc}
