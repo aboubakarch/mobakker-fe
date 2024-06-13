@@ -61,7 +61,7 @@ interface IPromotionFormValues {
 }
 interface IAppointmentFormValues {
   bookingDate: Date;
-  repeat: "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY" | "NEVER";
+  repeat: "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY" | "NONE";
   grossTotalAmount: number;
   discount: number;
   netTotalAmount: number;

@@ -53,7 +53,7 @@ export const appointmentValidationSchema = yup.object().shape({
   bookingSlot: yup.string().required(),
   repeat: yup
     .string()
-    .oneOf(["DAILY", "WEEKLY", "MONTHLY", "YEARLY", "NEVER"])
+    .oneOf(["DAILY", "WEEKLY", "MONTHLY", "YEARLY", "NONE"])
     .required(),
   grossTotalAmount: yup.number().required(),
   discount: yup.number().required(),

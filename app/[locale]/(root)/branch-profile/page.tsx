@@ -15,6 +15,7 @@ import * as yup from 'yup';
 
 const BranchProfile = () => {
     const { t } = useTranslation()
+    const branchFormVal = branchFormVals()
 
     const onSubmit = (values: yup.InferType<typeof branchEditValidationSchema>) => {
         console.log(values);
@@ -56,14 +57,14 @@ const BranchProfile = () => {
                     <AppForm
                         onSubmit={onSubmit}
                         className="px-3 py-4 flex gap-4 flex-col"
-                        {...branchFormVals}>
+                        {...branchFormVal}>
 
 
-                        <InputField {...branchFormVals.info(t).name} disabled={true} />
+                        <InputField {...branchFormVal.info(t).name} disabled={true} />
 
 
-                        <InputField {...branchFormVals.info(t).location} disabled={true} />
-                        <InputField {...branchFormVals.info(t).details} disabled={true} />
+                        <InputField {...branchFormVal.info(t).location} disabled={true} />
+                        {/* <InputField {...branchFormVal.info(t).details} disabled={true} /> */}
 
 
                     </AppForm>

@@ -99,8 +99,8 @@ export const promotionDefaultValues: (
 export const appointmentDefaultValues: (
   val?: SampleAppointments
 ) => IAppointmentFormValues = (val) => ({
-  bookingDate: val ? val.bookingDate : new Date(),
-  repeat: val ? val.repeat : "NEVER",
+  bookingDate: val ? (val.bookingDate as any) : (new Date() as any),
+  repeat: val ? val.repeat : "NONE",
   grossTotalAmount: val ? val.grossTotalAmount : 0,
   discount: val ? val.discount : 0,
   netTotalAmount: val ? val.netTotalAmount : 0,
@@ -110,7 +110,7 @@ export const appointmentDefaultValues: (
   bookedBy: val ? val.bookedBy : "",
   branchId: val ? val.branchId : "",
   employeeId: val ? val.employeeId : "",
-  service: val ? val.service[0] : "",
+  service: val ? val.serviceId : "",
   bookingSlot: val ? val.bookingSlot : "",
 });
 

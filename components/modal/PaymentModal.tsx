@@ -5,12 +5,12 @@ import { useTranslation } from 'react-i18next'
 import { IModalCompProps } from '@/@types/modals'
 
 
+declare var Moyasar: any;
 
 const PaymentModal: FC<IModalCompProps> = ({ closeModal, visible }) => {
     const { t } = useTranslation();
-
     useEffect(() => {
-        if (visible && Moyasar) {
+        if (visible && typeof Moyasar !== undefined) {
             try {
 
                 Moyasar?.init({

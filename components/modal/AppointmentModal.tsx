@@ -24,7 +24,7 @@ const repeatOptions = [
     { name: "Weekly", value: "WEEKLY" },
     { name: "Monthly", value: "MONTHLY" },
     { name: "Yearly", value: "YEARLY" },
-    { name: "Never", value: "NEVER" },
+    { name: "Never", value: "NONE" },
 
 ];
 
@@ -123,7 +123,7 @@ const AppointmentForm: FC<{
     )
 }
 
-const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal, visible, val }) => {
+const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal, visible, val, onUpdate }) => {
     const { t } = useTranslation();
     const { toast } = useToast()
     const appointmentFormVal = appointmentFormVals(val)
@@ -233,10 +233,59 @@ const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal,
         // fetchBranchData()
     }, [])
 
+    const createNewAppointment = async (values: yup.InferType<typeof appointmentValidationSchema>) => {
+        // const userId = getCookie("userId");
 
-    const onSubmit = (values: yup.InferType<typeof appointmentValidationSchema>) => {
+        await APIService.getInstance().createAppointment(values as any);
+        setLoading(false)
+
+        toast({
+            description: "Appointment added!",
+            variant: "default"
+        })
+
+    }
+    const editAppointment = async (values: yup.InferType<typeof appointmentValidationSchema>) => {
+
+
+        await APIService.getInstance().editBranch(val?.id as string, values as any);
+        setLoading(false)
+
+        toast({
+            description: "Appointment Updated!",
+            variant: "default"
+        })
+
+    }
+
+
+    const onSubmit = async (values: yup.InferType<typeof appointmentValidationSchema>) => {
         console.log(values);
+        setLoading(true)
+        try {
+
+            if (val) {
+                await editAppointment(values)
+            }
+            else {
+                await createNewAppointment(values)
+            }
+            // location.reload()
+            if (onUpdate) {
+                onUpdate()
+            }
+        } catch (error) {
+            setLoading(false)
+
+            toast({
+                variant: "destructive",
+                description: "Error! Something went wrong",
+            })
+        }
+        closeModal()
     };
+
+
     return (
         <Modal visibility={visible} closeModal={closeModal}>
             <AppForm

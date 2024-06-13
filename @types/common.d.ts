@@ -29,8 +29,12 @@ interface SampleServices {
 }
 interface SampleAppointments {
   id: string;
-  bookingDate: Date;
-  repeat: "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY";
+  createdAt: string; // ISO 8601 date string
+  updatedAt: string; // ISO 8601 date string
+  isActive: boolean;
+  bookingDate: string; // ISO 8601 date string
+  bookingSlot: string;
+  repeat: "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY" | "NONE";
   grossTotalAmount: number;
   discount: number;
   netTotalAmount: number;
@@ -39,9 +43,11 @@ interface SampleAppointments {
   status: "PENDING" | "STARTED" | "COMPLETED" | "CANCELED" | "REJECTED";
   bookedBy: string;
   branchId: string;
+  serviceId: string;
   employeeId: string;
-  service: string[];
-  bookingSlot: string;
+  customer: SampleBranchManager;
+  services: SampleServices;
+  branch: SampleBranch;
 }
 interface SampleLoyalPrograms {
   rank: string;

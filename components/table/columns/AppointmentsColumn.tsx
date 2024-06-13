@@ -14,6 +14,7 @@ import { messages, tableHeader } from "@/constants/constants";
 import TextColumn from "../TextColumn";
 import Badge from "@/components/ui/Badge";
 import { TFunction } from "i18next";
+import Image from "next/image";
 // import { Checkbox } from "@/components/ui/Checkbox";
 
 
@@ -46,11 +47,11 @@ export const appointmentsColumns: (
 
     // },
     {
-        accessorKey: "bookingId",
+        accessorKey: "id",
         header: () => <div className="text-center">{t(tableHeader.BOOKING_ID)}</div>,
 
         cell: ({ row }) => {
-            const bookingId: string = row.getValue("bookingId");
+            const bookingId: string = row.getValue("id");
             return (
                 <div className="w-max flex items-center justify-center text-center justify-self-center">
 
@@ -59,107 +60,142 @@ export const appointmentsColumns: (
             )
         },
     },
-    {
-        accessorKey: "name",
-        header: () => <div className="text-center">{t(tableHeader.CUSTOMER_NAME)}</div>,
 
-        cell: ({ row }) => {
-            const name: string = row.getValue("name");
-            return (
-                <div className="w-max flex items-center justify-center text-center">
-                    <p className="text-sm line-clamp-1 ">{name}</p>
-                </div>
-            )
-        },
-    },
     {
-        accessorKey: "customerNumber",
-        header: () => <div className="text-center">{t(tableHeader.CUSTOMER_NUMBER)}</div>,
-
+        accessorKey: "services",
+        header: () => <div className="text-center">{t(tableHeader.SERVICES_BOOKED)}</div>,
         cell: ({ row }) => {
-            const customerNumber: number = row.getValue("customerNumber");
+            const rowItem: SampleServices = row.getValue("services");
             return (
-                <div className="w-max flex items-center justify-center text-center justify-self-center">
-                    <p className="text-sm line-clamp-1">{customerNumber}</p>
+                <div className="flex gap-3 items-center justify-center w-max">
+                    <div className="rounded-full h-11 w-11 relative">
+                        <Image
+                            src={"/assets/sampleImage.jpg"}
+                            alt="pfp"
+                            fill
+                            className="rounded-full"
+                        />
+                    </div>
+                    <div className="flex flex-col text-sm font-medium leading-snug">
+                        <p className="text-gray-900">{rowItem.name}</p>
+                        <p className="text-indigo-800">{rowItem.price}</p>
+                    </div>
                 </div>
             )
         },
     },
     // {
-    //     accessorKey: "serviceBooked",
-    //     header: () => <div className="text-center">{t(tableHeader.SERVICES_BOOKED)}</div>,
+    //     accessorKey: "serviceType",
+    //     header: () => <div className="text-center">{t(tableHeader.SERVICE_TYPE)}</div>,
+
     //     cell: ({ row }) => {
-    //         const rowItem = row.original
+    //         const serviceType: string = row.getValue("serviceType");
     //         return (
-    //             <div className="w-max flex gap-3 items-center justify-center">
-    //                 {/* <div className="rounded-full h-11 w-11 relative">
-    //                     <Image
-    //                         src={rowItem.}
-    //                         alt="pfp"
-    //                         fill
-    //                         className="rounded-full"
-    //                     />
-    //                 </div> */}
-    //                 <div className="flex flex-col text-sm font-medium leading-snug">
-    //                     {/* <p className="text-gray-900">{rowItem.serviceBooked}</p>
-    //                     <p className="text-gray-900">{rowItem.serviceTime}</p> */}
-    //                 </div>
-    //             </div>
+    //             <TextColumn text={serviceType} />
     //         )
     //     },
     // },
     {
-        accessorKey: "serviceType",
-        header: () => <div className="text-center">{t(tableHeader.SERVICE_TYPE)}</div>,
-
-        cell: ({ row }) => {
-            const serviceType: string = row.getValue("serviceType");
-            return (
-                <TextColumn text={serviceType} />
-            )
-        },
-    },
-    {
-        accessorKey: "branchName",
+        accessorKey: "branch",
         header: () => <div className="text-center">{t(tableHeader.BRANCH_NAME)}</div>,
 
         cell: ({ row }) => {
-            const branchName: string = row.getValue("branchName")
+            const rowItem: SampleBranch = row.getValue("branch");
             return (
-                <TextColumn text={branchName} />
+                <div className="flex gap-3 items-center justify-center w-max">
+                    <div className="rounded-full h-11 w-11 relative">
+                        <Image
+                            src={"/assets/sampleImage.jpg"}
+                            alt="pfp"
+                            fill
+                            className="rounded-full"
+                        />
+                    </div>
+                    <div className="flex flex-col text-sm font-medium leading-snug">
+                        <p className="text-gray-900">{rowItem.name}</p>
+                        <p className="text-indigo-800">{rowItem.city}</p>
+                    </div>
+                </div>
             )
-        }
+        },
     },
     {
-        accessorKey: "serviceTime",
+        accessorKey: "bookingSlot",
         header: () => <div className="text-center">{t(tableHeader.TIME_SLOT)}</div>,
 
         cell: ({ row }) => {
-            const serviceTime: string = row.getValue("serviceTime");
+            const bookingSlot: string = row.getValue("bookingSlot");
             return (
-                <Badge text={serviceTime} />
+                <Badge text={bookingSlot} />
+            )
+        },
+    },
+    // {
+    //     accessorKey: "",
+    //     header: () => <div className="text-center">{t(tableHeader.TIME)}</div>,
+
+    //     cell: ({ row }) => {
+    //         const hours: string = row.getValue("hours");
+    //         return (
+    //             <TextColumn text={hours[0]} />
+    //         )
+    //     },
+    // },
+    {
+        accessorKey: "bookingDate",
+        header: () => <div className="text-center">{t(tableHeader.START_DATE)}</div>,
+
+        cell: ({ row }) => {
+            const bookingDate: number = row.getValue("bookingDate");
+            return (
+                <TextColumn text={`${bookingDate}`} />
             )
         },
     },
     {
-        accessorKey: "hours",
-        header: () => <div className="text-center">{t(tableHeader.TIME)}</div>,
+        accessorKey: "paymentStatus",
+        header: () => <div className="text-center">{t(tableHeader.PAID)}</div>,
 
         cell: ({ row }) => {
-            const hours: string = row.getValue("hours");
+            const paymentStatus: number = row.getValue("paymentStatus");
             return (
-                <TextColumn text={hours[0]} />
+                <TextColumn text={`${paymentStatus}`} />
             )
         },
     },
     {
-        accessorKey: "price",
-        header: () => <div className="text-center">{t(tableHeader.PRICE)}</div>,
+        accessorKey: "paymentType",
+        header: () => <div className="text-center">{t(tableHeader.PAID)}</div>,
 
         cell: ({ row }) => {
-            const price: number = row.getValue("price");
+            const paymentType: number = row.getValue("paymentType");
             return (
-                <TextColumn text={`${price} S.R`} />
+                <TextColumn text={`${paymentType}`} />
+            )
+        },
+    },
+    {
+        accessorKey: "status",
+        header: () => <div className="text-center">{t(tableHeader.STATUS)}</div>,
+
+        cell: ({ row }) => {
+            const status: number = row.getValue("status");
+            return (
+                <TextColumn text={`${status}`} />
+            )
+        },
+    },
+
+    {
+        accessorKey: "customer",
+        header: () => <div className="text-center">{t(tableHeader.CUSTOMER_NUMBER)}</div>,
+
+        cell: ({ row }) => {
+            const customerNumber: SampleBranchManager = row.getValue("customer");
+            return (
+                <div className="w-max flex items-center justify-center text-center justify-self-center">
+                    <p className="text-sm line-clamp-1">{customerNumber.id}</p>
+                </div>
             )
         },
     },
@@ -176,6 +212,9 @@ export const appointmentsColumns: (
             )
         },
     },
+
+
+
 
     {
         id: "actions",

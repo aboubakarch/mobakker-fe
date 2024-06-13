@@ -4,6 +4,7 @@ import "./globals.css";
 
 import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/Toaster";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,8 +22,8 @@ export default function RootLayout({
 
         <link rel="stylesheet" href="https://cdn.moyasar.com/mpf/1.13.0/moyasar.css" />
 
-        <script src="https://cdn.moyasar.com/mpf/1.13.0/moyasar.js"></script>
       </head>
+      <Script src="https://cdn.moyasar.com/mpf/1.13.0/moyasar.js" />
       <body className={cn(inter.className, "h-screen w-screen ")}>
         {children}
         <Toaster />

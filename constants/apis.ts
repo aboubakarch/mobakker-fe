@@ -4,6 +4,7 @@ export const URLs = {
 
 export const endpoints = {
   CREATE_BRANCH: "/branch/create",
+  CREATE_APPOINtMENT: "/appointment/create",
   CREATE_SERVICE_TYPE: "/service-type/create",
   CREATE_SERVICE: "/service/create",
   LOGIN: "/auth/login",
