@@ -9,7 +9,15 @@ interface ModalSlice {
   test: IModal;
 }
 
-interface IModalCompProps {
+interface IModalCompProps<T = any> {
   visible: boolean;
   closeModal: () => void;
+  onUpdate?: () => void;
+  val?: T;
+  onSubmitData?: (data: T) => void;
+}
+
+interface IDeleteModalProps extends IModalCompProps {
+  title: string;
+  onDelete: () => void;
 }

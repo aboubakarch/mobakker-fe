@@ -10,6 +10,16 @@ export const loginValidationSchema = yup.object().shape({
 });
 export const branchValidationSchema = yup.object().shape({
   name: yup.string().min(4).max(100).required(),
+  location: yup.string().required(),
+  state: yup.string().min(2).max(300).required(),
+  city: yup.string().min(2).max(300).required(),
+  manager: yup.string().optional(),
+});
+export const serviceTypeValidationSchema = yup.object().shape({
+  name: yup.string().min(4).max(100).required(),
+});
+export const branchEditValidationSchema = yup.object().shape({
+  name: yup.string().min(4).max(100).required(),
   password: yup.string().min(8).max(32).required(),
   location: yup.string().required(),
   details: yup.string().min(8).max(300).required(),
@@ -23,35 +33,84 @@ export const employeeValidationSchema = yup.object().shape({
 
 export const serviceValidationSchema = yup.object().shape({
   name: yup.string().min(4).max(100).required(),
-  employees: yup.array().of(yup.string()).required(),
   price: yup.number().required(),
   serviceType: yup.string().required(),
-  serviceAvailabilty: yup.array().of(yup.string()).required(),
-  startHour: yup.number().required(),
-  endHour: yup.number().required(),
+  serviceAvailabilty: yup.array().of(yup.string()).min(1).required(),
+  startHour: yup.string().required(),
+  endHour: yup.string().required(),
+  slotTime: yup.string().required(),
 });
 export const promotionValidationSchema = yup.object().shape({
-  name: yup.string().max(100).required(),
-  employees: yup.array().of(yup.string()).required(),
-  category: yup.string().max(100).required(),
-  capacity: yup.string().max(100).required(),
-  date: yup.date().required(),
-  time: yup.date().required(),
-  status: yup.string().max(100).required(),
+  promoCode: yup.string().max(100).required(),
+  startDate: yup.date().required(),
+  endDate: yup.date().required(),
+  service: yup.array().of(yup.string()).required(),
+  isActive: yup.boolean().required(),
+  type: yup.string().oneOf(["FIXED", "PERCENTAGE"]).required(),
 });
 export const appointmentValidationSchema = yup.object().shape({
-  employees: yup.array().of(yup.string()).required(),
-  category: yup.string().max(100).required(),
-  paymentType: yup.string().max(100).required(),
-  service: yup.string().max(100).required(),
-  date: yup.date().required(),
-  hours: yup.array().of(yup.string()).required(),
-  repeatDay: yup.boolean().required(),
-  repeatWeek: yup.boolean().required(),
-  repeatMonth: yup.boolean().required(),
+  bookingDate: yup.date().required(),
+  bookingSlot: yup.string().required(),
+  repeat: yup
+    .string()
+    .oneOf(["DAILY", "WEEKLY", "MONTHLY", "YEARLY", "NONE"])
+    .required(),
+  grossTotalAmount: yup.number().required(),
+  discount: yup.number().required(),
+  netTotalAmount: yup.number().required(),
+  paymentStatus: yup.string().oneOf(["PENDING", "PAID", "APPROVED"]).required(),
+  paymentType: yup.string().oneOf(["CASH", "CARD", "TRANSFER"]).required(),
+  status: yup
+    .string()
+    .oneOf(["PENDING", "STARTED", "COMPLETED", "CANCELED", "REJECTED"])
+    .required(),
+  bookedBy: yup.string().required(),
+  branchId: yup.string().required(),
+  employeeId: yup.string().required(),
+  service: yup.string().required(),
 });
 export const providerValidationSchema = yup.object().shape({
-  name: yup.string().min(4).max(100).required(),
+  firstName: yup.string().min(4).max(100).required(),
+  lastName: yup.string().min(4).max(100).required(),
+  email: yup.string().email().required(),
+  phone: yup
+    .string()
+    .test("phone-validation", "Invalid phone number", function (value: any) {
+      // Pakistani phone number regex pattern
+      const pakistanPhoneRegex = /^\+92[0-9]{2}[0-9]{7,8}$/;
+      // Saudi Arabian phone number regex pattern
+      const saudiPhoneRegex = /^\+966[1-9][0-9]{7}$/;
+
+      // Check if the phone number matches either pattern
+      if (pakistanPhoneRegex.test(value) || saudiPhoneRegex.test(value)) {
+        return true;
+      }
+
+      return false;
+    })
+    .required(),
   password: yup.string().min(8).max(32).required(),
-  details: yup.string().min(8).max(300).required(),
+});
+
+export const providerRegistrationValidationSchema = yup.object().shape({
+  firstName: yup.string().min(4).max(100).required(),
+  lastName: yup.string().min(4).max(100).required(),
+  email: yup.string().email().required(),
+  phone: yup
+    .string()
+    .test("phone-validation", "Invalid phone number", function (value: any) {
+      // Pakistani phone number regex pattern
+      const pakistanPhoneRegex = /^\+92[0-9]{2}[0-9]{7,8}$/;
+      // Saudi Arabian phone number regex pattern
+      const saudiPhoneRegex = /^\+966[1-9][0-9]{7}$/;
+
+      // Check if the phone number matches either pattern
+      if (pakistanPhoneRegex.test(value) || saudiPhoneRegex.test(value)) {
+        return true;
+      }
+
+      return false;
+    })
+    .required(),
+  password: yup.string().min(8).max(32).required(),
 });

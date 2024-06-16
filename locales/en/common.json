@@ -83,5 +83,20 @@
   "notifications": "Notifications",
   "createAppointment": "Create Appointment",
   "branchEmployees": "Branch Employees",
-  "uploadAppointment": "Upload Appointment"
+  "uploadAppointment": "Upload Appointment",
+  "update": "Update",
+  "uploadImage": "Click to upload or drag and drop",
+  "imageFormats": "SVG, PNG, JPG, or GIF (max, 800 X 800px)",
+  "branchProfile": "Branch Profile",
+  "logo": "Logo",
+  "deleteConfirmation": "You want to delete this?",
+  "areYouSure": "Are you sure?",
+  "alreadyHaveAccount": "Already have an account?",
+  "branchManagers": "Branch Managers",
+  "managers": "Managers",
+  "customerCare": "Customer Care",
+  "addManager": "Add Manager",
+  "addRepresentative": "Add Representative",
+  "logout": "Logout",
+  "addServiceType": "Add Service Type"
 }

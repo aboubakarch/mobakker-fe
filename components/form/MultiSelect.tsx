@@ -20,29 +20,38 @@ import { ChevronsUpDown } from "lucide-react"
 // type Checked = DropdownMenuCheckboxItemProps["checked"]
 
 const people = [
-    { id: 1, name: 'Durward Reynolds', image: "/assets/sampleImage.jpg" },
-    { id: 2, name: 'Kenton Towne', image: "/assets/sampleImage.jpg" },
-    { id: 3, name: 'Therese Wunsch', image: "/assets/sampleImage.jpg" },
-    { id: 4, name: 'Benedict Kessler', image: "/assets/sampleImage.jpg" },
-    { id: 5, name: 'Katelyn Rohan', image: "/assets/sampleImage.jpg" },
+    { value: 1, name: 'Durward Reynolds', image: "/assets/sampleImage.jpg" },
+    { value: 2, name: 'Kenton Towne', image: "/assets/sampleImage.jpg" },
+    { value: 3, name: 'Therese Wunsch', image: "/assets/sampleImage.jpg" },
+    { value: 4, name: 'Benedict Kessler', image: "/assets/sampleImage.jpg" },
+    { value: 5, name: 'Katelyn Rohan', image: "/assets/sampleImage.jpg" },
 ]
 
 
-export const EmployeeMultiSelect: React.FC<{ selected: any[], setSelected: (arg: any) => void }> = ({ selected, setSelected }) => {
+export const EmployeeMultiSelect: React.FC<{
+    selected: any[], setSelected: (arg: any) => void, label?: string, data?: {
+        value: number;
+        name: string;
+        image?: string;
+    }[]
+}> = ({ selected, setSelected, label, data }) => {
     const [search, setSearch] = React.useState("")
-    const filteredPeople = React.useMemo(() => people.filter(per => per.name.toLowerCase().includes(search.toLowerCase())), [search])
+    console.log("DATA", data)
+    const selectedData = data ? data : people
+    const filteredPeople = React.useMemo(() => selectedData.filter(per => per.name.toLowerCase().includes(search.toLowerCase())), [search])
     // function addOrRemoveValue<T>(array: T[], value: T): T[] {
     //     _.pull(array, value); // Remove the value if it exists
     //     array = _.union(array, [value]); // Add the value to the array
     //     return array;
     // }
 
-    const handleCheck = (id: string | number, checked: boolean) => {
+
+    const handleCheck = (value: string | number, checked: boolean) => {
         let newArray: (number | string)[] = []
         if (checked) {
-            newArray = [...selected, id]
+            newArray = [...selected, value]
         } else {
-            newArray = _.without(selected, id)
+            newArray = _.without(selected, value)
         }
         setSelected(newArray)
     }
@@ -55,12 +64,12 @@ export const EmployeeMultiSelect: React.FC<{ selected: any[], setSelected: (arg:
                     className=" justify-between w-full"
                 >
 
-                    <p>{selected.length === 0 ? "Select Employees" : `${selected.length} Employees Selected`}</p>
-                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                    <p>{selected.length === 0 ? `Select ${label || "Items"}` : `${selected.length} ${label || "Items"} Selected`}</p>
+                    <ChevronsUpDown className="ltr:ml-2 rtl:mr-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="full">
-                <DropdownMenuLabel>Employees</DropdownMenuLabel>
+                <DropdownMenuLabel>{label || "Items"}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
 
                 <SearchInput
@@ -81,19 +90,19 @@ export const EmployeeMultiSelect: React.FC<{ selected: any[], setSelected: (arg:
                 {filteredPeople.map(per => (
 
                     <DropdownMenuCheckboxItem
-                        key={per.id}
-                        checked={_.includes(selected, per.id)}
-                        onCheckedChange={(checked: boolean) => handleCheck(per.id, checked)}
+                        key={per.value}
+                        checked={_.includes(selected, per.value)}
+                        onCheckedChange={(checked: boolean) => handleCheck(per.value, checked)}
                     >
                         <div className="flex gap-3 items-center justify-center">
-                            <div className="rounded-full h-8 w-8 relative">
+                            {per.image && <div className="rounded-full h-8 w-8 relative">
                                 <Image
                                     src={per.image}
                                     alt="pfp"
                                     fill
                                     className="rounded-full"
                                 />
-                            </div>
+                            </div>}
                             <div className="flex flex-col text-sm font-medium leading-snug">
                                 <p className="text-gray-900">{per.name}</p>
                             </div>

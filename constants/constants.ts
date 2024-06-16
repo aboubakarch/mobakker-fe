@@ -102,6 +102,21 @@ export const messages = {
   CREATE_APPOINTMENT: "common:createAppointment",
   BRANCH_EMPLOYEES: "common:branchEmployees",
   UPLOAD_APPOINTMENT: "common:uploadAppointment",
+  UPDATE: "common:update",
+  UPLOAD_IMAGE: "common:uploadImage",
+  IMAGE_FORMATS: "common:imageFormats",
+  BRANCH_PROFILE: "common:branchProfile",
+  LOGO: "common:logo",
+  DELETE_CONFIRMATION: "common:deleteConfirmation",
+  ARE_YOU_SURE: "common:areYouSure",
+  ALREADY_HAVE_ACCOUNT: "common:alreadyHaveAccount",
+  BRANCH_MANAGERS: "common:branchManagers",
+  MANAGERS: "common:managers",
+  CUSTOMER_CARE: "common:customerCare",
+  ADD_MANAGER: "common:addManager",
+  ADD_REPRESENTATIVE: "common:addRepresentative",
+  LOGOUT: "common:logout",
+  ADD_SERVICE_TYPE: "common:addServiceType",
 };
 
 export const tableHeader = {
@@ -149,6 +164,11 @@ export const tableHeader = {
   CITY: "table:city",
   BOOKING_ID_SUB: "table:bookingIdSubscription",
   COMPLAINT_MESSAGE: "table:complaintMessage",
+  STATE: "table:state",
+  EMAIL: "table:email",
+  PHONE: "table:phone",
+  COUNTRY: "table:country",
+  NUMBER_OF_SERVICES: "table:numberOfServices",
 };
 
 export const formConstants = {
@@ -193,6 +213,40 @@ export const formConstants = {
   REPEAT_FOR_DAY: "auth:repeatForDay",
   REPEAT_FOR_WEEK: "auth:repeatForWeek",
   REPEAT_FOR_MONTH: "auth:repeatForMonth",
+  STATE: "auth:state",
+  CITY: "auth:city",
+  PHONE: "auth:phone",
+  FIRST_NAME: "auth:firstName",
+  LAST_NAME: "auth:lastName",
+  TIME_SLOT: "auth:timeSlot",
+  START_DATE: "auth:startDate",
+  END_DATE: "auth:endDate",
+  BOOKING_DATE_LABEL: "auth:bookingDateLabel",
+  BOOKING_DATE_PLACEHOLDER: "auth:bookingDatePlaceholder",
+  REPEAT_LABEL: "auth:repeatLabel",
+  REPEAT_PLACEHOLDER: "auth:repeatPlaceholder",
+  GROSS_TOTAL_AMOUNT_LABEL: "auth:grossTotalAmountLabel",
+  GROSS_TOTAL_AMOUNT_PLACEHOLDER: "auth:grossTotalAmountPlaceholder",
+  DISCOUNT_LABEL: "auth:discountLabel",
+  DISCOUNT_PLACEHOLDER: "auth:discountPlaceholder",
+  NET_TOTAL_AMOUNT_LABEL: "auth:netTotalAmountLabel",
+  NET_TOTAL_AMOUNT_PLACEHOLDER: "auth:netTotalAmountPlaceholder",
+  PAYMENT_STATUS_LABEL: "auth:paymentStatusLabel",
+  PAYMENT_STATUS_PLACEHOLDER: "auth:paymentStatusPlaceholder",
+  PAYMENT_TYPE_LABEL: "auth:paymentTypeLabel",
+  PAYMENT_TYPE_PLACEHOLDER: "auth:paymentTypePlaceholder",
+  STATUS_LABEL: "auth:statusLabel",
+  STATUS_PLACEHOLDER: "auth:statusPlaceholder",
+  BOOKED_BY_LABEL: "auth:bookedByLabel",
+  BOOKED_BY_PLACEHOLDER: "auth:bookedByPlaceholder",
+  BRANCH_ID_LABEL: "auth:branchIdLabel",
+  BRANCH_ID_PLACEHOLDER: "auth:branchIdPlaceholder",
+  EMPLOYEE_ID_LABEL: "auth:employeeIdLabel",
+  EMPLOYEE_ID_PLACEHOLDER: "auth:employeeIdPlaceholder",
+  SERVICE_LABEL: "auth:serviceLabel",
+  SERVICE_PLACEHOLDER: "auth:servicePlaceholder",
+  SELECT_MANAGER: "auth:selectManager",
+  CUSTOMER: "auth:customer",
 };
 
 export const SideBarItems = {
@@ -238,6 +292,12 @@ export const SideBarItems = {
     icon: PageIcon,
     link: `${prefix}/services`,
   }),
+  ServiceTypes: (prefix: string) => ({
+    id: 17,
+    name: "navigation:serviceType",
+    icon: PageIcon,
+    link: `${prefix}/service-types`,
+  }),
   Promotions: (prefix: string) => ({
     id: 7,
     name: "navigation:promotions",
@@ -274,18 +334,37 @@ export const SideBarItems = {
     icon: UserIcon,
     link: `${prefix}/users`,
   }),
+  BranchMangers: (prefix: string) => ({
+    id: 15,
+    name: "navigation:branchManagers",
+    // icon: Badge as any,
+    icon: BranchIcon,
+    link: `${prefix}/branch-managers`,
+  }),
+  CustomerCare: (prefix: string) => ({
+    id: 16,
+    name: "navigation:customerCare",
+    // icon: ShieldQuestionIcon as any,
+    icon: UserIcon,
+    link: `${prefix}/customer-care`,
+  }),
 };
 export const sidebarAdminNavigation: ISideBarItem[] = Object.values(
   SideBarItems
-).map((i) => i("/admin"));
+)
+  .map((i) => i("/admin"))
+  .filter((i: any) => !(i.id === 15 || i.id === 16));
 export const sidebarProvidernavigation: ISideBarItem[] = [
   SideBarItems.Dashboard("/provider"),
   SideBarItems.Branch("/provider"),
   SideBarItems.Reports("/provider"),
   SideBarItems.Appointment("/provider"),
   SideBarItems.Employee("/provider"),
+  SideBarItems.BranchMangers("/provider"),
+  SideBarItems.CustomerCare("/provider"),
   SideBarItems.LoyalProgram("/provider"),
   SideBarItems.Services("/provider"),
+  SideBarItems.ServiceTypes("/provider"),
   SideBarItems.Promotions("/provider"),
   SideBarItems.Rating("/provider"),
   SideBarItems.Notification("/provider"),
@@ -300,6 +379,10 @@ export const sidebarManagerNavigation: ISideBarItem[] = [
   SideBarItems.Promotions(""),
   SideBarItems.Rating(""),
   SideBarItems.Notification(""),
+];
+export const sidebarCustomerServiceNavigation: ISideBarItem[] = [
+  SideBarItems.Dashboard("/"),
+  SideBarItems.Appointment(""),
 ];
 
 export const SettingsNavigation = (prefix: string): ISideBarItem[] => [

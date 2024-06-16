@@ -93,3 +93,76 @@
 .scrollbar::-webkit-scrollbar-thumb:hover {
   background: #f9fafb;
 }
+
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 50px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgb(55 48 163);
+  display: grid;
+  animation: l22-0 2s infinite linear;
+}
+.loader:before,
+.loader:after {
+  content: "";
+  grid-area: 1/1;
+  margin: 15%;
+  border-radius: 50%;
+  background: inherit;
+  transform: rotate(0deg) translate(150%);
+  animation: l22 1s infinite;
+}
+.loader:after {
+  animation-delay: -0.5s;
+}
+
+.loader_smaller {
+  width: 25px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgb(55 48 163);
+  display: grid;
+  animation: l22-0 2s infinite linear;
+}
+.loader_smaller:before,
+.loader_smaller:after {
+  content: "";
+  grid-area: 1/1;
+  margin: 15%;
+  border-radius: 50%;
+  background: inherit;
+  transform: rotate(0deg) translate(150%);
+  animation: l22 1s infinite;
+}
+.loader_smaller:after {
+  animation-delay: -0.5s;
+}
+
+@keyframes l22-0 {
+  100% {
+    transform: rotate(1turn);
+  }
+}
+@keyframes l22 {
+  100% {
+    transform: rotate(1turn) translate(150%);
+  }
+}
+
+/* HTML: <div class="loader_simple"></div> */
+.loader_simple {
+  width: 30px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(farthest-side, #fff 94%, #0000) top/5px 5px
+      no-repeat,
+    conic-gradient(#0000 30%, #fff);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 5px), #000 0);
+  animation: l13 1s infinite linear;
+}
+@keyframes l13 {
+  100% {
+    transform: rotate(1turn);
+  }
+}

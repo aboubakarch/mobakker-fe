@@ -13,7 +13,7 @@ import { Checkbox } from "@/components/ui/Checkbox";
 import { TFunction } from "i18next";
 
 
-export const userColumns: (t: TFunction<"translation", undefined>) => ColumnDef<SampleProvider>[] = (t: TFunction<"translation", undefined>) => [
+export const userColumns: (t: TFunction<"translation", undefined>) => ColumnDef<SampleUser>[] = (t: TFunction<"translation", undefined>) => [
     {
         id: "select",
         header: ({ table }) => (

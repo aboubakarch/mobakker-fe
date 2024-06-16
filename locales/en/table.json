@@ -42,5 +42,10 @@
   "attachment": "Attachment",
   "city": "City",
   "bookingIdSubscription": "Booking ID/Subscription",
-  "complaintMessage": "Complaint Message"
+  "complaintMessage": "Complaint Message",
+  "state": "State",
+  "email": "Email",
+  "phone": "Phone",
+  "country": "Country",
+  "numberOfServices": "Number of Services"
 }

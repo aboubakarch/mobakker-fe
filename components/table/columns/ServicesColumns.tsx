@@ -17,7 +17,8 @@ import { Checkbox } from "@/components/ui/Checkbox";
 import { TFunction } from "i18next";
 
 
-export const serviceColumns: (t: TFunction<"translation", undefined>) => ColumnDef<SampleServices>[] = (t: TFunction<"translation", undefined>) => [
+export const serviceColumns: (t: TFunction<"translation", undefined>, handleEdit?: (val: SampleServices) => void, handleDelete?: (val: SampleServices) => void
+) => ColumnDef<SampleServices>[] = (t, handleEdit, handleDelete) => [
     {
         id: "select",
         header: ({ table }) => (
@@ -41,14 +42,14 @@ export const serviceColumns: (t: TFunction<"translation", undefined>) => ColumnD
     },
     {
         accessorKey: "name",
-        header: () => <div className="text-center">{t(tableHeader.SERVICE_NAME)}</div>,
+        header: () => <div >{t(tableHeader.SERVICE_NAME)}</div>,
         cell: ({ row }) => {
             const rowItem = row.original
             return (
                 <div className="flex gap-3 items-center justify-center w-max">
                     <div className="rounded-full h-11 w-11 relative">
                         <Image
-                            src={rowItem.servicePicture}
+                            src={'/assets/sampleImage.jpg'}
                             alt="pfp"
                             fill
                             className="rounded-full"
@@ -61,64 +62,71 @@ export const serviceColumns: (t: TFunction<"translation", undefined>) => ColumnD
             )
         },
     },
-    {
-        accessorKey: "details",
-        header: () => <div className="text-center">{t(tableHeader.DETAILS)}</div>,
+    // {
+    //     accessorKey: "details",
+    //     header: () => <div >{t(tableHeader.DETAILS)}</div>,
 
-        cell: ({ row }) => {
-            const details: string = row.getValue("details");
-            return (
-                <p className="text-sm line-clamp-2 w-44">{details}</p>
-            )
-        },
-    },
+    //     cell: ({ row }) => {
+    //         const details: string = row.getValue("details");
+    //         return (
+    //             <p className="text-sm line-clamp-2 w-44">{details}</p>
+    //         )
+    //     },
+    // },
     {
         accessorKey: "serviceType",
-        header: () => <div className="text-center">{t(tableHeader.SERVICE_TYPE)}</div>,
+        header: () => <div >{t(tableHeader.SERVICE_TYPE)}</div>,
 
         cell: ({ row }) => {
-            const serviceType: string = row.getValue("serviceType");
+            const serviceType: ServiceType = row.getValue("serviceType");
             return (
-                <TextColumn text={serviceType} />
+                <TextColumn text={serviceType.name} />
             )
         },
     },
     {
-        accessorKey: "employeeCount",
-        header: () => <div className="text-center">{t(tableHeader.EMPLOYEE_NUM)}</div>,
+        accessorKey: "availablity",
+        header: () => <div >{t(tableHeader.AVAILABLE)}</div>,
 
         cell: ({ row }) => {
-            const employeeCount: number = row.getValue("employeeCount")
+            let availablity: any = row.getValue("availablity")
+            availablity = availablity.split(",");
             return (
-                <TextColumn text={employeeCount} />
+                <div className="grid grid-rows-2 grid-cols-4 gap-3 items-center">
+                    {availablity.map((a: any, i: number) => (
+                        <div className={"p-2  rounded justify-center items-center text-white text-[9px] font-medium leading-tight text-center bg-indigo-800"} key={i}>{a}</div>
+                    ))}
+                </div>
             )
-        }
+        },
     },
     {
-        accessorKey: "timeSlot",
-        header: () => <div className="text-center">{t(tableHeader.TIME_SLOT)}</div>,
+        accessorKey: "slotTime",
+        header: () => <div >{t(tableHeader.TIME_SLOT)}</div>,
 
         cell: ({ row }) => {
-            const timeSlot: string = row.getValue("timeSlot");
+            const timeSlot: string = row.getValue("slotTime");
             return (
                 <Badge containerStyle="bg-emerald-500" textStyle="text-emerald-500" text={timeSlot} />
             )
         },
     },
     {
-        accessorKey: "workingHours",
-        header: () => <div className="text-center">{t(tableHeader.WORKING_HOURS)}</div>,
+        accessorKey: "workHourFrom",
+        header: () => <div >{t(tableHeader.WORKING_HOURS)}</div>,
 
         cell: ({ row }) => {
-            const workingHours: string = row.getValue("workingHours");
+            const workingHours: string = row.getValue("workHourFrom");
+            const workingHoursTo: string = row.original.workHourTo;
+
             return (
-                <TextColumn text={workingHours} />
+                <TextColumn text={`${workingHours} to ${workingHoursTo}`} />
             )
         },
     },
     {
         accessorKey: "price",
-        header: () => <div className="text-center">{t(tableHeader.PRICE)}</div>,
+        header: () => <div >{t(tableHeader.PRICE)}</div>,
 
         cell: ({ row }) => {
             const price: number = row.getValue("price");
@@ -130,8 +138,8 @@ export const serviceColumns: (t: TFunction<"translation", undefined>) => ColumnD
 
     {
         id: "actions",
-        cell: () => {
-            // const row = row.original()
+        cell: ({ row }) => {
+            const rowVal = row.original
 
             return (
                 <DropdownMenu>
@@ -142,12 +150,12 @@ export const serviceColumns: (t: TFunction<"translation", undefined>) => ColumnD
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>{messages.ACTIONS}</DropdownMenuLabel>
-                        <DropdownMenuItem className="text-indigo-800 hover:bg-indigo-800 hover:bg-opacity-25">
-                            {messages.EDIT}
+                        <DropdownMenuLabel>{t(messages.ACTIONS)}</DropdownMenuLabel>
+                        <DropdownMenuItem onClick={handleEdit ? () => handleEdit(rowVal) : undefined} className="text-indigo-800 hover:bg-indigo-800 hover:bg-opacity-25">
+                            {t(messages.EDIT)}
                         </DropdownMenuItem>
-                        <DropdownMenuItem className="text-red-400 hover:bg-red-400 hover:bg-opacity-25">
-                            {messages.DELETE}
+                        <DropdownMenuItem onClick={handleDelete ? () => handleDelete(rowVal) : undefined} className="text-red-400 hover:bg-red-400 hover:bg-opacity-25">
+                            {t(messages.DELETE)}
                         </DropdownMenuItem>
 
                     </DropdownMenuContent>

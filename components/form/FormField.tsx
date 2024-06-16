@@ -20,10 +20,20 @@ import _ from "lodash"
 import { CalendarIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import moment from 'moment'
+import { SingleSearchSelect } from './SingleSearchSelect'
 
+const testSelectData = [{
+    name: "Test 3",
+    value: "Test1"
+}, {
+    name: "Test 2",
+    value: "Test2"
+}]
 
-const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, type = FieldTypesEnum.Text }) => {
+const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, fieldType = FieldTypesEnum.Text, disabled = false, data, type, times }) => {
     const form = useFormContext()
+    const selectData = data ? data : testSelectData
+    // console.log("in form", selectData, label, fieldType)
 
     const handleDaySelect = (day: string, checked: boolean, setDays: (...event: any[]) => void, value: string[]) => {
         let newArray: (string)[] = []
@@ -44,7 +54,7 @@ const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, 
         setDays(newArray)
     }
 
-    switch (type) {
+    switch (fieldType) {
         case FieldTypesEnum.Checkbox:
             return (
                 <FormField
@@ -56,6 +66,7 @@ const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, 
                                 {label && <FormLabel>{label}</FormLabel>}
                                 <FormControl>
                                     <Checkbox
+                                        disabled={disabled}
                                         checked={field.value}
                                         onCheckedChange={field.onChange}
                                     />
@@ -71,6 +82,65 @@ const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, 
                 />
             )
 
+        case FieldTypesEnum.HoursSelect:
+            return (
+                <FormField
+                    control={form.control}
+                    name={name}
+                    render={({ field }) => (
+                        <FormItem className='bg-indigo-800 bg-opacity-5 rounded p-3 flex flex-col'>
+                            {label && <FormLabel>{label}</FormLabel>}
+
+                            <div className='w-full grid grid-cols-4 gap-y-3 gap-x-2 grid-flow-row rounded-md   text-sm placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'>
+                                {times && times.length > 0 ? times.map(hour => (
+                                    <div key={hour} className='flex items-center justify-center gap-4 bg-white px-2 py-2 rounded-sm'>
+                                        <Checkbox
+                                            disabled={disabled}
+                                            checked={field.value === hour}
+                                            onCheckedChange={() => field.onChange(hour)}
+                                        // className='data-[state=checked]:bg-primaryBlue'
+                                        />
+                                        <p className=''>{hour}</p>
+                                    </div>
+                                )) : <p>No Slots Available</p>}
+                            </div>
+                            {desc && <FormDescription>
+                                {desc}
+                            </FormDescription>}
+                            {hasError && <FormMessage />}
+                        </FormItem>
+                    )}
+
+                />
+            )
+        case FieldTypesEnum.TimeSlots:
+            return (
+                <FormField
+                    control={form.control}
+                    name={name}
+                    render={() => (
+                        <FormItem className='bg-indigo-800 bg-opacity-5 rounded p-3 flex flex-col'>
+                            {label && <FormLabel>{label}</FormLabel>}
+
+                            <div className='w-full grid grid-cols-4 gap-y-3 gap-x-2 grid-flow-row rounded-md   text-sm placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1'>
+                                {times && times.length > 0 ? times.map((hour: string) => (
+                                    <div key={hour} className='flex  items-center justify-center gap-4 bg-white px-2 py-2 rounded-sm'>
+
+                                        <p className=''>{hour}</p>
+                                    </div>
+                                )) : (
+                                    <div><p>Please select times and slot</p></div>
+                                )}
+                            </div>
+                            {desc && <FormDescription>
+                                {desc}
+                            </FormDescription>}
+                            {hasError && <FormMessage />}
+                        </FormItem>
+                    )}
+
+                />
+            )
         case FieldTypesEnum.HoursCheck:
             return (
                 <FormField
@@ -81,6 +151,7 @@ const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, 
                             {label && <FormLabel>{label}</FormLabel>}
                             <div className='flex items-center justify-center gap-4  px-2 py-2 rounded-sm self-start'>
                                 <Checkbox
+                                    disabled={disabled}
                                     checked={field.value.length === 8}
                                     onCheckedChange={() => handleSelectAll(HourTimes, field.value.length === 8, field.onChange)}
                                 // className='data-[state=checked]:bg-primaryBlue'
@@ -91,6 +162,7 @@ const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, 
                                 {HourTimes.map(hour => (
                                     <div key={hour} className='flex items-center justify-center gap-4 bg-white px-2 py-2 rounded-sm'>
                                         <Checkbox
+                                            disabled={disabled}
                                             checked={_.includes(field.value, hour)}
                                             onCheckedChange={() => handleDaySelect(hour, _.includes(field.value, hour), field.onChange, field.value)}
                                         // className='data-[state=checked]:bg-primaryBlue'
@@ -121,9 +193,10 @@ const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, 
                                 <PopoverTrigger asChild>
                                     <FormControl>
                                         <Button
+                                            disabled={disabled}
                                             variant={"outline"}
                                             className={cn(
-                                                "w-full pl-3 text-left font-normal",
+                                                "w-full ltr:pl-3 rtl:pr-3 text-left font-normal",
                                                 !field.value && "text-muted-foreground"
                                             )}
                                         >
@@ -132,7 +205,7 @@ const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, 
                                             ) : (
                                                 <span>Pick a date</span>
                                             )}
-                                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                            <CalendarIcon className="ltr:ml-auto rtl:mr-auto h-4 w-4 opacity-50" />
                                         </Button>
                                     </FormControl>
                                 </PopoverTrigger>
@@ -142,7 +215,7 @@ const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, 
                                         selected={field.value}
                                         onSelect={field.onChange}
                                         disabled={(date) =>
-                                            date > new Date() || date < new Date("1900-01-01")
+                                            date < new Date("1900-01-01")
                                         }
                                         initialFocus
                                     />
@@ -171,6 +244,7 @@ const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, 
                                     <div key={day} className='flex gap-2'>
                                         <p className=''>{day.substring(0, 3)}</p>
                                         <Switch
+                                            disabled={disabled}
                                             checked={_.includes(field.value, day)}
                                             onCheckedChange={() => handleDaySelect(day, _.includes(field.value, day), field.onChange, field.value)}
                                             className='data-[state=checked]:bg-primaryBlue' />
@@ -187,6 +261,29 @@ const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, 
                 />
             )
 
+        case FieldTypesEnum.SingleSearchSelect:
+            return (
+                <FormField
+                    control={form.control}
+                    name={name}
+                    render={({ field }) => (
+                        <FormItem >
+                            {label && <FormLabel>{label}</FormLabel>}
+                            <div className='flex h-10 w-full items-center rounded-md  bg-background text-sm placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1"'>
+
+                                <SingleSearchSelect label={label} data={selectData as any} selected={field.value} setSelected={field.onChange as any} />
+                            </div>
+                            {desc && <FormDescription>
+                                {desc}
+                            </FormDescription>}
+                            {hasError && <FormMessage />}
+                        </FormItem>
+                    )}
+
+                />
+
+            )
+
         case FieldTypesEnum.EmployeeSelect:
             return (
                 <FormField
@@ -197,7 +294,7 @@ const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, 
                             {label && <FormLabel>{label}</FormLabel>}
                             <div className='flex h-10 w-full items-center rounded-md  bg-background text-sm placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1"'>
 
-                                <EmployeeMultiSelect selected={field.value} setSelected={field.onChange as any} />
+                                <EmployeeMultiSelect label={label} data={selectData as any} selected={field.value} setSelected={field.onChange as any} />
                             </div>
                             {desc && <FormDescription>
                                 {desc}
@@ -219,15 +316,16 @@ const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, 
                         <FormItem>
                             {label && <FormLabel>{label}</FormLabel>}
 
-                            <Select onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
+                            <Select disabled={disabled} onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
                                 <FormControl>
                                     <SelectTrigger >
                                         <SelectValue placeholder={placeHolder} />
                                     </SelectTrigger>
                                 </FormControl>
                                 <SelectContent>
-                                    <SelectItem value="test">Test 1</SelectItem>
-                                    <SelectItem value="test2">Test 2</SelectItem>
+                                    {selectData.map(item => (
+                                        <SelectItem key={item.value} value={`${item.value}`}>{item.name}</SelectItem>
+                                    ))}
                                 </SelectContent>
                             </Select>
                             {desc && <FormDescription>
@@ -250,7 +348,10 @@ const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, 
                         <FormItem>
                             {label && <FormLabel>{label}</FormLabel>}
                             <FormControl>
-                                <Textarea placeholder={placeHolder} {...field} />
+                                <Textarea
+                                    disabled={disabled}
+                                    placeholder={placeHolder}
+                                    {...field} />
                             </FormControl>
                             {desc && <FormDescription>
                                 {desc}
@@ -271,7 +372,11 @@ const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, 
                         <FormItem>
                             {label && <FormLabel>{label}</FormLabel>}
                             <FormControl>
-                                <Input placeholder={placeHolder} {...field} />
+                                <Input
+                                    disabled={disabled}
+                                    placeholder={placeHolder}
+                                    {...field}
+                                    type={type} />
                             </FormControl>
                             {desc && <FormDescription>
                                 {desc}

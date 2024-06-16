@@ -1,19 +1,26 @@
 "use client"
 import LineChart from "@/components/charts/LineChart";
 import HeaderInfoItem from "@/components/header/HeaderInfoItem";
+// import DeleteModal from "@/components/modal/DeleteModal";
 import { Button } from "@/components/ui";
 import { messages } from "@/constants/constants";
 import { ColorsEnum } from "@/constants/enums";
 import { ExportIcon } from "@/svgs";
+// import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 
 export default function Home() {
   const { t } = useTranslation()
+  // useEffect(() => {
+  //   document.cookie = "username=John Doe";
+  //   console.log(document.cookie)
+  // }, [])
 
   return (
 
     <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
+      {/* <DeleteModal visible closeModal={() => { }} onDelete={() => { }} title="dnlssnf" /> */}
       <div className="md:w-1/2 w-full flex flex-col">
         <h1 className="font-medium text-2xl ">{t(messages.GOOD_MORNING) + "User"}</h1>
         <p className="line-clamp-2 text-sm">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, asperiores rerum? Earum quod, maxime fugiat dolore laborum, illo minima aperiam amet ipsam, architecto voluptatum fugit laudantium aliquid quisquam reprehenderit natus.</p>

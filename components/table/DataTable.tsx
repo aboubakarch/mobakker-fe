@@ -5,6 +5,7 @@ import {
     ColumnFiltersState,
     PaginationState,
     SortingState,
+    Updater,
     flexRender,
     getCoreRowModel,
     getFilteredRowModel,
@@ -41,7 +42,10 @@ interface DataTableProps<TData, TValue> {
     rowStyle?: string,
     headerStyle?: string,
     tableStyle?: string,
-    tableBodyStyle?: string
+    tableBodyStyle?: string,
+    onChangePagination?: (updater: Updater<PaginationState>) => void,
+    tablePagination?: PaginationState,
+    loading?: boolean
 }
 
 export function DataTable<TData, TValue>({
@@ -52,7 +56,10 @@ export function DataTable<TData, TValue>({
     headerStyle = "",
     tableStyle = "",
     rowStyle = "",
-    tableBodyStyle = ""
+    tableBodyStyle = "",
+    onChangePagination = undefined,
+    tablePagination = undefined,
+    loading = false
 }: DataTableProps<TData, TValue>) {
     // const [currentPage, setCurrentPage] = useState(1)
     const [sorting, setSorting] = useState<SortingState>([])
@@ -64,7 +71,32 @@ export function DataTable<TData, TValue>({
     })
     const [rowSelection, setRowSelection] = useState({})
     const [currFilter, setCurrFilter] = useState(filterKey)
+    const seletedPagination = tablePagination ? tablePagination : pagination
 
+
+
+
+    // const handlePaginationUpdate = (updater: Updater<PaginationState>) => {
+    //     console.log("first", "updater")
+    //     if (typeof updater === "function") {
+    //         const newState = updater(pagination)
+    //         setPagination(newState)
+    //         console.log(newState)
+    //         if (onChangePagination) {
+    //             console.log("Changing page")
+    //             onChangePagination(newState)
+    //         }
+
+    //     } else {
+    //         const newState = updater
+    //         setPagination(newState)
+    //         console.log(newState)
+    //         if (onChangePagination) {
+    //             console.log("Changing page")
+    //             onChangePagination(newState)
+    //         }
+    //     }
+    // }
 
     const table = useReactTable({
         data,
@@ -75,18 +107,20 @@ export function DataTable<TData, TValue>({
         getSortedRowModel: getSortedRowModel(),
         onColumnFiltersChange: setColumnFilters,
         getFilteredRowModel: getFilteredRowModel(),
-        // manualPagination: true,
-        onPaginationChange: setPagination,
+        manualPagination: onChangePagination ? true : false,
+        onPaginationChange: onChangePagination ? onChangePagination : setPagination,
         onRowSelectionChange: setRowSelection,
         rowCount: count,
         state: {
             sorting,
             columnFilters,
-            pagination,
+            pagination: seletedPagination,
             rowSelection,
         },
-        debugTable: true
+        // debugTable: true
     })
+
+
 
     return (
         <div className="flex flex-col gap-2">
@@ -100,14 +134,14 @@ export function DataTable<TData, TValue>({
                     className="max-w-sm capitalize bg-indigo-800 bg-opacity-5"
                 />
                 <div className="flex gap-3">
-                    <Button variant="outline" className="ml-auto bg-indigo-800 text-indigo-800 bg-opacity-5 hover:bg-indigo-100">
-                        <SortAsc className="mr-2 h-4 w-4" />
+                    <Button variant="outline" className="ltr:ml-auto rtl:mr-auto bg-indigo-800 text-indigo-800 bg-opacity-5 hover:bg-indigo-100">
+                        <SortAsc className="ltr:mr-2 rtl:ml-2 h-4 w-4" />
                         <p>Sort</p>
                     </Button>
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <Button variant="outline" className="ml-auto bg-indigo-800 text-indigo-800 bg-opacity-5 hover:bg-indigo-100">
-                                <Filter className="mr-2 h-4 w-4" />
+                            <Button variant="outline" className="ltr:ml-auto rtl:mr-auto bg-indigo-800 text-indigo-800 bg-opacity-5 hover:bg-indigo-100">
+                                <Filter className="ltr:mr-2 rtl:ml-2 h-4 w-4" />
                                 <p>Filter</p>
                             </Button>
                         </DropdownMenuTrigger>
@@ -154,7 +188,7 @@ export function DataTable<TData, TValue>({
                         ))}
                     </TableHeader>
                     <TableBody className={tableBodyStyle}>
-                        {table.getRowModel().rows?.length ? (
+                        {table.getRowModel().rows?.length && !loading ? (
                             table.getRowModel().rows.map((row) => (
                                 <TableRow
                                     className={rowStyle}
@@ -168,6 +202,16 @@ export function DataTable<TData, TValue>({
                                     ))}
                                 </TableRow>
                             ))
+                        ) : loading ? (
+                            <TableRow>
+                                <TableCell colSpan={columns.length} rowSpan={2} className=" text-center">
+
+                                    <div className="w-full flex items-center justify-center py-10">
+                                        <div className="loader_smaller"></div>
+
+                                    </div>
+                                </TableCell>
+                            </TableRow>
                         ) : (
                             <TableRow>
                                 <TableCell colSpan={columns.length} className="h-24 text-center">
@@ -184,19 +228,19 @@ export function DataTable<TData, TValue>({
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <Button variant={"default"} className="bg-indigo-800 bg-opacity-5 hover:bg-indigo-100  rounded-md justify-center items-center gap-2 inline-flex">
-                                <p className="text-center text-indigo-800  text-sm font-normal  leading-normal">{pagination.pageSize}</p>
+                                <p className="text-center text-indigo-800  text-sm font-normal  leading-normal">{seletedPagination.pageSize}</p>
                                 <ChevronDownIcon />
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent className='flex px-1 flex-col items-center justify-center select-none'>
-                            {Array.from({ length: 10 }, (_, index) => index).map(i => (
-                                <div onClick={() => setPagination({ ...pagination, pageSize: i + 1 })} className={cn("w-full p-2 rounded text-center hover:bg-appcard", i + 1 === pagination.pageSize ? "bg-appcard" : "")} key={i}>{i + 1}</div>
+                            {[10, 20, 30, 40, 50, 100, 200, 300, 400, 500].map(i => (
+                                <div onClick={() => table.setPageSize(i)} className={cn("w-full p-2 rounded text-center hover:bg-appcard", i === seletedPagination.pageSize ? "bg-appcard" : "")} key={i}>{i}</div>
                             ))}
                         </DropdownMenuContent>
                     </DropdownMenu>
                 </div>
                 <div>
-                    <Pagination currentPage={pagination.pageIndex} onPageChange={(num: number) => table.setPageIndex(num)} totalPages={Math.ceil(count / pagination.pageSize)} />
+                    <Pagination currentPage={seletedPagination.pageIndex} onPageChange={(num: number) => table.setPageIndex(num)} totalPages={Math.ceil(count / seletedPagination.pageSize)} />
                 </div>
             </div>
         </div>

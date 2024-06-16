@@ -1,19 +1,55 @@
+import { cn } from '@/lib/utils';
 import { Upload } from 'lucide-react'
-import React, { FC } from 'react'
+import Image from 'next/image';
+import React, { FC, useState } from 'react'
 
 
-const Dropzone: FC<IDropzonProps> = ({ title }) => {
+const Dropzone: FC<IDropzonProps> = ({ title, subtitle }) => {
+
+    const [selectedFiles, setSelectedFiles] = useState<File | null>(null);
+
+    const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+        event.preventDefault();
+        const files = event.dataTransfer.files;
+        setSelectedFiles(files[0]);
+    };
+
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const files = event.target.files;
+        if (files) {
+
+            setSelectedFiles(files[0]);
+        }
+    };
+
+
+
     return (
 
-        <div >
-            <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-[356px] h-[106px] bg-indigo-800 bg-opacity-5 rounded-md border border-indigo-800 border-dashed cursor-pointer hover:bg-opacity-10">
-                <div className="flex flex-col items-center justify-center gap-4">
+        <div onDrop={handleDrop} onDragOver={(event) => event.preventDefault()}>
+            <label htmlFor="dropzone-file" className={cn(" w-[356px] h-[106px] ", selectedFiles ? "" : "flex flex-col items-center justify-center bg-indigo-800 bg-opacity-5 rounded-md border border-indigo-800 border-dashed cursor-pointer hover:bg-opacity-10")}>
+                {!selectedFiles ? <div className="flex flex-col items-center justify-center gap-4">
                     <div className='w-10 h-10 flex justify-center items-center bg-white rounded-full border border-neutral-200'>
                         <Upload className='w-4 h-4 text-indigo-800' />
                     </div>
-                    <p className="text-center text-indigo-800 text-xs font-normal leading-tight select-none">{title}</p>
-                </div>
-                <input id="dropzone-file" type="file" className="hidden" />
+                    <div className='flex flex-col gap-1'>
+                        <p className="text-center text-indigo-800 text-xs font-normal leading-tight select-none">{title}</p>
+                        {subtitle && <p className="text-center text-indigo-800 text-xs font-normal leading-tight select-none">{subtitle}</p>}
+
+                    </div>
+                </div> : (
+                    <div className='w-28 h-28 relative rounded-full '>
+                        <Image
+                            fill
+                            alt='profile'
+                            src={URL.createObjectURL(selectedFiles)}
+                            className='rounded-full'
+                        />
+
+                    </div>
+                )}
+                <input id="dropzone-file" onChange={handleInputChange}
+                    type="file" className="hidden" />
             </label>
         </div>
 

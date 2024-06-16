@@ -13,5 +13,9 @@
   "providers": "Providers",
   "manageUsers": "Manage Users",
   "subscription": "Subscription",
-  "settings": "Settings"
+  "settings": "Settings",
+  "branchManagers": "Branch Managers",
+  "managers": "Managers",
+  "customerCare": "Customer Care",
+  "serviceType": "Service Type"
 }

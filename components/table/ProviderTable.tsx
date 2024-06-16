@@ -1,37 +1,50 @@
 "use client"
-import React from 'react'
+import React, { FC } from 'react'
 import { DataTable } from './DataTable'
 import { providerColumns } from './columns/ProviderColumn'
 import { useTranslation } from 'react-i18next'
 
-const ProviderTable = () => {
+const ProviderTable: FC<ITableProps<SampleProvider>> = ({ handleEdit, handleDelete }) => {
     const { t } = useTranslation()
 
     const data: SampleProvider[] = [
         {
-            name: "Branch Lorem",
+            firstName: "Branch ",
+            lastName: "Lorem",
             description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, earum! Debitis, aspernatur qui nesciunt magnam laboriosam culpa nisi error maiores sunt fugit? Vitae nemo et odit, accusantium rem quos excepturi.",
-            pasword: "Password@123"
+            password: "Password@123",
+            email: "test@test.com",
+            phone: "+923087030889"
         },
         {
-            name: "Branch Lorem",
+            firstName: "Branch",
+            lastName: "Lorem",
             description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, earum! Debitis, aspernatur qui nesciunt magnam laboriosam culpa nisi error maiores sunt fugit? Vitae nemo et odit, accusantium rem quos excepturi.",
-            pasword: "Password@123"
+            password: "Password@123",
+            email: "test@test.com",
+            phone: "+923087030889"
         },
         {
-            name: "Branch Lorem",
+            firstName: "Branch",
+            lastName: "Lorem",
             description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, earum! Debitis, aspernatur qui nesciunt magnam laboriosam culpa nisi error maiores sunt fugit? Vitae nemo et odit, accusantium rem quos excepturi.",
-            pasword: "Password@123"
+            password: "Password@123",
+            email: "test@test.com",
+            phone: "+923087030889"
         },
         {
-            name: "Branch Lorem",
+            firstName: "Branch",
+            lastName: "Lorem",
             description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, earum! Debitis, aspernatur qui nesciunt magnam laboriosam culpa nisi error maiores sunt fugit? Vitae nemo et odit, accusantium rem quos excepturi.",
-            pasword: "Password@123"
+            password: "Password@123",
+            email: "test@test.com",
+            phone: "+923087030889"
         },
+
     ]
     return (
         <div>
-            <DataTable data={data} columns={providerColumns(t)} filterKey='name' count={data.length} rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5' />
+            <DataTable data={data} columns={providerColumns(t, handleEdit, handleDelete)} filterKey='name' count={data.length} rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5' />
         </div>
     )
 }

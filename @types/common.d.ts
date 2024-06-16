@@ -8,26 +8,46 @@ interface SampleEmployee {
   status: "Available" | "Booked" | "Working";
 }
 interface SampleServices {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  isActive: boolean;
   name: string;
-  details: string;
-  serviceType: string;
-  employeeCount: number;
-  timeSlot: string;
-  workingHours: string;
+  rating: number;
+  avatar: string;
   price: number;
-  servicePicture: string;
+  slotTime: string;
+  workHourFrom: string;
+  workHourTo: string;
+  availablity: string;
+  serviceTypeId: string;
+  providerId: string;
+  serviceType: ServiceType;
+  provider: Provider;
+  branches: any[];
+  // timeSlots: string[];
 }
 interface SampleAppointments {
-  bookingId: string;
-  name: string;
-  customerNumber: number;
-  serviceType: string;
-  serviceBooked: string;
-  servicePicture: string;
-  serviceTime: string;
-  branchName: string;
-  time: string;
-  price: number;
+  id: string;
+  createdAt: string; // ISO 8601 date string
+  updatedAt: string; // ISO 8601 date string
+  isActive: boolean;
+  bookingDate: string; // ISO 8601 date string
+  bookingSlot: string;
+  repeat: "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY" | "NONE";
+  grossTotalAmount: number;
+  discount: number;
+  netTotalAmount: number;
+  paymentStatus: "PENDING" | "PAID" | "APPROVED";
+  paymentType: "CASH" | "CARD" | "TRANSFER";
+  status: "PENDING" | "STARTED" | "COMPLETED" | "CANCELED" | "REJECTED";
+  bookedBy: string;
+  branchId: string;
+  serviceId: string;
+  employeeId: string;
+  customer: SampleBranchManager;
+  services: SampleServices;
+  branch: SampleBranch;
 }
 interface SampleLoyalPrograms {
   rank: string;
@@ -64,16 +84,14 @@ interface SampleAppointmentRatings {
   rating: number;
 }
 interface SamplePromotions {
-  promotionName: string;
-  startDate: string;
-  endDate: string;
-  serviceType: string;
-  serviceName: string;
-  servicePicture: string;
-  branchName: string;
-  capacity: string;
-  availableCount: number;
-  status: boolean;
+  promoCode: string;
+  startDate: Date | string;
+  endDate: Date | string;
+  services: any[];
+  isActive: boolean;
+  id: string;
+  type: "FIXED" | "PERCENTAGE";
+  description: string;
 }
 
 interface SampleSubscription {
@@ -87,15 +105,43 @@ interface SampleSubscription {
   dayLeft: number;
 }
 interface SampleBranch {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  isActive: boolean;
   name: string;
-  location: string;
-  pasword: string;
-  description: string;
+  address: string;
+  city: string;
+  country: string;
+  cover: string;
+  ownerId: string;
+  managerId: string | null; // If managerId can be null
+  owner: Owner;
 }
 
 interface SampleProvider {
-  name: string;
-  pasword: string;
+  firstName: string;
+  lastName: string;
+  password: string;
+  email: string;
+  phone: string;
+  description: string;
+}
+interface SampleCustomerCare {
+  firstName: string;
+  lastName: string;
+  password: string;
+  email: string;
+  phone: string;
+  description: string;
+}
+interface SampleBranchManager {
+  id?: string;
+  firstName: string;
+  lastName: string;
+  password: string;
+  email: string;
+  phone: string;
   description: string;
 }
 interface SampleUser {
@@ -118,4 +164,22 @@ interface ILanguageChangerProps {
 
 interface IDropzonProps {
   title: string;
+  subtitle?: string;
+}
+
+interface ServiceType {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  isActive: boolean;
+  name: string;
+  avatar: string;
+}
+
+interface Provider {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  isActive: boolean;
+  userId: string;
 }

@@ -57,7 +57,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, pagesT
     );
 
     return (
-        <div className="flex p-3 flex-row items-center gap-1 rounded bg-indigo-800 bg-opacity-5">
+        <div className="flex p-3 ltr:flex-row rtl:flex-row-reverse items-center gap-1 rounded bg-indigo-800 bg-opacity-5">
             <span className='bg-white flex items-center justify-center h-6 w-6 rounded cursor-pointer' onClick={() => onPageChange(Math.max(0, currentPage - 1))}>
                 <ChevronLeftIcon />
             </span>

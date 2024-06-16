@@ -42,5 +42,10 @@
   "attachment": "المرفق",
   "city": "المدينة",
   "bookingIdSubscription": "معرف الحجز/الاشتراك",
-  "complaintMessage": "رسالة الشكوى"
+  "complaintMessage": "رسالة الشكوى",
+  "state": "الولاية",
+  "email": "البريد الإلكتروني",
+  "phone": "الهاتف",
+  "country": "الدولة",
+  "numberOfServices": "عدد الخدمات"
 }

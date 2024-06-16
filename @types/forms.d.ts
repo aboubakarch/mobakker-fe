@@ -6,16 +6,34 @@ interface ILoginFormValues {
   email: string;
   password: string;
 }
+interface IProviderRegistrationFormValues {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  password: string;
+}
 interface IBranchFormValues {
   name: string;
-  password: string;
+  location: string;
+  state: string;
+  city: string;
+  manager?: string;
+}
+interface IServiceTypeFormValues {
+  name: string;
+}
+interface IBranchEditFormValues {
+  name: string;
   location: string;
   details: string;
 }
 interface IProviderFormValues {
-  name: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
   password: string;
-  details: string;
 }
 interface IEmployeeFormValues {
   name: string;
@@ -25,32 +43,36 @@ interface IEmployeeFormValues {
 }
 interface IServiceFormValues {
   name: string;
-  employees: string[];
-  price: string;
+  price: number;
   serviceType: string;
   serviceAvailabilty: string[];
   startHour: string;
   endHour: string;
+  slotTime: string;
 }
 interface IPromotionFormValues {
-  name: string;
-  employees: string[];
-  category: string;
-  capacity: string;
-  date: string;
-  time: string;
-  status: string;
+  promoCode: string;
+  startDate: Date | string;
+  endDate: Date | string;
+  service: string[];
+  isActive: boolean;
+  type: "FIXED" | "PERCENTAGE";
+  description: string;
 }
 interface IAppointmentFormValues {
-  employees: string[];
-  category: string;
+  bookingDate: Date;
+  repeat: "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY" | "NONE";
+  grossTotalAmount: number;
+  discount: number;
+  netTotalAmount: number;
+  paymentStatus: "PENDING" | "PAID" | "APPROVED";
+  paymentType: "CASH" | "CARD" | "TRANSFER";
+  status: "PENDING" | "STARTED" | "COMPLETED" | "CANCELED" | "REJECTED";
+  bookedBy: string;
+  branchId: string;
+  employeeId: string;
   service: string;
-  date: string;
-  hours: string[];
-  paymentType: string;
-  repeatDay: boolean;
-  repeatWeek: boolean;
-  repeatMonth: boolean;
+  bookingSlot: string;
 }
 
 type IFormTemplate = IAppFormProps;
@@ -71,7 +93,14 @@ interface IFormField {
   label?: string;
   hasError: boolean;
   desc?: string;
-  type?: FieldTypesEnum;
+  fieldType?: FieldTypesEnum;
+  type?: string;
+  disabled?: boolean;
+  data?: {
+    name: string | number;
+    value: string | number;
+  }[];
+  times?: string[];
 }
 
 interface IFormValueObj<T> {
