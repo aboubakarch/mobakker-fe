@@ -33,7 +33,7 @@ const BranchManagerModal: FC<IModalCompProps<SampleBranchManager>> = ({ closeMod
 
             toast({
                 description: "Branch Manager added!",
-                variant: "default"
+                variant: "success"
             })
 
             if (onUpdate) {

@@ -29,7 +29,7 @@ const CustomerCareModal: FC<IModalCompProps<SampleProvider>> = ({ closeModal, vi
 
             toast({
                 description: "Customer Care Representative added!",
-                variant: "default"
+                variant: "success"
             })
         } catch (error) {
             setLoading(false)

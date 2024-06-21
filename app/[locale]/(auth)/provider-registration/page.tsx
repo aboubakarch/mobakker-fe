@@ -41,7 +41,7 @@ const Page = () => {
 
       toast({
         description: "Registration Successful",
-        variant: "default"
+        variant: "success"
       })
 
       router.refresh()

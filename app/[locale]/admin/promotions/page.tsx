@@ -73,7 +73,7 @@ const Promotions = () => {
 
         toast({
             description: "Promotion Updated!",
-            variant: "default"
+            variant: "success"
         })
 
     }

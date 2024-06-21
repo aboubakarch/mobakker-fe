@@ -141,7 +141,7 @@ const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, v
 
         toast({
             description: "Branch added!",
-            variant: "default"
+            variant: "success"
         })
 
     }
@@ -158,7 +158,7 @@ const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, v
 
         toast({
             description: "Branch Updated!",
-            variant: "default"
+            variant: "success"
         })
 
     }

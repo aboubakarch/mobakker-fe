@@ -79,7 +79,7 @@ const PromotionModal: FC<IModalCompProps<SamplePromotions>> = ({ closeModal, vis
 
         toast({
             description: "Promotion added!",
-            variant: "default"
+            variant: "success"
         })
 
     }
@@ -91,7 +91,7 @@ const PromotionModal: FC<IModalCompProps<SamplePromotions>> = ({ closeModal, vis
 
         toast({
             description: "Promotion Updated!",
-            variant: "default"
+            variant: "success"
         })
 
     }
