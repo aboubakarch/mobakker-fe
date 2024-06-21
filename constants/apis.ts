@@ -1,5 +1,5 @@
 export const URLs = {
-  BASE_URL: "http://localhost:4000",
+  BASE_URL: "https://api.mobakker.com",
 };
 
 export const endpoints = {

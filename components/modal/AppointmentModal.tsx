@@ -241,7 +241,7 @@ const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal,
 
         toast({
             description: "Appointment added!",
-            variant: "default"
+            variant: "success"
         })
 
     }
@@ -253,7 +253,7 @@ const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal,
 
         toast({
             description: "Appointment Updated!",
-            variant: "default"
+            variant: "success"
         })
 
     }
