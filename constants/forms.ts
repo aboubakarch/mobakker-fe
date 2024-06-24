@@ -64,8 +64,7 @@ export const providerDefaultValues: (
   lastName: val ? val.lastName : "",
   email: val ? val.email : "",
   phone: val ? val.phone : "",
-  password: val ? val.password : "",
-  details: val ? val.description : "",
+  password: val ? "Password@12" : "",
 });
 export const employeeDefaultValues: IEmployeeFormValues = {
   name: "",
