@@ -26,6 +26,9 @@ class APIService extends HTTPService {
   public editBranch<T = any>(id: string, payload: object): Promise<T> {
     return this.patch<T>(`${endpoints.BRANCH}/${id}`, payload)
   }
+  public editUser<T = any>(id: string, payload: object): Promise<T> {
+    return this.patch<T>(`${endpoints.USER_UPDATE}/${id}`, payload)
+  }
   public deleteBranch<T = any>(id: string): Promise<T> {
     return this.delete<T>(`${endpoints.BRANCH}/${id}`)
   }
@@ -34,6 +37,9 @@ class APIService extends HTTPService {
   }
   public registerProvider<T = any>(payload: IProviderRegistrationFormValues): Promise<T> {
     return this.post<T>(endpoints.PROVIER_REGISTRATION, payload)
+  }
+  public registerEmployees<T = any>(payload: IProviderRegistrationFormValues): Promise<T> {
+    return this.post<T>(endpoints.EMPLOYEE_REGISTRATION, payload)
   }
   public registerBranchManager<T = any>(payload: IProviderFormValues): Promise<T> {
     return this.post<T>(endpoints.BRANCH_MANAGER_REGISTRATION, payload)

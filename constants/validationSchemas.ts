@@ -150,12 +150,12 @@ export const appointmentValidationSchema = yup.object().shape({
 export const providerValidationSchema = yup.object().shape({
   firstName: yup
     .string()
-    .min(4, "First name must be at least 4 characters")
+    .min(2, "First name must be at least 2 characters")
     .max(100, "First name cannot exceed 100 characters")
     .required("First name is required"),
   lastName: yup
     .string()
-    .min(4, "Last name must be at least 4 characters")
+    .min(2, "Last name must be at least 2 characters")
     .max(100, "Last name cannot exceed 100 characters")
     .required("Last name is required"),
   email: yup
@@ -188,12 +188,12 @@ export const providerValidationSchema = yup.object().shape({
 export const providerRegistrationValidationSchema = yup.object().shape({
   firstName: yup
     .string()
-    .min(4, "First name must be at least 4 characters")
+    .min(2, "First name must be at least 2 characters")
     .max(100, "First name cannot exceed 100 characters")
     .required("First name is required"),
   lastName: yup
     .string()
-    .min(4, "Last name must be at least 4 characters")
+    .min(2, "Last name must be at least 2 characters")
     .max(100, "Last name cannot exceed 100 characters")
     .required("Last name is required"),
   email: yup

@@ -21,21 +21,54 @@ const BranchManagerModal: FC<IModalCompProps<SampleBranchManager>> = ({ closeMod
     const [loading, setLoading] = useState(false)
     const { toast } = useToast()
 
+
+    const createNewBranchManager = async (values: yup.InferType<typeof providerValidationSchema>) => {
+        // const userId = getCookie("userId");
+
+        const data = await APIService.getInstance().registerBranchManager(values as any);
+        setLoading(false)
+        if (onSubmitData) {
+            onSubmitData(data)
+        }
+
+        toast({
+            description: "Branch Manager added!",
+            variant: "success"
+        })
+
+    }
+    const editBranchManager = async (values: yup.InferType<typeof providerValidationSchema>) => {
+        const vals = {
+            firstName: values.firstName,
+            lastName: values.lastName,
+            email: values.email,
+            phone: values.phone,
+            role: (val as any).role
+        }
+
+        await APIService.getInstance().editUser(val?.id as string, vals as any);
+        setLoading(false)
+
+        toast({
+            description: "Branch Manager Updated!",
+            variant: "success"
+        })
+
+    }
+
+
     const onSubmit = async (values: yup.InferType<typeof providerValidationSchema>) => {
+        console.log(values);
         setLoading(true)
         try {
-            const data = await APIService.getInstance().registerBranchManager(values as any);
-            console.log(data)
-            setLoading(false)
-            if (onSubmitData) {
-                onSubmitData(data)
+
+            if (val) {
+                await editBranchManager(values)
             }
-
-            toast({
-                description: "Branch Manager added!",
-                variant: "success"
-            })
-
+            else {
+                await createNewBranchManager(values)
+            }
+            // location.reload()
             if (onUpdate) {
                 onUpdate()
             }
@@ -49,6 +82,9 @@ const BranchManagerModal: FC<IModalCompProps<SampleBranchManager>> = ({ closeMod
         }
         closeModal()
     };
+
+
+
     return (
         <Modal visibility={visible} closeModal={closeModal} position={2}>
             <AppForm
@@ -87,7 +123,7 @@ const BranchManagerModal: FC<IModalCompProps<SampleBranchManager>> = ({ closeMod
                     </div>
 
                 </div>
-                <InputField {...providerFormVal.info(t).password} />
+                {!val && <InputField {...providerFormVal.info(t).password} />}
                 <div className='self-end flex gap-3'>
                     <SubmitButton loading={loading} title={t(messages.ADD_MANAGER)} className="self-end bg-primaryBlue" />
                     <Button onClick={closeModal} variant={"outline"} >
