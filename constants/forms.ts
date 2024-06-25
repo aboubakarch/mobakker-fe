@@ -5,6 +5,7 @@ import {
   IEmployeeFormValues,
   IFormValueObj,
   ILoginFormValues,
+  IOTPFormValues,
   IPromotionFormValues,
   IProviderFormValues,
   IProviderRegistrationFormValues,
@@ -17,6 +18,7 @@ import {
   branchValidationSchema,
   employeeValidationSchema,
   loginValidationSchema,
+  otpValidationSchema,
   promotionValidationSchema,
   providerRegistrationValidationSchema,
   providerValidationSchema,
@@ -71,6 +73,9 @@ export const employeeDefaultValues: IEmployeeFormValues = {
   hours: "",
   employeeNum: "",
   jobDesc: "",
+};
+export const otpDefaultValues: IOTPFormValues = {
+  pin: "",
 };
 export const serviceDefaultValues: (
   val?: SampleServices
@@ -130,6 +135,19 @@ export const loginFormVals: IFormValueObj<ILoginFormValues> = {
       name: "password",
       label: t(formConstants.PASS_LABEL),
       type: "password",
+    },
+  }),
+};
+export const otpFormVals: IFormValueObj<IOTPFormValues> = {
+  validationSchema: otpValidationSchema,
+  initialValues: otpDefaultValues,
+  info: (t) => ({
+    pin: {
+      placeHolder: t(formConstants.NAME_PLACEHOLER),
+      hasError: true,
+      name: "pin",
+      label: t(formConstants.NAME_PLACEHOLER),
+      type: "pin",
     },
   }),
 };

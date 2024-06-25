@@ -1,17 +1,25 @@
 'use client';
+import { IOTPFormValues, IProviderFormValues } from '@/@types/forms';
 import SubmitButton from '@/components/buttons/SubmitButton';
 import Card from '@/components/card/Card';
 import AppForm from '@/components/form/Form';
 import InputField from '@/components/form/FormField';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui';
+import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/InputOtp';
 import { messages } from '@/constants/constants';
-import { providerRegistrationFormVals } from '@/constants/forms';
-import { providerRegistrationValidationSchema } from '@/constants/validationSchemas';
+import { otpFormVals, providerRegistrationFormVals } from '@/constants/forms';
+import { otpValidationSchema, providerRegistrationValidationSchema } from '@/constants/validationSchemas';
 import { useToast } from '@/hooks/use-toast';
 import { getCookie } from '@/lib/helpers';
 import APIService from '@/services/api';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { AxiosError } from 'axios';
+import { ChevronLeft } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 
@@ -19,7 +27,13 @@ const Page = () => {
   const { t } = useTranslation();
   const router = useRouter()
   const [loading, setLoading] = useState(false)
+  const [otpActive, setOtpActive] = useState(false)
+  const [formValues, setFormValues] = useState<null | IProviderFormValues>(null)
   const { toast } = useToast()
+  const form = useForm<yup.InferType<typeof otpFormVals.validationSchema>>({
+    resolver: yupResolver(otpFormVals.validationSchema),
+    defaultValues: otpFormVals.initialValues,
+  })
 
 
   useEffect(() => {
@@ -31,11 +45,10 @@ const Page = () => {
 
   }, [router])
 
-
-  const onSubmit = async (values: yup.InferType<typeof providerRegistrationValidationSchema>) => {
+  const handleRegistration = async () => {
     setLoading(true)
     try {
-      await APIService.getInstance().registerProvider(values as any);
+      await APIService.getInstance().registerProvider(formValues as any);
       router.push('/login')
       setLoading(false)
 
@@ -45,6 +58,30 @@ const Page = () => {
       })
 
       router.refresh()
+    } catch (error: any) {
+      setLoading(false)
+      console.log(error)
+      toast({
+        variant: "destructive",
+        description: error?.response?.data?.message || "Error! Something went wrong",
+      })
+    }
+  }
+
+
+  const onSubmit = async (values: yup.InferType<typeof providerRegistrationValidationSchema>) => {
+    setFormValues(values);
+    setOtpActive(true)
+  };
+
+  const handleVerifyOtp = async (values: yup.InferType<typeof otpValidationSchema>) => {
+    setLoading(true)
+    try {
+      // await APIService.getInstance().registerProvider(values as any);
+      // setLoading(false)
+
+      handleRegistration()
+
     } catch (error) {
       setLoading(false)
 
@@ -53,11 +90,16 @@ const Page = () => {
         description: "Error! Something went wrong",
       })
     }
-  };
+  }
+  const handleGoBack = () => {
+    setFormValues(null);
+    setOtpActive(false)
+    form.reset()
+  }
 
   return (
     <Card>
-      <AppForm
+      {!otpActive ? <AppForm
         onSubmit={onSubmit}
         className="flex flex-col gap-6 justify-center h-full px-10"
         {...providerRegistrationFormVals}
@@ -100,7 +142,45 @@ const Page = () => {
             <Link href={"/login"} className="text-primaryBlue cursor-pointer">{t(messages.SIGN_IN)}</Link>
           </div>
         </div>
-      </AppForm>
+      </AppForm> : (
+        <div className='flex items-center justify-center relative'>
+          <div
+            onClick={handleGoBack}
+            className='absolute top-5 left-3 h-10 w-10 flex items-center justify-center rounded-full hover:bg-gray-100'>
+            <ChevronLeft color='black' className='h-8 w-8' />
+          </div>
+
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(handleVerifyOtp)} className="flex items-center justify-center flex-col space-y-6">
+              <Image src={'/assets/otp.gif'} alt='otp' width={250} height={250} />
+              <FormField
+                control={form.control}
+                name="pin"
+                render={({ field }) => (
+                  <FormItem className='flex items-center justify-center flex-col'>
+                    <FormLabel>One-Time Password</FormLabel>
+                    <FormControl>
+                      <InputOTP maxLength={6} {...field}>
+                        <InputOTPGroup>
+                          <InputOTPSlot index={0} />
+                          <InputOTPSlot index={1} />
+                          <InputOTPSlot index={2} />
+                          <InputOTPSlot index={3} />
+                          <InputOTPSlot index={4} />
+                          <InputOTPSlot index={5} />
+                        </InputOTPGroup>
+                      </InputOTP>
+                    </FormControl>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <SubmitButton title={t(messages.VERIFY)} loading={loading} className=" bg-indigo-800 disabled:bg-opacity-30 w-36" />
+            </form>
+          </Form>
+        </div>
+      )}
     </Card>
   );
 };
