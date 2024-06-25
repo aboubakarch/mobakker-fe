@@ -89,7 +89,7 @@ const Promotions = () => {
             />
 
             <PageHeader title={t(messages.Promotions)}
-                description="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis asperiores, aperiam ipsum corrupti minus recusandae exercitationem dolorum temporibus esse at officia iure in hic consequatur ea nisi placeat praesentium officiis."
+                description={t(messages.DESIGN_TRACK_PROMOTIONS)}
             >
                 <Button onClick={() => setModalOpen(true)} className='bg-indigo-800 hover:bg-indigo-600'>{t(messages.ADD_PROMOTION)}</Button>
 

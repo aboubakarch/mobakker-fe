@@ -117,6 +117,21 @@ export const messages = {
   ADD_REPRESENTATIVE: "common:addRepresentative",
   LOGOUT: "common:logout",
   ADD_SERVICE_TYPE: "common:addServiceType",
+  YOUR_CENTRAL_HUB: "common:yourCentralHub",
+  MANAGE_BRANCHES: "common:manageBranches",
+  TRACK_APPOINTMENTS: "common:trackAppointments",
+  DETAILED_INSIGHTS: "common:detailedInsights",
+  VIEW_TEAM_INFO: "common:viewTeamInfo",
+  MANAGE_BRANCH_LEADERS: "common:manageBranchLeaders",
+  CUSTOMER_CARE_SUPPORT: "common:customerCareSupport",
+  REWARD_RETAIN_CUSTOMERS: "common:rewardRetainCustomers",
+  OVERVIEW_MANAGE_SERVICES: "common:overviewManageServices",
+  CLASSIFY_ORGANIZE_SERVICES: "common:classifyOrganizeServices",
+  DESIGN_TRACK_PROMOTIONS: "common:designTrackPromotions",
+  MONITOR_CUSTOMER_FEEDBACK: "common:monitorCustomerFeedback",
+  REALTIME_NOTIFICATIONS: "common:realtimeNotifications",
+  MONITOR_SUBSCRIPTION_PLANS: "common:monitorSubscriptionPlans",
+  CUSTOMIZE_DASHBOARD: "common:customizeDashboard",
 };
 
 export const tableHeader = {

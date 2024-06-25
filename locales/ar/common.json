@@ -98,5 +98,20 @@
   "addManager": "إضافة مدير",
   "addRepresentative": "إضافة ممثل",
   "logout": "تسجيل الخروج",
-  "addServiceType": "إضافة نوع الخدمة"
+  "addServiceType": "إضافة نوع الخدمة",
+  "yourCentralHub": "محورك المركزي للقياسات والرؤى الرئيسية.",
+  "manageBranches": "إدارة ومراقبة فروعك بسهولة.",
+  "trackAppointments": "تتبع وتنظيم مواعيدك بكفاءة.",
+  "detailedInsights": "احصل على رؤى مفصلة من خلال تقاريرنا الشاملة.",
+  "viewTeamInfo": "عرض وإدارة معلومات فريقك.",
+  "manageBranchLeaders": "إدارة قادة فروعك بفعالية.",
+  "customerCareSupport": "تقديم رعاية ودعم استثنائي لعملائك.",
+  "rewardRetainCustomers": "مكافأة والاحتفاظ بعملائك المميزين.",
+  "overviewManageServices": "نظرة عامة وإدارة جميع الخدمات المقدمة.",
+  "classifyOrganizeServices": "تصنيف وتنظيم خدماتك المختلفة.",
+  "designTrackPromotions": "تصميم وتتبع جهودك الترويجية.",
+  "monitorCustomerFeedback": "مراقبة وتحليل تعليقات العملاء.",
+  "realtimeNotifications": "ابقى مطلعًا بالإشعارات الفورية.",
+  "monitorSubscriptionPlans": "التعامل مع ومراقبة خطط الاشتراك الخاصة بك.",
+  "customizeDashboard": "تخصيص إعدادات وتفضيلات لوحة التحكم الخاصة بك."
 }
