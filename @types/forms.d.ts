@@ -75,6 +75,10 @@ interface IAppointmentFormValues {
   bookingSlot: string;
 }
 
+interface IOTPFormValues {
+  pin: string;
+}
+
 type IFormTemplate = IAppFormProps;
 
 interface IAppFormProps<T> {

@@ -222,3 +222,10 @@ export const providerRegistrationValidationSchema = yup.object().shape({
     .max(32, "Password cannot exceed 32 characters")
     .required("Password is required"),
 });
+
+export const otpValidationSchema = yup.object().shape({
+  pin: yup
+    .string()
+    .min(6, "Your one-time password must be 6 characters.")
+    .required("Pin is required"),
+});

@@ -132,6 +132,7 @@ export const messages = {
   REALTIME_NOTIFICATIONS: "common:realtimeNotifications",
   MONITOR_SUBSCRIPTION_PLANS: "common:monitorSubscriptionPlans",
   CUSTOMIZE_DASHBOARD: "common:customizeDashboard",
+  VERIFY: "common:verify",
 };
 
 export const tableHeader = {

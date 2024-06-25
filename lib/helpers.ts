@@ -1,5 +1,6 @@
 import { ColorsEnum } from "@/constants/enums";
 import moment from "moment";
+import OneSignal from "react-onesignal";
 
 export const colorHelper = {
   [ColorsEnum.Red]: { name: "primaryRed", color: "#CC4848" },
@@ -71,4 +72,13 @@ export function isValidImageSrc(src: string) {
     src.startsWith("http://") ||
     src.startsWith("https://")
   );
+}
+
+export async function runOneSignal() {
+  await OneSignal.init({
+    appId: "8049f716-71c3-43ff-809a-c1cb19b3422b",
+    safari_web_id: "web.onesignal.auto.253751a8-ac24-4181-97da-883dbdadac49",
+    allowLocalhostAsSecureOrigin: true,
+  });
+  OneSignal.Slidedown.promptPush();
 }
