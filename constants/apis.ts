@@ -21,7 +21,7 @@ export const endpoints = {
   SERVICE_TYPE: "/service-type",
   PROMOTION: "/promotion",
   CREATE_PROMOTION: "/promotion/create",
-  SERVICE_BRANCH_MANAGER: "/srvice-provider/branch-manager",
+  SERVICE_BRANCH_MANAGER: "/employee/branch-manager",
   CUSTOMER_CARE_EMPLOYEE: "/employee/customer-care",
   GET_ALL_EMPLOYEES: "/employee",
   GET_ALL_CUSTOMERS: "/customer",
