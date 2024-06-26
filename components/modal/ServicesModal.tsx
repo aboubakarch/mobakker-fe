@@ -206,7 +206,7 @@ const ServiceModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate 
 
         toast({
             description: "Service added!",
-            variant: "default"
+            variant: "success"
         })
 
     }
@@ -235,7 +235,7 @@ const ServiceModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate 
 
         toast({
             description: "Service Updated!",
-            variant: "default"
+            variant: "success"
         })
 
     }

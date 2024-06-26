@@ -13,7 +13,7 @@ const LoyalProgram = () => {
     return (
         <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
             <PageHeader title={t(messages.RATINGS)}
-                description="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis asperiores, aperiam ipsum corrupti minus recusandae exercitationem dolorum temporibus esse at officia iure in hic consequatur ea nisi placeat praesentium officiis."
+                description={t(messages.MONITOR_CUSTOMER_FEEDBACK)}
             >
             </PageHeader>
             <Tabs defaultValue="appointment" className="w-full">

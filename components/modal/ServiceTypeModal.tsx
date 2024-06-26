@@ -41,7 +41,7 @@ const ServiceTypeModal: FC<IModalCompProps<ServiceType>> = ({ closeModal, visibl
 
         toast({
             description: "Service Type added!",
-            variant: "default"
+            variant: "success"
         })
 
     }
@@ -57,7 +57,7 @@ const ServiceTypeModal: FC<IModalCompProps<ServiceType>> = ({ closeModal, visibl
 
         toast({
             description: "Service Updated!",
-            variant: "default"
+            variant: "success"
         })
 
     }

@@ -18,7 +18,7 @@ export default function Home() {
     <div className="flex flex-col gap-3 h-full w-full px-5 py-3 overflow-auto scrollbar">
       <div className="md:w-1/2 w-full flex flex-col">
         <h1 className="font-medium text-2xl ">{t(messages.GOOD_MORNING) + "User"}</h1>
-        <p className="line-clamp-2 text-sm">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, asperiores rerum? Earum quod, maxime fugiat dolore laborum, illo minima aperiam amet ipsam, architecto voluptatum fugit laudantium aliquid quisquam reprehenderit natus.</p>
+        <p className="line-clamp-2 text-sm">{t(messages.YOUR_CENTRAL_HUB)}</p>
       </div>
       <div className=" w-full">
         <InfoHeader />

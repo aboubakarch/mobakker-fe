@@ -58,7 +58,7 @@ const CustomerCare = () => {
                 title={messages.CUSTOMER_CARE}
             />
             <PageHeader title={t(messages.CUSTOMER_CARE)}
-                description="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis asperiores, aperiam ipsum corrupti minus recusandae exercitationem dolorum temporibus esse at officia iure in hic consequatur ea nisi placeat praesentium officiis."
+                description={t(messages.CUSTOMER_CARE_SUPPORT)}
             >
                 <Button onClick={() => setModalOpen(true)} className='bg-indigo-800 hover:bg-indigo-600'>{t(messages.ADD_REPRESENTATIVE)}</Button>
 

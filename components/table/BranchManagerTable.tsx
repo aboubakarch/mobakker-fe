@@ -63,7 +63,7 @@ const BranchManagerTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, 
             ) : (<DataTable
                 data={data}
                 columns={branchManagerColumns(t, handleEdit, handleDelete)}
-                filterKey='name' count={total}
+                filterKey='firstName' count={total}
                 onChangePagination={setPagination}
                 tablePagination={pagination}
                 loading={loading} rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5' />)}

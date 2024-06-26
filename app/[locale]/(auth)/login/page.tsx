@@ -46,7 +46,7 @@ const Page = () => {
 
       toast({
         description: "Login Successful",
-        variant: "default"
+        variant: "success"
       })
 
       router.push('/')

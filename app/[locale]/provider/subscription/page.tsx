@@ -16,7 +16,7 @@ const Subscriptions = () => {
         <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
             <PaymentModal visible={isModalOpen} closeModal={() => setIsModalOpen(false)} />
             <PageHeader title={t(messages.SUBSCRIPTION)}
-                description="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis asperiores, aperiam ipsum corrupti minus recusandae exercitationem dolorum temporibus esse at officia iure in hic consequatur ea nisi placeat praesentium officiis."
+                description={t(messages.MONITOR_SUBSCRIPTION_PLANS)}
             >
                 {/* <Button className='bg-indigo-800 hover:bg-indigo-600'>{t(messages.CREATE_SUBSCRIPTION)}</Button> */}
 
