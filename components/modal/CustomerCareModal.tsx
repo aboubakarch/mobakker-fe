@@ -15,22 +15,59 @@ import { Button } from '../ui'
 import { useToast } from '@/hooks/use-toast'
 import APIService from '@/services/api'
 
-const CustomerCareModal: FC<IModalCompProps<SampleProvider>> = ({ closeModal, visible, val }) => {
+const CustomerCareModal: FC<IModalCompProps<SampleBranchManager>> = ({ closeModal, visible, val, onUpdate }) => {
     const { t } = useTranslation();
     const providerFormVal = providerFormVals(val)
     const [loading, setLoading] = useState(false)
     const { toast } = useToast()
 
+    const createNewCustomerCare = async (values: yup.InferType<typeof providerValidationSchema>) => {
+        // const userId = getCookie("userId");
+
+        await APIService.getInstance().registerCustomerCare(values as any);
+        setLoading(false)
+
+        toast({
+            description: "Customer Care Representative added!",
+            variant: "success"
+        })
+
+    }
+    const editCustomerCare = async (values: yup.InferType<typeof providerValidationSchema>) => {
+        const vals = {
+            firstName: values.firstName,
+            lastName: values.lastName,
+            email: values.email,
+            phone: values.phone,
+            role: (val as any).role
+        }
+
+        await APIService.getInstance().editUser(val?.id as string, vals as any);
+        setLoading(false)
+
+        toast({
+            description: "Customer Care Representative Updated!",
+            variant: "success"
+        })
+
+    }
+
+
     const onSubmit = async (values: yup.InferType<typeof providerValidationSchema>) => {
+        console.log(values);
         setLoading(true)
         try {
-            await APIService.getInstance().registerCustomerCare(values as any);
-            setLoading(false)
 
-            toast({
-                description: "Customer Care Representative added!",
-                variant: "success"
-            })
+            if (val) {
+                await editCustomerCare(values)
+            }
+            else {
+                await createNewCustomerCare(values)
+            }
+            // location.reload()
+            if (onUpdate) {
+                onUpdate()
+            }
         } catch (error) {
             setLoading(false)
 
@@ -41,6 +78,9 @@ const CustomerCareModal: FC<IModalCompProps<SampleProvider>> = ({ closeModal, vi
         }
         closeModal()
     };
+
+
+
     return (
         <Modal visibility={visible} closeModal={closeModal}>
             <AppForm
@@ -79,7 +119,7 @@ const CustomerCareModal: FC<IModalCompProps<SampleProvider>> = ({ closeModal, vi
                     </div>
 
                 </div>
-                <InputField {...providerFormVal.info(t).password} />
+                {!val && <InputField {...providerFormVal.info(t).password} />}
                 <div className='self-end flex gap-3'>
                     <SubmitButton loading={loading} title={t(messages.ADD_REPRESENTATIVE)} className="self-end bg-primaryBlue" />
                     <Button onClick={closeModal} variant={"outline"} >

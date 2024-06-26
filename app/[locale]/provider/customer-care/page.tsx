@@ -14,6 +14,7 @@ const CustomerCare = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [selectedProvider, setSelectedProvider] = useState<undefined | SampleProvider>(undefined)
+    const [flag, setFlag] = useState(false)
     const { toast } = useToast()
 
 
@@ -43,14 +44,14 @@ const CustomerCare = () => {
     const onDeleteProvider = () => {
         toast({
             variant: "destructive",
-            description: "Provider Deleted!",
+            description: "Customer Care Deleted!",
         })
         handleDeleteModalClose()
     }
 
     return (
         <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
-            <CustomerCareModal visible={modalOpen} closeModal={handleModalClose} val={selectedProvider} />
+            <CustomerCareModal visible={modalOpen} closeModal={handleModalClose} val={selectedProvider} onUpdate={() => setFlag(!flag)} />
             <DeleteModal
                 visible={deleteModalOpen}
                 closeModal={handleDeleteModalClose}
@@ -63,7 +64,7 @@ const CustomerCare = () => {
                 <Button onClick={() => setModalOpen(true)} className='bg-indigo-800 hover:bg-indigo-600'>{t(messages.ADD_REPRESENTATIVE)}</Button>
 
             </PageHeader>
-            <CustomerCareTable handleEdit={handleEdit} handleDelete={handleDelete} />
+            <CustomerCareTable handleEdit={handleEdit} handleDelete={handleDelete} onUpdateFlag={flag} />
         </div>
     )
 }

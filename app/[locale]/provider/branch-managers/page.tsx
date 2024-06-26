@@ -44,7 +44,7 @@ const BranchManager = () => {
     const onDeleteProvider = () => {
         toast({
             variant: "destructive",
-            description: "Provider Deleted!",
+            description: "Branch Manager Deleted!",
         })
         handleDeleteModalClose()
     }
