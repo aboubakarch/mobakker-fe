@@ -66,10 +66,10 @@ const ManagerPicker: FC<{
             const params = {
                 page: 1, take: 100, role: RoleType.BRANCH_MANAGER
             }
-            const response = await APIService.getInstance().getEmployees(params)
+            const response = await APIService.getInstance().getServiceBranchManager(params)
 
-            const data = response?.items?.map((item: any) => ({
-                name: `${item?.user?.firstName} ${item?.user?.lastName}`,
+            const data = response?.map((item: any) => ({
+                name: `${item?.firstName} ${item?.lastName}`,
                 value: item?.id
             }))
             setManagers(data)

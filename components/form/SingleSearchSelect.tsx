@@ -45,7 +45,6 @@ export const SingleSearchSelect: React.FC<{
     //     return array;
     // }
 
-
     const handleCheck = (value: {
         value: number;
         name: string;
@@ -60,6 +59,15 @@ export const SingleSearchSelect: React.FC<{
             setItemName("")
         }
     }
+
+    React.useEffect(() => {
+        if (selected !== "") {
+            const temp = filteredPeople.filter(pep => pep.value === selected)
+            if (temp.length > 0) {
+                setItemName(temp[0].name)
+            }
+        }
+    }, [selected])
 
     return (
         <DropdownMenu>

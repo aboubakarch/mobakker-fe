@@ -1,6 +1,6 @@
 export const prefix = process.env.NEXT_PUBLIC_URL_PREFIX;
 export const URLs = {
-  BASE_URL: `${process.env.NEXT_PUBLIC_BASE_URL}/${process.env.NEXT_PUBLIC_URL_PREFIX}`,
+  BASE_URL: `${process.env.NEXT_PUBLIC_BASE_URL}${process.env.NEXT_PUBLIC_URL_PREFIX}`,
 };
 
 export const endpoints = {

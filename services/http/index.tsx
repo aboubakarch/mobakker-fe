@@ -22,6 +22,7 @@ class HTTPService {
 
     this.defaultHeaders = {
       'Content-Type': 'application/json',
+      "ngrok-skip-browser-warning": "69420"
       // Authorization: token ? token : null,
     };
     this.axiosInstance = axios.create({
