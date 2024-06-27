@@ -48,7 +48,7 @@ const PromotionModal: FC<IModalCompProps<SamplePromotions>> = ({ closeModal, vis
             }))
             console.log(data)
             setServices(data)
-        } catch (error) {
+        } catch (error: any) {
             toast({
                 variant: "destructive",
                 description: "Error! Something went wrong",
@@ -112,12 +112,12 @@ const PromotionModal: FC<IModalCompProps<SamplePromotions>> = ({ closeModal, vis
             if (onUpdate) {
                 onUpdate()
             }
-        } catch (error) {
+        } catch (error: any) {
             setLoading(false)
 
             toast({
                 variant: "destructive",
-                description: "Error! Something went wrong",
+                description: error?.response?.data?.message || "Error! Something went wrong",
             })
         }
         closeModal()

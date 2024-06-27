@@ -27,13 +27,13 @@ const EmployeeTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, handl
             }
             const response = await APIService.getInstance().getEmployees(params)
             console.log(response)
-            setData(response.items.map((item: any) => item.user))
+            setData(response.items.map((item: any) => (item.user)))
             setTotal(response.pageMetaDto.itemCount)
             // console.log(response)
-        } catch (error) {
+        } catch (error: any) {
             toast({
                 variant: "destructive",
-                description: "Error! Something went wrong",
+                description: error?.response?.data?.message || "Error! Something went wrong",
             })
         }
         setLoading(false)

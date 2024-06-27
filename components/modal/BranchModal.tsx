@@ -68,8 +68,8 @@ const ManagerPicker: FC<{
             }
             const response = await APIService.getInstance().getServiceBranchManager(params)
 
-            const data = response?.map((item: any) => ({
-                name: `${item?.firstName} ${item?.lastName}`,
+            const data = response?.items?.map((item: any) => ({
+                name: `${item?.user?.firstName} ${item?.user?.lastName}`,
                 value: item?.id
             }))
             setManagers(data)
@@ -176,12 +176,12 @@ const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, v
             if (onUpdate) {
                 onUpdate()
             }
-        } catch (error) {
+        } catch (error: any) {
             setLoading(false)
 
             toast({
                 variant: "destructive",
-                description: "Error! Something went wrong",
+                description: error?.response?.data?.message || "Error! Something went wrong",
             })
         }
         closeModal()

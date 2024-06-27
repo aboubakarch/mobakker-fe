@@ -27,13 +27,13 @@ const CustomerCareTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, h
             }
             const response = await APIService.getInstance().getCustomerCare(params)
             console.log(response)
-            setData(response)
-            setTotal(response.length)
+            setData(response.items.map((item: any) => item.user))
+            setTotal(response.pageMetaDto.itemCount)
             // console.log(response)
-        } catch (error) {
+        } catch (error: any) {
             toast({
                 variant: "destructive",
-                description: "Error! Something went wrong",
+                description: error?.response?.data?.message || "Error! Something went wrong",
             })
         }
         setLoading(false)

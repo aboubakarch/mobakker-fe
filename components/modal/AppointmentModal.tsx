@@ -152,10 +152,10 @@ const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal,
             })
             setServices(data)
             setServiceMap(servMap)
-        } catch (error) {
+        } catch (error: any) {
             toast({
                 variant: "destructive",
-                description: "Error! Something went wrong",
+                description: error?.response?.data?.message || "Error! Something went wrong",
             })
         }
         setLoading(false)
@@ -173,10 +173,10 @@ const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal,
                 value: item.id
             }))
             setBranches(data)
-        } catch (error) {
+        } catch (error: any) {
             toast({
                 variant: "destructive",
-                description: "Error! Something went wrong",
+                description: error?.response?.data?.message || "Error! Something went wrong",
             })
         }
         setLoading(false)
@@ -194,10 +194,10 @@ const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal,
                 value: item.id
             }))
             setCustomers(data)
-        } catch (error) {
+        } catch (error: any) {
             toast({
                 variant: "destructive",
-                description: "Error! Something went wrong",
+                description: error?.response?.data?.message || "Error! Something went wrong",
             })
         }
         setLoading(false)
@@ -215,10 +215,10 @@ const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal,
                 value: item.id
             }))
             setEmployees(data)
-        } catch (error) {
+        } catch (error: any) {
             toast({
                 variant: "destructive",
-                description: "Error! Something went wrong",
+                description: error?.response?.data?.message || "Error! Something went wrong",
             })
         }
         setLoading(false)
@@ -273,12 +273,12 @@ const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal,
             if (onUpdate) {
                 onUpdate()
             }
-        } catch (error) {
+        } catch (error: any) {
             setLoading(false)
 
             toast({
                 variant: "destructive",
-                description: "Error! Something went wrong",
+                description: error?.response?.data?.message || "Error! Something went wrong",
             })
         }
         closeModal()

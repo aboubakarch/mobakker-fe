@@ -55,7 +55,7 @@ const ServiceTypes = () => {
                 description: "Service Type Deleted!",
             })
             setFlag(!flag)
-        } catch (error) {
+        } catch (error: any) {
             toast({
                 variant: "destructive",
                 description: "Error deleting Service Type!",

@@ -165,10 +165,10 @@ const ServiceModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate 
                 value: item.id
             }))
             setServiceTypes(data)
-        } catch (error) {
+        } catch (error: any) {
             toast({
                 variant: "destructive",
-                description: "Error! Something went wrong",
+                description: error?.response?.data?.message || "Error! Something went wrong",
             })
         }
         setLoading(false)
@@ -256,12 +256,12 @@ const ServiceModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate 
             if (onUpdate) {
                 onUpdate()
             }
-        } catch (error) {
+        } catch (error: any) {
             setLoading(false)
 
             toast({
                 variant: "destructive",
-                description: "Error! Something went wrong",
+                description: error?.response?.data?.message || "Error! Something went wrong",
             })
         }
         closeModal()
