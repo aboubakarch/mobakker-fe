@@ -118,7 +118,6 @@ const AppointmentForm: FC<{
 
             </div>
 
-
         </div>
     )
 }
@@ -248,7 +247,7 @@ const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal,
     const editAppointment = async (values: yup.InferType<typeof appointmentValidationSchema>) => {
 
 
-        await APIService.getInstance().editBranch(val?.id as string, values as any);
+        await APIService.getInstance().editAppointment(val?.id as string, values as any);
         setLoading(false)
 
         toast({

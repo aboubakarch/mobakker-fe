@@ -107,9 +107,6 @@ const ManagerPicker: FC<{
 }
 
 
-
-
-
 const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, val, onUpdate }) => {
     const { t } = useTranslation();
     const branchFormVal = branchFormVals(val)

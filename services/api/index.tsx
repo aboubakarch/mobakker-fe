@@ -26,6 +26,9 @@ class APIService extends HTTPService {
   public editBranch<T = any>(id: string, payload: object): Promise<T> {
     return this.patch<T>(`${endpoints.BRANCH}/${id}`, payload)
   }
+  public editAppointment<T = any>(id: string, payload: object): Promise<T> {
+    return this.patch<T>(`${endpoints.APPOINTMENTS}/${id}`, payload)
+  }
   public editUser<T = any>(id: string, payload: object): Promise<T> {
     return this.patch<T>(`${endpoints.USER_UPDATE}/${id}`, payload)
   }
@@ -85,6 +88,9 @@ class APIService extends HTTPService {
   }
   public deletePromotion<T = any>(id: string): Promise<T> {
     return this.delete<T>(`${endpoints.PROMOTION}/${id}`)
+  }
+  public deleteAppointment<T = any>(id: string): Promise<T> {
+    return this.delete<T>(`${endpoints.APPOINTMENTS}/${id}`)
   }
   public getPromotions<T = any>(params: any): Promise<T> {
     return this.get<T>(endpoints.PROMOTION, params)
