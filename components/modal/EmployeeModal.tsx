@@ -42,7 +42,7 @@ const EmployeeModal: FC<IModalCompProps> = ({ closeModal, visible, onUpdate, val
             role: val.role
         }
 
-        await APIService.getInstance().editUser(val?.id as string, vals as any);
+        await APIService.getInstance().editEmployee(val?.id as string, vals as any);
         setLoading(false)
 
         toast({

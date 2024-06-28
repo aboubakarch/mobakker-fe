@@ -46,7 +46,7 @@ const BranchManagerModal: FC<IModalCompProps<SampleBranchManager>> = ({ closeMod
             role: (val as any).role
         }
 
-        await APIService.getInstance().editUser(val?.id as string, vals as any);
+        await APIService.getInstance().editBranchManager(val?.id as string, vals as any);
         setLoading(false)
 
         toast({

@@ -42,7 +42,7 @@ const CustomerCareModal: FC<IModalCompProps<SampleBranchManager>> = ({ closeModa
             role: (val as any).role
         }
 
-        await APIService.getInstance().editUser(val?.id as string, vals as any);
+        await APIService.getInstance().editCustomerCare(val?.id as string, vals as any);
         setLoading(false)
 
         toast({
