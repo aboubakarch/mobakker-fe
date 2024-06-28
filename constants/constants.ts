@@ -67,7 +67,6 @@ export const messages = {
   ADD_PROMOTION: "common:addPromotion", // Added Add Promotion
   ADD_NEW_PROMOTION: "common:addNewPromotion", // Added Add New Promotion,
   ADD_NEW_APPOINTMENT: "common:addNewAppointment",
-
   PRICING_TABLE: "common:pricingTable",
   OUR_PRICING_PLAN: "common:ourPricingPlan",
   YOUR_CURRENT_PACKAGE: "common:yourCurrentPackage",
@@ -133,6 +132,8 @@ export const messages = {
   MONITOR_SUBSCRIPTION_PLANS: "common:monitorSubscriptionPlans",
   CUSTOMIZE_DASHBOARD: "common:customizeDashboard",
   VERIFY: "common:verify",
+  NO_NOTIFICATIONS_RIGHT_NOW: "common:noNotificationsRightNow",
+  ASSIGN_SERVICES: "form:assignServices",
 };
 
 export const tableHeader = {
@@ -378,11 +379,11 @@ export const sidebarProvidernavigation: ISideBarItem[] = [
   SideBarItems.Employee("/provider"),
   SideBarItems.BranchMangers("/provider"),
   SideBarItems.CustomerCare("/provider"),
-  SideBarItems.LoyalProgram("/provider"),
+  // SideBarItems.LoyalProgram("/provider"),
   SideBarItems.Services("/provider"),
   SideBarItems.ServiceTypes("/provider"),
   SideBarItems.Promotions("/provider"),
-  SideBarItems.Rating("/provider"),
+  // SideBarItems.Rating("/provider"),
   SideBarItems.Notification("/provider"),
 ];
 export const sidebarManagerNavigation: ISideBarItem[] = [

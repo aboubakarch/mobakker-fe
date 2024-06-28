@@ -114,5 +114,7 @@
   "realtimeNotifications": "ابقى مطلعًا بالإشعارات الفورية.",
   "monitorSubscriptionPlans": "التعامل مع ومراقبة خطط الاشتراك الخاصة بك.",
   "customizeDashboard": "تخصيص إعدادات وتفضيلات لوحة التحكم الخاصة بك.",
-  "verify": "التحقق"
+  "verify": "التحقق",
+  "noNotificationsRightNow": "لا توجد إشعارات في الوقت الحالي.",
+  "assignServices": "تعيين الخدمات"
 }

@@ -1,6 +1,6 @@
-export const prefix = process.env.NEXT_PUBLIC_URL_PREFIX;
+export const prefix = "/v1";
 export const URLs = {
-  BASE_URL: `${process.env.NEXT_PUBLIC_BASE_URL}${process.env.NEXT_PUBLIC_URL_PREFIX}`,
+  BASE_URL: `${process.env.NEXT_PUBLIC_BASE_URL}${prefix}`,
 };
 
 export const endpoints = {
@@ -14,6 +14,7 @@ export const endpoints = {
   EMPLOYEE_REGISTRATION: "/auth/register/employee",
   CUSTOMER_CARE_REGISTRATION: "/auth/register/customer-care",
   BRANCH_MANAGER_REGISTRATION: "/auth/register/branch-manager",
+  ASSIGN_SERVICE: "/branch/assign-service",
   BRANCH: "/branch",
   USER_UPDATE: "/users/update",
   BRANCH_MANAGER_UPDATE: "/users/update/branch-mnager",

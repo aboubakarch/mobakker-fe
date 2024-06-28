@@ -64,7 +64,7 @@ const ManagerPicker: FC<{
 
         try {
             const params = {
-                page: 1, take: 100, role: RoleType.BRANCH_MANAGER
+                page: 1, take: 100
             }
             const response = await APIService.getInstance().getServiceBranchManager(params)
 

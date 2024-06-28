@@ -14,8 +14,8 @@ import { Checkbox } from "@/components/ui/Checkbox";
 import { TFunction } from "i18next";
 
 
-export const branchColumns: (t: TFunction<"translation", undefined>, handleEdit?: (val: SampleBranch) => void, handleDelete?: (val: SampleBranch) => void) => ColumnDef<SampleBranch>[]
-    = (t, handleEdit, handleDelete) => [
+export const branchColumns: (t: TFunction<"translation", undefined>, handleEdit?: (val: SampleBranch) => void, handleDelete?: (val: SampleBranch) => void, handleAssign?: (val: SampleBranch) => void) => ColumnDef<SampleBranch>[]
+    = (t, handleEdit, handleDelete, handleAssign) => [
         {
             id: "select",
             header: ({ table }) => (
@@ -115,6 +115,9 @@ export const branchColumns: (t: TFunction<"translation", undefined>, handleEdit?
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
                             <DropdownMenuLabel>{t(messages.ACTIONS)}</DropdownMenuLabel>
+                            <DropdownMenuItem onClick={handleAssign ? () => handleAssign(rowVal) : undefined} className="text-indigo-800 hover:bg-indigo-800 hover:bg-opacity-25">
+                                {t(messages.ASSIGN_SERVICES)}
+                            </DropdownMenuItem>
                             <DropdownMenuItem onClick={handleEdit ? () => handleEdit(rowVal) : undefined} className="text-indigo-800 hover:bg-indigo-800 hover:bg-opacity-25">
                                 {t(messages.EDIT)}
                             </DropdownMenuItem>

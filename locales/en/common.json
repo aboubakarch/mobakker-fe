@@ -114,5 +114,7 @@
   "realtimeNotifications": "Stay informed with real-time notifications.",
   "monitorSubscriptionPlans": "Handle and monitor your subscription plans.",
   "customizeDashboard": "Customize your dashboard settings and preferences.",
-  "verify": "Verify"
+  "verify": "Verify",
+  "noNotificationsRightNow": "You have no Notifications right now.",
+  "assignServices": "Assign Services"
 }
