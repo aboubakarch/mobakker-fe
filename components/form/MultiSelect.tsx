@@ -35,6 +35,7 @@ export const EmployeeMultiSelect: React.FC<{
         image?: string;
     }[]
 }> = ({ selected, setSelected, label, data }) => {
+    console.log(selected, setSelected, data)
     const [search, setSearch] = React.useState("")
     console.log("DATA", data)
     const selectedData = data ? data : people

@@ -42,7 +42,7 @@ const EmployeeModal: FC<IModalCompProps> = ({ closeModal, visible, onUpdate, val
             role: val.role
         }
 
-        await APIService.getInstance().editUser(val?.id as string, vals as any);
+        await APIService.getInstance().editEmployee(val?.id as string, vals as any);
         setLoading(false)
 
         toast({
@@ -68,12 +68,12 @@ const EmployeeModal: FC<IModalCompProps> = ({ closeModal, visible, onUpdate, val
             if (onUpdate) {
                 onUpdate()
             }
-        } catch (error) {
+        } catch (error: any) {
             setLoading(false)
 
             toast({
                 variant: "destructive",
-                description: "Error! Something went wrong",
+                description: error?.response?.data?.message || "Error! Something went wrong",
             })
         }
         closeModal()

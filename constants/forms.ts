@@ -1,5 +1,6 @@
 import {
   IAppointmentFormValues,
+  IAssignServiceFormValues,
   IBranchEditFormValues,
   IBranchFormValues,
   IEmployeeFormValues,
@@ -14,6 +15,7 @@ import {
 } from "@/@types/forms";
 import {
   appointmentValidationSchema,
+  assignServiceValidationSchema,
   branchEditValidationSchema,
   branchValidationSchema,
   employeeValidationSchema,
@@ -58,6 +60,9 @@ export const branchEditDefaultValues: IBranchEditFormValues = {
   name: "",
   details: "",
   location: "",
+};
+export const assignServiceDefaultValues: IAssignServiceFormValues = {
+  services: [],
 };
 export const providerDefaultValues: (
   val?: SampleProvider
@@ -553,3 +558,18 @@ export const appointmentFormVals: (
     },
   }),
 });
+
+export const assignServicesFormVals: () => IFormValueObj<IAssignServiceFormValues> =
+  () => ({
+    validationSchema: assignServiceValidationSchema,
+    initialValues: assignServiceDefaultValues,
+    info: (t) => ({
+      services: {
+        placeHolder: t(formConstants.SELECT_SERVICE),
+        hasError: true,
+        name: "services",
+        label: t(formConstants.SELECT_SERVICE),
+        fieldType: FieldTypesEnum.EmployeeSelect,
+      },
+    }),
+  });

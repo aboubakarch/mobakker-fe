@@ -8,7 +8,7 @@ import { useToast } from '@/hooks/use-toast'
 import { Skeleton } from '../ui/Skeleton'
 import { PaginationState } from '@tanstack/react-table'
 
-const BranchTable: FC<ITableProps<SampleBranch>> = ({ handleEdit, handleDelete, onUpdateFlag }) => {
+const BranchTable: FC<ITableProps<SampleBranch>> = ({ handleEdit, handleDelete, onUpdateFlag, handleAssign }) => {
     const { t } = useTranslation()
     const { toast } = useToast()
     const [data, setData] = useState<SampleBranch[]>([])
@@ -29,10 +29,10 @@ const BranchTable: FC<ITableProps<SampleBranch>> = ({ handleEdit, handleDelete, 
             setData(response.items)
             setTotal(response.pageMetaDto.itemCount)
             // console.log(response)
-        } catch (error) {
+        } catch (error: any) {
             toast({
                 variant: "destructive",
-                description: "Error! Something went wrong",
+                description: error?.response?.data?.message || "Error! Something went wrong",
             })
         }
         setLoading(false)
@@ -60,7 +60,7 @@ const BranchTable: FC<ITableProps<SampleBranch>> = ({ handleEdit, handleDelete, 
                 </div>
             ) : (<DataTable
                 data={data}
-                columns={branchColumns(t, handleEdit, handleDelete)}
+                columns={branchColumns(t, handleEdit, handleDelete, handleAssign)}
                 filterKey='name' count={total}
                 onChangePagination={setPagination}
                 tablePagination={pagination}

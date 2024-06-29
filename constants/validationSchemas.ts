@@ -206,7 +206,7 @@ export const providerRegistrationValidationSchema = yup.object().shape({
       // Pakistani phone number regex pattern
       const pakistanPhoneRegex = /^\+92[0-9]{2}[0-9]{7,8}$/;
       // Saudi Arabian phone number regex pattern
-      const saudiPhoneRegex = /^\+966[1-9][0-9]{7}$/;
+      const saudiPhoneRegex = /^\+966[0-9]{8}$/;
 
       // Check if the phone number matches either pattern
       if (pakistanPhoneRegex.test(value) || saudiPhoneRegex.test(value)) {
@@ -228,4 +228,12 @@ export const otpValidationSchema = yup.object().shape({
     .string()
     .min(6, "Your one-time password must be 6 characters.")
     .required("Pin is required"),
+});
+
+export const assignServiceValidationSchema = yup.object().shape({
+  services: yup
+    .array()
+    .of(yup.string())
+    .min(1, "At least one service is required")
+    .required("Service is required"),
 });

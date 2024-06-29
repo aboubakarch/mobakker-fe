@@ -26,8 +26,20 @@ class APIService extends HTTPService {
   public editBranch<T = any>(id: string, payload: object): Promise<T> {
     return this.patch<T>(`${endpoints.BRANCH}/${id}`, payload)
   }
+  public editAppointment<T = any>(id: string, payload: object): Promise<T> {
+    return this.patch<T>(`${endpoints.APPOINTMENTS}/${id}`, payload)
+  }
   public editUser<T = any>(id: string, payload: object): Promise<T> {
     return this.patch<T>(`${endpoints.USER_UPDATE}/${id}`, payload)
+  }
+  public editBranchManager<T = any>(id: string, payload: object): Promise<T> {
+    return this.patch<T>(`${endpoints.BRANCH_MANAGER_UPDATE}/${id}`, payload)
+  }
+  public editCustomerCare<T = any>(id: string, payload: object): Promise<T> {
+    return this.patch<T>(`${endpoints.CUSTOMER_CARE_UPDATE}/${id}`, payload)
+  }
+  public editEmployee<T = any>(id: string, payload: object): Promise<T> {
+    return this.patch<T>(`${endpoints.EMPLOYEE_UPDATE}/${id}`, payload)
   }
   public deleteBranch<T = any>(id: string): Promise<T> {
     return this.delete<T>(`${endpoints.BRANCH}/${id}`)
@@ -74,6 +86,9 @@ class APIService extends HTTPService {
   public editService<T = any>(id: string, payload: object): Promise<T> {
     return this.patch<T>(`${endpoints.SERVICE}/${id}`, payload)
   }
+  public assignService<T = any>(id: string, payload: object): Promise<T> {
+    return this.patch<T>(`${endpoints.ASSIGN_SERVICE}/${id}`, payload)
+  }
   public createServiceType<T = any>(payload: object): Promise<T> {
     return this.post<T>(endpoints.CREATE_SERVICE_TYPE, payload)
   }
@@ -86,11 +101,17 @@ class APIService extends HTTPService {
   public deletePromotion<T = any>(id: string): Promise<T> {
     return this.delete<T>(`${endpoints.PROMOTION}/${id}`)
   }
+  public deleteAppointment<T = any>(id: string): Promise<T> {
+    return this.delete<T>(`${endpoints.APPOINTMENTS}/${id}`)
+  }
   public getPromotions<T = any>(params: any): Promise<T> {
     return this.get<T>(endpoints.PROMOTION, params)
   }
   public getServiceBranchManager<T = any>(params: any): Promise<T> {
     return this.get<T>(endpoints.SERVICE_BRANCH_MANAGER, params)
+  }
+  public getCustomerCare<T = any>(params: any): Promise<T> {
+    return this.get<T>(endpoints.CUSTOMER_CARE_EMPLOYEE, params)
   }
   public editPromotion<T = any>(id: string, payload: object): Promise<T> {
     return this.patch<T>(`${endpoints.PROMOTION}/${id}`, payload)

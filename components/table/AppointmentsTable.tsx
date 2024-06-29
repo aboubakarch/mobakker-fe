@@ -29,10 +29,10 @@ const AppointmentsTable: FC<ITableProps<SampleAppointments>> = ({ handleDelete, 
             setData(response.items)
             setTotal(response.pageMetaDto.itemCount)
             // console.log(response)
-        } catch (error) {
+        } catch (error: any) {
             toast({
                 variant: "destructive",
-                description: "Error! Something went wrong",
+                description: error?.response?.data?.message || "Error! Something went wrong",
             })
         }
         setLoading(false)

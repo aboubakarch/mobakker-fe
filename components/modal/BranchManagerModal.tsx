@@ -46,7 +46,7 @@ const BranchManagerModal: FC<IModalCompProps<SampleBranchManager>> = ({ closeMod
             role: (val as any).role
         }
 
-        await APIService.getInstance().editUser(val?.id as string, vals as any);
+        await APIService.getInstance().editBranchManager(val?.id as string, vals as any);
         setLoading(false)
 
         toast({
@@ -72,12 +72,12 @@ const BranchManagerModal: FC<IModalCompProps<SampleBranchManager>> = ({ closeMod
             if (onUpdate) {
                 onUpdate()
             }
-        } catch (error) {
+        } catch (error: any) {
             setLoading(false)
 
             toast({
                 variant: "destructive",
-                description: "Error! Something went wrong",
+                description: error?.response?.data?.message || "Error! Something went wrong",
             })
         }
         closeModal()

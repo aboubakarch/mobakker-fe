@@ -19,6 +19,7 @@ import { useFormContext } from 'react-hook-form'
 import { IFormValueObj, IServiceFormValues } from '@/@types/forms'
 import { TFunction } from 'i18next'
 import { format, parse, addMinutes, isBefore, isEqual } from 'date-fns';
+import { getCookie } from '@/lib/helpers'
 
 const timeSlotData = [
     {
@@ -165,10 +166,10 @@ const ServiceModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate 
                 value: item.id
             }))
             setServiceTypes(data)
-        } catch (error) {
+        } catch (error: any) {
             toast({
                 variant: "destructive",
-                description: "Error! Something went wrong",
+                description: error?.response?.data?.message || "Error! Something went wrong",
             })
         }
         setLoading(false)
@@ -180,7 +181,15 @@ const ServiceModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate 
 
 
     const createNewService = async (values: yup.InferType<typeof serviceValidationSchema>) => {
-
+        let user = getCookie("user")
+        user = JSON.parse(user || "null");
+        if (!user) {
+            toast({
+                description: "Something went wrong!",
+                variant: "destructive"
+            })
+            return
+        }
         const startTime = values.startHour.split(':').map(Number);
         const endTime = values.endHour.split(':').map(Number);
 
@@ -199,7 +208,7 @@ const ServiceModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate 
             workHourFrom: startDate,
             workHourTo: endDate,
             serviceTypeId: values.serviceType,
-            providerId: "f59263b4-0b5f-4622-9ca3-0857c6c15ed4",
+            providerId: (user as any)?.serviceProvider?.id,
         }
         await APIService.getInstance().createService(service as any);
         setLoading(false)
@@ -211,6 +220,15 @@ const ServiceModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate 
 
     }
     const editService = async (values: yup.InferType<typeof serviceValidationSchema>) => {
+        let user = getCookie("user")
+        user = JSON.parse(user || "null");
+        if (!user) {
+            toast({
+                description: "Something went wrong!",
+                variant: "destructive"
+            })
+            return
+        }
 
         const startTime = values.startHour.split(':').map(Number);
         const endTime = values.endHour.split(':').map(Number);
@@ -228,7 +246,7 @@ const ServiceModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate 
             workHourFrom: startDate,
             workHourTo: endDate,
             serviceTypeId: values.serviceType,
-            providerId: "f59263b4-0b5f-4622-9ca3-0857c6c15ed4",
+            providerId: (user as any)?.serviceProvider?.id,
         }
         await APIService.getInstance().editService(val?.id as string, service as any);
         setLoading(false)
@@ -256,12 +274,12 @@ const ServiceModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate 
             if (onUpdate) {
                 onUpdate()
             }
-        } catch (error) {
+        } catch (error: any) {
             setLoading(false)
 
             toast({
                 variant: "destructive",
-                description: "Error! Something went wrong",
+                description: error?.response?.data?.message || "Error! Something went wrong",
             })
         }
         closeModal()

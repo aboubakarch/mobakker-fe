@@ -50,12 +50,12 @@ const Page = () => {
       })
 
       router.push('/')
-    } catch (error) {
+    } catch (error: any) {
       setLoading(false)
 
       toast({
         variant: "destructive",
-        description: "Error! Something went wrong",
+        description: error?.response?.data?.message || "Error! Something went wrong",
       })
     }
   };

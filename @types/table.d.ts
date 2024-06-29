@@ -7,4 +7,5 @@ interface ITableProps<T = any> {
   handleDelete?: (val: T) => void;
   onUpdateFlag?: boolean;
   onToggle?: (id: string, val: boolean) => void;
+  handleAssign?: (val: T) => void;
 }

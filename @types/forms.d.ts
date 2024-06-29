@@ -23,6 +23,9 @@ interface IBranchFormValues {
 interface IServiceTypeFormValues {
   name: string;
 }
+interface IAssignServiceFormValues {
+  services: string[];
+}
 interface IBranchEditFormValues {
   name: string;
   location: string;

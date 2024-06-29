@@ -64,9 +64,9 @@ const ManagerPicker: FC<{
 
         try {
             const params = {
-                page: 1, take: 100, role: RoleType.BRANCH_MANAGER
+                page: 1, take: 100
             }
-            const response = await APIService.getInstance().getEmployees(params)
+            const response = await APIService.getInstance().getServiceBranchManager(params)
 
             const data = response?.items?.map((item: any) => ({
                 name: `${item?.user?.firstName} ${item?.user?.lastName}`,
@@ -105,9 +105,6 @@ const ManagerPicker: FC<{
         </div>
     )
 }
-
-
-
 
 
 const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, val, onUpdate }) => {
@@ -179,12 +176,12 @@ const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, v
             if (onUpdate) {
                 onUpdate()
             }
-        } catch (error) {
+        } catch (error: any) {
             setLoading(false)
 
             toast({
                 variant: "destructive",
-                description: "Error! Something went wrong",
+                description: error?.response?.data?.message || "Error! Something went wrong",
             })
         }
         closeModal()
