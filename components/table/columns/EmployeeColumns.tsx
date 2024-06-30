@@ -18,8 +18,8 @@ import Badge from "@/components/ui/Badge";
 import { TFunction } from "i18next";
 
 
-export const employeeColumns: (t: TFunction<"translation", undefined>, handleEdit?: (val: SampleProvider) => void, handleDelete?: (val: SampleProvider) => void) => ColumnDef<SampleProvider>[] =
-    (t, handleEdit, handleDelete) => [
+export const employeeColumns: (t: TFunction<"translation", undefined>, handleEdit?: (val: SampleProvider) => void, handleDelete?: (val: SampleProvider) => void, handleAssign?: (val: SampleProvider) => void) => ColumnDef<SampleProvider>[] =
+    (t, handleEdit, handleDelete, handleAssign) => [
 
         {
             id: "select",
@@ -117,6 +117,9 @@ export const employeeColumns: (t: TFunction<"translation", undefined>, handleEdi
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
                             <DropdownMenuLabel>{t(messages.ACTIONS)}</DropdownMenuLabel>
+                            <DropdownMenuItem onClick={handleAssign ? () => handleAssign(rowVal) : undefined} className="text-indigo-800 hover:bg-indigo-800 hover:bg-opacity-25">
+                                {t("Assign Branch")}
+                            </DropdownMenuItem>
                             <DropdownMenuItem onClick={handleEdit ? () => handleEdit(rowVal) : undefined} className="text-indigo-800 hover:bg-indigo-800 hover:bg-opacity-25">
                                 {t(messages.EDIT)}
                             </DropdownMenuItem>

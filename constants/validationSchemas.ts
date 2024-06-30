@@ -80,6 +80,7 @@ export const serviceValidationSchema = yup.object().shape({
     .max(100, "Name cannot exceed 100 characters")
     .required("Name is required"),
   price: yup.number().required("Price is required"),
+  bookingCapacity: yup.number().required("Booking Capacity is required"),
   serviceType: yup.string().required("Service type is required"),
   serviceAvailabilty: yup
     .array()
@@ -236,4 +237,7 @@ export const assignServiceValidationSchema = yup.object().shape({
     .of(yup.string())
     .min(1, "At least one service is required")
     .required("Service is required"),
+});
+export const assignBranchValidationSchema = yup.object().shape({
+  branch: yup.string().required("Branch is required"),
 });

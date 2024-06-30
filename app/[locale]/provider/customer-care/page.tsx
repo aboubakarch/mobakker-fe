@@ -6,6 +6,7 @@ import { Button } from '@/components/ui'
 import PageHeader from '@/components/ui/PageHeader'
 import { messages } from '@/constants/constants'
 import { useToast } from '@/hooks/use-toast'
+import APIService from '@/services/api'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -15,6 +16,7 @@ const CustomerCare = () => {
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [selectedProvider, setSelectedProvider] = useState<undefined | SampleProvider>(undefined)
     const [flag, setFlag] = useState(false)
+    const [loading, setLoading] = useState(false)
     const { toast } = useToast()
 
 
@@ -41,12 +43,34 @@ const CustomerCare = () => {
         setSelectedProvider(item)
         setDeleteModalOpen(true)
     }
-    const onDeleteProvider = () => {
-        toast({
-            variant: "destructive",
-            description: "Customer Care Deleted!",
-        })
+    const onDeleteProvider = async () => {
+        setLoading(true)
+        try {
+            if (selectedProvider) {
+
+                await APIService.getInstance().deleteUser((selectedProvider as any)?.id as any);
+            }
+            else {
+                throw new Error("No Customer Care selected")
+            }
+
+
+            toast({
+                variant: "destructive",
+                description: "Customer Care Deleted!",
+            })
+            setFlag(!flag)
+        } catch (error) {
+            toast({
+                variant: "destructive",
+                description: "Error deleting Customer Care!",
+            })
+
+        }
+        setLoading(false)
+
         handleDeleteModalClose()
+
     }
 
     return (
@@ -57,6 +81,7 @@ const CustomerCare = () => {
                 closeModal={handleDeleteModalClose}
                 onDelete={onDeleteProvider}
                 title={messages.CUSTOMER_CARE}
+                loading={loading}
             />
             <PageHeader title={t(messages.CUSTOMER_CARE)}
                 description={t(messages.CUSTOMER_CARE_SUPPORT)}

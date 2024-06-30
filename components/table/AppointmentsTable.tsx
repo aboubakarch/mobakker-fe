@@ -60,7 +60,7 @@ const AppointmentsTable: FC<ITableProps<SampleAppointments>> = ({ handleDelete, 
             ) : (<DataTable
                 data={data}
                 columns={appointmentsColumns(t, handleEdit, handleDelete)}
-                filterKey='name' count={total}
+                filterKey='id' count={total}
                 onChangePagination={setPagination}
                 tablePagination={pagination}
                 loading={loading}

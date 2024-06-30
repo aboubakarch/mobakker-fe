@@ -82,3 +82,10 @@ export async function runOneSignal() {
   });
   OneSignal.Slidedown.promptPush();
 }
+
+export function formatTime(time: string): string {
+  if (time.endsWith(":00:00")) {
+    return time.slice(0, -3);
+  }
+  return time;
+}

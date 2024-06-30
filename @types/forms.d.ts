@@ -26,6 +26,9 @@ interface IServiceTypeFormValues {
 interface IAssignServiceFormValues {
   services: string[];
 }
+interface IAssignBranchFormValues {
+  branch: string;
+}
 interface IBranchEditFormValues {
   name: string;
   location: string;
@@ -52,6 +55,7 @@ interface IServiceFormValues {
   startHour: string;
   endHour: string;
   slotTime: string;
+  bookingCapacity: number;
 }
 interface IPromotionFormValues {
   promoCode: string;

@@ -1,5 +1,6 @@
 import {
   IAppointmentFormValues,
+  IAssignBranchFormValues,
   IAssignServiceFormValues,
   IBranchEditFormValues,
   IBranchFormValues,
@@ -15,6 +16,7 @@ import {
 } from "@/@types/forms";
 import {
   appointmentValidationSchema,
+  assignBranchValidationSchema,
   assignServiceValidationSchema,
   branchEditValidationSchema,
   branchValidationSchema,
@@ -29,6 +31,7 @@ import {
 } from "./validationSchemas";
 import { formConstants } from "./constants";
 import { FieldTypesEnum } from "./enums";
+import { formatTime } from "@/lib/helpers";
 
 export const loginDefaultValues: ILoginFormValues = {
   email: "",
@@ -64,6 +67,9 @@ export const branchEditDefaultValues: IBranchEditFormValues = {
 export const assignServiceDefaultValues: IAssignServiceFormValues = {
   services: [],
 };
+export const assignBranchDefaultValues: IAssignBranchFormValues = {
+  branch: "",
+};
 export const providerDefaultValues: (
   val?: SampleProvider
 ) => IProviderFormValues = (val) => ({
@@ -89,9 +95,10 @@ export const serviceDefaultValues: (
   price: val ? val.price : 0,
   serviceType: val ? val.serviceTypeId : "",
   serviceAvailabilty: val ? val.availablity.split(",") : [],
-  startHour: val ? val.workHourFrom : "",
-  endHour: val ? val.workHourTo : "",
-  slotTime: val ? val.slotTime : "",
+  startHour: val ? formatTime(val.workHourFrom) : "",
+  endHour: val ? formatTime(val.workHourTo) : "",
+  slotTime: val ? val.slotTime.split(" ")[0] || "" : "",
+  bookingCapacity: val ? val.bookingCapacity || 0 : 0,
 });
 
 export const promotionDefaultValues: (
@@ -366,6 +373,13 @@ export const serviceFormVals: (
       label: t(formConstants.PRICE),
       type: "number",
     },
+    bookingCapacity: {
+      placeHolder: t(formConstants.CAPACITY),
+      hasError: true,
+      name: "bookingCapacity",
+      label: t(formConstants.CAPACITY),
+      type: "number",
+    },
     serviceAvailabilty: {
       hasError: true,
       name: "serviceAvailabilty",
@@ -570,6 +584,20 @@ export const assignServicesFormVals: () => IFormValueObj<IAssignServiceFormValue
         name: "services",
         label: t(formConstants.SELECT_SERVICE),
         fieldType: FieldTypesEnum.EmployeeSelect,
+      },
+    }),
+  });
+export const assignBranchFormVals: () => IFormValueObj<IAssignBranchFormValues> =
+  () => ({
+    validationSchema: assignBranchValidationSchema,
+    initialValues: assignBranchDefaultValues,
+    info: (t) => ({
+      branch: {
+        placeHolder: t(formConstants.BRANCH_ID_LABEL),
+        hasError: true,
+        name: "branch",
+        label: t(formConstants.BRANCH_ID_PLACEHOLDER),
+        fieldType: FieldTypesEnum.SingleSearchSelect,
       },
     }),
   });
