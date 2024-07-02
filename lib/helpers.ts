@@ -89,3 +89,29 @@ export function formatTime(time: string): string {
   }
   return time;
 }
+
+export function validateCardNumber(number: string) {
+  // Remove all non-digit characters
+  number = number.replace(/\D/g, "");
+
+  // Check if it passes the Luhn algorithm
+  let sum = 0;
+  let shouldDouble = false;
+
+  // Loop through the digits in reverse order
+  for (let i = number.length - 1; i >= 0; i--) {
+    let digit = parseInt(number.charAt(i));
+
+    if (shouldDouble) {
+      digit *= 2;
+      if (digit > 9) {
+        digit -= 9;
+      }
+    }
+
+    sum += digit;
+    shouldDouble = !shouldDouble;
+  }
+
+  return sum % 10 === 0;
+}

@@ -50,7 +50,7 @@ const BranchDetailsModal: FC<IModalDetailsProps<SampleBranch>> = ({ closeModal, 
                         <p className="text-sm text-gray-500">Manager ID</p>
                         <p>{val?.managerId}</p>
                     </div>
-                    {val?.services.length > 0 && (
+                    {val?.services && val?.services.length > 0 && (
                         <div>
                             <p className="text-sm text-gray-500">Services</p>
                             <div className="space-y-2">

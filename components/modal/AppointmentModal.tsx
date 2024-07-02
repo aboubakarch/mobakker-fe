@@ -54,7 +54,7 @@ const AppointmentForm: FC<{
     fetchEmployeesData: (branchId: string) => Promise<void>, servMap: any | null
 }> = ({ appointmentFormVal, t, services, branches, customers, employees, fetchEmployeesData, servMap }) => {
     const form = useFormContext()
-    const service = form.watch("service")
+    const service = form.watch("serviceId")
     const branchId = form.watch("branchId")
     const [hours, setHours] = useState<string[] | undefined>(undefined)
 
@@ -94,7 +94,7 @@ const AppointmentForm: FC<{
             <div className='grid grid-cols-2 gap-2 w-full'>
                 <InputField {...appointmentFormVal.info(t).bookedBy} data={customers as any} disabled={customers === null} />
 
-                <InputField data={services as any} disabled={!services} {...appointmentFormVal.info(t).service} />
+                <InputField data={services as any} disabled={!services} {...appointmentFormVal.info(t).serviceId} />
             </div>
             <div className='grid grid-cols-2 gap-2 w-full'>
                 <InputField {...appointmentFormVal.info(t).bookingDate} disabled={service === ""} />

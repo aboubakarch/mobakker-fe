@@ -30,4 +30,6 @@ export const endpoints = {
   CUSTOMER_CARE_EMPLOYEE: "/employee/customer-care",
   GET_ALL_EMPLOYEES: "/employee",
   GET_ALL_CUSTOMERS: "/customer",
+  SUBSCRIPTION: "/subscriptions",
+  SUBSCRIBE_SUBSCRIPTION: "/subscriptions/subscribe",
 };

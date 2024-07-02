@@ -107,7 +107,7 @@ const ManagerPicker: FC<{
 }
 
 
-const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, val, onUpdate }) => {
+const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, val, onUpdate, onSubmitData }) => {
     const { t } = useTranslation();
     const branchFormVal = branchFormVals(val)
     const [loading, setLoading] = useState(false)
@@ -134,13 +134,18 @@ const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, v
             country: "Saudi Arab",
             managerId: values.manager || undefined
         }
-        await APIService.getInstance().createBranch(branch as any);
+        const br = await APIService.getInstance().createBranch(branch as any);
         setLoading(false)
+
+        if (onSubmitData) {
+            onSubmitData(br as any)
+        } // location.reload()
 
         toast({
             description: "Branch added!",
             variant: "success"
         })
+        return true
 
     }
     const editBranch = async (values: yup.InferType<typeof branchValidationSchema>) => {
@@ -164,17 +169,18 @@ const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, v
 
 
     const onSubmit = async (values: yup.InferType<typeof branchValidationSchema>) => {
-        console.log(values);
         setLoading(true)
+        let temp = false;
         try {
-
             if (val) {
                 await editBranch(values)
             }
             else {
-                await createNewBranch(values)
+                temp = await createNewBranch(values)
+
+
             }
-            // location.reload()
+
             if (onUpdate) {
                 onUpdate()
             }
@@ -186,12 +192,14 @@ const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, v
                 description: error?.response?.data?.message || "Error! Something went wrong",
             })
         }
-        closeModal()
+        if (!onSubmitData || !temp) {
+
+            closeModal()
+        }
     };
 
 
     const handleNewManager = (data: any) => {
-        console.log(data)
         setNewManager(data)
 
     }

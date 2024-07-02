@@ -2,6 +2,7 @@
 import AssignServiceModal from '@/components/modal/AssignServiceModal'
 import BranchModal from '@/components/modal/BranchModal'
 import DeleteModal from '@/components/modal/DeleteModal'
+import PaymentModal from '@/components/modal/PaymentModal'
 import BranchDetailsModal from '@/components/modal/details/BranchDetailsModal'
 import BranchTable from '@/components/table/BranchTable'
 import { Button } from '@/components/ui'
@@ -18,6 +19,7 @@ const Branch = () => {
     const [detailsModalOpen, setDetailsModalOpen] = useState(false);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [assignModalOpen, setAssignModalOpen] = useState(false);
+    const [paymentModalOpen, setPaymentModalOpen] = useState(false);
     const [selectedBranch, setSelectedBranch] = useState<undefined | SampleBranch>(undefined)
     const [flag, setFlag] = useState(false)
     const { toast } = useToast()
@@ -29,6 +31,11 @@ const Branch = () => {
     }
     const handleAssignModalClose = () => {
         setAssignModalOpen(false)
+        setSelectedBranch(undefined)
+    }
+    const handlePaymentModalClose = () => {
+        setModalOpen(false)
+        setPaymentModalOpen(false)
         setSelectedBranch(undefined)
     }
 
@@ -85,11 +92,16 @@ const Branch = () => {
         }
         handleDeleteModalClose()
     }
-
+    const onAddNewBranch = (data: SampleBranch) => {
+        console.log("first", data)
+        setSelectedBranch(data)
+        setPaymentModalOpen(true)
+    }
     return (
         <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
-            <BranchModal visible={modalOpen} closeModal={handleModalClose} val={selectedBranch} onUpdate={() => setFlag(!flag)} />
+            <BranchModal visible={modalOpen} closeModal={handleModalClose} val={selectedBranch} onUpdate={() => setFlag(!flag)} onSubmitData={onAddNewBranch} />
             <BranchDetailsModal visible={detailsModalOpen} closeModal={handleDetailsModalClose} val={selectedBranch as SampleBranch} />
+            <PaymentModal visible={paymentModalOpen} closeModal={handlePaymentModalClose} val={selectedBranch as SampleBranch} />
             <AssignServiceModal
                 visible={assignModalOpen} closeModal={handleAssignModalClose} val={selectedBranch} onUpdate={() => setFlag(!flag)}
             />
