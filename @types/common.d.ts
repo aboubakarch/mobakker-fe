@@ -1,11 +1,10 @@
 interface SampleEmployee {
-  name: string;
-  jobDesc: string;
-  bookedToday: string[];
-  workingHours: string;
-  rating: number;
-  profilePicture: string;
-  status: "Available" | "Booked" | "Working";
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  isActive: boolean;
+  userId: string;
+  user: SampleBranchManager;
 }
 interface SampleServices {
   id: string;
@@ -115,9 +114,12 @@ interface SampleBranch {
   city: string;
   country: string;
   cover: string;
-  ownerId: string;
-  managerId: string | null; // If managerId can be null
-  owner: Owner;
+  ownerId: string | null;
+  managerId: string | null;
+  owner: SampleEmployee | null;
+  services: any[];
+  manager: SampleEmployee | null;
+  appointments: any[];
 }
 
 interface SampleProvider {

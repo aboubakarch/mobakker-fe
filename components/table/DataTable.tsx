@@ -206,7 +206,8 @@ export function DataTable<TData, TValue>({
                         {table.getRowModel().rows?.length && !loading ? (
                             table.getRowModel().rows.map((row) => (
                                 <TableRow
-                                    onClick={() => {
+                                    onClick={(e: any) => {
+                                        e.stopPropagation()
                                         if (onRowClick) {
                                             onRowClick(row.original)
                                         }

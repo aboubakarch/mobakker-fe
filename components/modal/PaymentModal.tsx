@@ -58,6 +58,11 @@ const PaymentModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate 
         fetchData()
     }, [])
 
+    useEffect(() => {
+        setSelectedSubscription(null)
+        setCardType("")
+    }, [visible])
+
 
     const onSubmit = async (values: yup.InferType<typeof paymentValidationSchema>) => {
         // setFormValues(values);
@@ -156,6 +161,12 @@ const PaymentModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate 
                                 </ToggleGroupItem>
                             ))}
                         </ToggleGroup>
+
+                    </div>}
+                    {!subsciptions && <div className='flex flex-col gap-2'>
+                        <p className='text-lg'>No Subscription Available</p>
+
+
 
                     </div>}
 
