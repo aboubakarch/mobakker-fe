@@ -89,7 +89,7 @@ const PaymentModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate 
                 return
 
             }
-            await APIService.getInstance().subscribeSubscription({
+            const data = await APIService.getInstance().subscribeSubscription({
                 branchId: val?.id,
                 subscriptionId: selectedSubsciption.id,
                 serviceProviderId: (user as any)?.serviceProvider?.id,
@@ -106,6 +106,9 @@ const PaymentModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate 
 
             } as any);
             setLoading(false)
+            if (data && data.transactionUrl) {
+                window.location = data.transactionUrl
+            }
             // location.reload()
             if (onUpdate) {
                 onUpdate()
