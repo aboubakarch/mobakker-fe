@@ -70,6 +70,8 @@ const AppointmentForm: FC<{
             const ser = servMap[service]
             if (ser) {
                 setHours(ser.availablity.split(","))
+                form.setValue("grossTotalAmount", ser.price)
+                form.setValue("netTotalAmount", ser.price)
 
             } else {
                 setHours(undefined)

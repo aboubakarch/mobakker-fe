@@ -20,4 +20,5 @@ interface IModalCompProps<T = any> {
 interface IDeleteModalProps extends IModalCompProps {
   title: string;
   onDelete: () => void;
+  loading?: boolean;
 }

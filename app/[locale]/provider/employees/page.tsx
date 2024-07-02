@@ -1,4 +1,5 @@
 "use client"
+import AssignBranchModal from '@/components/modal/AssignBranchModal'
 import DeleteModal from '@/components/modal/DeleteModal'
 import EmployeeModal from '@/components/modal/EmployeeModal'
 import EmployeeTable from '@/components/table/EmployeeTable'
@@ -16,6 +17,8 @@ const Employees = () => {
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [selectedEmployee, setSelectedEmployee] = useState<undefined | SampleBranchManager>(undefined)
     const [flag, setFlag] = useState(false)
+    const [assignModalOpen, setAssignModalOpen] = useState(false);
+    const [loading, setLoading] = useState(false)
     const { toast } = useToast()
 
 
@@ -28,7 +31,10 @@ const Employees = () => {
         setDeleteModalOpen(false)
         setSelectedEmployee(undefined)
     }
-
+    const handleAssignModalClose = () => {
+        setAssignModalOpen(false)
+        setSelectedEmployee(undefined)
+    }
 
     const handleEdit = (item: SampleBranchManager) => {
         setSelectedEmployee(item)
@@ -39,14 +45,19 @@ const Employees = () => {
         setSelectedEmployee(item)
         setDeleteModalOpen(true)
     }
+    const handleAssign = (item: SampleBranchManager) => {
+        setSelectedEmployee(item)
+        setAssignModalOpen(true)
+    }
     const onDeleteEmplyee = async () => {
+        setLoading(true)
         try {
             if (selectedEmployee) {
 
-                // await APIService.getInstance().deleteBranch(selectedEmployee?.id);
+                await APIService.getInstance().deleteUser(selectedEmployee?.id as any);
             }
             else {
-                throw new Error("No branch selected")
+                throw new Error("No Employee selected")
             }
 
 
@@ -62,6 +73,8 @@ const Employees = () => {
             })
 
         }
+        setLoading(false)
+
         handleDeleteModalClose()
     }
 
@@ -73,6 +86,10 @@ const Employees = () => {
                 closeModal={handleDeleteModalClose}
                 onDelete={onDeleteEmplyee}
                 title={messages.EMPLOYEES}
+                loading={loading}
+            />
+            <AssignBranchModal
+                visible={assignModalOpen} closeModal={handleAssignModalClose} val={selectedEmployee} onUpdate={() => setFlag(!flag)}
             />
             <PageHeader title={t(messages.EMPLOYEES)}
                 description={t(messages.VIEW_TEAM_INFO)}
@@ -81,7 +98,7 @@ const Employees = () => {
             </PageHeader>
 
 
-            <EmployeeTable handleEdit={handleEdit} handleDelete={handleDelete} onUpdateFlag={flag} />
+            <EmployeeTable handleEdit={handleEdit} handleDelete={handleDelete} handleAssign={handleAssign} onUpdateFlag={flag} />
 
         </div>
     )

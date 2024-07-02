@@ -131,7 +131,8 @@ const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, v
             cover: "lkldls",
             // ownerId: userId,
             // ownerId: "9ed6eeca-1659-4667-a2a0-2f68d3ad92d6",
-            country: "Saudi Arab"
+            country: "Saudi Arab",
+            managerId: values.manager || undefined
         }
         await APIService.getInstance().createBranch(branch as any);
         setLoading(false)
@@ -148,7 +149,8 @@ const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, v
             name: values.name,
             address: values.location,
             city: values.city,
-            country: "Saudi Arab"
+            country: "Saudi Arab",
+            managerId: values.manager || undefined
         }
         await APIService.getInstance().editBranch(val?.id as string, branch as any);
         setLoading(false)

@@ -67,7 +67,7 @@ export const SingleSearchSelect: React.FC<{
                 setItemName(temp[0].name)
             }
         }
-    }, [selected])
+    }, [selected, data])
 
     return (
         <DropdownMenu>

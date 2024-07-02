@@ -42,8 +42,8 @@ const timeSlotData = [
 
 
 const ServiceForm: FC<{
-    serviceFormVal: IFormValueObj<IServiceFormValues>, t: TFunction<"translation", undefined>, serviceTypes: any[] | null
-}> = ({ serviceFormVal, t, serviceTypes }) => {
+    serviceFormVal: IFormValueObj<IServiceFormValues>, t: TFunction<"translation", undefined>, serviceTypes: any[] | null, val?: any
+}> = ({ serviceFormVal, t, serviceTypes, val }) => {
     const form = useFormContext()
     const startHour = form.watch("startHour")
     const slotTime = form.watch("slotTime")
@@ -85,14 +85,16 @@ const ServiceForm: FC<{
         return slots;
     }
 
-    // useEffect(() => {
-    //     form.register("serviceAvailabilty")
-    //     return form.unregister("serviceAvailabilty")
-    // }, [])
+    useEffect(() => {
+        if (val) {
+            setTimeSlots(val.availablity.split(","))
+        }
+    }, [])
 
 
 
     useEffect(() => {
+        console.log(startHour, endHour, slotTime)
         if (startHour !== "" && endHour !== "" && slotTime && slotTime !== "") {
             const slots = divideTimeIntoSlots(startHour, endHour, parseInt(slotTime))
 
@@ -127,7 +129,10 @@ const ServiceForm: FC<{
 
                             <InputField {...serviceFormVal.info(t).endHour} />
                         </div>
+
                     </div>
+
+                    <InputField {...serviceFormVal.info(t).bookingCapacity} />
 
                     {/* {timeSlots && timeSlots.length > 0 && timeSlots.map((slot: string, i: number) => (
                     <div key={i}>
@@ -208,6 +213,7 @@ const ServiceModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate 
             workHourFrom: startDate,
             workHourTo: endDate,
             serviceTypeId: values.serviceType,
+            bookingCapacity: values.bookingCapacity,
             providerId: (user as any)?.serviceProvider?.id,
         }
         await APIService.getInstance().createService(service as any);
@@ -245,6 +251,7 @@ const ServiceModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate 
             availablity: values.serviceAvailabilty.join(","),
             workHourFrom: startDate,
             workHourTo: endDate,
+            bookingCapacity: values.bookingCapacity,
             serviceTypeId: values.serviceType,
             providerId: (user as any)?.serviceProvider?.id,
         }
@@ -301,7 +308,7 @@ const ServiceModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate 
                     <Dropzone title='Upload Service Logo' />
                 </div>
 
-                <ServiceForm serviceFormVal={serviceFormVal} serviceTypes={serviceTypes} t={t} />
+                <ServiceForm serviceFormVal={serviceFormVal} serviceTypes={serviceTypes} t={t} val={val} />
                 <div className='self-end flex gap-3'>
                     <SubmitButton loading={loading} title={t(messages.SAVE)} className=" bg-primaryBlue" />
                     <Button onClick={closeModal} variant={"outline"} >

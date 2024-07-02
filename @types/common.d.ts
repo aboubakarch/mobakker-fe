@@ -25,6 +25,7 @@ interface SampleServices {
   serviceType: ServiceType;
   provider: Provider;
   branches: any[];
+  bookingCapacity: number;
   // timeSlots: string[];
 }
 interface SampleAppointments {
