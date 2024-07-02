@@ -2,6 +2,7 @@
 import AssignServiceModal from '@/components/modal/AssignServiceModal'
 import BranchModal from '@/components/modal/BranchModal'
 import DeleteModal from '@/components/modal/DeleteModal'
+import BranchDetailsModal from '@/components/modal/details/BranchDetailsModal'
 import BranchTable from '@/components/table/BranchTable'
 import { Button } from '@/components/ui'
 import PageHeader from '@/components/ui/PageHeader'
@@ -14,6 +15,7 @@ import { useTranslation } from 'react-i18next'
 const Branch = () => {
     const { t } = useTranslation()
     const [modalOpen, setModalOpen] = useState(false);
+    const [detailsModalOpen, setDetailsModalOpen] = useState(false);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [assignModalOpen, setAssignModalOpen] = useState(false);
     const [selectedBranch, setSelectedBranch] = useState<undefined | SampleBranch>(undefined)
@@ -34,6 +36,10 @@ const Branch = () => {
         setDeleteModalOpen(false)
         setSelectedBranch(undefined)
     }
+    const handleDetailsModalClose = () => {
+        setDetailsModalOpen(false)
+        setSelectedBranch(undefined)
+    }
 
 
     const handleEdit = (item: SampleBranch) => {
@@ -49,6 +55,10 @@ const Branch = () => {
         console.log(item)
         setSelectedBranch(item)
         setDeleteModalOpen(true)
+    }
+    const handleRow = (item: SampleBranch) => {
+        setSelectedBranch(item)
+        setDetailsModalOpen(true)
     }
     const onDeleteBranch = async () => {
         try {
@@ -79,6 +89,7 @@ const Branch = () => {
     return (
         <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
             <BranchModal visible={modalOpen} closeModal={handleModalClose} val={selectedBranch} onUpdate={() => setFlag(!flag)} />
+            <BranchDetailsModal visible={detailsModalOpen} closeModal={handleDetailsModalClose} val={selectedBranch as SampleBranch} />
             <AssignServiceModal
                 visible={assignModalOpen} closeModal={handleAssignModalClose} val={selectedBranch} onUpdate={() => setFlag(!flag)}
             />
@@ -95,7 +106,13 @@ const Branch = () => {
                 <Button onClick={() => setModalOpen(true)} className='bg-indigo-800 hover:bg-indigo-600'>{t(messages.ADD_BRANCH)}</Button>
 
             </PageHeader>
-            <BranchTable handleEdit={handleEdit} handleAssign={handleAssign} handleDelete={handleDelete} onUpdateFlag={flag} />
+            <BranchTable
+                handleEdit={handleEdit}
+                handleAssign={handleAssign}
+                handleDelete={handleDelete}
+                onUpdateFlag={flag}
+                handleRow={handleRow}
+            />
         </div>
     )
 }

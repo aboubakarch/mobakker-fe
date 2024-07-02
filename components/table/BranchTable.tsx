@@ -7,8 +7,9 @@ import APIService from '@/services/api'
 import { useToast } from '@/hooks/use-toast'
 import { Skeleton } from '../ui/Skeleton'
 import { PaginationState } from '@tanstack/react-table'
+import { SortEnum } from '@/constants/enums'
 
-const BranchTable: FC<ITableProps<SampleBranch>> = ({ handleEdit, handleDelete, onUpdateFlag, handleAssign }) => {
+const BranchTable: FC<ITableProps<SampleBranch>> = ({ handleEdit, handleDelete, onUpdateFlag, handleAssign, handleRow }) => {
     const { t } = useTranslation()
     const { toast } = useToast()
     const [data, setData] = useState<SampleBranch[]>([])
@@ -16,6 +17,7 @@ const BranchTable: FC<ITableProps<SampleBranch>> = ({ handleEdit, handleDelete, 
     const [pageLoaded, setPageLoaded] = useState(false)
     const [loading, setLoading] = useState(false)
     const [pagination, setPagination] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 })
+    const [sort, setSort] = useState<SortEnum>(SortEnum.Descending)
 
     const fetchData = async () => {
 
@@ -23,7 +25,7 @@ const BranchTable: FC<ITableProps<SampleBranch>> = ({ handleEdit, handleDelete, 
             setLoading(true)
 
             const params = {
-                page: pagination.pageIndex + 1, take: pagination.pageSize
+                page: pagination.pageIndex + 1, take: pagination.pageSize, order: sort
             }
             const response = await APIService.getInstance().getBranches(params)
             setData(response.items)
@@ -48,6 +50,11 @@ const BranchTable: FC<ITableProps<SampleBranch>> = ({ handleEdit, handleDelete, 
 
     }, [pagination])
 
+    const toggleSort = () => {
+        setSort(sort === SortEnum.Ascending ? SortEnum.Descending : SortEnum.Ascending)
+        setPagination({ pageIndex: 0, pageSize: 10 })
+    }
+
 
 
 
@@ -66,6 +73,9 @@ const BranchTable: FC<ITableProps<SampleBranch>> = ({ handleEdit, handleDelete, 
                 tablePagination={pagination}
                 loading={loading}
                 rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5'
+                sort={sort}
+                toggleSort={toggleSort}
+                onRowClick={handleRow}
             />)}
         </div>
     )

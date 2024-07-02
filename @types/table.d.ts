@@ -8,4 +8,7 @@ interface ITableProps<T = any> {
   onUpdateFlag?: boolean;
   onToggle?: (id: string, val: boolean) => void;
   handleAssign?: (val: T) => void;
+  handleRow?: (val: T) => void;
 }
+
+type ISort = "DESC" | "ASC";

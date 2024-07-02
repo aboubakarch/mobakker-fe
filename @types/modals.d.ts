@@ -16,6 +16,11 @@ interface IModalCompProps<T = any> {
   val?: T;
   onSubmitData?: (data: T) => void;
 }
+interface IModalDetailsProps<T = any> {
+  visible: boolean;
+  closeModal: () => void;
+  val: T;
+}
 
 interface IDeleteModalProps extends IModalCompProps {
   title: string;
