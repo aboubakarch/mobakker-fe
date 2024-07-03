@@ -7,8 +7,9 @@ import { PaginationState } from '@tanstack/react-table'
 import APIService from '@/services/api'
 import { useToast } from '@/hooks/use-toast'
 import { Skeleton } from '../ui/Skeleton'
+import { SortEnum } from '@/constants/enums'
 
-const PromotionsTable: FC<ITableProps<SamplePromotions>> = ({ handleEdit, handleDelete, onUpdateFlag, onToggle }) => {
+const PromotionsTable: FC<ITableProps<SamplePromotions>> = ({ handleEdit, handleDelete, onUpdateFlag, onToggle, handleRow }) => {
     const { t } = useTranslation()
     const { toast } = useToast()
     const [data, setData] = useState<SamplePromotions[]>([])
@@ -16,6 +17,7 @@ const PromotionsTable: FC<ITableProps<SamplePromotions>> = ({ handleEdit, handle
     const [pageLoaded, setPageLoaded] = useState(false)
     const [loading, setLoading] = useState(false)
     const [pagination, setPagination] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 })
+    const [sort, setSort] = useState<SortEnum>(SortEnum.Descending)
 
     const fetchData = async () => {
 
@@ -23,7 +25,7 @@ const PromotionsTable: FC<ITableProps<SamplePromotions>> = ({ handleEdit, handle
             setLoading(true)
 
             const params = {
-                page: pagination.pageIndex + 1, take: pagination.pageSize
+                page: pagination.pageIndex + 1, take: pagination.pageSize, order: sort
             }
             const response = await APIService.getInstance().getPromotions(params)
             setData(response.items)
@@ -48,7 +50,10 @@ const PromotionsTable: FC<ITableProps<SamplePromotions>> = ({ handleEdit, handle
 
     }, [pagination])
 
-
+    const toggleSort = () => {
+        setSort(sort === SortEnum.Ascending ? SortEnum.Descending : SortEnum.Ascending)
+        setPagination({ pageIndex: 0, pageSize: 10 })
+    }
     return (
         <div>
             {!pageLoaded && data.length === 0 ? (
@@ -62,6 +67,9 @@ const PromotionsTable: FC<ITableProps<SamplePromotions>> = ({ handleEdit, handle
                 filterKey='promoCode' count={total}
                 onChangePagination={setPagination}
                 tablePagination={pagination}
+                sort={sort}
+                toggleSort={toggleSort}
+                onRowClick={handleRow}
                 loading={loading} rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5' />)}
 
         </div>

@@ -7,6 +7,7 @@ import APIService from '@/services/api'
 import { useToast } from '@/hooks/use-toast'
 import { PaginationState } from '@tanstack/react-table'
 import { Skeleton } from '../ui/Skeleton'
+import { SortEnum } from '@/constants/enums'
 
 const BranchManagerTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, handleDelete, onUpdateFlag, handleRow }) => {
     const { t } = useTranslation()
@@ -16,6 +17,7 @@ const BranchManagerTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, 
     const [pageLoaded, setPageLoaded] = useState(false)
     const [loading, setLoading] = useState(false)
     const [pagination, setPagination] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 })
+    const [sort, setSort] = useState<SortEnum>(SortEnum.Descending)
 
     const fetchData = async () => {
 
@@ -23,7 +25,7 @@ const BranchManagerTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, 
             setLoading(true)
 
             const params = {
-                page: pagination.pageIndex + 1, take: pagination.pageSize
+                page: pagination.pageIndex + 1, take: pagination.pageSize, order: sort
             }
             const response = await APIService.getInstance().getServiceBranchManager(params)
             console.log(response)
@@ -49,6 +51,11 @@ const BranchManagerTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, 
 
     }, [pagination])
 
+    const toggleSort = () => {
+        setSort(sort === SortEnum.Ascending ? SortEnum.Descending : SortEnum.Ascending)
+        setPagination({ pageIndex: 0, pageSize: 10 })
+    }
+
 
 
 
@@ -67,6 +74,8 @@ const BranchManagerTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, 
                 onChangePagination={setPagination}
                 tablePagination={pagination}
                 onRowClick={handleRow}
+                sort={sort}
+                toggleSort={toggleSort}
                 loading={loading} rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5' />)}
 
         </div>

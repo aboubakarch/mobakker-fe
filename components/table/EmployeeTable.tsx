@@ -7,6 +7,7 @@ import { useToast } from '@/hooks/use-toast'
 import { PaginationState } from '@tanstack/react-table'
 import APIService from '@/services/api'
 import { Skeleton } from '../ui/Skeleton'
+import { SortEnum } from '@/constants/enums'
 
 const EmployeeTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, handleDelete, onUpdateFlag, handleAssign, handleRow }) => {
     const { t } = useTranslation()
@@ -16,6 +17,8 @@ const EmployeeTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, handl
     const [pageLoaded, setPageLoaded] = useState(false)
     const [loading, setLoading] = useState(false)
     const [pagination, setPagination] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 })
+    const [sort, setSort] = useState<SortEnum>(SortEnum.Descending)
+
 
     const fetchData = async () => {
 
@@ -23,7 +26,7 @@ const EmployeeTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, handl
             setLoading(true)
 
             const params = {
-                page: pagination.pageIndex + 1, take: pagination.pageSize
+                page: pagination.pageIndex + 1, take: pagination.pageSize, order: sort
             }
             const response = await APIService.getInstance().getEmployees(params)
             console.log(response)
@@ -49,7 +52,10 @@ const EmployeeTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, handl
 
     }, [pagination])
 
-
+    const toggleSort = () => {
+        setSort(sort === SortEnum.Ascending ? SortEnum.Descending : SortEnum.Ascending)
+        setPagination({ pageIndex: 0, pageSize: 10 })
+    }
 
     return (
 
@@ -65,6 +71,8 @@ const EmployeeTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, handl
                 filterKey='firstName' count={total}
                 onChangePagination={setPagination}
                 tablePagination={pagination}
+                sort={sort}
+                toggleSort={toggleSort}
                 onRowClick={handleRow}
                 loading={loading} rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5' />)}
 
