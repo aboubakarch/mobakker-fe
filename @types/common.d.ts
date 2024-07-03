@@ -100,6 +100,8 @@ interface SamplePromotions {
   promoCode: string;
   startDate: Date | string;
   endDate: Date | string;
+  createdAt: string;
+  updatedAt: string;
   services: any[];
   isActive: boolean;
   id: string;
