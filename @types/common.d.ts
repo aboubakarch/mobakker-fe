@@ -1,10 +1,23 @@
 interface SampleEmployee {
-  id: string;
-  createdAt: string;
-  updatedAt: string;
-  isActive: boolean;
-  userId: string;
-  user: SampleBranchManager;
+  id?: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  employerId?: string;
+  data: {
+    id: string;
+    createdAt: string;
+    updatedAt: string;
+    isActive: boolean;
+    userId: string;
+    user: SampleBranchManager;
+    branchId?: string;
+    empBranch?: { name: string };
+    employerId?: string;
+    employer?: SampleBranchManager;
+    rating?: number;
+  };
 }
 interface SampleServices {
   id: string;
@@ -116,9 +129,9 @@ interface SampleBranch {
   cover: string;
   ownerId: string | null;
   managerId: string | null;
-  owner: SampleEmployee | null;
+  owner: any | null;
   services: any[];
-  manager: SampleEmployee | null;
+  manager: any | null;
   appointments: any[];
 }
 

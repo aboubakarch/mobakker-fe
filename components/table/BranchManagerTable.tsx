@@ -8,7 +8,7 @@ import { useToast } from '@/hooks/use-toast'
 import { PaginationState } from '@tanstack/react-table'
 import { Skeleton } from '../ui/Skeleton'
 
-const BranchManagerTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, handleDelete, onUpdateFlag }) => {
+const BranchManagerTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, handleDelete, onUpdateFlag, handleRow }) => {
     const { t } = useTranslation()
     const { toast } = useToast()
     const [data, setData] = useState<SampleBranchManager[]>([])
@@ -27,7 +27,7 @@ const BranchManagerTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, 
             }
             const response = await APIService.getInstance().getServiceBranchManager(params)
             console.log(response)
-            setData(response.items.map((item: any) => item.user))
+            setData(response.items.map((item: any) => ({ ...item.user, data: { ...item } })))
             setTotal(response.pageMetaDto.itemCount)
             // console.log(response)
         } catch (error: any) {
@@ -66,6 +66,7 @@ const BranchManagerTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, 
                 filterKey='firstName' count={total}
                 onChangePagination={setPagination}
                 tablePagination={pagination}
+                onRowClick={handleRow}
                 loading={loading} rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5' />)}
 
         </div>

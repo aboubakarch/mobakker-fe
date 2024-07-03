@@ -8,7 +8,7 @@ import { PaginationState } from '@tanstack/react-table'
 import APIService from '@/services/api'
 import { Skeleton } from '../ui/Skeleton'
 
-const CustomerCareTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, handleDelete, onUpdateFlag }) => {
+const CustomerCareTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, handleDelete, onUpdateFlag, handleRow }) => {
     const { t } = useTranslation()
     const { toast } = useToast()
     const [data, setData] = useState<SampleBranchManager[]>([])
@@ -27,7 +27,7 @@ const CustomerCareTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, h
             }
             const response = await APIService.getInstance().getCustomerCare(params)
             console.log(response)
-            setData(response.items.map((item: any) => item.user))
+            setData(response.items.map((item: any) => ({ ...item.user, data: { ...item } })))
             setTotal(response.pageMetaDto.itemCount)
             // console.log(response)
         } catch (error: any) {
@@ -64,6 +64,7 @@ const CustomerCareTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, h
                 columns={customerColumns(t, handleEdit, handleDelete)}
                 filterKey='firstName' count={total}
                 onChangePagination={setPagination}
+                onRowClick={handleRow}
                 tablePagination={pagination}
                 loading={loading} rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5' />)}
 

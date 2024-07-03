@@ -8,7 +8,7 @@ import { PaginationState } from '@tanstack/react-table'
 import APIService from '@/services/api'
 import { Skeleton } from '../ui/Skeleton'
 
-const EmployeeTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, handleDelete, onUpdateFlag, handleAssign }) => {
+const EmployeeTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, handleDelete, onUpdateFlag, handleAssign, handleRow }) => {
     const { t } = useTranslation()
     const { toast } = useToast()
     const [data, setData] = useState<SampleBranchManager[]>([])
@@ -27,7 +27,7 @@ const EmployeeTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, handl
             }
             const response = await APIService.getInstance().getEmployees(params)
             console.log(response)
-            setData(response.items.map((item: any) => ({ ...item.user, employerId: (item as any)?.employerId, employeeId: (item as any)?.id })))
+            setData(response.items.map((item: any) => ({ ...item.user, employerId: (item as any)?.employerId, employeeId: (item as any)?.id, data: { ...item } })))
             setTotal(response.pageMetaDto.itemCount)
             // console.log(response)
         } catch (error: any) {
@@ -65,6 +65,7 @@ const EmployeeTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, handl
                 filterKey='firstName' count={total}
                 onChangePagination={setPagination}
                 tablePagination={pagination}
+                onRowClick={handleRow}
                 loading={loading} rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5' />)}
 
         </div>

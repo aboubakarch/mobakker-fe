@@ -117,13 +117,13 @@ export const employeeColumns: (t: TFunction<"translation", undefined>, handleEdi
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
                             <DropdownMenuLabel>{t(messages.ACTIONS)}</DropdownMenuLabel>
-                            <DropdownMenuItem onClick={handleAssign ? () => handleAssign(rowVal) : undefined} className="text-indigo-800 hover:bg-indigo-800 hover:bg-opacity-25">
+                            <DropdownMenuItem onClick={handleAssign ? (e: any) => { e.stopPropagation(); handleAssign(rowVal) } : undefined} className="text-indigo-800 hover:bg-indigo-800 hover:bg-opacity-25">
                                 {t("Assign Branch")}
                             </DropdownMenuItem>
-                            <DropdownMenuItem onClick={handleEdit ? () => handleEdit(rowVal) : undefined} className="text-indigo-800 hover:bg-indigo-800 hover:bg-opacity-25">
+                            <DropdownMenuItem onClick={handleEdit ? (e: any) => { e.stopPropagation(); handleEdit(rowVal) } : undefined} className="text-indigo-800 hover:bg-indigo-800 hover:bg-opacity-25">
                                 {t(messages.EDIT)}
                             </DropdownMenuItem>
-                            <DropdownMenuItem onClick={handleDelete ? () => handleDelete(rowVal) : undefined} className="text-red-400 hover:bg-red-400 hover:bg-opacity-25">
+                            <DropdownMenuItem onClick={handleDelete ? (e: any) => { e.stopPropagation(); handleDelete(rowVal) } : undefined} className="text-red-400 hover:bg-red-400 hover:bg-opacity-25">
                                 {t(messages.DELETE)}
                             </DropdownMenuItem>
 
