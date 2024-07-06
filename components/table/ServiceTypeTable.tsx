@@ -91,7 +91,7 @@ const ServiceTypeTable: FC<ITableProps<ServiceType>> = ({ handleEdit, handleDele
                 rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5'
                 search={search}
                 onSearch={(q: string) => setSearch(q)}
-
+                filterComponent={() => <div className='absolute'></div>}
             />)}
         </div>
     )
