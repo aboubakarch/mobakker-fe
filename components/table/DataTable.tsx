@@ -46,10 +46,13 @@ interface DataTableProps<TData, TValue> {
     tableBodyStyle?: string,
     onChangePagination?: (updater: Updater<PaginationState>) => void,
     tablePagination?: PaginationState,
-    loading?: boolean
-    onRowClick?: (rowItem: any) => void
-    sort?: SortEnum
-    toggleSort?: () => void
+    loading?: boolean,
+    onRowClick?: (rowItem: any) => void,
+    sort?: SortEnum,
+    toggleSort?: () => void,
+    search?: string,
+    onSearch?: (query: string) => void,
+    filterComponent?: () => React.ReactNode
 }
 
 export function DataTable<TData, TValue>({
@@ -66,7 +69,10 @@ export function DataTable<TData, TValue>({
     loading = false,
     onRowClick = undefined,
     sort,
-    toggleSort
+    toggleSort,
+    search,
+    onSearch,
+    filterComponent
 }: DataTableProps<TData, TValue>) {
     // const [currentPage, setCurrentPage] = useState(1)
     // const [sorting, setSorting] = useState<SortingState>([])
@@ -133,10 +139,17 @@ export function DataTable<TData, TValue>({
         <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between py-2 bg-white rounded-md px-3">
                 <Input
-                    placeholder={`Search ${currFilter}...`}
-                    value={(table.getColumn(currFilter)?.getFilterValue() as string) ?? ""}
-                    onChange={(event) =>
-                        table.getColumn(currFilter)?.setFilterValue(event.target.value)
+                    placeholder={`Search...`}
+                    value={search ? search : (table.getColumn(currFilter)?.getFilterValue() as string) ?? ""}
+                    onChange={(event) => {
+                        if (onSearch) {
+                            onSearch(event.target.value)
+                        }
+                        else {
+
+                            table.getColumn(currFilter)?.setFilterValue(event.target.value)
+                        }
+                    }
                     }
                     className="max-w-sm capitalize bg-indigo-800 bg-opacity-5"
                 />
@@ -153,33 +166,38 @@ export function DataTable<TData, TValue>({
                         {!sort && <SortAsc className="ltr:mr-2 rtl:ml-2 h-4 w-4" />}
                         <p>Sort</p>
                     </Button>
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button variant="outline" className="ltr:ml-auto rtl:mr-auto bg-indigo-800 text-indigo-800 bg-opacity-5 hover:bg-indigo-100">
-                                <Filter className="ltr:mr-2 rtl:ml-2 h-4 w-4" />
-                                <p>Filter</p>
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                            {table
-                                .getAllColumns()
-                                .filter((column) => column.getCanFilter())
-                                .map((column) => {
-                                    return (
-                                        <DropdownMenuCheckboxItem
-                                            key={column.id}
-                                            className="capitalize"
-                                            checked={column.id === currFilter}
-                                            onCheckedChange={() =>
-                                                setCurrFilter(column.id)
-                                            }
-                                        >
-                                            {column.id}
-                                        </DropdownMenuCheckboxItem>
-                                    )
-                                })}
-                        </DropdownMenuContent>
-                    </DropdownMenu>
+                    {filterComponent ? (
+                        filterComponent()
+                        // <div></div>
+                    ) : (
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button variant="outline" className="ltr:ml-auto rtl:mr-auto bg-indigo-800 text-indigo-800 bg-opacity-5 hover:bg-indigo-100">
+                                    <Filter className="ltr:mr-2 rtl:ml-2 h-4 w-4" />
+                                    <p>Filter</p>
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                                {table
+                                    .getAllColumns()
+                                    .filter((column) => column.getCanFilter())
+                                    .map((column) => {
+                                        return (
+                                            <DropdownMenuCheckboxItem
+                                                key={column.id}
+                                                className="capitalize"
+                                                checked={column.id === currFilter}
+                                                onCheckedChange={() =>
+                                                    setCurrFilter(column.id)
+                                                }
+                                            >
+                                                {column.id}
+                                            </DropdownMenuCheckboxItem>
+                                        )
+                                    })}
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    )}
                 </div>
             </div>
             <div className="rounded-md border">

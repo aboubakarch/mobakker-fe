@@ -12,3 +12,11 @@ interface ITableProps<T = any> {
 }
 
 type ISort = "DESC" | "ASC";
+interface IFilterProps<T = any> {
+  onApply?: (filters: T) => void;
+  onReset?: () => void;
+}
+interface IBranchFilters {
+  managerId?: string;
+  city?: string;
+}

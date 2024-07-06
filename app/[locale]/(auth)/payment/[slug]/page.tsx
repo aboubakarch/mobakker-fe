@@ -12,7 +12,7 @@ const Page = () => {
     return (
         <Card>
             <div className='h-full w-full flex items-center justify-center text-lg'>
-                {slug}
+                {slug === "success" ? "Payment has been successfully completed" : "Some error occured"}
             </div>
         </Card>
     );
