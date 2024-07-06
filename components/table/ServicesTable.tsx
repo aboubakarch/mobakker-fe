@@ -8,6 +8,8 @@ import APIService from '@/services/api'
 import { Skeleton } from '../ui/Skeleton'
 import { PaginationState } from '@tanstack/react-table'
 import { SortEnum } from '@/constants/enums'
+import ServiceFilters from './filters/ServiceFilters'
+import { debounce } from 'lodash'
 
 const ServicesTable: FC<ITableProps<SampleServices>> = ({ handleEdit, handleDelete, onUpdateFlag, handleRow }) => {
     const { t } = useTranslation()
@@ -19,14 +21,19 @@ const ServicesTable: FC<ITableProps<SampleServices>> = ({ handleEdit, handleDele
     const [loading, setLoading] = useState(false)
     const [pagination, setPagination] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 })
     const [sort, setSort] = useState<SortEnum>(SortEnum.Descending)
+    const [search, setSearch] = useState("")
+    const [filters, setFilters] = useState<IServiceFilters>({})
 
     const fetchData = async () => {
 
         try {
             setLoading(true)
 
-            const params = {
-                page: pagination.pageIndex + 1, take: pagination.pageSize, order: sort
+            let params: any = {
+                page: pagination.pageIndex + 1, take: pagination.pageSize, order: sort, ...filters
+            }
+            if (search !== '') {
+                params = { ...params, q: search, name: search }
             }
             const response = await APIService.getInstance().getServices(params)
             setData(response.items)
@@ -50,6 +57,31 @@ const ServicesTable: FC<ITableProps<SampleServices>> = ({ handleEdit, handleDele
         fetchData()
 
     }, [pagination])
+    useEffect(() => {
+        handleSearch(search)
+
+    }, [search])
+    useEffect(() => {
+        setPagination({ pageIndex: 0, pageSize: 10 })
+
+    }, [filters])
+
+
+    const handleSearch =
+        debounce((term: string) => {
+            console.log(term)
+            setPagination({ pageIndex: 0, pageSize: 10 })
+        }, 400)
+
+    const handleApplyFilters = (fil: IServiceFilters) => {
+        setFilters(fil)
+    }
+    const handleResetFilters = () => {
+        if (filters.branch || filters.category || filters.minPrice || filters.maxPrice) {
+
+            setFilters({})
+        }
+    }
 
 
     const toggleSort = () => {
@@ -72,7 +104,12 @@ const ServicesTable: FC<ITableProps<SampleServices>> = ({ handleEdit, handleDele
                     sort={sort}
                     toggleSort={toggleSort}
                     onRowClick={handleRow}
-                    loading={loading} rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5' />
+                    loading={loading} rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5'
+                    search={search}
+                    onSearch={(q: string) => setSearch(q)}
+                    filterComponent={() => <ServiceFilters onApply={handleApplyFilters} onReset={handleResetFilters} />}
+
+                />
             )}
         </div>
     )

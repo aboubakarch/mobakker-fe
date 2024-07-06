@@ -20,3 +20,9 @@ interface IBranchFilters {
   managerId?: string;
   city?: string;
 }
+interface IServiceFilters {
+  branch?: string;
+  category?: string;
+  minPrice?: number;
+  maxPrice?: number;
+}

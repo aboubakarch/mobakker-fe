@@ -8,7 +8,7 @@ import { useToast } from '@/hooks/use-toast'
 import { Skeleton } from '../ui/Skeleton'
 import { PaginationState } from '@tanstack/react-table'
 import { SortEnum } from '@/constants/enums'
-import { debounce, filter } from 'lodash'
+import { debounce } from 'lodash'
 import BranchFilters from './filters/BranchFilters'
 
 const BranchTable: FC<ITableProps<SampleBranch>> = ({ handleEdit, handleDelete, onUpdateFlag, handleAssign, handleRow }) => {
