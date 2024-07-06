@@ -26,3 +26,10 @@ interface IServiceFilters {
   minPrice?: number;
   maxPrice?: number;
 }
+interface IAppointmentFilters {
+  branch?: string;
+  customer?: string;
+}
+interface IEmployeeFilters {
+  branch?: string;
+}
