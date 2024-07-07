@@ -7,8 +7,11 @@ import { useToast } from '@/hooks/use-toast'
 import { PaginationState } from '@tanstack/react-table'
 import APIService from '@/services/api'
 import { Skeleton } from '../ui/Skeleton'
+import { SortEnum } from '@/constants/enums'
+import { debounce } from 'lodash'
+import EmployeeFilters from './filters/EmployeeFilters'
 
-const EmployeeTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, handleDelete, onUpdateFlag, handleAssign }) => {
+const EmployeeTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, handleDelete, onUpdateFlag, handleAssign, handleRow }) => {
     const { t } = useTranslation()
     const { toast } = useToast()
     const [data, setData] = useState<SampleBranchManager[]>([])
@@ -16,18 +19,25 @@ const EmployeeTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, handl
     const [pageLoaded, setPageLoaded] = useState(false)
     const [loading, setLoading] = useState(false)
     const [pagination, setPagination] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 })
+    const [sort, setSort] = useState<SortEnum>(SortEnum.Descending)
+    const [search, setSearch] = useState("")
+    const [filters, setFilters] = useState<IEmployeeFilters>({})
+
+
 
     const fetchData = async () => {
 
         try {
             setLoading(true)
 
-            const params = {
-                page: pagination.pageIndex + 1, take: pagination.pageSize
+            let params: any = {
+                page: pagination.pageIndex + 1, take: pagination.pageSize, order: sort, ...filters
+            }
+            if (search !== '') {
+                params = { ...params, q: search }
             }
             const response = await APIService.getInstance().getEmployees(params)
-            console.log(response)
-            setData(response.items.map((item: any) => ({ ...item.user, employerId: (item as any)?.employerId, employeeId: (item as any)?.id })))
+            setData(response.items.map((item: any) => ({ ...item.user, employerId: (item as any)?.employerId, employeeId: (item as any)?.id, data: { ...item } })))
             setTotal(response.pageMetaDto.itemCount)
             // console.log(response)
         } catch (error: any) {
@@ -49,7 +59,36 @@ const EmployeeTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, handl
 
     }, [pagination])
 
+    useEffect(() => {
+        handleSearch(search)
 
+    }, [search])
+    useEffect(() => {
+        setPagination({ pageIndex: 0, pageSize: 10 })
+
+    }, [filters])
+
+
+    const handleSearch =
+        debounce((term: string) => {
+            console.log(term)
+            setPagination({ pageIndex: 0, pageSize: 10 })
+        }, 400)
+
+    const handleApplyFilters = (fil: IEmployeeFilters) => {
+        setFilters(fil)
+    }
+    const handleResetFilters = () => {
+        if (filters.branch) {
+
+            setFilters({})
+        }
+    }
+
+    const toggleSort = () => {
+        setSort(sort === SortEnum.Ascending ? SortEnum.Descending : SortEnum.Ascending)
+        setPagination({ pageIndex: 0, pageSize: 10 })
+    }
 
     return (
 
@@ -65,7 +104,15 @@ const EmployeeTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, handl
                 filterKey='firstName' count={total}
                 onChangePagination={setPagination}
                 tablePagination={pagination}
-                loading={loading} rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5' />)}
+                sort={sort}
+                toggleSort={toggleSort}
+                onRowClick={handleRow}
+                loading={loading} rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5'
+                search={search}
+                onSearch={(q: string) => setSearch(q)}
+                filterComponent={() => <EmployeeFilters onApply={handleApplyFilters} onReset={handleResetFilters} />}
+
+            />)}
 
         </div>
     )

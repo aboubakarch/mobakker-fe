@@ -15,6 +15,11 @@ export function middleware(request: NextRequest) {
     "/ar/provider-registration",
     "/ar/login",
   ];
+
+  if (url.pathname.includes("/payment/")) {
+    return i18nRouter(request, i18nConfig);
+  }
+
   if ((!token || !roleCookie) && !publicRoutes.includes(url.pathname)) {
     // console.log("first", url.pathname, token, roleCookie);
     request.cookies.delete("accessToken");

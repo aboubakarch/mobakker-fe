@@ -78,7 +78,7 @@ interface IAppointmentFormValues {
   bookedBy: string;
   branchId: string;
   employeeId: string;
-  service: string;
+  serviceId: string;
   bookingSlot: string;
 }
 

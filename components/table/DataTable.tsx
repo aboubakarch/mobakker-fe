@@ -31,8 +31,9 @@ import { ChevronDownIcon } from "@/svgs"
 import Pagination from "./Pagination"
 import { useState } from "react"
 import { Input } from "@/components/ui"
-import { Filter, SortAsc } from "lucide-react"
+import { Filter, SortAsc, SortDesc } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { SortEnum } from "@/constants/enums"
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
@@ -45,7 +46,13 @@ interface DataTableProps<TData, TValue> {
     tableBodyStyle?: string,
     onChangePagination?: (updater: Updater<PaginationState>) => void,
     tablePagination?: PaginationState,
-    loading?: boolean
+    loading?: boolean,
+    onRowClick?: (rowItem: any) => void,
+    sort?: SortEnum,
+    toggleSort?: () => void,
+    search?: string,
+    onSearch?: (query: string) => void,
+    filterComponent?: () => React.ReactNode
 }
 
 export function DataTable<TData, TValue>({
@@ -59,10 +66,16 @@ export function DataTable<TData, TValue>({
     tableBodyStyle = "",
     onChangePagination = undefined,
     tablePagination = undefined,
-    loading = false
+    loading = false,
+    onRowClick = undefined,
+    sort,
+    toggleSort,
+    search,
+    onSearch,
+    filterComponent
 }: DataTableProps<TData, TValue>) {
     // const [currentPage, setCurrentPage] = useState(1)
-    const [sorting, setSorting] = useState<SortingState>([])
+    // const [sorting, setSorting] = useState<SortingState>([])
     // const [rowsPerPage, setRowsPerPage] = useState(10)
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
     const [pagination, setPagination] = useState<PaginationState>({
@@ -103,7 +116,7 @@ export function DataTable<TData, TValue>({
         columns,
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
-        onSortingChange: setSorting,
+        // onSortingChange: setSorting,
         getSortedRowModel: getSortedRowModel(),
         onColumnFiltersChange: setColumnFilters,
         getFilteredRowModel: getFilteredRowModel(),
@@ -112,7 +125,7 @@ export function DataTable<TData, TValue>({
         onRowSelectionChange: setRowSelection,
         rowCount: count,
         state: {
-            sorting,
+            // sorting,
             columnFilters,
             pagination: seletedPagination,
             rowSelection,
@@ -126,45 +139,65 @@ export function DataTable<TData, TValue>({
         <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between py-2 bg-white rounded-md px-3">
                 <Input
-                    placeholder={`Search ${currFilter}...`}
-                    value={(table.getColumn(currFilter)?.getFilterValue() as string) ?? ""}
-                    onChange={(event) =>
-                        table.getColumn(currFilter)?.setFilterValue(event.target.value)
+                    placeholder={`Search...`}
+                    value={search ? search : (table.getColumn(currFilter)?.getFilterValue() as string) ?? ""}
+                    onChange={(event) => {
+                        if (onSearch) {
+                            onSearch(event.target.value)
+                        }
+                        else {
+
+                            table.getColumn(currFilter)?.setFilterValue(event.target.value)
+                        }
+                    }
                     }
                     className="max-w-sm capitalize bg-indigo-800 bg-opacity-5"
                 />
                 <div className="flex gap-3">
-                    <Button variant="outline" className="ltr:ml-auto rtl:mr-auto bg-indigo-800 text-indigo-800 bg-opacity-5 hover:bg-indigo-100">
-                        <SortAsc className="ltr:mr-2 rtl:ml-2 h-4 w-4" />
+                    <Button
+                        onClick={() => {
+                            if (toggleSort) {
+                                toggleSort()
+                            }
+                        }}
+                        variant="outline"
+                        className="ltr:ml-auto rtl:mr-auto bg-indigo-800 text-indigo-800 bg-opacity-5 hover:bg-indigo-100">
+                        {sort && sort === SortEnum.Ascending ? <SortAsc className="ltr:mr-2 rtl:ml-2 h-4 w-4" /> : <SortDesc className="ltr:mr-2 rtl:ml-2 h-4 w-4" />}
+                        {!sort && <SortAsc className="ltr:mr-2 rtl:ml-2 h-4 w-4" />}
                         <p>Sort</p>
                     </Button>
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button variant="outline" className="ltr:ml-auto rtl:mr-auto bg-indigo-800 text-indigo-800 bg-opacity-5 hover:bg-indigo-100">
-                                <Filter className="ltr:mr-2 rtl:ml-2 h-4 w-4" />
-                                <p>Filter</p>
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                            {table
-                                .getAllColumns()
-                                .filter((column) => column.getCanFilter())
-                                .map((column) => {
-                                    return (
-                                        <DropdownMenuCheckboxItem
-                                            key={column.id}
-                                            className="capitalize"
-                                            checked={column.id === currFilter}
-                                            onCheckedChange={() =>
-                                                setCurrFilter(column.id)
-                                            }
-                                        >
-                                            {column.id}
-                                        </DropdownMenuCheckboxItem>
-                                    )
-                                })}
-                        </DropdownMenuContent>
-                    </DropdownMenu>
+                    {filterComponent ? (
+                        filterComponent()
+                        // <div></div>
+                    ) : (
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button variant="outline" className="ltr:ml-auto rtl:mr-auto bg-indigo-800 text-indigo-800 bg-opacity-5 hover:bg-indigo-100">
+                                    <Filter className="ltr:mr-2 rtl:ml-2 h-4 w-4" />
+                                    <p>Filter</p>
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                                {table
+                                    .getAllColumns()
+                                    .filter((column) => column.getCanFilter())
+                                    .map((column) => {
+                                        return (
+                                            <DropdownMenuCheckboxItem
+                                                key={column.id}
+                                                className="capitalize"
+                                                checked={column.id === currFilter}
+                                                onCheckedChange={() =>
+                                                    setCurrFilter(column.id)
+                                                }
+                                            >
+                                                {column.id}
+                                            </DropdownMenuCheckboxItem>
+                                        )
+                                    })}
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    )}
                 </div>
             </div>
             <div className="rounded-md border">
@@ -191,6 +224,12 @@ export function DataTable<TData, TValue>({
                         {table.getRowModel().rows?.length && !loading ? (
                             table.getRowModel().rows.map((row) => (
                                 <TableRow
+                                    onClick={(e: any) => {
+                                        e.stopPropagation()
+                                        if (onRowClick) {
+                                            onRowClick(row.original)
+                                        }
+                                    }}
                                     className={rowStyle}
                                     key={row.id}
                                     data-state={row.getIsSelected() && "selected"}

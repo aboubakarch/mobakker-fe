@@ -2,6 +2,7 @@
 
 import DeleteModal from '@/components/modal/DeleteModal'
 import ServiceModal from '@/components/modal/ServicesModal'
+import ServiceDetailsModal from '@/components/modal/details/ServiceDetailsModal'
 import ServicesTable from '@/components/table/ServicesTable'
 import { Button } from '@/components/ui'
 import PageHeader from '@/components/ui/PageHeader'
@@ -14,6 +15,7 @@ import { useTranslation } from 'react-i18next'
 const Services = () => {
     const { t } = useTranslation()
     const [modalOpen, setModalOpen] = useState(false);
+    const [detailsModalOpen, setDetailsModalOpen] = useState(false);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [selectedService, setSelectedService] = useState<undefined | SampleServices>(undefined)
     const [flag, setFlag] = useState(false)
@@ -28,6 +30,10 @@ const Services = () => {
         setDeleteModalOpen(false)
         setSelectedService(undefined)
     }
+    const handleDetailsModalClose = () => {
+        setDetailsModalOpen(false)
+        setSelectedService(undefined)
+    }
 
 
     const handleEdit = (item: SampleServices) => {
@@ -35,9 +41,12 @@ const Services = () => {
         setModalOpen(true)
     }
     const handleDelete = (item: SampleServices) => {
-        console.log(item)
         setSelectedService(item)
         setDeleteModalOpen(true)
+    }
+    const handleRow = (item: SampleServices) => {
+        setSelectedService(item)
+        setDetailsModalOpen(true)
     }
     const onDeleteService = async () => {
         try {
@@ -68,6 +77,7 @@ const Services = () => {
     return (
         <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
             <ServiceModal visible={modalOpen} closeModal={handleModalClose} val={selectedService} onUpdate={() => setFlag(!flag)} />
+            <ServiceDetailsModal visible={detailsModalOpen} closeModal={handleDetailsModalClose} val={selectedService as SampleServices} />
 
             <DeleteModal
                 visible={deleteModalOpen}
@@ -82,7 +92,7 @@ const Services = () => {
                 <Button onClick={() => setModalOpen(true)} className='bg-indigo-800 hover:bg-indigo-600'>{t(messages.ADD_SERVICES)}</Button>
             </PageHeader>
 
-            <ServicesTable handleEdit={handleEdit} handleDelete={handleDelete} onUpdateFlag={flag} />
+            <ServicesTable handleEdit={handleEdit} handleDelete={handleDelete} onUpdateFlag={flag} handleRow={handleRow} />
         </div>
     )
 }

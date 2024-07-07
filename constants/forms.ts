@@ -126,7 +126,7 @@ export const appointmentDefaultValues: (
   bookedBy: val ? val.bookedBy : "",
   branchId: val ? val.branchId : "",
   employeeId: val ? val.employeeId : "",
-  service: val ? val.serviceId : "",
+  serviceId: val ? val.serviceId : "",
   bookingSlot: val ? val.bookingSlot : "",
 });
 
@@ -496,9 +496,9 @@ export const appointmentFormVals: (
       placeHolder: t(formConstants.EMPLOYEE_ID_PLACEHOLDER),
       fieldType: FieldTypesEnum.Select,
     },
-    service: {
+    serviceId: {
       hasError: true,
-      name: "service",
+      name: "serviceId",
       label: t(formConstants.SERVICE_LABEL),
       placeHolder: t(formConstants.SERVICE_PLACEHOLDER),
       fieldType: FieldTypesEnum.SingleSearchSelect,

@@ -8,4 +8,28 @@ interface ITableProps<T = any> {
   onUpdateFlag?: boolean;
   onToggle?: (id: string, val: boolean) => void;
   handleAssign?: (val: T) => void;
+  handleRow?: (val: T) => void;
+}
+
+type ISort = "DESC" | "ASC";
+interface IFilterProps<T = any> {
+  onApply?: (filters: T) => void;
+  onReset?: () => void;
+}
+interface IBranchFilters {
+  managerId?: string;
+  city?: string;
+}
+interface IServiceFilters {
+  branch?: string;
+  category?: string;
+  minPrice?: number;
+  maxPrice?: number;
+}
+interface IAppointmentFilters {
+  branch?: string;
+  customer?: string;
+}
+interface IEmployeeFilters {
+  branch?: string;
 }

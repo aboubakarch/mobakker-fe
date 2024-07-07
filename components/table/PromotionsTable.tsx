@@ -7,8 +7,10 @@ import { PaginationState } from '@tanstack/react-table'
 import APIService from '@/services/api'
 import { useToast } from '@/hooks/use-toast'
 import { Skeleton } from '../ui/Skeleton'
+import { SortEnum } from '@/constants/enums'
+import { debounce } from 'lodash'
 
-const PromotionsTable: FC<ITableProps<SamplePromotions>> = ({ handleEdit, handleDelete, onUpdateFlag, onToggle }) => {
+const PromotionsTable: FC<ITableProps<SamplePromotions>> = ({ handleEdit, handleDelete, onUpdateFlag, onToggle, handleRow }) => {
     const { t } = useTranslation()
     const { toast } = useToast()
     const [data, setData] = useState<SamplePromotions[]>([])
@@ -16,14 +18,19 @@ const PromotionsTable: FC<ITableProps<SamplePromotions>> = ({ handleEdit, handle
     const [pageLoaded, setPageLoaded] = useState(false)
     const [loading, setLoading] = useState(false)
     const [pagination, setPagination] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 })
+    const [sort, setSort] = useState<SortEnum>(SortEnum.Descending)
+    const [search, setSearch] = useState("")
 
     const fetchData = async () => {
 
         try {
             setLoading(true)
 
-            const params = {
-                page: pagination.pageIndex + 1, take: pagination.pageSize
+            let params: any = {
+                page: pagination.pageIndex + 1, take: pagination.pageSize, order: sort
+            }
+            if (search !== '') {
+                params = { ...params, q: search }
             }
             const response = await APIService.getInstance().getPromotions(params)
             setData(response.items)
@@ -48,7 +55,21 @@ const PromotionsTable: FC<ITableProps<SamplePromotions>> = ({ handleEdit, handle
 
     }, [pagination])
 
+    useEffect(() => {
+        handleSearch(search)
 
+    }, [search])
+
+    const handleSearch =
+        debounce((term: string) => {
+            console.log(term)
+            setPagination({ pageIndex: 0, pageSize: 10 })
+        }, 400)
+
+    const toggleSort = () => {
+        setSort(sort === SortEnum.Ascending ? SortEnum.Descending : SortEnum.Ascending)
+        setPagination({ pageIndex: 0, pageSize: 10 })
+    }
     return (
         <div>
             {!pageLoaded && data.length === 0 ? (
@@ -62,7 +83,15 @@ const PromotionsTable: FC<ITableProps<SamplePromotions>> = ({ handleEdit, handle
                 filterKey='promoCode' count={total}
                 onChangePagination={setPagination}
                 tablePagination={pagination}
-                loading={loading} rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5' />)}
+                sort={sort}
+                toggleSort={toggleSort}
+                onRowClick={handleRow}
+                loading={loading} rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5'
+                search={search}
+                onSearch={(q: string) => setSearch(q)}
+                filterComponent={() => <div className='absolute'></div>}
+            />)}
+
 
         </div>
     )

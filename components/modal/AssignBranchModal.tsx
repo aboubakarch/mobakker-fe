@@ -79,7 +79,7 @@ const AssignBranchModal: FC<IModalCompProps<SampleBranchManager>> = ({ closeModa
 
 
             toast({
-                description: "Services added!",
+                description: "Added to branch!",
                 variant: "success"
             })
         } catch (error: any) {

@@ -1,6 +1,7 @@
 "use client"
 import AppointmentModal from '@/components/modal/AppointmentModal'
 import DeleteModal from '@/components/modal/DeleteModal'
+import AppointmentDetailsModal from '@/components/modal/details/AppointmentDetailsModal'
 import AppointmentsTable from '@/components/table/AppointmentsTable'
 import { Button } from '@/components/ui'
 import PageHeader from '@/components/ui/PageHeader'
@@ -14,6 +15,7 @@ const Appointments = () => {
 
     const { t } = useTranslation()
     const [modalOpen, setModalOpen] = useState(false);
+    const [detailsModalOpen, setDetailsModalOpen] = useState(false);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [selectedAppointment, setSelectedAppointment] = useState<undefined | SampleAppointments>(undefined)
     const [flag, setFlag] = useState(false)
@@ -30,15 +32,22 @@ const Appointments = () => {
         setSelectedAppointment(undefined)
     }
 
+    const handleDetailsModalClose = () => {
+        setDetailsModalOpen(false)
+        setSelectedAppointment(undefined)
+    }
 
     const handleEdit = (item: SampleAppointments) => {
         setSelectedAppointment(item)
         setModalOpen(true)
     }
     const handleDelete = (item: SampleAppointments) => {
-        console.log(item)
         setSelectedAppointment(item)
         setDeleteModalOpen(true)
+    }
+    const handleRow = (item: SampleAppointments) => {
+        setSelectedAppointment(item)
+        setDetailsModalOpen(true)
     }
     const onDeleteAppointment = async () => {
         try {
@@ -70,6 +79,8 @@ const Appointments = () => {
     return (
         <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
             <AppointmentModal visible={modalOpen} closeModal={handleModalClose} val={selectedAppointment} onUpdate={() => setFlag(!flag)} />
+            <AppointmentDetailsModal visible={detailsModalOpen} closeModal={handleDetailsModalClose} val={selectedAppointment as SampleAppointments} />
+
             <DeleteModal
                 visible={deleteModalOpen}
                 closeModal={handleDeleteModalClose}
@@ -84,7 +95,7 @@ const Appointments = () => {
 
 
 
-            <AppointmentsTable handleEdit={handleEdit} handleDelete={handleDelete} onUpdateFlag={flag} />
+            <AppointmentsTable handleEdit={handleEdit} handleDelete={handleDelete} onUpdateFlag={flag} handleRow={handleRow} />
         </div>
     )
 }

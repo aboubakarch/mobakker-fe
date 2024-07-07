@@ -1,6 +1,7 @@
 "use client"
 import CustomerCareModal from '@/components/modal/CustomerCareModal'
 import DeleteModal from '@/components/modal/DeleteModal'
+import EmployeeDetailsModal from '@/components/modal/details/EmployeeDetailsModal'
 import CustomerCareTable from '@/components/table/CustomerCareTable'
 import { Button } from '@/components/ui'
 import PageHeader from '@/components/ui/PageHeader'
@@ -13,6 +14,7 @@ import { useTranslation } from 'react-i18next'
 const CustomerCare = () => {
     const { t } = useTranslation()
     const [modalOpen, setModalOpen] = useState(false);
+    const [detailsModalOpen, setDetailsModalOpen] = useState(false);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [selectedProvider, setSelectedProvider] = useState<undefined | SampleProvider>(undefined)
     const [flag, setFlag] = useState(false)
@@ -25,7 +27,10 @@ const CustomerCare = () => {
         setSelectedProvider(undefined)
 
     }
-
+    const handleDetailsModalClose = () => {
+        setDetailsModalOpen(false)
+        setSelectedProvider(undefined)
+    }
 
     const handleDeleteModalClose = () => {
         setDeleteModalOpen(false)
@@ -42,6 +47,10 @@ const CustomerCare = () => {
         console.log(item)
         setSelectedProvider(item)
         setDeleteModalOpen(true)
+    }
+    const handleRow = (item: SampleProvider) => {
+        setSelectedProvider(item)
+        setDetailsModalOpen(true)
     }
     const onDeleteProvider = async () => {
         setLoading(true)
@@ -76,6 +85,7 @@ const CustomerCare = () => {
     return (
         <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
             <CustomerCareModal visible={modalOpen} closeModal={handleModalClose} val={selectedProvider} onUpdate={() => setFlag(!flag)} />
+            <EmployeeDetailsModal visible={detailsModalOpen} closeModal={handleDetailsModalClose} val={selectedProvider as any} />
             <DeleteModal
                 visible={deleteModalOpen}
                 closeModal={handleDeleteModalClose}
@@ -89,7 +99,7 @@ const CustomerCare = () => {
                 <Button onClick={() => setModalOpen(true)} className='bg-indigo-800 hover:bg-indigo-600'>{t(messages.ADD_REPRESENTATIVE)}</Button>
 
             </PageHeader>
-            <CustomerCareTable handleEdit={handleEdit} handleDelete={handleDelete} onUpdateFlag={flag} />
+            <CustomerCareTable handleEdit={handleEdit} handleDelete={handleDelete} onUpdateFlag={flag} handleRow={handleRow} />
         </div>
     )
 }

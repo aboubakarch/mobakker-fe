@@ -7,8 +7,11 @@ import { useToast } from '@/hooks/use-toast'
 import { PaginationState } from '@tanstack/react-table'
 import APIService from '@/services/api'
 import { Skeleton } from '../ui/Skeleton'
+import { SortEnum } from '@/constants/enums'
+import { debounce } from 'lodash'
+import AppointmentFilters from './filters/AppointmentFilters'
 
-const AppointmentsTable: FC<ITableProps<SampleAppointments>> = ({ handleDelete, handleEdit, onUpdateFlag }) => {
+const AppointmentsTable: FC<ITableProps<SampleAppointments>> = ({ handleDelete, handleEdit, onUpdateFlag, handleRow }) => {
     const { t } = useTranslation()
     const { toast } = useToast()
     const [data, setData] = useState<SampleAppointments[]>([])
@@ -16,14 +19,21 @@ const AppointmentsTable: FC<ITableProps<SampleAppointments>> = ({ handleDelete, 
     const [pageLoaded, setPageLoaded] = useState(false)
     const [loading, setLoading] = useState(false)
     const [pagination, setPagination] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 })
+    const [sort, setSort] = useState<SortEnum>(SortEnum.Descending)
+    const [search, setSearch] = useState("")
+    const [filters, setFilters] = useState<IAppointmentFilters>({})
+
 
     const fetchData = async () => {
 
         try {
             setLoading(true)
 
-            const params = {
-                page: pagination.pageIndex + 1, take: pagination.pageSize
+            let params: any = {
+                page: pagination.pageIndex + 1, take: pagination.pageSize, order: sort, ...filters
+            }
+            if (search !== '') {
+                params = { ...params, q: search, status: search }
             }
             const response = await APIService.getInstance().getAppointments(params)
             setData(response.items)
@@ -47,7 +57,36 @@ const AppointmentsTable: FC<ITableProps<SampleAppointments>> = ({ handleDelete, 
         fetchData()
 
     }, [pagination])
+    useEffect(() => {
+        handleSearch(search)
 
+    }, [search])
+    useEffect(() => {
+        setPagination({ pageIndex: 0, pageSize: 10 })
+
+    }, [filters])
+
+
+    const handleSearch =
+        debounce((term: string) => {
+            console.log(term)
+            setPagination({ pageIndex: 0, pageSize: 10 })
+        }, 400)
+
+    const handleApplyFilters = (fil: IAppointmentFilters) => {
+        setFilters(fil)
+    }
+    const handleResetFilters = () => {
+        if (filters.customer || filters.branch) {
+
+            setFilters({})
+        }
+    }
+
+    const toggleSort = () => {
+        setSort(sort === SortEnum.Ascending ? SortEnum.Descending : SortEnum.Ascending)
+        setPagination({ pageIndex: 0, pageSize: 10 })
+    }
 
     return (
 
@@ -64,7 +103,13 @@ const AppointmentsTable: FC<ITableProps<SampleAppointments>> = ({ handleDelete, 
                 onChangePagination={setPagination}
                 tablePagination={pagination}
                 loading={loading}
+                sort={sort}
+                toggleSort={toggleSort}
+                onRowClick={handleRow}
                 rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5'
+                search={search}
+                onSearch={(q: string) => setSearch(q)}
+                filterComponent={() => <AppointmentFilters onApply={handleApplyFilters} onReset={handleResetFilters} />}
             />)}
         </div>
     )

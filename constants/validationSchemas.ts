@@ -1,3 +1,4 @@
+import { validateCardNumber } from "@/lib/helpers";
 import * as yup from "yup";
 
 export const loginValidationSchema = yup.object().shape({
@@ -145,7 +146,7 @@ export const appointmentValidationSchema = yup.object().shape({
   bookedBy: yup.string().required("Booked by is required"),
   branchId: yup.string().required("Branch ID is required"),
   employeeId: yup.string().required("Employee ID is required"),
-  service: yup.string().required("Service is required"),
+  serviceId: yup.string().required("Service is required"),
 });
 
 export const providerValidationSchema = yup.object().shape({
@@ -241,3 +242,51 @@ export const assignServiceValidationSchema = yup.object().shape({
 export const assignBranchValidationSchema = yup.object().shape({
   branch: yup.string().required("Branch is required"),
 });
+
+export const paymentValidationSchema = yup.object().shape({
+  type: yup.string().oneOf(["creditcard"]).required("Card type is required"),
+  name: yup.string().required("Cardholder name is required"),
+  number: yup
+    .string()
+    .test("card-validation", "Card number is not valid", function (value: any) {
+      function isValidVisa(number: any) {
+        return /^4\d{12}(\d{3})?$/.test(number) && validateCardNumber(number);
+      }
+
+      function isValidMasterCard(number: any) {
+        return (
+          /^(5[1-5]\d{14}|2[2-7]\d{14})$/.test(number) &&
+          validateCardNumber(number)
+        );
+      }
+      if (
+        isValidVisa(value.replace(/\s+/g, "")) ||
+        isValidMasterCard(value.replace(/\s+/g, ""))
+      ) {
+        return true;
+      }
+
+      return false;
+    })
+    .required("Card number is required"),
+  expiry: yup
+    .string()
+    .matches(
+      /^(0[1-9]|1[0-2])\/(2[4-9]|[3-9][0-9])$/,
+      "Expiry date is not valid"
+    )
+    .required("Expiry date is required"),
+  cvc: yup
+    .string()
+    .matches(/^[0-9]{3,4}$/, "CVC is not valid")
+    .required("CVC is required"),
+});
+
+// // Define the main validation schema
+// export const paymentValidationSchema = yup.object().shape({
+//   subscriptionId: yup
+//     .string()
+//     .uuid("Invalid subscription ID")
+//     .required("Subscription ID is required"),
+//   source: cardSchema.required("Credit card information is required"),
+// });

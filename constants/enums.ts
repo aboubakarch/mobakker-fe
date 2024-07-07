@@ -1,6 +1,10 @@
 export enum ModalEnum {
   Test = "test",
 }
+export enum SortEnum {
+  Ascending = "ASC",
+  Descending = "DESC",
+}
 
 export enum ColorsEnum {
   Red = "red",

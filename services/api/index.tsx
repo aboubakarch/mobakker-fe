@@ -65,6 +65,9 @@ class APIService extends HTTPService {
   public getCustomers<T = any>(params: any): Promise<T> {
     return this.get<T>(endpoints.GET_ALL_CUSTOMERS, params)
   }
+  public getSubscriptions<T = any>(params: any): Promise<T> {
+    return this.get<T>(endpoints.SUBSCRIPTION, params)
+  }
   public getEmployees<T = any>(params: any): Promise<T> {
     return this.get<T>(endpoints.GET_ALL_EMPLOYEES, params)
   }
@@ -82,6 +85,9 @@ class APIService extends HTTPService {
   }
   public createService<T = any>(payload: object): Promise<T> {
     return this.post<T>(endpoints.CREATE_SERVICE, payload)
+  }
+  public subscribeSubscription<T = any>(payload: object): Promise<T> {
+    return this.post<T>(endpoints.SUBSCRIBE_SUBSCRIPTION, payload)
   }
   public editService<T = any>(id: string, payload: object): Promise<T> {
     return this.patch<T>(`${endpoints.SERVICE}/${id}`, payload)

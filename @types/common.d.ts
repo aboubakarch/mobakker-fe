@@ -1,11 +1,23 @@
 interface SampleEmployee {
-  name: string;
-  jobDesc: string;
-  bookedToday: string[];
-  workingHours: string;
-  rating: number;
-  profilePicture: string;
-  status: "Available" | "Booked" | "Working";
+  id?: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  employerId?: string;
+  data: {
+    id: string;
+    createdAt: string;
+    updatedAt: string;
+    isActive: boolean;
+    userId: string;
+    user: SampleBranchManager;
+    branchId?: string;
+    empBranch?: { name: string };
+    employerId?: string;
+    employer?: SampleBranchManager;
+    rating?: number;
+  };
 }
 interface SampleServices {
   id: string;
@@ -88,6 +100,8 @@ interface SamplePromotions {
   promoCode: string;
   startDate: Date | string;
   endDate: Date | string;
+  createdAt: string;
+  updatedAt: string;
   services: any[];
   isActive: boolean;
   id: string;
@@ -115,9 +129,12 @@ interface SampleBranch {
   city: string;
   country: string;
   cover: string;
-  ownerId: string;
-  managerId: string | null; // If managerId can be null
-  owner: Owner;
+  ownerId: string | null;
+  managerId: string | null;
+  owner: any | null;
+  services: any[];
+  manager: any | null;
+  appointments: any[];
 }
 
 interface SampleProvider {

@@ -7,8 +7,10 @@ import { useToast } from '@/hooks/use-toast'
 import { Skeleton } from '../ui/Skeleton'
 import { PaginationState } from '@tanstack/react-table'
 import { serviceTypeColumns } from './columns/ServiceTypeColumn'
+import { SortEnum } from '@/constants/enums'
+import { debounce } from 'lodash'
 
-const ServiceTypeTable: FC<ITableProps<ServiceType>> = ({ handleEdit, handleDelete, onUpdateFlag }) => {
+const ServiceTypeTable: FC<ITableProps<ServiceType>> = ({ handleEdit, handleDelete, onUpdateFlag, handleRow }) => {
     const { t } = useTranslation()
     const { toast } = useToast()
     const [data, setData] = useState<ServiceType[]>([])
@@ -16,14 +18,19 @@ const ServiceTypeTable: FC<ITableProps<ServiceType>> = ({ handleEdit, handleDele
     const [pageLoaded, setPageLoaded] = useState(false)
     const [loading, setLoading] = useState(false)
     const [pagination, setPagination] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 })
+    const [sort, setSort] = useState<SortEnum>(SortEnum.Descending)
+    const [search, setSearch] = useState("")
 
     const fetchData = async () => {
 
         try {
             setLoading(true)
 
-            const params = {
-                page: pagination.pageIndex + 1, take: pagination.pageSize
+            let params: any = {
+                page: pagination.pageIndex + 1, take: pagination.pageSize, order: sort
+            }
+            if (search !== '') {
+                params = { ...params, q: search }
             }
             const response = await APIService.getInstance().getServiceType(params)
             setData(response.items)
@@ -47,7 +54,20 @@ const ServiceTypeTable: FC<ITableProps<ServiceType>> = ({ handleEdit, handleDele
         fetchData()
 
     }, [pagination])
+    useEffect(() => {
+        handleSearch(search)
 
+    }, [search])
+
+    const handleSearch =
+        debounce((term: string) => {
+            console.log(term)
+            setPagination({ pageIndex: 0, pageSize: 10 })
+        }, 400)
+    const toggleSort = () => {
+        setSort(sort === SortEnum.Ascending ? SortEnum.Descending : SortEnum.Ascending)
+        setPagination({ pageIndex: 0, pageSize: 10 })
+    }
 
 
 
@@ -64,8 +84,14 @@ const ServiceTypeTable: FC<ITableProps<ServiceType>> = ({ handleEdit, handleDele
                 filterKey='name' count={total}
                 onChangePagination={setPagination}
                 tablePagination={pagination}
+                sort={sort}
+                toggleSort={toggleSort}
+                onRowClick={handleRow}
                 loading={loading}
                 rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5'
+                search={search}
+                onSearch={(q: string) => setSearch(q)}
+                filterComponent={() => <div className='absolute'></div>}
             />)}
         </div>
     )
