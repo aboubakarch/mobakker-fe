@@ -20,6 +20,7 @@ import APIService from '@/services/api'
 import { useToast } from '@/hooks/use-toast'
 import BranchManagerModal from './BranchManagerModal'
 import { RoleType } from '@/constants/enums'
+import { convertToFormData } from '@/lib/helpers'
 // import { getCookie } from '@/lib/helpers'
 
 
@@ -114,6 +115,8 @@ const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, v
     const { toast } = useToast()
     const [newManager, setNewManager] = useState<null | SampleBranchManager>(null)
     const [managerModal, setManagerModal] = useState(false)
+    const [image, setImage] = useState<File | null>(null);
+
 
     const states = useMemo(() => {
         const temp = State.getStatesOfCountry("SA")
@@ -128,13 +131,16 @@ const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, v
             name: values.name,
             address: values.location,
             city: values.city,
-            cover: "lkldls",
+            cover: "cover",
             // ownerId: userId,
             // ownerId: "9ed6eeca-1659-4667-a2a0-2f68d3ad92d6",
             country: "Saudi Arab",
-            managerId: values.manager || undefined
+            managerId: values.manager || undefined,
+            avatar: image ? image : undefined,
         }
-        const br = await APIService.getInstance().createBranch(branch as any);
+
+        const formDate = convertToFormData(branch)
+        const br = await APIService.getInstance().createBranch(formDate as any);
         setLoading(false)
 
         if (onSubmitData) {
@@ -189,7 +195,7 @@ const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, v
 
             toast({
                 variant: "destructive",
-                description: error?.response?.data?.message || "Error! Something went wrong",
+                description: error?.response?.data?.message ? JSON.stringify(error?.response?.data?.message) : "Error! Something went wrong",
             })
         }
         if (!onSubmitData || !temp) {
@@ -218,10 +224,10 @@ const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, v
                         <X className='w-4 h-4 relative text-black' />
                     </Button>
                 </div>
-                <div>
+                {!val && <div>
 
-                    <Dropzone title='Upload Logo' />
-                </div>
+                    <Dropzone title='Upload Logo' onFileSelect={(file) => setImage(file)} />
+                </div>}
 
                 <InputField {...branchFormVal.info(t).name} />
 

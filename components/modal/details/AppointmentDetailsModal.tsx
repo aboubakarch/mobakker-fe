@@ -8,6 +8,8 @@ import { IModalDetailsProps } from '@/@types/modals'
 import { useToast } from '@/hooks/use-toast'
 import Modal from '../Modal'
 import { Button } from '@/components/ui'
+import Image from 'next/image'
+import { isValidImageSrc } from '@/lib/helpers'
 
 
 const AppointmentDetailsModal: FC<IModalDetailsProps<SampleAppointments>> = ({ closeModal, val, visible }) => {
@@ -74,17 +76,47 @@ const AppointmentDetailsModal: FC<IModalDetailsProps<SampleAppointments>> = ({ c
                         <p>{`${(val?.customer as any)?.user?.firstName} ${(val?.customer as any)?.user?.lastName}`}</p>
                     </div>}
                     {(val as any)?.employee?.user && <div>
-                        <p className="text-sm text-gray-500">Customer User ID</p>
+                        <p className="text-sm text-gray-500">Employee Name</p>
                         <p>{`${(val as any)?.employee?.user?.firstName} ${(val as any)?.employee?.user?.lastName}`}</p>
                     </div>}
-                    <div>
-                        <p className="text-sm text-gray-500">Service</p>
-                        <p>{val.services.name}</p>
+                    <div className='grid grid-cols-2 grid-flow-row gap-5'>
+
+                        <div>
+                            <p className="text-sm text-gray-500 mb-3">Service</p>
+                            <div className="flex gap-3 items-center justify-center w-max">
+                                <div className="rounded-full h-11 w-11 relative">
+                                    <Image
+                                        src={val.services.avatar && isValidImageSrc(val.services.avatar) ? val.services.avatar : '/assets/sampleImage.jpg'}
+                                        alt="pfp"
+                                        fill
+                                        className="rounded-full"
+                                    />
+                                </div>
+                                <div className="flex flex-col text-sm font-medium leading-snug">
+                                    <p className="text-gray-900">{val.services.name}</p>
+                                    <p className="text-indigo-800">{val.services.price}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <p className="text-sm text-gray-500 mb-3">Branch</p>
+                            <div className="flex gap-3 items-center justify-center w-max">
+                                <div className="rounded-full h-11 w-11 relative">
+                                    <Image
+                                        src={val.branch.avatar && isValidImageSrc(val.branch.avatar) ? val.branch.avatar : '/assets/sampleImage.jpg'}
+                                        alt="pfp"
+                                        fill
+                                        className="rounded-full"
+                                    />
+                                </div>
+                                <div className="flex flex-col text-sm font-medium leading-snug">
+                                    <p className="text-gray-900">{val.branch.name}</p>
+                                    <p className="text-indigo-800">{val.branch.address}</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <p className="text-sm text-gray-500">Branch</p>
-                        <p>{val.branch.name}</p>
-                    </div>
+
                 </div>
             </div>
         </Modal>

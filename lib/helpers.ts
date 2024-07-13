@@ -125,3 +125,24 @@ export const debounce = (func: (...args: any[]) => void, delay: number) => {
     }, delay);
   };
 };
+
+export function convertToFormData(obj: Record<string, any>): FormData {
+  const formData = new FormData();
+
+  Object.keys(obj).forEach((key) => {
+    const value = obj[key];
+    if (value !== undefined) {
+      if (Array.isArray(value)) {
+        value.forEach((item, index) => {
+          formData.append(`${key}[${index}]`, item);
+        });
+      } else if (value instanceof File) {
+        formData.append(key, value);
+      } else {
+        formData.append(key, value);
+      }
+    }
+  });
+
+  return formData;
+}

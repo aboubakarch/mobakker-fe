@@ -7,11 +7,14 @@ import {
     DropdownMenuLabel,
     DropdownMenuTrigger,
 } from "@/components/ui"
-import { MoreVertical } from "lucide-react";
+import { Edit, HandPlatter, MoreVertical, Trash2 } from "lucide-react";
 import { messages, tableHeader } from "@/constants/constants";
 import TextColumn from "../TextColumn";
 import { Checkbox } from "@/components/ui/Checkbox";
 import { TFunction } from "i18next";
+import Image from "next/image";
+import { isValidImageSrc } from "@/lib/helpers";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/Tooltip";
 
 
 export const branchColumns: (t: TFunction<"translation", undefined>, handleEdit?: (val: SampleBranch) => void, handleDelete?: (val: SampleBranch) => void, handleAssign?: (val: SampleBranch) => void) => ColumnDef<SampleBranch>[]
@@ -43,11 +46,20 @@ export const branchColumns: (t: TFunction<"translation", undefined>, handleEdit?
             header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.BRANCH_NAME)}</div>,
 
             cell: ({ row }) => {
-                const name: string = row.getValue("name");
+                const rowItem = row.original
                 return (
-                    <div className="w-max flex items-center justify-center ltr:text-left rtl:text-right justify-self-center">
-
-                        <p className="text-sm line-clamp-1">{name}</p>
+                    <div className="flex gap-3 items-center justify-center w-max">
+                        <div className="rounded-full h-11 w-11 relative">
+                            <Image
+                                src={rowItem.avatar && isValidImageSrc(rowItem.avatar) ? rowItem.avatar : '/assets/sampleImage.jpg'}
+                                alt="pfp"
+                                fill
+                                className="rounded-full"
+                            />
+                        </div>
+                        <div className="flex flex-col text-sm font-medium leading-snug">
+                            <p className="text-gray-900">{rowItem.name}</p>
+                        </div>
                     </div>
                 )
             },
@@ -106,27 +118,42 @@ export const branchColumns: (t: TFunction<"translation", undefined>, handleEdit?
                 const rowVal = row.original
 
                 return (
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" className="h-8 w-8 p-0">
-                                <span className="sr-only">Open menu</span>
-                                <MoreVertical className="h-4 w-4" />
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                            <DropdownMenuLabel>{t(messages.ACTIONS)}</DropdownMenuLabel>
-                            <DropdownMenuItem onClick={handleAssign ? (e: any) => { e.stopPropagation(); handleAssign(rowVal) } : undefined} className="text-indigo-800 hover:bg-indigo-800 hover:bg-opacity-25">
-                                {t(messages.ASSIGN_SERVICES)}
-                            </DropdownMenuItem>
-                            <DropdownMenuItem onClick={handleEdit ? (e: any) => { e.stopPropagation(); handleEdit(rowVal) } : undefined} className="text-indigo-800 hover:bg-indigo-800 hover:bg-opacity-25">
-                                {t(messages.EDIT)}
-                            </DropdownMenuItem>
-                            <DropdownMenuItem onClick={handleDelete ? (e: any) => { e.stopPropagation(); handleDelete(rowVal) } : undefined} className="text-red-400 hover:bg-red-400 hover:bg-opacity-25">
-                                {t(messages.DELETE)}
-                            </DropdownMenuItem>
+                    <TooltipProvider>
+                        <div className="flex gap-2">
 
-                        </DropdownMenuContent>
-                    </DropdownMenu>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <Button onClick={handleAssign ? (e: any) => { e.stopPropagation(); handleAssign(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
+                                        <HandPlatter className="h-5 w-5 text-indigo-800" />
+                                    </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>{t(messages.ASSIGN_SERVICES)}</p>
+                                </TooltipContent>
+                            </Tooltip>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <Button onClick={handleEdit ? (e: any) => { e.stopPropagation(); handleEdit(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
+                                        <Edit className="h-5 w-5 text-indigo-800" />
+                                    </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>{t(messages.EDIT)}</p>
+                                </TooltipContent>
+                            </Tooltip>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <Button onClick={handleDelete ? (e: any) => { e.stopPropagation(); handleDelete(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
+                                        <Trash2 className="h-5 w-5 text-red-700" />
+                                    </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>{t(messages.DELETE)}</p>
+                                </TooltipContent>
+                            </Tooltip>
+                        </div>
+                    </TooltipProvider>
+
                 )
             },
         },

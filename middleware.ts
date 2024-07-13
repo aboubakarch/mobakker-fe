@@ -16,7 +16,7 @@ export function middleware(request: NextRequest) {
     "/ar/login",
   ];
 
-  if (url.pathname.includes("/payment/")) {
+  if (url.pathname.includes("/payment")) {
     return i18nRouter(request, i18nConfig);
   }
 

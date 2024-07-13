@@ -14,6 +14,9 @@ import { IModalCompProps } from '@/@types/modals'
 import { Button } from '../ui'
 import { useToast } from '@/hooks/use-toast'
 import APIService from '@/services/api'
+import { IFormValueObj, IPromotionFormValues } from '@/@types/forms'
+import { TFunction } from 'i18next'
+import { useFormContext } from 'react-hook-form'
 
 
 const promotionType = [
@@ -25,7 +28,25 @@ const statusType = [
     { name: "Inactive", value: false }
 ]
 
+const DatePickers: FC<{
+    promotionFormVal: IFormValueObj<IPromotionFormValues>, t: TFunction<"translation", undefined>
+}> = ({ promotionFormVal, t }) => {
 
+    const form = useFormContext()
+    const startDate = form.watch("startDate")
+
+
+    return (
+        <div className='flex gap-2'>
+            <div className='flex-1'>
+                <InputField {...promotionFormVal.info(t).startDate} />
+            </div>
+            <div className='flex-1'>
+                <InputField {...promotionFormVal.info(t).endDate} disabled={!startDate} dateDisabled={startDate} />
+            </div>
+        </div>
+    )
+}
 const PromotionModal: FC<IModalCompProps<SamplePromotions>> = ({ closeModal, visible, val, onUpdate }) => {
     const { t } = useTranslation();
     const promotionFormVal = promotionFormVals(val)
@@ -117,7 +138,7 @@ const PromotionModal: FC<IModalCompProps<SamplePromotions>> = ({ closeModal, vis
 
             toast({
                 variant: "destructive",
-                description: error?.response?.data?.message || "Error! Something went wrong",
+                description: error?.response?.data?.message ? JSON.stringify(error?.response?.data?.message) : "Error! Something went wrong",
             })
         }
         closeModal()
@@ -136,24 +157,34 @@ const PromotionModal: FC<IModalCompProps<SamplePromotions>> = ({ closeModal, vis
                     </Button>
                 </div>
 
-                <div className='flex gap-2'>
-                    <div className='flex-1 flex flex-col gap-4'>
-                        <InputField {...promotionFormVal.info(t).promoCode} />
-                        <InputField {...promotionFormVal.info(t).startDate} />
-                        <InputField data={promotionType} {...promotionFormVal.info(t).type} />
-                        <InputField  {...promotionFormVal.info(t).description} />
+                <div className='flex gap-2 flex-col gap-4'>
 
+                    <div className='flex gap-2'>
+                        <div className='flex-1'>
+                            <InputField {...promotionFormVal.info(t).promoCode} />
+                        </div>
+                        <div className='flex-1'>
+                            <InputField data={services as any} disabled={!services} {...promotionFormVal.info(t).service} />
+                        </div>
                     </div>
-                    <div className='flex-1 flex flex-col gap-4'>
-                        <InputField data={services as any} disabled={!services} {...promotionFormVal.info(t).service} />
-                        <InputField {...promotionFormVal.info(t).endDate} />
+                    <DatePickers promotionFormVal={promotionFormVal} t={t} />
 
-                        <InputField data={statusType as any} {...promotionFormVal.info(t).isActive} />
-
-
+                    <div className='flex gap-2'>
+                        <div className='flex-1'>
+                            <InputField data={promotionType} {...promotionFormVal.info(t).type} />
+                        </div>
+                        <div className='flex-1'>
+                            <InputField data={statusType as any} {...promotionFormVal.info(t).isActive} />
+                        </div>
                     </div>
-
-
+                    <div className='flex gap-2'>
+                        <div className='flex-1'>
+                            <InputField  {...promotionFormVal.info(t).discount} />
+                        </div>
+                        <div className='flex-1'>
+                            <InputField  {...promotionFormVal.info(t).description} />
+                        </div>
+                    </div>
                 </div>
 
                 <div className='self-end flex gap-3'>

@@ -18,7 +18,12 @@ class APIService extends HTTPService {
     return APIService.apiInstance
   }
   public createBranch<T = any>(payload: object): Promise<T> {
-    return this.post<T>(endpoints.CREATE_BRANCH, payload)
+    const customConfig = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
+    return this.post<T>(endpoints.CREATE_BRANCH, payload, customConfig)
   }
   public createAppointment<T = any>(payload: object): Promise<T> {
     return this.post<T>(endpoints.CREATE_APPOINtMENT, payload)
@@ -34,6 +39,12 @@ class APIService extends HTTPService {
   }
   public editBranchManager<T = any>(id: string, payload: object): Promise<T> {
     return this.patch<T>(`${endpoints.BRANCH_MANAGER_UPDATE}/${id}`, payload)
+  }
+  public editAdmin<T = any>(id: string, payload: object): Promise<T> {
+    return this.patch<T>(`${endpoints.ADMIN_UPDATE}/${id}`, payload)
+  }
+  public editServiceProvider<T = any>(id: string, payload: object): Promise<T> {
+    return this.patch<T>(`${endpoints.SERVICE_PROVIDER_UPDATE}/${id}`, payload)
   }
   public editCustomerCare<T = any>(id: string, payload: object): Promise<T> {
     return this.patch<T>(`${endpoints.CUSTOMER_CARE_UPDATE}/${id}`, payload)
@@ -51,13 +62,28 @@ class APIService extends HTTPService {
     return this.post<T>(endpoints.PROVIER_REGISTRATION, payload)
   }
   public registerEmployees<T = any>(payload: IProviderRegistrationFormValues): Promise<T> {
-    return this.post<T>(endpoints.EMPLOYEE_REGISTRATION, payload)
+    const customConfig = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
+    return this.post<T>(endpoints.EMPLOYEE_REGISTRATION, payload, customConfig)
   }
   public registerBranchManager<T = any>(payload: IProviderFormValues): Promise<T> {
-    return this.post<T>(endpoints.BRANCH_MANAGER_REGISTRATION, payload)
+    const customConfig = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
+    return this.post<T>(endpoints.BRANCH_MANAGER_REGISTRATION, payload, customConfig)
   }
   public registerCustomerCare<T = any>(payload: IProviderFormValues): Promise<T> {
-    return this.post<T>(endpoints.CUSTOMER_CARE_REGISTRATION, payload)
+    const customConfig = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
+    return this.post<T>(endpoints.CUSTOMER_CARE_REGISTRATION, payload, customConfig)
   }
   public getBranches<T = any>(params: any): Promise<T> {
     return this.get<T>(endpoints.BRANCH, params)
@@ -83,8 +109,13 @@ class APIService extends HTTPService {
   public deleteService<T = any>(id: string): Promise<T> {
     return this.delete<T>(`${endpoints.SERVICE}/${id}`)
   }
-  public createService<T = any>(payload: object): Promise<T> {
-    return this.post<T>(endpoints.CREATE_SERVICE, payload)
+  public createService<T = any>(payload: any): Promise<T> {
+    const customConfig = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
+    return this.post<T>(endpoints.CREATE_SERVICE, payload, customConfig)
   }
   public subscribeSubscription<T = any>(payload: object): Promise<T> {
     return this.post<T>(endpoints.SUBSCRIBE_SUBSCRIPTION, payload)

@@ -1,13 +1,9 @@
 import { ColumnDef } from "@tanstack/react-table";
 import {
     Button,
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuTrigger,
+
 } from "@/components/ui"
-import { MoreVertical } from "lucide-react";
+import { Edit, Trash2 } from "lucide-react";
 // import Image from "next/image";
 // import { Checkbox } from "@/components/ui/Checkbox"
 import { messages, tableHeader } from "@/constants/constants";
@@ -15,6 +11,7 @@ import TextColumn from "../TextColumn";
 import Badge from "@/components/ui/Badge";
 import { Switch } from "@/components/ui/Switch";
 import { TFunction } from "i18next";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/Tooltip";
 // import { Checkbox } from "@/components/ui/Checkbox";
 
 
@@ -147,7 +144,7 @@ export const promotionsColumns: (t: TFunction<"translation", undefined>, handleE
                 const status: boolean = row.getValue("isActive");
                 const id = row.original.id
                 return (
-                    <Switch className='data-[state=checked]:bg-indigo-800 data-[state=unchecked]:bg-red-400 ' checked={status} onCheckedChange={(checked: boolean) => {
+                    <Switch className='data-[state=checked]:bg-indigo-800 data-[state=unchecked]:bg-red-400 ' checked={status} onClick={(e) => e.stopPropagation()} onCheckedChange={(checked: boolean) => {
                         if (onToggle) {
                             onToggle(id || "", checked)
                         }
@@ -164,24 +161,31 @@ export const promotionsColumns: (t: TFunction<"translation", undefined>, handleE
                 const rowVal = row.original
 
                 return (
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" className="h-8 w-8 p-0">
-                                <span className="sr-only">Open menu</span>
-                                <MoreVertical className="h-4 w-4" />
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                            <DropdownMenuLabel>{t(messages.ACTIONS)}</DropdownMenuLabel>
-                            <DropdownMenuItem onClick={handleEdit ? (e: any) => { e.stopPropagation(); handleEdit(rowVal) } : undefined} className="text-indigo-800 hover:bg-indigo-800 hover:bg-opacity-25">
-                                {t(messages.EDIT)}
-                            </DropdownMenuItem>
-                            <DropdownMenuItem onClick={handleDelete ? (e: any) => { e.stopPropagation(); handleDelete(rowVal) } : undefined} className="text-red-400 hover:bg-red-400 hover:bg-opacity-25">
-                                {t(messages.DELETE)}
-                            </DropdownMenuItem>
+                    <TooltipProvider>
+                        <div className="flex gap-2">
 
-                        </DropdownMenuContent>
-                    </DropdownMenu>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <Button onClick={handleEdit ? (e: any) => { e.stopPropagation(); handleEdit(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
+                                        <Edit className="h-5 w-5 text-indigo-800" />
+                                    </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>{t(messages.EDIT)}</p>
+                                </TooltipContent>
+                            </Tooltip>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <Button onClick={handleDelete ? (e: any) => { e.stopPropagation(); handleDelete(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
+                                        <Trash2 className="h-5 w-5 text-red-700" />
+                                    </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>{t(messages.DELETE)}</p>
+                                </TooltipContent>
+                            </Tooltip>
+                        </div>
+                    </TooltipProvider>
                 )
             },
         },

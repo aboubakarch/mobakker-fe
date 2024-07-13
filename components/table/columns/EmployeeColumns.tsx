@@ -8,7 +8,7 @@ import {
     DropdownMenuLabel,
     DropdownMenuTrigger,
 } from "@/components/ui"
-import { MoreVertical } from "lucide-react";
+import { Edit, MoreVertical, Trash2, UserCog2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 // import { Checkbox } from "@/components/ui/Checkbox"
@@ -16,6 +16,8 @@ import { messages, tableHeader } from "@/constants/constants";
 import TextColumn from "../TextColumn";
 import Badge from "@/components/ui/Badge";
 import { TFunction } from "i18next";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/Tooltip";
+import { isValidImageSrc } from "@/lib/helpers";
 
 
 export const employeeColumns: (t: TFunction<"translation", undefined>, handleEdit?: (val: SampleProvider) => void, handleDelete?: (val: SampleProvider) => void, handleAssign?: (val: SampleProvider) => void) => ColumnDef<SampleProvider>[] =
@@ -45,15 +47,26 @@ export const employeeColumns: (t: TFunction<"translation", undefined>, handleEdi
         },
         {
             accessorKey: "firstName",
-            header: () => <div className="text-center">{t(tableHeader.NAME)}</div>,
+            header: () => <div className="text-left">{t(tableHeader.NAME)}</div>,
 
             cell: ({ row }) => {
                 const firstName: string = row.getValue("firstName");
                 const lastName: string = row.original.lastName;
+                const rowItem: any = row.original
                 return (
-                    <div className="w-max flex items-center justify-center text-center justify-self-center">
 
-                        <p className="text-sm line-clamp-1">{`${firstName} ${lastName}`}</p>
+                    <div className="flex gap-3 items-center justify-center w-max">
+                        <div className="rounded-full h-11 w-11 relative">
+                            <Image
+                                src={rowItem.avatar && isValidImageSrc(rowItem.avatar) ? rowItem.avatar : '/assets/sampleImage.jpg'}
+                                alt="pfp"
+                                fill
+                                className="rounded-full"
+                            />
+                        </div>
+                        <div className="flex flex-col text-sm font-medium leading-snug">
+                            <p className="text-gray-900">{`${firstName} ${lastName}`}</p>
+                        </div>
                     </div>
                 )
             },
@@ -61,12 +74,12 @@ export const employeeColumns: (t: TFunction<"translation", undefined>, handleEdi
 
         {
             accessorKey: "email",
-            header: () => <div className="text-center">{t(tableHeader.EMAIL)}</div>,
+            header: () => <div className="text-left">{t(tableHeader.EMAIL)}</div>,
 
             cell: ({ row }) => {
                 const email: string = row.getValue("email");
                 return (
-                    <div className="w-max flex items-center justify-center text-center justify-self-center">
+                    <div className="w-max flex items-center justify-center text-left justify-self-center">
 
                         <p className="text-sm line-clamp-1">{email}</p>
                     </div>
@@ -76,12 +89,12 @@ export const employeeColumns: (t: TFunction<"translation", undefined>, handleEdi
 
         {
             accessorKey: "phone",
-            header: () => <div className="text-center">{t(tableHeader.PHONE)}</div>,
+            header: () => <div className="text-left">{t(tableHeader.PHONE)}</div>,
 
             cell: ({ row }) => {
                 const phone: string = row.getValue("phone");
                 return (
-                    <div className="w-max flex items-center justify-center text-center justify-self-center">
+                    <div className="w-max flex items-center justify-center text-left justify-self-center">
 
                         <p className="text-sm line-clamp-1">{phone}</p>
                     </div>
@@ -90,7 +103,7 @@ export const employeeColumns: (t: TFunction<"translation", undefined>, handleEdi
         },
         {
             accessorKey: "isActive",
-            header: () => <div className="text-center">{t(tableHeader.STATUS)}</div>,
+            header: () => <div className="text-left">{t(tableHeader.STATUS)}</div>,
 
             cell: ({ row }) => {
                 const isActive: boolean = row.getValue("isActive");
@@ -108,27 +121,41 @@ export const employeeColumns: (t: TFunction<"translation", undefined>, handleEdi
                 const rowVal = row.original
 
                 return (
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" className="h-8 w-8 p-0">
-                                <span className="sr-only">Open menu</span>
-                                <MoreVertical className="h-4 w-4" />
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                            <DropdownMenuLabel>{t(messages.ACTIONS)}</DropdownMenuLabel>
-                            <DropdownMenuItem onClick={handleAssign ? (e: any) => { e.stopPropagation(); handleAssign(rowVal) } : undefined} className="text-indigo-800 hover:bg-indigo-800 hover:bg-opacity-25">
-                                {t("Assign Branch")}
-                            </DropdownMenuItem>
-                            <DropdownMenuItem onClick={handleEdit ? (e: any) => { e.stopPropagation(); handleEdit(rowVal) } : undefined} className="text-indigo-800 hover:bg-indigo-800 hover:bg-opacity-25">
-                                {t(messages.EDIT)}
-                            </DropdownMenuItem>
-                            <DropdownMenuItem onClick={handleDelete ? (e: any) => { e.stopPropagation(); handleDelete(rowVal) } : undefined} className="text-red-400 hover:bg-red-400 hover:bg-opacity-25">
-                                {t(messages.DELETE)}
-                            </DropdownMenuItem>
+                    <TooltipProvider>
+                        <div className="flex gap-2">
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <Button onClick={handleAssign ? (e: any) => { e.stopPropagation(); handleAssign(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
+                                        <UserCog2 className="h-5 w-5 text-indigo-800" />
+                                    </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>{t("Assign Branch")}</p>
+                                </TooltipContent>
+                            </Tooltip>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <Button onClick={handleEdit ? (e: any) => { e.stopPropagation(); handleEdit(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
+                                        <Edit className="h-5 w-5 text-indigo-800" />
+                                    </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>{t(messages.EDIT)}</p>
+                                </TooltipContent>
+                            </Tooltip>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <Button onClick={handleDelete ? (e: any) => { e.stopPropagation(); handleDelete(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
+                                        <Trash2 className="h-5 w-5 text-red-700" />
+                                    </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>{t(messages.DELETE)}</p>
+                                </TooltipContent>
+                            </Tooltip>
+                        </div>
+                    </TooltipProvider>
 
-                        </DropdownMenuContent>
-                    </DropdownMenu>
                 )
             },
         },
@@ -156,7 +183,7 @@ export const employeeColumns: (t: TFunction<"translation", undefined>, handleEdi
         // },
         // {
         //     accessorKey: "name",
-        //     header: () => <div className="text-center">{t(tableHeader.NAME)}</div>,
+        //     header: () => <div className="text-left">{t(tableHeader.NAME)}</div>,
         //     cell: ({ row }) => {
         //         const rowItem = row.original
         //         return (
@@ -179,7 +206,7 @@ export const employeeColumns: (t: TFunction<"translation", undefined>, handleEdi
         // },
         // {
         //     accessorKey: "jobDesc",
-        //     header: () => <div className="text-center">{t(tableHeader.JOB_DESC)}</div>,
+        //     header: () => <div className="text-left">{t(tableHeader.JOB_DESC)}</div>,
 
         //     cell: ({ row }) => {
         //         const job: string = row.getValue("jobDesc");
@@ -190,14 +217,14 @@ export const employeeColumns: (t: TFunction<"translation", undefined>, handleEdi
         // },
         // {
         //     accessorKey: "bookedToday",
-        //     header: () => <div className="text-center">{t(tableHeader.BOOKED_TODAY)}</div>,
+        //     header: () => <div className="text-left">{t(tableHeader.BOOKED_TODAY)}</div>,
 
         //     cell: ({ row }) => {
         //         const booking: string[] = row.getValue("bookedToday");
         //         return (
         //             <div className="grid grid-rows-2 grid-cols-4 gap-3 items-center">
         //                 {booking.map((book, i) => (
-        //                     <div className={cn("p-2  rounded justify-center items-center text-white text-xs font-medium leading-tight text-center", i === (Math.floor(Math.random() * 8)) ? "bg-amber-400" : "bg-indigo-800")} key={i}>{book}</div>
+        //                     <div className={cn("p-2  rounded justify-center items-center text-white text-xs font-medium leading-tight text-left", i === (Math.floor(Math.random() * 8)) ? "bg-amber-400" : "bg-indigo-800")} key={i}>{book}</div>
         //                 ))}
         //             </div>
         //         )
@@ -205,7 +232,7 @@ export const employeeColumns: (t: TFunction<"translation", undefined>, handleEdi
         // },
         // {
         //     accessorKey: "workingHours",
-        //     header: () => <div className="text-center">{t(tableHeader.WORKING_HOURS)}</div>,
+        //     header: () => <div className="text-left">{t(tableHeader.WORKING_HOURS)}</div>,
 
         //     cell: ({ row }) => {
         //         const hours: string = row.getValue("workingHours")
@@ -216,7 +243,7 @@ export const employeeColumns: (t: TFunction<"translation", undefined>, handleEdi
         // },
         // {
         //     accessorKey: "rating",
-        //     header: () => <div className="text-center">{t(tableHeader.RATING)}</div>,
+        //     header: () => <div className="text-left">{t(tableHeader.RATING)}</div>,
 
         //     cell: ({ row }) => {
         //         const rating: string = row.getValue("rating");

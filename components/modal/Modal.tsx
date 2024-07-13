@@ -34,7 +34,7 @@ function Modal({
         <div
             onClick={handleClick}
             style={{ zIndex: 9 * position }}
-            className={`fixed top-0 bottom-0 left-0 right-0 h-screen w-screen overflow-auto scrollbar bg-white/60 flex ${posStyle[place]}  justify-center`}
+            className={`fixed top-0 bottom-0 left-0 right-0 h-screen w-screen overflow-auto scrollbar bg-white/70 flex ${posStyle[place]}  justify-center`}
         >
             <div
                 style={{ zIndex: 10 * position }}

@@ -14,18 +14,23 @@ import { IModalCompProps } from '@/@types/modals'
 import { Button } from '../ui'
 import APIService from '@/services/api'
 import { useToast } from '@/hooks/use-toast'
+import { convertToFormData } from '@/lib/helpers'
 
 const BranchManagerModal: FC<IModalCompProps<SampleBranchManager>> = ({ closeModal, visible, val, onSubmitData, onUpdate }) => {
     const { t } = useTranslation();
     const providerFormVal = providerFormVals(val)
     const [loading, setLoading] = useState(false)
     const { toast } = useToast()
+    const [image, setImage] = useState<File | null>(null);
 
 
     const createNewBranchManager = async (values: yup.InferType<typeof providerValidationSchema>) => {
         // const userId = getCookie("userId");
+        const formData = convertToFormData({
+            ...values, avatar: image ? image : undefined,
+        })
 
-        const data = await APIService.getInstance().registerBranchManager(values as any);
+        const data = await APIService.getInstance().registerBranchManager(formData as any);
         setLoading(false)
         if (onSubmitData) {
             onSubmitData(data)
@@ -97,10 +102,10 @@ const BranchManagerModal: FC<IModalCompProps<SampleBranchManager>> = ({ closeMod
                         <X className='w-4 h-4 relative text-black' />
                     </Button>
                 </div>
-                <div>
+                {!val && <div>
 
-                    <Dropzone title='Upload Profile Image' />
-                </div>
+                    <Dropzone title='Upload Profile Image' onFileSelect={(file) => setImage(file)} />
+                </div>}
                 <div className='flex gap-3 w-full'>
                     <div className='flex-1'>
                         <InputField {...providerFormVal.info(t).firstName} />

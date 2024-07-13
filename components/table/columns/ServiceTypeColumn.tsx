@@ -7,13 +7,14 @@ import {
     DropdownMenuLabel,
     DropdownMenuTrigger,
 } from "@/components/ui"
-import { MoreVertical } from "lucide-react";
+import { Edit, MoreVertical, Trash2 } from "lucide-react";
 import { messages, tableHeader } from "@/constants/constants";
 import TextColumn from "../TextColumn";
 import { Checkbox } from "@/components/ui/Checkbox";
 import { TFunction } from "i18next";
 import Image from "next/image";
 import { isValidImageSrc } from "@/lib/helpers";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/Tooltip";
 
 
 export const serviceTypeColumns: (t: TFunction<"translation", undefined>, handleEdit?: (val: ServiceType) => void, handleDelete?: (val: ServiceType) => void) => ColumnDef<ServiceType>[]
@@ -83,24 +84,31 @@ export const serviceTypeColumns: (t: TFunction<"translation", undefined>, handle
                 const rowVal = row.original
 
                 return (
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" className="h-8 w-8 p-0">
-                                <span className="sr-only">Open menu</span>
-                                <MoreVertical className="h-4 w-4" />
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                            <DropdownMenuLabel>{t(messages.ACTIONS)}</DropdownMenuLabel>
-                            <DropdownMenuItem onClick={handleEdit ? () => handleEdit(rowVal) : undefined} className="text-indigo-800 hover:bg-indigo-800 hover:bg-opacity-25">
-                                {t(messages.EDIT)}
-                            </DropdownMenuItem>
-                            <DropdownMenuItem onClick={handleDelete ? () => handleDelete(rowVal) : undefined} className="text-red-400 hover:bg-red-400 hover:bg-opacity-25">
-                                {t(messages.DELETE)}
-                            </DropdownMenuItem>
+                    <TooltipProvider>
+                        <div className="flex gap-2">
 
-                        </DropdownMenuContent>
-                    </DropdownMenu>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <Button onClick={handleEdit ? (e: any) => { e.stopPropagation(); handleEdit(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
+                                        <Edit className="h-5 w-5 text-indigo-800" />
+                                    </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>{t(messages.EDIT)}</p>
+                                </TooltipContent>
+                            </Tooltip>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <Button onClick={handleDelete ? (e: any) => { e.stopPropagation(); handleDelete(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
+                                        <Trash2 className="h-5 w-5 text-red-700" />
+                                    </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>{t(messages.DELETE)}</p>
+                                </TooltipContent>
+                            </Tooltip>
+                        </div>
+                    </TooltipProvider>
                 )
             },
         },

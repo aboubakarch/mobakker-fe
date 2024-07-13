@@ -7,7 +7,7 @@ import {
     DropdownMenuLabel,
     DropdownMenuTrigger,
 } from "@/components/ui"
-import { MoreVertical } from "lucide-react";
+import { Edit, MoreVertical, Trash2 } from "lucide-react";
 import Image from "next/image";
 // import { Checkbox } from "@/components/ui/Checkbox"
 import { messages, tableHeader } from "@/constants/constants";
@@ -15,6 +15,8 @@ import TextColumn from "../TextColumn";
 import Badge from "@/components/ui/Badge";
 import { Checkbox } from "@/components/ui/Checkbox";
 import { TFunction } from "i18next";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/Tooltip";
+import { isValidImageSrc } from "@/lib/helpers";
 
 
 export const serviceColumns: (t: TFunction<"translation", undefined>, handleEdit?: (val: SampleServices) => void, handleDelete?: (val: SampleServices) => void
@@ -49,7 +51,7 @@ export const serviceColumns: (t: TFunction<"translation", undefined>, handleEdit
                 <div className="flex gap-3 items-center justify-center w-max">
                     <div className="rounded-full h-11 w-11 relative">
                         <Image
-                            src={'/assets/sampleImage.jpg'}
+                            src={rowItem.avatar && isValidImageSrc(rowItem.avatar) ? rowItem.avatar : '/assets/sampleImage.jpg'}
                             alt="pfp"
                             fill
                             className="rounded-full"
@@ -142,24 +144,31 @@ export const serviceColumns: (t: TFunction<"translation", undefined>, handleEdit
             const rowVal = row.original
 
             return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                            <span className="sr-only">Open menu</span>
-                            <MoreVertical className="h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>{t(messages.ACTIONS)}</DropdownMenuLabel>
-                        <DropdownMenuItem onClick={handleEdit ? (e: any) => { e.stopPropagation(); handleEdit(rowVal) } : undefined} className="text-indigo-800 hover:bg-indigo-800 hover:bg-opacity-25">
-                            {t(messages.EDIT)}
-                        </DropdownMenuItem>
-                        <DropdownMenuItem onClick={handleDelete ? (e: any) => { e.stopPropagation(); handleDelete(rowVal) } : undefined} className="text-red-400 hover:bg-red-400 hover:bg-opacity-25">
-                            {t(messages.DELETE)}
-                        </DropdownMenuItem>
+                <TooltipProvider>
+                    <div className="flex gap-2">
 
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Button onClick={handleEdit ? (e: any) => { e.stopPropagation(); handleEdit(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
+                                    <Edit className="h-5 w-5 text-indigo-800" />
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p>{t(messages.EDIT)}</p>
+                            </TooltipContent>
+                        </Tooltip>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Button onClick={handleDelete ? (e: any) => { e.stopPropagation(); handleDelete(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
+                                    <Trash2 className="h-5 w-5 text-red-700" />
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p>{t(messages.DELETE)}</p>
+                            </TooltipContent>
+                        </Tooltip>
+                    </div>
+                </TooltipProvider>
             )
         },
     },

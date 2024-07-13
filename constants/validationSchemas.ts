@@ -108,6 +108,26 @@ export const promotionValidationSchema = yup.object().shape({
       "Type must be either 'FIXED' or 'PERCENTAGE'"
     )
     .required("Type is required"),
+  discount: yup
+    .number()
+    .min(0, "Discount cannot be negative")
+    .required("Discount is required")
+    .test(
+      "is-valid-discount",
+      "For percentage type, the discount must be between 0% and 100%.",
+      function (value) {
+        const { type } = this.parent;
+        if (type === "PERCENTAGE" && (value < 0 || value > 100)) {
+          return false;
+        }
+        return true;
+      }
+    ),
+  description: yup
+    .string()
+    .min(5, "Description cannot be less than 5 characters.")
+    .max(250, "Description cannot exceed 500 characters.")
+    .required("Please enter a description."),
 });
 export const appointmentValidationSchema = yup.object().shape({
   bookingDate: yup.date().required("Booking date is required"),

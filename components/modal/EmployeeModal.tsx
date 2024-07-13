@@ -14,17 +14,23 @@ import { IModalCompProps } from '@/@types/modals'
 import { Button } from '../ui'
 import { useToast } from '@/hooks/use-toast'
 import APIService from '@/services/api'
+import { convertToFormData } from '@/lib/helpers'
 
 const EmployeeModal: FC<IModalCompProps> = ({ closeModal, visible, onUpdate, val }) => {
     const { t } = useTranslation();
     const providerFormVal = providerFormVals(val)
     const [loading, setLoading] = useState(false)
     const { toast } = useToast()
+    const [image, setImage] = useState<File | null>(null);
+
 
     const createNewEmployee = async (values: yup.InferType<typeof providerValidationSchema>) => {
         // const userId = getCookie("userId");
+        const formData = convertToFormData({
+            ...values, avatar: image ? image : undefined,
+        })
 
-        await APIService.getInstance().registerEmployees(values as any);
+        await APIService.getInstance().registerEmployees(formData as any);
         setLoading(false)
 
         toast({
@@ -73,7 +79,7 @@ const EmployeeModal: FC<IModalCompProps> = ({ closeModal, visible, onUpdate, val
 
             toast({
                 variant: "destructive",
-                description: error?.response?.data?.message || "Error! Something went wrong",
+                description: error?.response?.data?.message ? JSON.stringify(error?.response?.data?.message) : "Error! Something went wrong",
             })
         }
         closeModal()
@@ -94,10 +100,10 @@ const EmployeeModal: FC<IModalCompProps> = ({ closeModal, visible, onUpdate, val
                         <X className='w-4 h-4 relative text-black' />
                     </Button>
                 </div>
-                <div>
+                {!val && <div>
 
-                    <Dropzone title='Upload Profile Image' />
-                </div>
+                    <Dropzone title='Upload Profile Image' onFileSelect={(file) => setImage(file)} />
+                </div>}
                 <div className='flex gap-3 w-full'>
                     <div className='flex-1'>
                         <InputField {...providerFormVal.info(t).firstName} />

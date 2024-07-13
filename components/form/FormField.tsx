@@ -30,7 +30,7 @@ const testSelectData = [{
     value: "Test2"
 }]
 
-const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, fieldType = FieldTypesEnum.Text, disabled = false, data, type, times }) => {
+const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, fieldType = FieldTypesEnum.Text, disabled = false, data, type, times, dateDisabled }) => {
     const form = useFormContext()
     const selectData = data ? data : testSelectData
     // console.log("in form", selectData, label, fieldType)
@@ -215,7 +215,7 @@ const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, 
                                         selected={field.value}
                                         onSelect={field.onChange}
                                         disabled={(date) =>
-                                            date < new Date("1900-01-01")
+                                            date < (dateDisabled ? dateDisabled : new Date())
                                         }
                                         initialFocus
                                     />

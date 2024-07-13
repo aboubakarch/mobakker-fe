@@ -32,7 +32,7 @@ const BranchTable: FC<ITableProps<SampleBranch>> = ({ handleEdit, handleDelete, 
                 page: pagination.pageIndex + 1, take: pagination.pageSize, order: sort, ...filters
             }
             if (search !== '') {
-                params = { ...params, q: search, branchName: search, address: search }
+                params = { ...params, q: search, search }
             }
             const response = await APIService.getInstance().getBranches(params)
             setData(response.items)

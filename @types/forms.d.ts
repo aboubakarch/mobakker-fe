@@ -65,6 +65,7 @@ interface IPromotionFormValues {
   isActive: boolean;
   type: "FIXED" | "PERCENTAGE";
   description: string;
+  discount: number;
 }
 interface IAppointmentFormValues {
   bookingDate: Date;
@@ -112,6 +113,7 @@ interface IFormField {
     value: string | number;
   }[];
   times?: string[];
+  dateDisabled?: Date;
 }
 
 interface IFormValueObj<T> {

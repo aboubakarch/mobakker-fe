@@ -5,6 +5,7 @@ interface SampleEmployee {
   email: string;
   phone: string;
   employerId?: string;
+  avatar: string | null;
   data: {
     id: string;
     createdAt: string;
@@ -13,7 +14,7 @@ interface SampleEmployee {
     userId: string;
     user: SampleBranchManager;
     branchId?: string;
-    empBranch?: { name: string };
+    empBranch?: { name: string; avatar: string | null; city: string };
     employerId?: string;
     employer?: SampleBranchManager;
     rating?: number;
@@ -135,6 +136,7 @@ interface SampleBranch {
   services: any[];
   manager: any | null;
   appointments: any[];
+  avatar: string | null;
 }
 
 interface SampleProvider {
@@ -183,6 +185,7 @@ interface ILanguageChangerProps {
 interface IDropzonProps {
   title: string;
   subtitle?: string;
+  onFileSelect?: (file: File | null) => void;
 }
 
 interface ServiceType {

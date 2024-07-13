@@ -33,7 +33,7 @@ const AppointmentsTable: FC<ITableProps<SampleAppointments>> = ({ handleDelete, 
                 page: pagination.pageIndex + 1, take: pagination.pageSize, order: sort, ...filters
             }
             if (search !== '') {
-                params = { ...params, q: search, status: search }
+                params = { ...params, q: search, search }
             }
             const response = await APIService.getInstance().getAppointments(params)
             setData(response.items)

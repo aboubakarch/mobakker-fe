@@ -37,7 +37,7 @@ const paymentStatusOptions = [
 const paymentTypeOptions = [
     { name: "Cash", value: "CASH" },
     { name: "Card", value: "CARD" },
-    { name: "Transfer", value: "TRANSFER" }
+    // { name: "Transfer", value: "TRANSFER" }
 ];
 
 // const statusOptions = [
