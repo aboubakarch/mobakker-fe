@@ -17,7 +17,8 @@ import TextColumn from "../TextColumn";
 import Badge from "@/components/ui/Badge";
 import { TFunction } from "i18next";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/Tooltip";
-import { isValidImageSrc } from "@/lib/helpers";
+import { getCookie, isValidImageSrc } from "@/lib/helpers";
+import { RoleType } from "@/constants/enums";
 
 
 export const employeeColumns: (t: TFunction<"translation", undefined>, handleEdit?: (val: SampleProvider) => void, handleDelete?: (val: SampleProvider) => void, handleAssign?: (val: SampleProvider) => void) => ColumnDef<SampleProvider>[] =
@@ -119,13 +120,18 @@ export const employeeColumns: (t: TFunction<"translation", undefined>, handleEdi
             id: "actions",
             cell: ({ row }) => {
                 const rowVal = row.original
+                const role = getCookie("role")
+                console.log(role)
+                if (role === RoleType.BRANCH_MANAGER || role === RoleType.CUSTOMER_CARE) {
+                    return null
+                }
 
                 return (
                     <TooltipProvider>
                         <div className="flex gap-2">
                             <Tooltip>
                                 <TooltipTrigger asChild>
-                                    <Button onClick={handleAssign ? (e: any) => { e.stopPropagation(); handleAssign(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
+                                    <Button disabled={!(row.original as any)?.isActive} onClick={handleAssign ? (e: any) => { e.stopPropagation(); handleAssign(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
                                         <UserCog2 className="h-5 w-5 text-indigo-800" />
                                     </Button>
                                 </TooltipTrigger>
@@ -135,7 +141,7 @@ export const employeeColumns: (t: TFunction<"translation", undefined>, handleEdi
                             </Tooltip>
                             <Tooltip>
                                 <TooltipTrigger asChild>
-                                    <Button onClick={handleEdit ? (e: any) => { e.stopPropagation(); handleEdit(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
+                                    <Button disabled={!(row.original as any)?.isActive} onClick={handleEdit ? (e: any) => { e.stopPropagation(); handleEdit(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
                                         <Edit className="h-5 w-5 text-indigo-800" />
                                     </Button>
                                 </TooltipTrigger>
@@ -145,7 +151,7 @@ export const employeeColumns: (t: TFunction<"translation", undefined>, handleEdi
                             </Tooltip>
                             <Tooltip>
                                 <TooltipTrigger asChild>
-                                    <Button onClick={handleDelete ? (e: any) => { e.stopPropagation(); handleDelete(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
+                                    <Button disabled={!(row.original as any)?.isActive} onClick={handleDelete ? (e: any) => { e.stopPropagation(); handleDelete(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
                                         <Trash2 className="h-5 w-5 text-red-700" />
                                     </Button>
                                 </TooltipTrigger>

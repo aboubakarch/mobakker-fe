@@ -6,7 +6,9 @@ import AppointmentsTable from '@/components/table/AppointmentsTable'
 import { Button } from '@/components/ui'
 import PageHeader from '@/components/ui/PageHeader'
 import { messages } from '@/constants/constants'
+import { RoleType } from '@/constants/enums'
 import { useToast } from '@/hooks/use-toast'
+import { getCookie } from '@/lib/helpers'
 import APIService from '@/services/api'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -20,6 +22,9 @@ const Appointments = () => {
     const [selectedAppointment, setSelectedAppointment] = useState<undefined | SampleAppointments>(undefined)
     const [flag, setFlag] = useState(false)
     const { toast } = useToast()
+    const role = getCookie("role")
+    let user: any = getCookie("user")
+    user = JSON.parse(user || "null");
 
 
     const handleModalClose = () => {
@@ -75,6 +80,18 @@ const Appointments = () => {
         handleDeleteModalClose()
     }
 
+    const handleModalOpen = () => {
+        if (user && (role === RoleType.BRANCH_MANAGER || role === RoleType.CUSTOMER_CARE) && user?.employee?.branchId) {
+            setModalOpen(true)
+        }
+        else {
+            toast({
+                variant: "destructive",
+                description: "You cannot add an Appointment. Please ask your employer to assign you to a branch.",
+            })
+        }
+    }
+
 
     return (
         <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
@@ -90,7 +107,7 @@ const Appointments = () => {
             <PageHeader title={t(messages.APPOINTMENTS)}
                 description={t(messages.TRACK_APPOINTMENTS)}
             >
-                <Button onClick={() => setModalOpen(true)} className='bg-indigo-800 hover:bg-indigo-600'>{t(messages.ADD_APPOINTMENTS)}</Button>
+                <Button onClick={handleModalOpen} className='bg-indigo-800 hover:bg-indigo-600'>{t(messages.ADD_APPOINTMENTS)}</Button>
             </PageHeader>
 
 

@@ -397,7 +397,7 @@ export const sidebarManagerNavigation: ISideBarItem[] = [
   SideBarItems.Employee(""),
   SideBarItems.LoyalProgram(""),
   SideBarItems.Services(""),
-  SideBarItems.ServiceTypes(""),
+  // SideBarItems.ServiceTypes(""),
   SideBarItems.Promotions(""),
   SideBarItems.Rating(""),
   SideBarItems.Notification(""),

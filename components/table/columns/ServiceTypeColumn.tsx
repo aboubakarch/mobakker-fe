@@ -13,8 +13,9 @@ import TextColumn from "../TextColumn";
 import { Checkbox } from "@/components/ui/Checkbox";
 import { TFunction } from "i18next";
 import Image from "next/image";
-import { isValidImageSrc } from "@/lib/helpers";
+import { getCookie, isValidImageSrc } from "@/lib/helpers";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/Tooltip";
+import { RoleType } from "@/constants/enums";
 
 
 export const serviceTypeColumns: (t: TFunction<"translation", undefined>, handleEdit?: (val: ServiceType) => void, handleDelete?: (val: ServiceType) => void) => ColumnDef<ServiceType>[]
@@ -82,6 +83,11 @@ export const serviceTypeColumns: (t: TFunction<"translation", undefined>, handle
             id: "actions",
             cell: ({ row }) => {
                 const rowVal = row.original
+                const role = getCookie("role")
+                if (role === RoleType.BRANCH_MANAGER || role === RoleType.CUSTOMER_CARE || role === RoleType.SERVICE_PROVIDER) {
+                    return null
+                }
+
 
                 return (
                     <TooltipProvider>

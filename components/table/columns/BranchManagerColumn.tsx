@@ -3,7 +3,7 @@ import {
     Button,
 
 } from "@/components/ui"
-import { Edit, MoreVertical, Trash2 } from "lucide-react";
+import { Edit, MoreVertical, Trash2, UserCog2 } from "lucide-react";
 import { messages, tableHeader } from "@/constants/constants";
 import { Checkbox } from "@/components/ui/Checkbox";
 import { TFunction } from "i18next";
@@ -12,8 +12,8 @@ import { isValidImageSrc } from "@/lib/helpers";
 import Image from "next/image";
 
 
-export const branchManagerColumns: (t: TFunction<"translation", undefined>, handleEdit?: (val: SampleProvider) => void, handleDelete?: (val: SampleProvider) => void) => ColumnDef<SampleProvider>[] =
-    (t, handleEdit, handleDelete) => [
+export const branchManagerColumns: (t: TFunction<"translation", undefined>, handleEdit?: (val: SampleProvider) => void, handleDelete?: (val: SampleProvider) => void, handleAssign?: (val: SampleProvider) => void) => ColumnDef<SampleProvider>[] =
+    (t, handleEdit, handleDelete, handleAssign) => [
         {
             id: "select",
             header: ({ table }) => (
@@ -111,12 +111,23 @@ export const branchManagerColumns: (t: TFunction<"translation", undefined>, hand
             cell: ({ row }) => {
                 const rowVal = row.original
 
+
                 return (
                     <TooltipProvider>
                         <div className="flex gap-2">
+                            {/* <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <Button disabled={!(row.original as any)?.isActive} onClick={handleAssign ? (e: any) => { e.stopPropagation(); handleAssign(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
+                                        <UserCog2 className="h-5 w-5 text-indigo-800" />
+                                    </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>{t("Assign Branch")}</p>
+                                </TooltipContent>
+                            </Tooltip> */}
                             <Tooltip>
                                 <TooltipTrigger asChild>
-                                    <Button onClick={handleEdit ? (e: any) => { e.stopPropagation(); handleEdit(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
+                                    <Button disabled={!(row.original as any)?.isActive} onClick={handleEdit ? (e: any) => { e.stopPropagation(); handleEdit(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
                                         <Edit className="h-5 w-5 text-indigo-800" />
                                     </Button>
                                 </TooltipTrigger>
@@ -126,7 +137,7 @@ export const branchManagerColumns: (t: TFunction<"translation", undefined>, hand
                             </Tooltip>
                             <Tooltip>
                                 <TooltipTrigger asChild>
-                                    <Button onClick={handleDelete ? (e: any) => { e.stopPropagation(); handleDelete(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
+                                    <Button disabled={!(row.original as any)?.isActive} onClick={handleDelete ? (e: any) => { e.stopPropagation(); handleDelete(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
                                         <Trash2 className="h-5 w-5 text-red-700" />
                                     </Button>
                                 </TooltipTrigger>

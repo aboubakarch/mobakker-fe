@@ -16,7 +16,8 @@ import Badge from "@/components/ui/Badge";
 import { Checkbox } from "@/components/ui/Checkbox";
 import { TFunction } from "i18next";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/Tooltip";
-import { isValidImageSrc } from "@/lib/helpers";
+import { getCookie, isValidImageSrc } from "@/lib/helpers";
+import { RoleType } from "@/constants/enums";
 
 
 export const serviceColumns: (t: TFunction<"translation", undefined>, handleEdit?: (val: SampleServices) => void, handleDelete?: (val: SampleServices) => void
@@ -142,6 +143,11 @@ export const serviceColumns: (t: TFunction<"translation", undefined>, handleEdit
         id: "actions",
         cell: ({ row }) => {
             const rowVal = row.original
+
+            const role = getCookie("role")
+            if (role === RoleType.BRANCH_MANAGER || role === RoleType.CUSTOMER_CARE) {
+                return null
+            }
 
             return (
                 <TooltipProvider>

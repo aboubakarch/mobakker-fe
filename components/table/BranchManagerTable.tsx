@@ -11,7 +11,7 @@ import { SortEnum } from '@/constants/enums'
 import { debounce } from 'lodash'
 import EmployeeFilters from './filters/EmployeeFilters'
 
-const BranchManagerTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, handleDelete, onUpdateFlag, handleRow }) => {
+const BranchManagerTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, handleDelete, onUpdateFlag, handleRow, handleAssign }) => {
     const { t } = useTranslation()
     const { toast } = useToast()
     const [data, setData] = useState<SampleBranchManager[]>([])
@@ -37,7 +37,7 @@ const BranchManagerTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, 
             }
             const response = await APIService.getInstance().getServiceBranchManager(params)
             console.log(response)
-            setData(response.items.map((item: any) => ({ ...item.user, data: { ...item } })))
+            setData(response.items.map((item: any) => ({ ...item.user, employerId: (item as any)?.employerId, employeeId: (item as any)?.id, data: { ...item } })))
             setTotal(response.pageMetaDto.itemCount)
             // console.log(response)
         } catch (error: any) {
@@ -102,7 +102,7 @@ const BranchManagerTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, 
                 </div>
             ) : (<DataTable
                 data={data}
-                columns={branchManagerColumns(t, handleEdit, handleDelete)}
+                columns={branchManagerColumns(t, handleEdit, handleDelete, handleAssign)}
                 filterKey='firstName' count={total}
                 onChangePagination={setPagination}
                 tablePagination={pagination}

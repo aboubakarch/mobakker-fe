@@ -17,6 +17,8 @@ import APIService from '@/services/api'
 import { IAppointmentFormValues, IFormValueObj } from '@/@types/forms'
 import { useFormContext } from 'react-hook-form'
 import { TFunction } from 'i18next'
+import { getCookie } from '@/lib/helpers'
+import { RoleType } from '@/constants/enums'
 
 
 const repeatOptions = [
@@ -57,9 +59,23 @@ const AppointmentForm: FC<{
     const service = form.watch("serviceId")
     const branchId = form.watch("branchId")
     const [hours, setHours] = useState<string[] | undefined>(undefined)
+    const role = getCookie("role")
+    let user: any = getCookie("user")
+    user = JSON.parse(user || "null");
+
+    useEffect(() => {
+        if (user && (role === RoleType.BRANCH_MANAGER || role === RoleType.CUSTOMER_CARE) && user?.employee?.branchId) {
+            form.setValue("branchId", user?.employee?.branchId, {
+                shouldValidate: true,
+                shouldDirty: true
+            })
+        }
+
+    }, [])
 
     useEffect(() => {
         if (branchId && branchId !== "") {
+
             fetchEmployeesData(branchId)
 
         }
@@ -87,7 +103,7 @@ const AppointmentForm: FC<{
     return (
         <div className='flex flex-col gap-4'>
             <div className=' grid grid-cols-2 gap-2 w-full'>
-                <InputField {...appointmentFormVal.info(t).branchId} data={branches ? branches : undefined} />
+                {!(role === RoleType.BRANCH_MANAGER || role === RoleType.CUSTOMER_CARE) && <InputField {...appointmentFormVal.info(t).branchId} data={branches ? branches : undefined} />}
                 <InputField {...appointmentFormVal.info(t).employeeId} disabled={branchId === "" || employees === null} data={employees as any} />
 
             </div>

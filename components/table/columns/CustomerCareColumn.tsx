@@ -120,7 +120,7 @@ export const customerColumns: (t: TFunction<"translation", undefined>, handleEdi
                         <div className="flex gap-2">
                             <Tooltip>
                                 <TooltipTrigger asChild>
-                                    <Button onClick={handleEdit ? (e: any) => { e.stopPropagation(); handleEdit(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
+                                    <Button disabled={!(row.original as any)?.isActive} onClick={handleEdit ? (e: any) => { e.stopPropagation(); handleEdit(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
                                         <Edit className="h-5 w-5 text-indigo-800" />
                                     </Button>
                                 </TooltipTrigger>
@@ -130,7 +130,7 @@ export const customerColumns: (t: TFunction<"translation", undefined>, handleEdi
                             </Tooltip>
                             <Tooltip>
                                 <TooltipTrigger asChild>
-                                    <Button onClick={handleDelete ? (e: any) => { e.stopPropagation(); handleDelete(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
+                                    <Button disabled={!(row.original as any)?.isActive} onClick={handleDelete ? (e: any) => { e.stopPropagation(); handleDelete(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
                                         <Trash2 className="h-5 w-5 text-red-700" />
                                     </Button>
                                 </TooltipTrigger>
