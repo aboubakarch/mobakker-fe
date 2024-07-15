@@ -156,6 +156,9 @@ class APIService extends HTTPService {
   public getServiceBranchManager<T = any>(params: any): Promise<T> {
     return this.get<T>(endpoints.SERVICE_BRANCH_MANAGER, params)
   }
+  public getCities<T = any>(params: any): Promise<T> {
+    return this.get<T>(endpoints.GET_CITIES, params)
+  }
   public getCustomerCare<T = any>(params: any): Promise<T> {
     return this.get<T>(endpoints.CUSTOMER_CARE_EMPLOYEE, params)
   }

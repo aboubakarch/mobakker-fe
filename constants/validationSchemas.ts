@@ -23,11 +23,11 @@ export const branchValidationSchema = yup.object().shape({
     .max(100, "Name cannot exceed 100 characters")
     .required("Name is required"),
   location: yup.string().required("Location is required"),
-  state: yup
-    .string()
-    .min(2, "State is required")
-    .max(300, "State is required")
-    .required("State is required"),
+  // state: yup
+  //   .string()
+  //   .min(2, "State is required")
+  //   .max(300, "State is required")
+  //   .required("State is required"),
   city: yup
     .string()
     .min(2, "City is required")

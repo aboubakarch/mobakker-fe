@@ -50,7 +50,7 @@ export const branchDefaultValues: (val?: SampleBranch) => IBranchFormValues = (
 ) => ({
   name: val ? val.name : "",
   state: "",
-  city: val ? val.city : "",
+  city: val ? val.branchCityId || "" : "",
   location: val ? val.address : "",
   manager: val ? val.managerId || "" : "",
 });
@@ -220,19 +220,19 @@ export const branchFormVals: (
       name: "location",
       label: t(formConstants.LOCATION),
     },
-    state: {
-      placeHolder: t(formConstants.STATE),
-      hasError: true,
-      name: "state",
-      label: t(formConstants.STATE),
-      fieldType: FieldTypesEnum.Select,
-    },
+    // state: {
+    //   placeHolder: t(formConstants.STATE),
+    //   hasError: true,
+    //   name: "state",
+    //   label: t(formConstants.STATE),
+    //   fieldType: FieldTypesEnum.Select,
+    // },
     city: {
       placeHolder: t(formConstants.CITY),
       hasError: true,
       name: "city",
       label: t(formConstants.CITY),
-      fieldType: FieldTypesEnum.Select,
+      fieldType: FieldTypesEnum.SingleSearchSelect,
     },
     manager: {
       placeHolder: t(formConstants.SELECT_MANAGER),

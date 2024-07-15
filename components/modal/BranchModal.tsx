@@ -12,7 +12,6 @@ import { messages } from '@/constants/constants'
 import { X } from 'lucide-react'
 import { IModalCompProps } from '@/@types/modals'
 import { Button } from '../ui'
-import { City, State } from 'country-state-city';
 import { IBranchFormValues, IFormValueObj } from '@/@types/forms'
 import { TFunction } from 'i18next'
 import { useFormContext } from 'react-hook-form'
@@ -25,33 +24,33 @@ import { convertToFormData } from '@/lib/helpers'
 
 
 
-const CityPicker: FC<{
-    branchFormVal: IFormValueObj<IBranchFormValues>, states: any[], t: TFunction<"translation", undefined>
-}> = ({ branchFormVal, states, t }) => {
+// const CityPicker: FC<{
+//     branchFormVal: IFormValueObj<IBranchFormValues>, states: any[], t: TFunction<"translation", undefined>
+// }> = ({ branchFormVal, states, t }) => {
 
-    const [cities, setCites] = useState<any[]>([])
-    const form = useFormContext()
-    const state = form.watch("state")
-    // console.log("state changed", state)
-    useEffect(() => {
-        const tcities = City.getCitiesOfState("SA", state)
-        // const cities = State.getStatesOfCountry("SA")
-        setCites(tcities.map(st => ({ name: st.name, value: st.name })))
-    }, [state])
+//     const [cities, setCites] = useState<any[]>([])
+//     const form = useFormContext()
+//     const state = form.watch("state")
+//     // console.log("state changed", state)
+//     useEffect(() => {
+//         const tcities = City.getCitiesOfState("SA", state)
+//         console.log(tcities)
+//         setCites(tcities.map(st => ({ name: st.name, value: st.name })))
+//     }, [state])
 
-    return (
-        <div className='flex gap-3 w-full'>
-            <div className='flex-1'>
-                <InputField {...branchFormVal.info(t).state} data={states} />
+//     return (
+//         <div className='flex gap-3 w-full'>
+//             <div className='flex-1'>
+//                 <InputField {...branchFormVal.info(t).state} data={states} />
 
-            </div>
-            <div className='flex-1'>
-                <InputField {...branchFormVal.info(t).city} data={cities} disabled={cities.length === 0} />
-            </div>
+//             </div>
+//             <div className='flex-1'>
+//                 <InputField {...branchFormVal.info(t).city} data={cities} disabled={cities.length === 0} />
+//             </div>
 
-        </div>
-    )
-}
+//         </div>
+//     )
+// }
 
 const ManagerPicker: FC<{
     branchFormVal: IFormValueObj<IBranchFormValues>, t: TFunction<"translation", undefined>, manager: null | SampleBranchManager, children?: React.ReactNode
@@ -74,9 +73,11 @@ const ManagerPicker: FC<{
                 value: item?.id
             }))
             setManagers(data)
-            console.log("MANAGERS", data)
             if (manager) {
-                form.setValue("manager", manager.id)
+                form.setValue("manager", manager.id, {
+                    shouldValidate: true,
+                    shouldDirty: true
+                })
             }
 
         } catch (error) {
@@ -116,27 +117,47 @@ const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, v
     const [newManager, setNewManager] = useState<null | SampleBranchManager>(null)
     const [managerModal, setManagerModal] = useState(false)
     const [image, setImage] = useState<File | null>(null);
+    const [cities, setCites] = useState<any[]>([])
 
 
-    const states = useMemo(() => {
-        const temp = State.getStatesOfCountry("SA")
-        return temp.map(st => ({ name: st.name, value: st.isoCode }))
-    }, [])
     // console.log("states", states)
+
+    useEffect(() => {
+        fetchData()
+    }, [])
+
+    const fetchData = async () => {
+
+        try {
+            const params = {
+            }
+            const response = await APIService.getInstance().getCities(params)
+
+            const data = response?.map((item: any) => ({
+                name: item?.name,
+                value: item?.id
+            }))
+            setCites(data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
 
     const createNewBranch = async (values: yup.InferType<typeof branchValidationSchema>) => {
+        const cityName = cities.filter(city => city.value === values.city)
         // const userId = getCookie("userId");
         const branch = {
             name: values.name,
             address: values.location,
-            city: values.city,
+            city: cityName.length > 0 ? cityName[0].name || values.city : values.city,
             cover: "cover",
             // ownerId: userId,
             // ownerId: "9ed6eeca-1659-4667-a2a0-2f68d3ad92d6",
             country: "Saudi Arab",
             managerId: values.manager || undefined,
             avatar: image ? image : undefined,
+            branchCityId: values.city
         }
 
         const formDate = convertToFormData(branch)
@@ -155,13 +176,15 @@ const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, v
 
     }
     const editBranch = async (values: yup.InferType<typeof branchValidationSchema>) => {
+        const cityName = cities.filter(city => city.value === values.city)
 
         const branch = {
             name: values.name,
             address: values.location,
-            city: values.city,
+            city: cityName.length > 0 ? cityName[0].name || values.city : values.city,
             country: "Saudi Arab",
-            managerId: values.manager || undefined
+            managerId: values.manager || undefined,
+            branchCityId: values.city
         }
         await APIService.getInstance().editBranch(val?.id as string, branch as any);
         setLoading(false)
@@ -232,7 +255,9 @@ const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, v
                 <InputField {...branchFormVal.info(t).name} />
 
                 <InputField {...branchFormVal.info(t).location} />
-                <CityPicker branchFormVal={branchFormVal} states={states} t={t} />
+                {/* <CityPicker branchFormVal={branchFormVal} states={states} t={t} /> */}
+                <InputField {...branchFormVal.info(t).city} data={cities} disabled={cities.length === 0} />
+
                 <ManagerPicker branchFormVal={branchFormVal} manager={newManager} t={t}>
                     <Button type='button' onClick={() => setManagerModal(true)} className='bg-indigo-800 hover:bg-indigo-600'>{t(messages.ADD_MANAGER)}</Button>
 

@@ -34,4 +34,5 @@ export const endpoints = {
   GET_ALL_CUSTOMERS: "/customer",
   SUBSCRIPTION: "/subscriptions",
   SUBSCRIBE_SUBSCRIPTION: "/subscriptions/subscribe",
+  GET_CITIES: "/country-state-city/cities",
 };

@@ -137,6 +137,7 @@ interface SampleBranch {
   manager: any | null;
   appointments: any[];
   avatar: string | null;
+  branchCityId?: string;
 }
 
 interface SampleProvider {
