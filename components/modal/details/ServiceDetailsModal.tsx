@@ -6,6 +6,8 @@ import { useToast } from '@/hooks/use-toast';
 import Modal from '../Modal';
 import { Button } from '@/components/ui';
 import moment from 'moment';
+import Image from 'next/image';
+import { isValidImageSrc } from '@/lib/helpers';
 
 
 
@@ -17,15 +19,31 @@ const ServiceDetailsModal: FC<IModalDetailsProps<SampleServices>> = ({ closeModa
     }
 
     return (
-        <Modal visibility={visible} closeModal={closeModal} position={2} className='shadow-xl'>
+        <Modal visibility={visible} closeModal={closeModal} position={2} className='shadow-xl md:w-[55%] max-h-[80%] overflow-auto scrollbar'>
             <div className="px-6 py-5 flex gap-4 flex-col">
                 <div className='flex justify-between w-full'>
-                    <p className='text-black text-xl font-medium leading-[30px]'>{val.name}</p>
+                    <div></div>
                     <Button variant={'ghost'} onClick={closeModal} className='px-3 py-0'>
                         <X className='w-4 h-4 relative text-black' />
                     </Button>
                 </div>
                 <div className="space-y-4">
+                    <div className='h-full flex flex-col gap-3 '>
+                        <div className="flex gap-3">
+                            <div className="rounded-full h-20 w-20 relative">
+                                <Image
+                                    src={val.avatar && isValidImageSrc(val.avatar) ? val.avatar : '/assets/sampleImage.jpg'}
+                                    alt="pfp"
+                                    fill
+                                    className="rounded-full"
+                                />
+                            </div>
+
+                        </div>
+
+                        <p className='text-black text-xl font-medium leading-[30px]'>{val.name}</p>
+                    </div>
+
                     <div className='grid grid-cols-2 grid-flow-row gap-3'>
 
                         <div>
@@ -67,22 +85,33 @@ const ServiceDetailsModal: FC<IModalDetailsProps<SampleServices>> = ({ closeModa
 
                     </div>
                     <div>
-                        <p className="text-sm text-gray-500">Availability</p>
-                        <div className="grid grid-rows-2 grid-cols-4 gap-3 items-center">
+                        <p className="text-sm text-gray-500 mb-3">Availability</p>
+                        <div className="grid grid-flow-row grid-cols-4 gap-3 items-center">
                             {val.availablity.split(",").map((a: any, i: number) => (
                                 <div className={"p-2  rounded justify-center items-center text-white text-[9px] font-medium leading-tight text-center bg-indigo-800"} key={i}>{a}</div>
                             ))}
                         </div>                    </div>
                     {val.branches && val.branches.length > 0 && (
                         <div>
-                            <p className="text-sm text-gray-500">Branches</p>
-                            <ul className="list-disc list-inside">
+                            <p className="text-sm text-gray-500 mb-3">Branches</p>
+                            <div className="grid grid-cols-2 grid-flow-row gap-5">
                                 {val.branches.map((branch) => (
-                                    <li key={branch.id}>
-                                        {branch.name} - {branch.city}, {branch.country}
-                                    </li>
+                                    <div key={branch.id} className="flex gap-3 items-center justify-center w-max">
+                                        <div className="rounded-full h-11 w-11 relative">
+                                            <Image
+                                                src={branch.avatar && isValidImageSrc(branch.avatar) ? branch.avatar : '/assets/sampleImage.jpg'}
+                                                alt="pfp"
+                                                fill
+                                                className="rounded-full"
+                                            />
+                                        </div>
+                                        <div className="flex flex-col text-sm font-medium leading-snug">
+                                            <p className="text-gray-900">{branch.name}</p>
+                                            <p className="text-indigo-800">{branch.city}</p>
+                                        </div>
+                                    </div>
                                 ))}
-                            </ul>
+                            </div>
                         </div>
                     )}
                 </div>

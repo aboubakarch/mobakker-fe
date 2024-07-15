@@ -1,4 +1,5 @@
 "use client"
+import AssignBranchModal from '@/components/modal/AssignBranchModal'
 import BranchManagerModal from '@/components/modal/BranchManagerModal'
 import DeleteModal from '@/components/modal/DeleteModal'
 import EmployeeDetailsModal from '@/components/modal/details/EmployeeDetailsModal'
@@ -17,6 +18,7 @@ const BranchManager = () => {
     const [detailsModalOpen, setDetailsModalOpen] = useState(false);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [selectedProvider, setSelectedProvider] = useState<undefined | SampleProvider>(undefined)
+    const [assignModalOpen, setAssignModalOpen] = useState(false);
     const [flag, setFlag] = useState(false)
     const [loading, setLoading] = useState(false)
     const { toast } = useToast()
@@ -38,6 +40,10 @@ const BranchManager = () => {
         setDetailsModalOpen(false)
         setSelectedProvider(undefined)
     }
+    const handleAssignModalClose = () => {
+        setAssignModalOpen(false)
+        setSelectedProvider(undefined)
+    }
     const handleEdit = (item: SampleProvider) => {
         console.log(item)
         setSelectedProvider(item)
@@ -48,6 +54,11 @@ const BranchManager = () => {
         setSelectedProvider(item)
         setDeleteModalOpen(true)
     }
+    const handleAssign = (item: SampleBranchManager) => {
+        setSelectedProvider(item)
+        setAssignModalOpen(true)
+    }
+
     const handleRow = (item: SampleProvider) => {
         setSelectedProvider(item)
         setDetailsModalOpen(true)
@@ -92,13 +103,17 @@ const BranchManager = () => {
                 title={messages.BRANCH_MANAGERS}
                 loading={loading}
             />
+            <AssignBranchModal
+                visible={assignModalOpen} closeModal={handleAssignModalClose} val={selectedProvider} onUpdate={() => setFlag(!flag)}
+            />
+
             <PageHeader title={t(messages.BRANCH_MANAGERS)}
                 description={t(messages.MANAGE_BRANCH_LEADERS)}
             >
                 <Button onClick={() => setModalOpen(true)} className='bg-indigo-800 hover:bg-indigo-600'>{t(messages.ADD_MANAGER)}</Button>
 
             </PageHeader>
-            <BranchManagerTable handleEdit={handleEdit} handleDelete={handleDelete} onUpdateFlag={flag} handleRow={handleRow} />
+            <BranchManagerTable handleEdit={handleEdit} handleDelete={handleDelete} handleAssign={handleAssign} onUpdateFlag={flag} handleRow={handleRow} />
         </div>
     )
 }

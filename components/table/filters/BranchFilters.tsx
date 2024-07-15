@@ -1,25 +1,32 @@
 import React, { FC, useEffect, useMemo, useState } from 'react'
 import BaseFilter from './BaseFilter'
-import { City, State } from 'country-state-city'
 import { SingleSearchSelect } from '@/components/form/SingleSearchSelect'
 import APIService from '@/services/api'
 
 const BranchFilters: FC<IFilterProps<IBranchFilters>> = ({ onApply, onReset }) => {
     const [cities, setCites] = useState<any[]>([])
-    const [state, setState] = useState("")
     const [city, setCity] = useState("")
     const [manager, setManager] = useState("")
     const [managers, setManagers] = useState("")
-    const states = useMemo(() => {
-        const temp = State.getStatesOfCountry("SA")
-        return temp.map(st => ({ name: st.name, value: st.isoCode }))
-    }, [])
 
-    useEffect(() => {
-        const tcities = City.getCitiesOfState("SA", state)
-        setCity("")
-        setCites(tcities.map(st => ({ name: st.name, value: st.name })))
-    }, [state])
+
+    const fetchDataCities = async () => {
+
+        try {
+            const params = {
+            }
+            const response = await APIService.getInstance().getCities(params)
+
+            const data = response?.map((item: any) => ({
+                name: item?.name,
+                // value: item?.id
+                value: item?.name
+            }))
+            setCites(data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     const fetchData = async () => {
 
@@ -43,6 +50,7 @@ const BranchFilters: FC<IFilterProps<IBranchFilters>> = ({ onApply, onReset }) =
 
     useEffect(() => {
         fetchData()
+        fetchDataCities()
     }, [])
 
     const handleApply = () => {
@@ -66,19 +74,15 @@ const BranchFilters: FC<IFilterProps<IBranchFilters>> = ({ onApply, onReset }) =
         <BaseFilter onApply={handleApply} onReset={handleReset}>
 
             <div className='my-6 flex flex-col gap-6'>
+
+
                 <div>
-                    <p className='text-sm text-black mb-2'>State</p>
-                    <SingleSearchSelect label={"States"} data={states as any} selected={state} setSelected={(item: string) => setState(item) as any} />
-
-                </div>
-
-                {cities.length !== 0 && <div>
                     <p className='text-sm text-black mb-2'>City</p>
                     <SingleSearchSelect label={"City"}
                         data={cities as any} selected={city}
                         setSelected={(item: string) => setCity(item) as any}
                     />
-                </div>}
+                </div>
                 <div>
                     <p className='text-sm text-black mb-2'>Manager</p>
                     <SingleSearchSelect label={"Manager"} data={managers as any} selected={manager} setSelected={(item: string) => setManager(item) as any} />

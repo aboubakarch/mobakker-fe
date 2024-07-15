@@ -69,7 +69,7 @@ export const EmployeeMultiSelect: React.FC<{
                     <ChevronsUpDown className="ltr:ml-2 rtl:mr-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="full">
+            <DropdownMenuContent className="full max-h-96 overflow-auto scrollbar">
                 <DropdownMenuLabel>{label || "Items"}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
 

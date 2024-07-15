@@ -19,7 +19,7 @@ import { useFormContext } from 'react-hook-form'
 import { IFormValueObj, IServiceFormValues } from '@/@types/forms'
 import { TFunction } from 'i18next'
 import { format, parse, addMinutes, isBefore, isEqual } from 'date-fns';
-import { getCookie } from '@/lib/helpers'
+import { convertToFormData, getCookie } from '@/lib/helpers'
 
 const timeSlotData = [
     {
@@ -155,6 +155,7 @@ const ServiceModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate 
     const [loading, setLoading] = useState(false)
     const { toast } = useToast()
     const [serviceTypes, setServiceTypes] = useState<any[] | null>([])
+    const [image, setImage] = useState<File | null>(null);
 
 
     const fetchData = async () => {
@@ -208,15 +209,19 @@ const ServiceModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate 
             name: values.name,
             price: values.price,
             slotTime: `${values.slotTime} minutes`,
-            avatar: "string",
+            avatar: image ? image : undefined,
             availablity: values.serviceAvailabilty.join(","),
             workHourFrom: startDate,
             workHourTo: endDate,
             serviceTypeId: values.serviceType,
             bookingCapacity: values.bookingCapacity,
             providerId: (user as any)?.serviceProvider?.id,
+
         }
-        await APIService.getInstance().createService(service as any);
+        const formData = convertToFormData(service)
+
+
+        await APIService.getInstance().createService(formData as any);
         setLoading(false)
 
         toast({
@@ -303,10 +308,10 @@ const ServiceModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate 
                         <X className='w-4 h-4 relative text-black' />
                     </Button>
                 </div>
-                <div>
+                {!val && <div>
 
-                    <Dropzone title='Upload Service Logo' />
-                </div>
+                    <Dropzone title='Upload Service Logo' onFileSelect={(file) => setImage(file)} />
+                </div>}
 
                 <ServiceForm serviceFormVal={serviceFormVal} serviceTypes={serviceTypes} t={t} val={val} />
                 <div className='self-end flex gap-3'>

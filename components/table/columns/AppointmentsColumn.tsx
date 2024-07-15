@@ -7,7 +7,7 @@ import {
     DropdownMenuLabel,
     DropdownMenuTrigger,
 } from "@/components/ui"
-import { MoreVertical } from "lucide-react";
+import { Edit, MoreVertical, Trash2 } from "lucide-react";
 // import Image from "next/image";
 // import { Checkbox } from "@/components/ui/Checkbox"
 import { messages, tableHeader } from "@/constants/constants";
@@ -15,7 +15,9 @@ import TextColumn from "../TextColumn";
 import Badge from "@/components/ui/Badge";
 import { TFunction } from "i18next";
 import Image from "next/image";
+import { isValidImageSrc } from "@/lib/helpers";
 // import { Checkbox } from "@/components/ui/Checkbox";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/Tooltip";
 
 
 export const appointmentsColumns: (
@@ -48,12 +50,12 @@ export const appointmentsColumns: (
     // },
     {
         accessorKey: "id",
-        header: () => <div className="text-center">{t(tableHeader.BOOKING_ID)}</div>,
+        header: () => <div className="text-left">{t(tableHeader.BOOKING_ID)}</div>,
 
         cell: ({ row }) => {
             const bookingId: string = row.getValue("id");
             return (
-                <div className="w-max flex items-center justify-center text-center justify-self-center">
+                <div className="w-max flex items-center justify-center text-left justify-self-center">
 
                     <p className="text-sm line-clamp-1">{bookingId}</p>
                 </div>
@@ -63,14 +65,14 @@ export const appointmentsColumns: (
 
     {
         accessorKey: "services",
-        header: () => <div className="text-center">{t(tableHeader.SERVICES_BOOKED)}</div>,
+        header: () => <div className="text-left">{t(tableHeader.SERVICES_BOOKED)}</div>,
         cell: ({ row }) => {
             const rowItem: SampleServices = row.getValue("services");
             return (
                 <div className="flex gap-3 items-center justify-center w-max">
                     <div className="rounded-full h-11 w-11 relative">
                         <Image
-                            src={"/assets/sampleImage.jpg"}
+                            src={rowItem.avatar && isValidImageSrc(rowItem.avatar) ? rowItem.avatar : '/assets/sampleImage.jpg'}
                             alt="pfp"
                             fill
                             className="rounded-full"
@@ -86,7 +88,7 @@ export const appointmentsColumns: (
     },
     // {
     //     accessorKey: "serviceType",
-    //     header: () => <div className="text-center">{t(tableHeader.SERVICE_TYPE)}</div>,
+    //     header: () => <div className="text-left">{t(tableHeader.SERVICE_TYPE)}</div>,
 
     //     cell: ({ row }) => {
     //         const serviceType: string = row.getValue("serviceType");
@@ -97,7 +99,7 @@ export const appointmentsColumns: (
     // },
     {
         accessorKey: "branch",
-        header: () => <div className="text-center">{t(tableHeader.BRANCH_NAME)}</div>,
+        header: () => <div className="text-left">{t(tableHeader.BRANCH_NAME)}</div>,
 
         cell: ({ row }) => {
             const rowItem: SampleBranch = row.getValue("branch");
@@ -105,7 +107,7 @@ export const appointmentsColumns: (
                 <div className="flex gap-3 items-center justify-center w-max">
                     <div className="rounded-full h-11 w-11 relative">
                         <Image
-                            src={"/assets/sampleImage.jpg"}
+                            src={rowItem.avatar && isValidImageSrc(rowItem.avatar) ? rowItem.avatar : '/assets/sampleImage.jpg'}
                             alt="pfp"
                             fill
                             className="rounded-full"
@@ -121,7 +123,7 @@ export const appointmentsColumns: (
     },
     {
         accessorKey: "bookingSlot",
-        header: () => <div className="text-center">{t(tableHeader.TIME_SLOT)}</div>,
+        header: () => <div className="text-left">{t(tableHeader.TIME_SLOT)}</div>,
 
         cell: ({ row }) => {
             const bookingSlot: string = row.getValue("bookingSlot");
@@ -132,7 +134,7 @@ export const appointmentsColumns: (
     },
     // {
     //     accessorKey: "",
-    //     header: () => <div className="text-center">{t(tableHeader.TIME)}</div>,
+    //     header: () => <div className="text-left">{t(tableHeader.TIME)}</div>,
 
     //     cell: ({ row }) => {
     //         const hours: string = row.getValue("hours");
@@ -143,7 +145,7 @@ export const appointmentsColumns: (
     // },
     {
         accessorKey: "bookingDate",
-        header: () => <div className="text-center">{t(tableHeader.START_DATE)}</div>,
+        header: () => <div className="text-left">{t(tableHeader.START_DATE)}</div>,
 
         cell: ({ row }) => {
             const bookingDate: number = row.getValue("bookingDate");
@@ -154,7 +156,7 @@ export const appointmentsColumns: (
     },
     {
         accessorKey: "paymentStatus",
-        header: () => <div className="text-center">{t(tableHeader.PAID)}</div>,
+        header: () => <div className="text-left">{t(tableHeader.PAID)}</div>,
 
         cell: ({ row }) => {
             const paymentStatus: number = row.getValue("paymentStatus");
@@ -165,7 +167,7 @@ export const appointmentsColumns: (
     },
     {
         accessorKey: "paymentType",
-        header: () => <div className="text-center">{t(tableHeader.PAID)}</div>,
+        header: () => <div className="text-left">{t(tableHeader.PAID)}</div>,
 
         cell: ({ row }) => {
             const paymentType: number = row.getValue("paymentType");
@@ -176,7 +178,7 @@ export const appointmentsColumns: (
     },
     {
         accessorKey: "status",
-        header: () => <div className="text-center">{t(tableHeader.STATUS)}</div>,
+        header: () => <div className="text-left">{t(tableHeader.STATUS)}</div>,
 
         cell: ({ row }) => {
             const status: number = row.getValue("status");
@@ -188,13 +190,13 @@ export const appointmentsColumns: (
 
     {
         accessorKey: "customer",
-        header: () => <div className="text-center">{t(tableHeader.CUSTOMER_NUMBER)}</div>,
+        header: () => <div className="text-left">{t(tableHeader.CUSTOMER_NAME)}</div>,
 
         cell: ({ row }) => {
-            const customerNumber: SampleBranchManager = row.getValue("customer");
+            const customerNumber: any = row.getValue("customer");
             return (
-                <div className="w-max flex items-center justify-center text-center justify-self-center">
-                    <p className="text-sm line-clamp-1">{customerNumber.id}</p>
+                <div className="w-max flex items-center justify-center text-left justify-self-center">
+                    <p className="text-sm line-clamp-1">{customerNumber?.user ? `${customerNumber?.user?.firstName || ""} ${customerNumber?.user?.lastName || ""}` : customerNumber.id}</p>
                 </div>
             )
         },
@@ -206,7 +208,7 @@ export const appointmentsColumns: (
         cell: ({ row }) => {
             const val = row.original
             return (
-                <Button className='bg-red-500 hover:bg-red-400' onClick={() => { if (onAppointmentChange) { onAppointmentChange(val) } }} >
+                <Button className='bg-red-500 hover:bg-red-400' onClick={(e) => { e.stopPropagation(); if (onAppointmentChange) { onAppointmentChange(val) } }} >
                     Cancel
                 </Button>
             )
@@ -222,24 +224,31 @@ export const appointmentsColumns: (
             const rowVal = row.original
 
             return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                            <span className="sr-only">Open menu</span>
-                            <MoreVertical className="h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>{t(messages.ACTIONS)}</DropdownMenuLabel>
-                        <DropdownMenuItem onClick={handleEdit ? (e: any) => { e.stopPropagation(); handleEdit(rowVal) } : undefined} className="text-indigo-800 hover:bg-indigo-800 hover:bg-opacity-25">
-                            {t(messages.EDIT)}
-                        </DropdownMenuItem>
-                        <DropdownMenuItem onClick={handleDelete ? (e: any) => { e.stopPropagation(); handleDelete(rowVal) } : undefined} className="text-red-400 hover:bg-red-400 hover:bg-opacity-25">
-                            {t(messages.DELETE)}
-                        </DropdownMenuItem>
+                <TooltipProvider>
+                    <div className="flex gap-2">
 
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Button onClick={handleEdit ? (e: any) => { e.stopPropagation(); handleEdit(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
+                                    <Edit className="h-5 w-5 text-indigo-800" />
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p>{t(messages.EDIT)}</p>
+                            </TooltipContent>
+                        </Tooltip>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Button onClick={handleDelete ? (e: any) => { e.stopPropagation(); handleDelete(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
+                                    <Trash2 className="h-5 w-5 text-red-700" />
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p>{t(messages.DELETE)}</p>
+                            </TooltipContent>
+                        </Tooltip>
+                    </div>
+                </TooltipProvider>
             )
         },
     },

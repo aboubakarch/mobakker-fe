@@ -50,7 +50,7 @@ export const branchDefaultValues: (val?: SampleBranch) => IBranchFormValues = (
 ) => ({
   name: val ? val.name : "",
   state: "",
-  city: val ? val.city : "",
+  city: val ? val.branchCityId || "" : "",
   location: val ? val.address : "",
   manager: val ? val.managerId || "" : "",
 });
@@ -105,12 +105,13 @@ export const promotionDefaultValues: (
   val?: SamplePromotions
 ) => IPromotionFormValues = (val) => ({
   promoCode: val ? val.promoCode : "",
-  isActive: val ? val.isActive : false,
+  isActive: val ? val.isActive : true,
   endDate: val ? val.endDate : "",
   startDate: val ? val.startDate : "",
   service: val ? val.services.map((s) => s.id) : [],
   type: val ? val.type : "FIXED",
   description: val ? val.description : "",
+  discount: val ? (val as any)?.discount || "" : "",
 });
 export const appointmentDefaultValues: (
   val?: SampleAppointments
@@ -219,19 +220,19 @@ export const branchFormVals: (
       name: "location",
       label: t(formConstants.LOCATION),
     },
-    state: {
-      placeHolder: t(formConstants.STATE),
-      hasError: true,
-      name: "state",
-      label: t(formConstants.STATE),
-      fieldType: FieldTypesEnum.Select,
-    },
+    // state: {
+    //   placeHolder: t(formConstants.STATE),
+    //   hasError: true,
+    //   name: "state",
+    //   label: t(formConstants.STATE),
+    //   fieldType: FieldTypesEnum.Select,
+    // },
     city: {
       placeHolder: t(formConstants.CITY),
       hasError: true,
       name: "city",
       label: t(formConstants.CITY),
-      fieldType: FieldTypesEnum.Select,
+      fieldType: FieldTypesEnum.SingleSearchSelect,
     },
     manager: {
       placeHolder: t(formConstants.SELECT_MANAGER),
@@ -425,10 +426,10 @@ export const promotionFormVals: (
   initialValues: promotionDefaultValues(val),
   info: (t) => ({
     promoCode: {
-      placeHolder: t(formConstants.NAME_PLACEHOLER),
+      placeHolder: t(formConstants.PROMO_CODE),
       hasError: true,
       name: "promoCode",
-      label: t(formConstants.PROMOTION_NAME),
+      label: t(formConstants.PROMO_CODE),
     },
 
     type: {
@@ -473,6 +474,13 @@ export const promotionFormVals: (
       name: "description",
       label: t(formConstants.DETAILS),
       fieldType: FieldTypesEnum.Textarea,
+    },
+    discount: {
+      placeHolder: t(formConstants.DISCOUNT),
+      hasError: true,
+      name: "discount",
+      label: t(formConstants.DISCOUNT_LABEL),
+      type: "number",
     },
   }),
 });

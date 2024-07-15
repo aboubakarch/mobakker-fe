@@ -19,6 +19,8 @@ export const endpoints = {
   USER_UPDATE: "/users/update",
   USERS: "/users",
   BRANCH_MANAGER_UPDATE: "/users/update/branch-mnager",
+  ADMIN_UPDATE: "/users/update/admin",
+  SERVICE_PROVIDER_UPDATE: "/users/update/service-provider",
   CUSTOMER_CARE_UPDATE: "/users/update/customer-care",
   EMPLOYEE_UPDATE: "/users/update/employee",
   APPOINTMENTS: "/appointment",
@@ -32,4 +34,5 @@ export const endpoints = {
   GET_ALL_CUSTOMERS: "/customer",
   SUBSCRIPTION: "/subscriptions",
   SUBSCRIBE_SUBSCRIPTION: "/subscriptions/subscribe",
+  GET_CITIES: "/country-state-city/cities",
 };

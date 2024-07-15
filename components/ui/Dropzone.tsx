@@ -4,7 +4,7 @@ import Image from 'next/image';
 import React, { FC, useState } from 'react'
 
 
-const Dropzone: FC<IDropzonProps> = ({ title, subtitle }) => {
+const Dropzone: FC<IDropzonProps> = ({ title, subtitle, onFileSelect }) => {
 
     const [selectedFiles, setSelectedFiles] = useState<File | null>(null);
 
@@ -12,13 +12,21 @@ const Dropzone: FC<IDropzonProps> = ({ title, subtitle }) => {
         event.preventDefault();
         const files = event.dataTransfer.files;
         setSelectedFiles(files[0]);
+        if (onFileSelect) {
+            onFileSelect(files[0]);
+
+        }
+
     };
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const files = event.target.files;
         if (files) {
-
             setSelectedFiles(files[0]);
+            if (onFileSelect) {
+                onFileSelect(files[0]);
+
+            }
         }
     };
 

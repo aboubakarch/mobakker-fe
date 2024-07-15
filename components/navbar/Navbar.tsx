@@ -7,12 +7,21 @@ import IconButton from '../buttons/IconButton'
 import LanguageChanger from '../languageChanger/LanguageChanger'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui'
 import { messages } from '@/constants/constants'
-import { getCookie, removeCookie } from '@/lib/helpers'
+import { getCookie, isValidImageSrc, removeCookie } from '@/lib/helpers'
 import { useTranslation } from 'react-i18next'
 
 const Navbar = () => {
     const { t } = useTranslation()
     const user = JSON.parse(getCookie("user") || "null")
+
+    function formatRole(role: string): string {
+        // Convert to lowercase, then capitalize the first letter of each word
+        return role
+            .toLowerCase()
+            .split('_')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+    }
 
     const handleLogout = () => {
         removeCookie("accessToken")
@@ -54,14 +63,15 @@ const Navbar = () => {
                     <DropdownMenuTrigger asChild>
                         <div className='flex gap-2 bg-screen h-14 text-sm items-center px-3 rounded-md cursor-pointer'>
                             <div>
-                                <p className='font-semibold'>{user ? `${user.firstName} ${user.lastName}` : "Sample"}</p>
-                                <p className='text-end'>Lorem Ipsum</p>
+                                <p className='font-semibold'>{user ? `${user?.firstName} ${user?.lastName}` : "Sample"}</p>
+                                <p className='text-end'>{user ? formatRole(user?.role || "") : 'Role'}</p>
                             </div>
                             <Image
-                                src={'/assets/profilePlaceholder.png'}
+                                src={user && user.avatar && isValidImageSrc(user.avatar) ? user.avatar : '/assets/profilePlaceholder.png'}
                                 height={40}
                                 width={40}
                                 alt='profile'
+                                className='rounded-full'
                             />
                             <ChevronDownIcon />
                         </div>

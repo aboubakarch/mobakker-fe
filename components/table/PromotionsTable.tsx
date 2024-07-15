@@ -30,7 +30,7 @@ const PromotionsTable: FC<ITableProps<SamplePromotions>> = ({ handleEdit, handle
                 page: pagination.pageIndex + 1, take: pagination.pageSize, order: sort
             }
             if (search !== '') {
-                params = { ...params, q: search }
+                params = { ...params, q: search, search }
             }
             const response = await APIService.getInstance().getPromotions(params)
             setData(response.items)

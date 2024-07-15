@@ -133,7 +133,9 @@ export const messages = {
   CUSTOMIZE_DASHBOARD: "common:customizeDashboard",
   VERIFY: "common:verify",
   NO_NOTIFICATIONS_RIGHT_NOW: "common:noNotificationsRightNow",
-  ASSIGN_SERVICES: "form:assignServices",
+  ASSIGN_SERVICES: "common:assignServices",
+  SUCCESS_SUBSCRIPTION: "common:successSubscription",
+  FAILED_SUBSCRIPTION: "common:failedSubscription",
 };
 
 export const tableHeader = {
@@ -264,6 +266,8 @@ export const formConstants = {
   SERVICE_PLACEHOLDER: "auth:servicePlaceholder",
   SELECT_MANAGER: "auth:selectManager",
   CUSTOMER: "auth:customer",
+  PROMO_CODE: "auth:promoCode",
+  DISCOUNT: "auth:discount",
 };
 
 export const SideBarItems = {
@@ -393,6 +397,7 @@ export const sidebarManagerNavigation: ISideBarItem[] = [
   SideBarItems.Employee(""),
   SideBarItems.LoyalProgram(""),
   SideBarItems.Services(""),
+  // SideBarItems.ServiceTypes(""),
   SideBarItems.Promotions(""),
   SideBarItems.Rating(""),
   SideBarItems.Notification(""),

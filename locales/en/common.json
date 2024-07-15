@@ -116,5 +116,7 @@
   "customizeDashboard": "Customize your dashboard settings and preferences.",
   "verify": "Verify",
   "noNotificationsRightNow": "You have no Notifications right now.",
-  "assignServices": "Assign Services"
+  "assignServices": "Assign Services",
+  "successSubscription": "You have successfully subscribed. Thank You for using our services",
+  "failedSubscription": "We're sorry, but your subscription could not be completed at this time. Please try again later or contact our support team for assistance."
 }

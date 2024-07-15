@@ -115,10 +115,10 @@ const PaymentModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate 
             }
 
 
-            toast({
-                description: "Subscribed",
-                variant: "success"
-            })
+            // toast({
+            //     description: "Subscribed",
+            //     variant: "success"
+            // })
         } catch (error: any) {
             setLoading(false)
 
@@ -126,8 +126,8 @@ const PaymentModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate 
                 variant: "destructive",
                 description: error?.response?.data?.message || "Error! Something went wrong",
             })
+            closeModal()
         }
-        closeModal()
     };
 
     const handleToggle = (subs: any) => {
@@ -149,7 +149,7 @@ const PaymentModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate 
 
 
     return (
-        <Modal visibility={visible} closeModal={closeModal} className='transition-all' position={2} >
+        <Modal visibility={visible} closeModal={closeModal} className='transition-all md:w-[35%] shadow-xl' position={2} >
             <div className='px-10 py-6 flex flex-col gap-5 transition-all' >
 
                 <h1 className="text-center text-gray-900 text-xl font-semibold  leading-[30px]">{t("Buy Subscription")}</h1>
@@ -224,12 +224,16 @@ const PaymentModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate 
                                                                 width={30}
                                                                 src={cardType === 'Visa' ? '/assets/visa.png' : '/assets/mastercard.jpg'}
                                                                 alt={cardType}
-                                                                className='absolute right-2 top-[8px]'
+                                                                className='absolute right-2 top-[10px]'
                                                             />
                                                         )}
                                                         {cardType === "" && (
-                                                            <div
-                                                                className='absolute right-2 bg-indigo-800 w-7 h-5 top-[8px]'
+                                                            <Image
+                                                                height={20}
+                                                                width={30}
+                                                                src={'/assets/sampleCard.png'}
+                                                                alt={cardType}
+                                                                className='absolute right-2 top-[5px]'
                                                             />
                                                         )}
                                                     </div>
