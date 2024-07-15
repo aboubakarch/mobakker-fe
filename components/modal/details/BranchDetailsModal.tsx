@@ -32,10 +32,10 @@ const BranchDetailsModal: FC<IModalDetailsProps<SampleBranch>> = ({ closeModal, 
                     </Button>
                 </div>
 
-                <div className='flex gap-16'>
+                <div className='flex gap-20'>
                     <div className='h-full flex flex-col gap-3 '>
                         <div className="flex gap-3">
-                            <div className="rounded-full h-20 w-20 relative">
+                            <div className="rounded-full h-24 w-24 relative">
                                 <Image
                                     src={val.avatar && isValidImageSrc(val.avatar) ? val.avatar : '/assets/sampleImage.jpg'}
                                     alt="pfp"

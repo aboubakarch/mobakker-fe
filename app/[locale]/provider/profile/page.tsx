@@ -10,7 +10,7 @@ import { RoleType } from '@/constants/enums'
 import { branchFormVals, providerFormVals } from '@/constants/forms'
 import { branchEditValidationSchema, providerValidationSchema } from '@/constants/validationSchemas'
 import { useToast } from '@/hooks/use-toast'
-import { getCookie, isValidImageSrc } from '@/lib/helpers'
+import { convertToFormData, getCookie, isValidImageSrc } from '@/lib/helpers'
 import APIService from '@/services/api'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
@@ -26,6 +26,10 @@ const Profile = () => {
     const providerFormVal = providerFormVals(user as any)
     const [loading, setLoading] = useState(false)
     const [updating, setUpdating] = useState(false)
+
+    const [image, setImage] = useState<File | null>(null);
+
+
     useEffect(() => {
         if (!user) {
             toast({
@@ -45,23 +49,27 @@ const Profile = () => {
                 lastName: values.lastName,
                 email: values.email,
                 phone: values.phone,
-                role: (user as any)?.role
+                role: (user as any)?.role,
+                avatar: image ? image : undefined
             }
-            let newUser: any = undefined
-            if ((user as any).role === RoleType.SERVICE_PROVIDER) {
+            const formData = convertToFormData(vals)
 
-                newUser = await APIService.getInstance().editServiceProvider((user as any)?.id as string, vals as any);
-            }
-            else if ((user as any).role === RoleType.ADMIN) {
 
-                newUser = await APIService.getInstance().editAdmin((user as any)?.id as string, vals as any);
-            }
-            else if ((user as any).role === RoleType.BRANCH_MANAGER) {
-                newUser = await APIService.getInstance().editBranchManager((user as any)?.id as string, vals as any);
-            }
-            else if ((user as any).role === RoleType.CUSTOMER_CARE) {
-                newUser = await APIService.getInstance().editCustomerCare((user as any)?.id as string, vals as any);
-            }
+            // if ((user as any).role === RoleType.SERVICE_PROVIDER) {
+
+            const newUser = await APIService.getInstance().editUser(formData);
+            console.log(newUser)
+            // }
+            // else if ((user as any).role === RoleType.ADMIN) {
+
+            //     newUser = await APIService.getInstance().editAdmin((user as any)?.id as string, vals as any);
+            // }
+            // else if ((user as any).role === RoleType.BRANCH_MANAGER) {
+            //     newUser = await APIService.getInstance().editBranchManager((user as any)?.id as string, vals as any);
+            // }
+            // else if ((user as any).role === RoleType.CUSTOMER_CARE) {
+            //     newUser = await APIService.getInstance().editCustomerCare((user as any)?.id as string, vals as any);
+            // }
 
             setLoading(false)
 
@@ -71,7 +79,7 @@ const Profile = () => {
             }
 
             toast({
-                description: "Employee Updated!",
+                description: "User Updated!",
                 variant: "success"
             })
             location.reload()
@@ -110,7 +118,7 @@ const Profile = () => {
 
                         </div>
 
-                        {updating && <Dropzone title={t(messages.UPLOAD_IMAGE)} subtitle={t(messages.IMAGE_FORMATS)} />
+                        {updating && <Dropzone title={t(messages.UPLOAD_IMAGE)} subtitle={t(messages.IMAGE_FORMATS)} onFileSelect={(file) => setImage(file)} />
                         }
                     </div>
 

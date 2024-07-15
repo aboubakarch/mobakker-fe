@@ -74,7 +74,7 @@ const ManagerPicker: FC<{
             }))
             setManagers(data)
             if (manager) {
-                form.setValue("manager", manager.id, {
+                form.setValue("manager", (manager as any)?.employee?.id, {
                     shouldValidate: true,
                     shouldDirty: true
                 })

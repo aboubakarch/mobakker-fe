@@ -34,8 +34,13 @@ class APIService extends HTTPService {
   public editAppointment<T = any>(id: string, payload: object): Promise<T> {
     return this.patch<T>(`${endpoints.APPOINTMENTS}/${id}`, payload)
   }
-  public editUser<T = any>(id: string, payload: object): Promise<T> {
-    return this.patch<T>(`${endpoints.USER_UPDATE}/${id}`, payload)
+  public editUser<T = any>(payload: object): Promise<T> {
+    const customConfig = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
+    return this.patch<T>(`${endpoints.USER_UPDATE}`, payload, customConfig)
   }
   public editBranchManager<T = any>(id: string, payload: object): Promise<T> {
     return this.patch<T>(`${endpoints.BRANCH_MANAGER_UPDATE}/${id}`, payload)
