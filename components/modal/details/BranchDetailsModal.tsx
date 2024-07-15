@@ -32,8 +32,8 @@ const BranchDetailsModal: FC<IModalDetailsProps<SampleBranch>> = ({ closeModal, 
                     </Button>
                 </div>
 
-                <div className='flex gap-20'>
-                    <div className='h-full flex flex-col gap-3 '>
+                <div className='flex gap-16 divide-x'>
+                    <div className='h-full flex flex-col pl-4 gap-3 '>
                         <div className="flex gap-3">
                             <div className="rounded-full h-24 w-24 relative">
                                 <Image
@@ -47,8 +47,9 @@ const BranchDetailsModal: FC<IModalDetailsProps<SampleBranch>> = ({ closeModal, 
                         </div>
                         <p className='text-black text-xl font-medium  leading-[30px]'>{t(val?.name)}</p>
                     </div>
+                    {/* <div></div> */}
 
-                    <div className="space-y-4">
+                    <div className="space-y-4 pl-7">
                         <div>
                             <p className="text-sm text-gray-500">Address</p>
                             <p>{val?.address}</p>
