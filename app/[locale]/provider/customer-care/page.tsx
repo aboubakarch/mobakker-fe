@@ -1,4 +1,5 @@
 "use client"
+import AssignBranchModal from '@/components/modal/AssignBranchModal'
 import CustomerCareModal from '@/components/modal/CustomerCareModal'
 import DeleteModal from '@/components/modal/DeleteModal'
 import EmployeeDetailsModal from '@/components/modal/details/EmployeeDetailsModal'
@@ -17,6 +18,7 @@ const CustomerCare = () => {
     const [detailsModalOpen, setDetailsModalOpen] = useState(false);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [selectedProvider, setSelectedProvider] = useState<undefined | SampleProvider>(undefined)
+    const [assignModalOpen, setAssignModalOpen] = useState(false);
     const [flag, setFlag] = useState(false)
     const [loading, setLoading] = useState(false)
     const { toast } = useToast()
@@ -31,7 +33,10 @@ const CustomerCare = () => {
         setDetailsModalOpen(false)
         setSelectedProvider(undefined)
     }
-
+    const handleAssignModalClose = () => {
+        setAssignModalOpen(false)
+        setSelectedProvider(undefined)
+    }
     const handleDeleteModalClose = () => {
         setDeleteModalOpen(false)
         setSelectedProvider(undefined)
@@ -48,6 +53,11 @@ const CustomerCare = () => {
         setSelectedProvider(item)
         setDeleteModalOpen(true)
     }
+    const handleAssign = (item: SampleBranchManager) => {
+        setSelectedProvider(item)
+        setAssignModalOpen(true)
+    }
+
     const handleRow = (item: SampleProvider) => {
         setSelectedProvider(item)
         setDetailsModalOpen(true)
@@ -93,13 +103,16 @@ const CustomerCare = () => {
                 title={messages.CUSTOMER_CARE}
                 loading={loading}
             />
+            <AssignBranchModal
+                visible={assignModalOpen} closeModal={handleAssignModalClose} val={selectedProvider} onUpdate={() => setFlag(!flag)}
+            />
             <PageHeader title={t(messages.CUSTOMER_CARE)}
                 description={t(messages.CUSTOMER_CARE_SUPPORT)}
             >
                 <Button onClick={() => setModalOpen(true)} className='bg-indigo-800 hover:bg-indigo-600'>{t(messages.ADD_REPRESENTATIVE)}</Button>
 
             </PageHeader>
-            <CustomerCareTable handleEdit={handleEdit} handleDelete={handleDelete} onUpdateFlag={flag} handleRow={handleRow} />
+            <CustomerCareTable handleEdit={handleEdit} handleDelete={handleDelete} handleAssign={handleAssign} onUpdateFlag={flag} handleRow={handleRow} />
         </div>
     )
 }

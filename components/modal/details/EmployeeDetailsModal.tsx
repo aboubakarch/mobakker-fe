@@ -31,10 +31,10 @@ const EmployeeDetailsModal: FC<IModalDetailsProps<SampleEmployee>> = ({ closeMod
                         <X className='w-4 h-4 relative text-black' />
                     </Button>
                 </div>
-                <div className='flex gap-16'>
-                    <div className='h-full flex flex-col gap-3 '>
+                <div className='flex gap-16 divide-x'>
+                    <div className='h-full flex flex-col gap-3 pl-4'>
                         <div className="flex gap-3">
-                            <div className="rounded-full h-20 w-20 relative">
+                            <div className="rounded-full h-24 w-24  relative">
                                 <Image
                                     src={val.avatar && isValidImageSrc(val.avatar) ? val.avatar : '/assets/sampleImage.jpg'}
                                     alt="pfp"
@@ -48,7 +48,7 @@ const EmployeeDetailsModal: FC<IModalDetailsProps<SampleEmployee>> = ({ closeMod
 
                     </div>
 
-                    <div className="space-y-4">
+                    <div className="space-y-4 pl-7">
                         <div>
                             <p className="text-sm text-gray-500">Email</p>
                             <p>{val.email}</p>

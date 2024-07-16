@@ -79,8 +79,7 @@ const AppointmentForm: FC<{
 
     useEffect(() => {
         if (branchId && branchId !== "") {
-            const selectedBranch = branchMap[branchId]
-            console.log(selectedBranch)
+            const selectedBranch = branchMap ? branchMap[branchId] : null
             if (selectedBranch) {
                 const serMap: any = {}
                 const tempServ = selectedBranch.services.map((item: SampleServices) => {
