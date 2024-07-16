@@ -271,7 +271,7 @@ const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, 
                             {label && <FormLabel>{label}</FormLabel>}
                             <div className='flex h-10 w-full items-center rounded-md  bg-background text-sm placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1"'>
 
-                                <SingleSearchSelect label={label} data={selectData as any} selected={field.value} setSelected={field.onChange as any} />
+                                <SingleSearchSelect disabled={disabled} label={label} data={selectData as any} selected={field.value} setSelected={field.onChange as any} />
                             </div>
                             {desc && <FormDescription>
                                 {desc}

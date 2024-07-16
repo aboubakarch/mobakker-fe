@@ -33,8 +33,9 @@ export const SingleSearchSelect: React.FC<{
         value: number;
         name: string;
         image?: string;
-    }[]
-}> = ({ selected, setSelected, label, data }) => {
+    }[], disabled?: boolean
+}> = ({ selected, setSelected, label, data, disabled = false }) => {
+
     const [search, setSearch] = React.useState("")
     const selectedData = data ? data : people
     const filteredPeople = React.useMemo(() => selectedData.filter(per => per.name.toLowerCase().includes(search.toLowerCase())), [search, selectedData])
@@ -71,7 +72,7 @@ export const SingleSearchSelect: React.FC<{
 
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger asChild>
+            <DropdownMenuTrigger disabled={disabled} asChild>
                 <Button
                     variant="outline"
                     className=" justify-between w-full"

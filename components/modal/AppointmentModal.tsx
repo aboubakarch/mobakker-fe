@@ -52,13 +52,17 @@ const paymentTypeOptions = [
 
 
 const AppointmentForm: FC<{
-    appointmentFormVal: IFormValueObj<IAppointmentFormValues>, t: TFunction<"translation", undefined>, services: any[] | null, branches: any[] | null, employees: any[] | null, customers: any[] | null,
-    fetchEmployeesData: (branchId: string) => Promise<void>, servMap: any | null
-}> = ({ appointmentFormVal, t, services, branches, customers, employees, fetchEmployeesData, servMap }) => {
+    appointmentFormVal: IFormValueObj<IAppointmentFormValues>, t: TFunction<"translation", undefined>, branches: any[] | null, employees: any[] | null, customers: any[] | null,
+    fetchEmployeesData: (branchId: string) => Promise<void>, branchMap: any | null
+}> = ({ appointmentFormVal, t, branches, customers, employees, fetchEmployeesData, branchMap }) => {
     const form = useFormContext()
     const service = form.watch("serviceId")
     const branchId = form.watch("branchId")
     const [hours, setHours] = useState<string[] | undefined>(undefined)
+    const [services, setServices] = useState<any[] | null>(null)
+    const [serviceMap, setServiceMap] = useState<any | null>(null)
+
+
     const role = getCookie("role")
     let user: any = getCookie("user")
     user = JSON.parse(user || "null");
@@ -75,15 +79,31 @@ const AppointmentForm: FC<{
 
     useEffect(() => {
         if (branchId && branchId !== "") {
+            const selectedBranch = branchMap[branchId]
+            console.log(selectedBranch)
+            if (selectedBranch) {
+                const serMap: any = {}
+                const tempServ = selectedBranch.services.map((item: SampleServices) => {
+                    const i = {
+                        name: item.name,
+                        value: item.id
+                    }
+                    serMap[item.id] = item;
+                    return i
+                })
+                setServices(tempServ)
+                setServiceMap(serMap)
+            }
 
             fetchEmployeesData(branchId)
+
 
         }
     }, [branchId])
 
     useEffect(() => {
-        if (service !== "") {
-            const ser = servMap[service]
+        if (service !== "" && serviceMap) {
+            const ser = serviceMap[service]
             if (ser) {
                 setHours(ser.availablity.split(","))
                 form.setValue("grossTotalAmount", ser.price)
@@ -110,7 +130,7 @@ const AppointmentForm: FC<{
             <div className='grid grid-cols-2 gap-2 w-full'>
                 <InputField {...appointmentFormVal.info(t).bookedBy} data={customers as any} disabled={customers === null} />
 
-                <InputField data={services as any} disabled={!services} {...appointmentFormVal.info(t).serviceId} />
+                <InputField data={services as any} disabled={services === null || branchId === ""} {...appointmentFormVal.info(t).serviceId} />
             </div>
             <div className='grid grid-cols-2 gap-2 w-full'>
                 <InputField {...appointmentFormVal.info(t).bookingDate} disabled={service === ""} />
@@ -145,39 +165,40 @@ const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal,
     const { toast } = useToast()
     const appointmentFormVal = appointmentFormVals(val)
     const [loading, setLoading] = useState(false)
-    const [services, setServices] = useState<any[] | null>([])
+    // const [services, setServices] = useState<any[] | null>([])
     const [branches, setBranches] = useState<any[] | null>([])
     const [employees, setEmployees] = useState<any[] | null>([])
     const [customers, setCustomers] = useState<any[] | null>([])
-    const [serviceMap, setServiceMap] = useState<any | null>(null)
+    // const [serviceMap, setServiceMap] = useState<any | null>(null)
+    const [branchMap, setBranchMap] = useState<any | null>(null)
 
 
-    const fetchServicesData = async () => {
-        setLoading(true)
-        try {
-            const params = {
-                page: 1, take: 100
-            }
-            const response = await APIService.getInstance().getServices(params)
-            const servMap: any = {}
-            const data = response?.items?.map((item: ServiceType) => {
-                const i = {
-                    name: item.name,
-                    value: item.id
-                }
-                servMap[item.id] = item;
-                return i
-            })
-            setServices(data)
-            setServiceMap(servMap)
-        } catch (error: any) {
-            toast({
-                variant: "destructive",
-                description: error?.response?.data?.message || "Error! Something went wrong",
-            })
-        }
-        setLoading(false)
-    }
+    // const fetchServicesData = async () => {
+    //     setLoading(true)
+    //     try {
+    //         const params = {
+    //             page: 1, take: 100
+    //         }
+    //         const response = await APIService.getInstance().getServices(params)
+    //         const servMap: any = {}
+    //         const data = response?.items?.map((item: ServiceType) => {
+    //             const i = {
+    //                 name: item.name,
+    //                 value: item.id
+    //             }
+    //             servMap[item.id] = item;
+    //             return i
+    //         })
+    //         setServices(data)
+    //         setServiceMap(servMap)
+    //     } catch (error: any) {
+    //         toast({
+    //             variant: "destructive",
+    //             description: error?.response?.data?.message || "Error! Something went wrong",
+    //         })
+    //     }
+    //     setLoading(false)
+    // }
     const fetchBranchesData = async () => {
         setLoading(true)
         try {
@@ -185,11 +206,16 @@ const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal,
                 page: 1, take: 100
             }
             const response = await APIService.getInstance().getBranches(params)
+            const brMap: any = {}
+            const data = response?.items?.map((item: ServiceType) => {
+                brMap[item.id] = item;
 
-            const data = response?.items?.map((item: ServiceType) => ({
-                name: item.name,
-                value: item.id
-            }))
+                return {
+                    name: item.name,
+                    value: item.id
+                }
+            })
+            setBranchMap(brMap)
             setBranches(data)
         } catch (error: any) {
             toast({
@@ -244,7 +270,7 @@ const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal,
 
 
     useEffect(() => {
-        fetchServicesData()
+        // fetchServicesData()
         fetchBranchesData()
         fetchCustomersData()
         // fetchBranchData()
@@ -316,9 +342,8 @@ const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal,
                     </Button>                </div>
 
                 <AppointmentForm appointmentFormVal={appointmentFormVal}
-                    services={services} t={t} branches={branches} employees={employees} fetchEmployeesData={fetchEmployeesData}
-                    customers={customers}
-                    servMap={serviceMap}
+                    t={t} branches={branches} employees={employees} fetchEmployeesData={fetchEmployeesData}
+                    customers={customers} branchMap={branchMap}
                 />
 
                 <div className='self-end flex gap-3'>
