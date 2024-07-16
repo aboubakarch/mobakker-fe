@@ -35,4 +35,8 @@ export const endpoints = {
   SUBSCRIPTION: "/subscriptions",
   SUBSCRIBE_SUBSCRIPTION: "/subscriptions/subscribe",
   GET_CITIES: "/country-state-city/cities",
+  EMPLOYEE_COUNT: "/employee/counts",
+  SERVICE_COUNT: "/service/counts",
+  PROMOTIONS_COUNT: "/promotion/counts",
+  LOYAL_PROGRAMS_COUNT: "/loyal-program/counts",
 };

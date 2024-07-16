@@ -5,7 +5,7 @@ import { InfoArrowDownIcon, InfoArrowUpIcon } from '@/svgs'
 import React, { FC } from 'react'
 import { PercentagePie } from '../charts/PercentPie'
 
-const HeaderInfoItem: FC<IHeaderInfoProps> = ({ title, heading, color, showIcon = false, hasGraph = false, percentage, className = "" }) => {
+const HeaderInfoItem: FC<IHeaderInfoProps> = ({ title, heading, color, showIcon = false, hasGraph = false, percentage, className = "", loading = false }) => {
     const primaryColor = colorHelper[color];
 
     return (

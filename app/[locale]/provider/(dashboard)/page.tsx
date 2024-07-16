@@ -7,11 +7,64 @@ import InfoHeader from "@/components/header/InfoHeader";
 import PromotionItem from "@/components/header/PromotionItem";
 import { messages } from "@/constants/constants";
 import { ColorsEnum } from "@/constants/enums";
+import APIService from "@/services/api";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+interface ICountsState {
+  serviceCount: undefined | null | number;
+  employeeCount: undefined | null | number;
+  loyalProgramCount: undefined | null | number;
+  promotionsCount: undefined | null | number;
+
+}
 
 export default function Home() {
   const { t } = useTranslation()
+  const [counts, setCounts] = useState<ICountsState>({
+    serviceCount: undefined,
+    employeeCount: undefined,
+    loyalProgramCount: undefined,
+    promotionsCount: undefined
+  })
+
+  const fetchCounts = async () => {
+    try {
+      const results = await Promise.allSettled([
+        APIService.getInstance().getEmployeeCount(),
+        APIService.getInstance().getServiceCount(),
+        APIService.getInstance().getPromotionCount(),
+        APIService.getInstance().getLoyalProgramCount(),
+      ])
+      const temp: any = {}
+      results.forEach((res, index) => {
+        switch (index) {
+          case 0:
+            temp.employeeCount = res.status === "fulfilled" ? res.value.employeesCount || null : null
+            break;
+          case 1:
+            temp.serviceCount = res.status === "fulfilled" ? res.value.servicesCount || null : null
+            break;
+          case 2:
+            temp.promotionsCount = res.status === "fulfilled" ? res.value.promotionsCount || null : null
+            break;
+          case 3:
+            temp.loyalProgramCount = res.status === "fulfilled" ? res.value.loyalProgramsCount || null : null
+            break;
+        }
+      })
+      setCounts(temp)
+
+    } catch (error) {
+      console.log(error)
+
+    }
+  }
+
+  useEffect(() => {
+    fetchCounts()
+  }, [])
+
 
   return (
 
@@ -46,10 +99,10 @@ export default function Home() {
 
 
         <div className="col-span-1 bg-appcard rounded-sm px-3 py-2 grid grid-rows-4 grid-flow-row grid-cols-1 gap-2 auto-rows-max md:overflow-auto">
-          <HeaderInfoItem color={ColorsEnum.Blue} heading={300} title="Test1" className="bg-white py-1" />
-          <HeaderInfoItem color={ColorsEnum.Blue} heading={300} title="Test1" className="bg-white py-1" />
-          <HeaderInfoItem color={ColorsEnum.Blue} heading={300} title="Test1" className="bg-white py-1" />
-          <HeaderInfoItem color={ColorsEnum.Blue} heading={300} title="Test1" className="bg-white py-1" />
+          <HeaderInfoItem color={ColorsEnum.Blue} heading={counts.serviceCount ?? 0} title="Total Services" className="bg-white py-1" loading={counts.serviceCount === undefined} />
+          <HeaderInfoItem color={ColorsEnum.Blue} heading={counts.employeeCount ?? 0} title="Total Employees" className="bg-white py-1" loading={counts.employeeCount === undefined} />
+          <HeaderInfoItem color={ColorsEnum.Blue} heading={counts.loyalProgramCount ?? 0} title="Total Loyal Programs" className="bg-white py-1" loading={counts.loyalProgramCount === undefined} />
+          <HeaderInfoItem color={ColorsEnum.Blue} heading={counts.promotionsCount ?? 0} title="Total Promotions" className="bg-white py-1" loading={counts.promotionsCount === undefined} />
         </div>
 
 

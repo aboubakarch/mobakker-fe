@@ -173,6 +173,18 @@ class APIService extends HTTPService {
   public createPromotion<T = any>(payload: object): Promise<T> {
     return this.post<T>(endpoints.CREATE_PROMOTION, payload)
   }
+  public getEmployeeCount<T = any>(params?: any): Promise<T> {
+    return this.get<T>(endpoints.EMPLOYEE_COUNT, params)
+  }
+  public getServiceCount<T = any>(params?: any): Promise<T> {
+    return this.get<T>(endpoints.SERVICE_COUNT, params)
+  }
+  public getPromotionCount<T = any>(params?: any): Promise<T> {
+    return this.get<T>(endpoints.PROMOTIONS_COUNT, params)
+  }
+  public getLoyalProgramCount<T = any>(params?: any): Promise<T> {
+    return this.get<T>(endpoints.LOYAL_PROGRAMS_COUNT, params)
+  }
 }
 
 export default APIService

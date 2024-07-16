@@ -8,6 +8,7 @@ interface IHeaderInfoProps {
   hasGraph?: boolean;
   percentage?: number;
   className?: string;
+  loading?: boolean;
 }
 
 interface IPromotionItemProps {
