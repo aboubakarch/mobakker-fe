@@ -16,6 +16,7 @@ export const endpoints = {
   BRANCH_MANAGER_REGISTRATION: "/auth/register/branch-manager",
   ASSIGN_SERVICE: "/branch/assign-service",
   BRANCH: "/branch",
+  BRANCH_EMPLOYEE: "/branch/employee",
   USER_UPDATE: "/users/update",
   USERS: "/users",
   BRANCH_MANAGER_UPDATE: "/users/update/branch-mnager",

@@ -75,7 +75,7 @@ const AppointmentForm: FC<{
             })
         }
 
-    }, [])
+    }, [branches])
 
     useEffect(() => {
         if (branchId && branchId !== "") {
@@ -170,6 +170,7 @@ const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal,
     const [customers, setCustomers] = useState<any[] | null>([])
     // const [serviceMap, setServiceMap] = useState<any | null>(null)
     const [branchMap, setBranchMap] = useState<any | null>(null)
+    const role = getCookie("role")
 
 
     // const fetchServicesData = async () => {
@@ -224,6 +225,28 @@ const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal,
         }
         setLoading(false)
     }
+    const fetchEmployeeBranchData = async () => {
+        setLoading(true)
+        try {
+
+            const response = await APIService.getInstance().getEmployeeBranch()
+            // console.log(response)
+            if (response && response?.id) {
+                const brMap: any = { [response.id]: response }
+                setBranchMap(brMap)
+
+                setBranches([{ name: response?.name, id: response.id }])
+            }
+
+        } catch (error: any) {
+            console.log(error)
+            // toast({
+            //     variant: "destructive",
+            //     description: error?.response?.data?.message || "Error! Something went wrong",
+            // })
+        }
+        setLoading(false)
+    }
     const fetchCustomersData = async () => {
         setLoading(true)
         try {
@@ -270,7 +293,14 @@ const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal,
 
     useEffect(() => {
         // fetchServicesData()
-        fetchBranchesData()
+        if ((role === RoleType.BRANCH_MANAGER || role === RoleType.CUSTOMER_CARE)) {
+            fetchEmployeeBranchData()
+        }
+        else {
+
+            fetchBranchesData()
+        }
+
         fetchCustomersData()
         // fetchBranchData()
     }, [])
