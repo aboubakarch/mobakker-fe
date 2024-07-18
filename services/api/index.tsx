@@ -66,6 +66,9 @@ class APIService extends HTTPService {
   public registerProvider<T = any>(payload: IProviderRegistrationFormValues): Promise<T> {
     return this.post<T>(endpoints.PROVIER_REGISTRATION, payload)
   }
+  public verifyOtp<T = any>(payload: IProviderRegistrationFormValues): Promise<T> {
+    return this.post<T>(endpoints.OTP_VERIFY, payload)
+  }
   public registerEmployees<T = any>(payload: IProviderRegistrationFormValues): Promise<T> {
     const customConfig = {
       headers: {
