@@ -19,7 +19,7 @@ const Report = () => {
                 description={t(messages.DETAILED_INSIGHTS)}
             >
             </PageHeader>
-
+            {/*
             <div className="w-full grid grid-cols-1 md:grid-cols-4 md:grid-row-1 gap-3">
                 <PerformanceChart />
 
@@ -32,7 +32,7 @@ const Report = () => {
                     <HeaderInfoItem title="Lorem Ipsum" color={ColorsEnum.Green} heading={75} percentage={96} showIcon className="bg-white" />
                 </div>
 
-            </div>
+            </div> */}
             <div className="w-full grid grid-cols-1 md:grid-cols-3 md:grid-row-1 gap-3">
                 {Object.values(ReportTypesEnum).map(report => (
                     <ReportWidget type={report} key={report} />

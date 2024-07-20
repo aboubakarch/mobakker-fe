@@ -91,10 +91,10 @@ const ReportWidget: FC<IReportWidgetProps> = ({ className = "", type }) => {
                 {`${type} ${t(messages.REPORTS)}`}
             </p>
             <div className="flex gap-3 w-full justify-end">
-                <Button variant={"default"} className="bg-indigo-800  bg-opacity-5 hover:bg-indigo-300  rounded-md justify-center items-center gap-2 inline-flex">
+                {/* <Button variant={"default"} className="bg-indigo-800  bg-opacity-5 hover:bg-indigo-300  rounded-md justify-center items-center gap-2 inline-flex">
                     <ExportIcon />
                     <p className="text-center text-indigo-800  text-sm font-normal  leading-normal">{t(messages.EXPORT)}</p>
-                </Button>
+                </Button> */}
                 <ReportWidgetButton
                     onDateChange={onDateChange}
                     selectedDate={date}
