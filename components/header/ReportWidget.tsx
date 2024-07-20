@@ -9,15 +9,21 @@ import { cn } from '@/lib/utils'
 import ReportWidgetButton from '../buttons/ReportWidgetButton'
 import { ReportTypesEnum } from '@/constants/enums'
 import { useTranslation } from 'react-i18next'
+import { getAllMonths } from '@/lib/helpers'
 
 const ReportWidget: FC<IReportWidgetProps> = ({ className = "", type }) => {
     const { t } = useTranslation()
 
-    const [date, setDate] = useState<Date | undefined>(new Date());
-    const [month, setMonth] = useState("");
-    const [year, setYear] = useState(2024);
+    const [date, setDate] = useState<Date>(new Date());
+    const [month, setMonth] = useState(getAllMonths()[new Date().getMonth()]);
+    const [year, setYear] = useState(new Date().getFullYear());
 
     const onDateChange = (day: Date | undefined) => {
+        console.log(day)
+        if (day === undefined) {
+            setDate(new Date())
+            return
+        }
         setDate(day)
     }
     const onChangeSelected = (select: number | string) => {

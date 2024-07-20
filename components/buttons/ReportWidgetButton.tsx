@@ -1,5 +1,6 @@
+
 import { IReportWidgetPopoverProps } from "@/@types/buttons";
-import { Button, Calendar, Popover, PopoverContent, PopoverTrigger } from "../ui";
+import { Button, Calendar } from "../ui";
 import { ChevronDownIcon } from "@/svgs";
 import { messages } from "@/constants/constants";
 import { FC } from "react";
@@ -7,7 +8,15 @@ import { ReportTypesEnum } from "@/constants/enums";
 import { getAllMonths, getLastNYears } from "@/lib/helpers";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
-
+import moment from "moment";
+import {
+    DropdownMenu,
+    DropdownMenuCheckboxItem,
+    DropdownMenuContent,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui"
 const ReportWidgetButton: FC<IReportWidgetPopoverProps> = ({
     type,
     selectedDate = new Date(),
@@ -17,7 +26,8 @@ const ReportWidgetButton: FC<IReportWidgetPopoverProps> = ({
 ) => {
     const months = getAllMonths();
     const years = getLastNYears(10)
-    const itemClasses = " py-3 px-5 hover:bg-appcard active:bg-screen w-full rounded-md"
+
+    const itemClasses = " py-3 px-5 hover:bg-indigo-800 hover:bg-opacity-5 active:bg-screen w-full rounded-md"
 
     const { t } = useTranslation()
 
@@ -37,7 +47,7 @@ const ReportWidgetButton: FC<IReportWidgetPopoverProps> = ({
                 return (
                     <div className="flex flex-col w-full ">
                         {months.map(month => (
-                            <div onClick={() => onChangeSelected(month)} key={month} className={cn(itemClasses, selected === month ? "bg-appcard" : "")}>
+                            <div onClick={() => onChangeSelected(month)} key={month} className={cn(itemClasses, selected === month ? "bg-indigo-800 bg-opacity-5" : "")}>
                                 {month}
                             </div>
                         ))}
@@ -47,7 +57,7 @@ const ReportWidgetButton: FC<IReportWidgetPopoverProps> = ({
                 return (
                     <div className="flex flex-col w-full">
                         {years.map(year => (
-                            <div onClick={() => onChangeSelected(year)} key={year} className={cn(itemClasses, selected === year ? "bg-appcard" : "")}>
+                            <div onClick={() => onChangeSelected(year)} key={year} className={cn(itemClasses, selected === year ? "bg-indigo-800 bg-opacity-5" : "")}>
                                 {year}
                             </div>
                         ))}
@@ -60,17 +70,20 @@ const ReportWidgetButton: FC<IReportWidgetPopoverProps> = ({
 
 
     return (
-        <Popover>
-            <PopoverTrigger asChild>
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
                 <Button variant={"default"} className="bg-indigo-800  bg-opacity-5 hover:bg-indigo-300  rounded-md justify-center items-center gap-2 inline-flex">
-                    <p className="text-center text-indigo-800  text-sm font-normal  leading-normal">{`${t(messages.SELECT)} ${type}`}</p>
+                    <p className="text-center text-indigo-800  text-sm font-normal  leading-normal">{selected === "" ? `${t(messages.SELECT)} ${type}` : type === ReportTypesEnum.Day ? moment(selectedDate).format("MMM DD, YYYY") : selected}</p>
                     <ChevronDownIcon />
                 </Button>
-            </PopoverTrigger>
-            <PopoverContent className='flex items-center justify-center w-auto select-none'>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className='flex  flex-col select-none max-h-[400px] scrollbar overflow-auto'>
+                {type !== ReportTypesEnum.Day && <DropdownMenuLabel>
+                    <p>{type}</p>
+                </DropdownMenuLabel>}
                 {renderSelectButton()}
-            </PopoverContent>
-        </Popover>
+            </DropdownMenuContent>
+        </DropdownMenu>
     );
 };
 

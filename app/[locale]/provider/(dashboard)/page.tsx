@@ -27,6 +27,8 @@ export default function Home() {
     loyalProgramCount: undefined,
     promotionsCount: undefined
   })
+  const [weekAppointments, setWeekAppointments] = useState<StackedBarChartProps | undefined | null>(undefined)
+  const [yearAppointments, setYearAppointments] = useState<StackedBarChartProps | undefined | null>(undefined)
 
   const fetchCounts = async () => {
     try {
@@ -61,8 +63,31 @@ export default function Home() {
     }
   }
 
+  const getWeeksDaysAppointments = async () => {
+    try {
+      const data = await APIService.getInstance().getWeeksAppointments()
+      setWeekAppointments(data)
+
+    } catch (error) {
+      setWeekAppointments(null)
+      console.log(error)
+    }
+  }
+  const getYearlyAppointments = async () => {
+    try {
+      const data = await APIService.getInstance().getYearsAppointments()
+      setYearAppointments(data)
+
+    } catch (error) {
+      setYearAppointments(null)
+      console.log(error)
+    }
+  }
+
   useEffect(() => {
     fetchCounts()
+    getWeeksDaysAppointments()
+    getYearlyAppointments()
   }, [])
 
 
@@ -84,7 +109,7 @@ export default function Home() {
             <h1 className="px-3 font-medium w-full">{t(messages.SALES_AMOUNT)}</h1>
             <div className="h-[90%] w-full relative">
               {/* <BarChart /> */}
-              <StackedBarChart />
+              <StackedBarChart data={(weekAppointments || undefined) as any} />
             </div>
           </div>
 
@@ -109,7 +134,7 @@ export default function Home() {
         <div className=" md:col-span-4 bg-white py-2">
           <h1 className="px-3 font-medium w-full">{t(messages.MONTHLY_PROGRESS)}</h1>
           <div className="h-[90%] w-full relative">
-            <BarChart />
+            <BarChart data={yearAppointments || undefined as any} />
           </div>
         </div>
 

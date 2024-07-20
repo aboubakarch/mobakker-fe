@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next'
 const Report = () => {
     const { t } = useTranslation()
 
+
     return (
         <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
             <PageHeader title={t(messages.REPORTS)}

@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react'
+import React, { FC } from 'react'
 import { colorHelper } from "@/lib/helpers";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';

@@ -31,7 +31,6 @@ export const getAllMonths = () => {
 export const getLastNYears = (n: number) => {
   const currentYear = moment().year();
   const years = [];
-
   for (let year = currentYear; year > currentYear - n; year--) {
     years.push(year);
   }

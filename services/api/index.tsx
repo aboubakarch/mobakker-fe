@@ -191,6 +191,12 @@ class APIService extends HTTPService {
   public getLoyalProgramCount<T = any>(params?: any): Promise<T> {
     return this.get<T>(endpoints.LOYAL_PROGRAMS_COUNT, params)
   }
+  public getWeeksAppointments<T = any>(params?: any): Promise<T> {
+    return this.get<T>(endpoints.APPOINTMENTS_WEEK, params)
+  }
+  public getYearsAppointments<T = any>(params?: any): Promise<T> {
+    return this.get<T>(endpoints.APPOINTMENTS_MONTH, params)
+  }
 }
 
 export default APIService
