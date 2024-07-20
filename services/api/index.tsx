@@ -197,6 +197,9 @@ class APIService extends HTTPService {
   public getYearsAppointments<T = any>(params?: any): Promise<T> {
     return this.get<T>(endpoints.APPOINTMENTS_MONTH, params)
   }
+  public getTotalAppointments<T = any>(params?: any): Promise<T> {
+    return this.get<T>(endpoints.APPOINTMENTS_TOTAL, params)
+  }
 }
 
 export default APIService

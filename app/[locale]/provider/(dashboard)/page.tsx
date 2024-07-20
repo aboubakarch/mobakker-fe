@@ -18,6 +18,13 @@ interface ICountsState {
   promotionsCount: undefined | null | number;
 
 }
+interface IAppointmentState {
+  COMPLETED?: number;
+  PENDING?: number;
+  STARTED?: number;
+  REJECTED?: number;
+  CANCELED?: number;
+}
 
 export default function Home() {
   const { t } = useTranslation()
@@ -29,6 +36,8 @@ export default function Home() {
   })
   const [weekAppointments, setWeekAppointments] = useState<StackedBarChartProps | undefined | null>(undefined)
   const [yearAppointments, setYearAppointments] = useState<StackedBarChartProps | undefined | null>(undefined)
+  const [totalAppointments, setTotalAppointments] = useState<IAppointmentState | undefined | null>(undefined)
+  const [totalAppointmentsCount, setTotalAppointmentsCount] = useState(0)
 
   const fetchCounts = async () => {
     try {
@@ -83,11 +92,31 @@ export default function Home() {
       console.log(error)
     }
   }
+  const getTotalAppointments = async () => {
+    try {
+      const data = await APIService.getInstance().getTotalAppointments({
+        dateRange: "today"
+      })
+      setTotalAppointments({
+        CANCELED: data.CANCELED || 0,
+        COMPLETED: data.COMPLETED || 0,
+        PENDING: data.PENDING || 0,
+        REJECTED: data.REJECTED || 0,
+        STARTED: data.STARTED || 0,
+      })
+      setTotalAppointmentsCount(Object.values(data).reduce((acc: number, value: any) => acc + (value || 0), 0))
+
+    } catch (error) {
+      setTotalAppointments(null)
+      console.log(error)
+    }
+  }
 
   useEffect(() => {
     fetchCounts()
     getWeeksDaysAppointments()
     getYearlyAppointments()
+    getTotalAppointments()
   }, [])
 
 
@@ -99,7 +128,27 @@ export default function Home() {
         <p className="line-clamp-2 text-sm">{t(messages.YOUR_CENTRAL_HUB)}</p>
       </div>
       <div className=" w-full">
-        <InfoHeader />
+        <div className='w-full bg-white grid md:grid-cols-4 grid-cols-2 px-5 py-3 gap-4 rounded-sm shadow-sm'>
+          <HeaderInfoItem color={ColorsEnum.Blue}
+            heading={totalAppointmentsCount}
+            title='Total Requests Today'
+            showIcon iconPosition={true} />
+          <HeaderInfoItem color={ColorsEnum.Red} heading={totalAppointments?.CANCELED || 0}
+            percentage={totalAppointmentsCount === 0 ? 0 : Math.floor((totalAppointments?.CANCELED || 0) / totalAppointmentsCount)}
+            title='Total Canceled Today' showIcon
+            iconPosition={((totalAppointments?.CANCELED || 0) >= (totalAppointments?.COMPLETED || 0))}
+          />
+          <HeaderInfoItem color={ColorsEnum.Green} heading={totalAppointments?.COMPLETED || 0}
+            percentage={totalAppointmentsCount === 0 ? 0 : Math.floor((totalAppointments?.COMPLETED || 0) / totalAppointmentsCount)}
+            title='Total Completed Today'
+            showIcon hasGraph />
+          <HeaderInfoItem color={ColorsEnum.Yellow} heading={totalAppointments?.PENDING || 0}
+            percentage={totalAppointmentsCount === 0 ? 0 : Math.floor((totalAppointments?.PENDING || 0) / totalAppointmentsCount)}
+            title='Total Pending Today'
+            showIcon
+            iconPosition={((totalAppointments?.CANCELED || 0) >= (totalAppointments?.COMPLETED || 0))}
+          />
+        </div>
       </div>
 
       <div className="h-full w-full grid grid-cols-1 md:grid-cols-5 md:grid-rows-2 gap-3">
@@ -117,7 +166,7 @@ export default function Home() {
           <div className="md:col-span-2 bg-white py-2 flex items-center flex-col">
             <h1 className="px-3 font-medium w-full">{t(messages.DAILY_PROGRESS)}</h1>
             <div className="h-[90%] w-full flex items-center justify-center relative ">
-              <DoughnutChart />
+              <DoughnutChart data={totalAppointments || undefined as any} />
             </div>
           </div>
         </div>

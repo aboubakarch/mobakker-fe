@@ -9,6 +9,7 @@ interface IHeaderInfoProps {
   percentage?: number;
   className?: string;
   loading?: boolean;
+  iconPosition?: boolean;
 }
 
 interface IPromotionItemProps {

@@ -26,6 +26,17 @@ export const getAllMonths = () => {
 
   return months;
 };
+// Function to get a mapping of month names to their zero-based indices
+export const getMonthMap = () => {
+  const monthMap: { [key: string]: number } = {};
+
+  for (let month = 0; month < 12; month++) {
+    const date = moment().month(month);
+    monthMap[date.format("MMMM")] = month;
+  }
+
+  return monthMap;
+};
 
 // Function to get months for the last 10 years
 export const getLastNYears = (n: number) => {

@@ -43,4 +43,5 @@ export const endpoints = {
   LOYAL_PROGRAMS_COUNT: "/loyal-program/counts",
   APPOINTMENTS_WEEK: "/appointment/total-requests/week",
   APPOINTMENTS_MONTH: "/appointment/total-requests/month",
+  APPOINTMENTS_TOTAL: "/appointment/total-requests",
 };
