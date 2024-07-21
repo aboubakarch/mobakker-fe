@@ -81,15 +81,15 @@ const Appointments = () => {
     }
 
     const handleModalOpen = () => {
-        if (user && (role === RoleType.BRANCH_MANAGER || role === RoleType.CUSTOMER_CARE) && user?.employee?.branchId) {
-            setModalOpen(true)
-        }
-        else {
-            toast({
-                variant: "destructive",
-                description: "You cannot add an Appointment. Please ask your employer to assign you to a branch.",
-            })
-        }
+        // if (user && (role === RoleType.BRANCH_MANAGER || role === RoleType.CUSTOMER_CARE) && user?.employee?.branchId) {
+        setModalOpen(true)
+        // }
+        // else {
+        //     toast({
+        //         variant: "destructive",
+        //         description: "You cannot add an Appointment. Please ask your employer to assign you to a branch.",
+        //     })
+        // }
     }
 
 

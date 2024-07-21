@@ -82,7 +82,7 @@ const BranchManagerModal: FC<IModalCompProps<SampleBranchManager>> = ({ closeMod
 
             toast({
                 variant: "destructive",
-                description: error?.response?.data?.message || "Error! Something went wrong",
+                description: JSON.stringify(error?.response?.data?.message) || "Error! Something went wrong",
             })
         }
         closeModal()

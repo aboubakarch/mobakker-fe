@@ -68,8 +68,10 @@ const AppointmentForm: FC<{
     user = JSON.parse(user || "null");
 
     useEffect(() => {
-        if (user && (role === RoleType.BRANCH_MANAGER || role === RoleType.CUSTOMER_CARE) && user?.employee?.branchId) {
-            form.setValue("branchId", user?.employee?.branchId, {
+        if (user && (role === RoleType.BRANCH_MANAGER || role === RoleType.CUSTOMER_CARE)) {
+            console.log(branches)
+            console.log(user?.employee?.branchId ? user?.employee?.branchId : branches && branches.length > 0 ? branches[0].value : undefined)
+            form.setValue("branchId", user?.employee?.branchId ? user?.employee?.branchId : branches && branches.length > 0 ? branches[0].value : undefined, {
                 shouldValidate: true,
                 shouldDirty: true
             })
@@ -235,7 +237,7 @@ const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal,
                 const brMap: any = { [response.id]: response }
                 setBranchMap(brMap)
 
-                setBranches([{ name: response?.name, id: response.id }])
+                setBranches([{ name: response?.name, value: response.id }])
             }
 
         } catch (error: any) {
