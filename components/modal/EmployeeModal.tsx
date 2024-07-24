@@ -45,10 +45,12 @@ const EmployeeModal: FC<IModalCompProps> = ({ closeModal, visible, onUpdate, val
             lastName: values.lastName,
             email: values.email,
             phone: values.phone,
-            role: val.role
+            role: val.role,
+            avatar: image ? image : undefined,
         }
+        const formData = convertToFormData(vals)
 
-        await APIService.getInstance().editEmployee(val?.id as string, vals as any);
+        await APIService.getInstance().editEmployee(val?.id as string, formData as any);
         setLoading(false)
 
         toast({
@@ -100,10 +102,8 @@ const EmployeeModal: FC<IModalCompProps> = ({ closeModal, visible, onUpdate, val
                         <X className='w-4 h-4 relative text-black' />
                     </Button>
                 </div>
-                {!val && <div>
 
-                    <Dropzone title='Upload Profile Image' onFileSelect={(file) => setImage(file)} />
-                </div>}
+                <Dropzone title='Upload Profile Image' onFileSelect={(file) => setImage(file)} url={val?.avatar || undefined} />
                 <div className='flex gap-3 w-full'>
                     <div className='flex-1'>
                         <InputField {...providerFormVal.info(t).firstName} />

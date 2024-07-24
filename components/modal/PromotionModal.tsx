@@ -67,7 +67,6 @@ const PromotionModal: FC<IModalCompProps<SamplePromotions>> = ({ closeModal, vis
                 name: item.name,
                 value: item.id
             }))
-            console.log(data)
             setServices(data)
         } catch (error: any) {
             toast({

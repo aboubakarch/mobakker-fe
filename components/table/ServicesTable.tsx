@@ -33,7 +33,7 @@ const ServicesTable: FC<ITableProps<SampleServices>> = ({ handleEdit, handleDele
                 page: pagination.pageIndex + 1, take: pagination.pageSize, order: sort, ...filters
             }
             if (search !== '') {
-                params = { ...params, q: search, search: search }
+                params = { ...params, search: search }
             }
             const response = await APIService.getInstance().getServices(params)
             setData(response.items)

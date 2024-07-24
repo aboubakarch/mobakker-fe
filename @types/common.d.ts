@@ -186,6 +186,7 @@ interface ILanguageChangerProps {
 interface IDropzonProps {
   title: string;
   subtitle?: string;
+  url?: string;
   onFileSelect?: (file: File | null) => void;
 }
 

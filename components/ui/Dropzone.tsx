@@ -1,10 +1,11 @@
+import { isValidImageSrc } from '@/lib/helpers';
 import { cn } from '@/lib/utils';
 import { Upload } from 'lucide-react'
 import Image from 'next/image';
 import React, { FC, useState } from 'react'
 
 
-const Dropzone: FC<IDropzonProps> = ({ title, subtitle, onFileSelect }) => {
+const Dropzone: FC<IDropzonProps> = ({ title, subtitle, onFileSelect, url }) => {
 
     const [selectedFiles, setSelectedFiles] = useState<File | null>(null);
 
@@ -35,8 +36,8 @@ const Dropzone: FC<IDropzonProps> = ({ title, subtitle, onFileSelect }) => {
     return (
 
         <div onDrop={handleDrop} onDragOver={(event) => event.preventDefault()}>
-            <label htmlFor="dropzone-file" className={cn(" w-[356px] h-[106px] ", selectedFiles ? "" : "flex flex-col items-center justify-center bg-indigo-800 bg-opacity-5 rounded-md border border-indigo-800 border-dashed cursor-pointer hover:bg-opacity-10")}>
-                {!selectedFiles ? <div className="flex flex-col items-center justify-center gap-4">
+            <label htmlFor="dropzone-file" className={cn(" w-[356px] h-[106px] ", (selectedFiles || (url && isValidImageSrc(url))) ? "" : "flex flex-col items-center justify-center bg-indigo-800 bg-opacity-5 rounded-md border border-indigo-800 border-dashed cursor-pointer hover:bg-opacity-10")}>
+                {!(selectedFiles || (url && isValidImageSrc(url))) ? <div className="flex flex-col items-center justify-center gap-4">
                     <div className='w-10 h-10 flex justify-center items-center bg-white rounded-full border border-neutral-200'>
                         <Upload className='w-4 h-4 text-indigo-800' />
                     </div>
@@ -50,7 +51,7 @@ const Dropzone: FC<IDropzonProps> = ({ title, subtitle, onFileSelect }) => {
                         <Image
                             fill
                             alt='profile'
-                            src={URL.createObjectURL(selectedFiles)}
+                            src={selectedFiles ? URL.createObjectURL(selectedFiles) : (url as string)}
                             className='rounded-full'
                         />
 

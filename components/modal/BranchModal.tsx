@@ -184,15 +184,12 @@ const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, v
             city: cityName.length > 0 ? cityName[0].name || values.city : values.city,
             country: "Saudi Arab",
             managerId: values.manager || undefined,
-            branchCityId: values.city
-        }
-        await APIService.getInstance().editBranch(val?.id as string, branch as any);
-        setLoading(false)
+            branchCityId: values.city,
+            avatar: image ? image : undefined,
 
-        toast({
-            description: "Branch Updated!",
-            variant: "success"
-        })
+        }
+        const formDate = convertToFormData(branch)
+        await APIService.getInstance().editBranch(val?.id as string, formDate as any);
 
     }
 
@@ -247,10 +244,8 @@ const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, v
                         <X className='w-4 h-4 relative text-black' />
                     </Button>
                 </div>
-                {!val && <div>
 
-                    <Dropzone title='Upload Logo' onFileSelect={(file) => setImage(file)} />
-                </div>}
+                <Dropzone title='Upload Logo' onFileSelect={(file) => setImage(file)} url={val?.avatar || undefined} />
 
                 <InputField {...branchFormVal.info(t).name} />
 

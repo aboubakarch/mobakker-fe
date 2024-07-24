@@ -44,10 +44,12 @@ const CustomerCareModal: FC<IModalCompProps<SampleBranchManager>> = ({ closeModa
             lastName: values.lastName,
             email: values.email,
             phone: values.phone,
-            role: (val as any).role
+            role: (val as any).role,
+            avatar: image ? image : undefined,
         }
+        const formData = convertToFormData(vals)
 
-        await APIService.getInstance().editCustomerCare(val?.id as string, vals as any);
+        await APIService.getInstance().editCustomerCare(val?.id as string, formData as any);
         setLoading(false)
 
         toast({
@@ -98,10 +100,8 @@ const CustomerCareModal: FC<IModalCompProps<SampleBranchManager>> = ({ closeModa
                         <X className='w-4 h-4 relative text-black' />
                     </Button>
                 </div>
-                {!val && <div>
+                <Dropzone title='Upload Profile Image' onFileSelect={(file) => setImage(file)} url={(val as any)?.avatar || undefined} />
 
-                    <Dropzone title='Upload Profile Image' onFileSelect={(file) => setImage(file)} />
-                </div>}
                 <div className='flex gap-3 w-full'>
                     <div className='flex-1'>
                         <InputField {...providerFormVal.info(t).firstName} />

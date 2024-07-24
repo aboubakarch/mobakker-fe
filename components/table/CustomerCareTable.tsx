@@ -33,7 +33,7 @@ const CustomerCareTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, h
                 page: pagination.pageIndex + 1, take: pagination.pageSize, order: sort, ...filters
             }
             if (search !== '') {
-                params = { ...params, q: search, search }
+                params = { ...params, search }
             }
             const response = await APIService.getInstance().getCustomerCare(params)
             console.log(response)
