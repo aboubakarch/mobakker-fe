@@ -18,13 +18,22 @@ import Image from "next/image";
 import { isValidImageSrc } from "@/lib/helpers";
 // import { Checkbox } from "@/components/ui/Checkbox";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/Tooltip";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/Select";
+import { cn } from "@/lib/utils";
 
+const statusOptions = [
+    { name: "Pending", value: "PENDING" },
+    { name: "Started", value: "STARTED" },
+    { name: "Completed", value: "COMPLETED" },
+    { name: "Canceled", value: "CANCELED" },
+    { name: "Rejected", value: "REJECTED" }
+];
 
 export const appointmentsColumns: (
     t: TFunction<"translation", undefined>,
     handleEdit?: (val: SampleAppointments) => void,
     handleDelete?: (val: SampleAppointments) => void,
-    onAppointmentChange?: (val: SampleAppointments) => void
+    onAppointmentChange?: (val: SampleAppointments, status: string) => void
 ) => ColumnDef<SampleAppointments>[] = (t, handleEdit, handleDelete, onAppointmentChange) => ([
     // {
     //     id: "select",
@@ -176,17 +185,17 @@ export const appointmentsColumns: (
             )
         },
     },
-    {
-        accessorKey: "status",
-        header: () => <div className="text-left">{t(tableHeader.STATUS)}</div>,
+    // {
+    //     accessorKey: "status",
+    //     header: () => <div className="text-left">{t(tableHeader.STATUS)}</div>,
 
-        cell: ({ row }) => {
-            const status: number = row.getValue("status");
-            return (
-                <TextColumn text={`${status}`} />
-            )
-        },
-    },
+    //     cell: ({ row }) => {
+    //         const status: number = row.getValue("status");
+    //         return (
+    //             <TextColumn text={`${status}`} />
+    //         )
+    //     },
+    // },
 
     {
         accessorKey: "customer",
@@ -202,15 +211,27 @@ export const appointmentsColumns: (
         },
     },
     {
-        id: "statusChange",
-        // accessorKey: "price",
+        accessorKey: "status",
+        header: () => <div className="text-left">{t(tableHeader.STATUS)}</div>,
 
         cell: ({ row }) => {
-            const val = row.original
+            const status: any = row.getValue("status");
+            const original: any = row.original;
+
             return (
-                <Button className='bg-red-500 hover:bg-red-400' onClick={(e) => { e.stopPropagation(); if (onAppointmentChange) { onAppointmentChange(val) } }} >
-                    Cancel
-                </Button>
+                // <Button className='bg-red-500 hover:bg-red-400' onClick={(e) => { e.stopPropagation(); if (onAppointmentChange) { onAppointmentChange(val) } }} >
+                //     Cancel
+                // </Button>
+                <Select disabled={status === "CANCELLED"} onValueChange={(val) => { if (onAppointmentChange) { onAppointmentChange(original, val) } }} value={status} defaultValue={status}>
+                    <SelectTrigger className={cn("flex gap-2 text-white", status === "CANCELED" ? "bg-red-500" : status === "PENDING" ? "bg-yellow-500" : status === "STARTED" ? "bg-indigo-800" : status === "REJECTED" ? "bg-red-500" : "")}>
+                        <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                        {statusOptions.map(item => (
+                            <SelectItem key={item.value} value={`${item.value}`}>{item.name}</SelectItem>
+                        ))}
+                    </SelectContent>
+                </Select>
             )
         },
     },

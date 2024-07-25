@@ -81,18 +81,34 @@ const Appointments = () => {
     }
 
     const handleModalOpen = () => {
-        // if (user && (role === RoleType.BRANCH_MANAGER || role === RoleType.CUSTOMER_CARE) && user?.employee?.branchId) {
-        setModalOpen(true)
-        // }
-        // else {
-        //     toast({
-        //         variant: "destructive",
-        //         description: "You cannot add an Appointment. Please ask your employer to assign you to a branch.",
-        //     })
-        // }
+        if (user && (role === RoleType.BRANCH_MANAGER || role === RoleType.CUSTOMER_CARE) && user?.employee?.branchId) {
+            setModalOpen(true)
+        }
+        else {
+            toast({
+                variant: "destructive",
+                description: "You cannot add an Appointment. Please ask your employer to assign you to a branch.",
+            })
+        }
     }
 
+    const handleAppointmentChange = async (item: SampleAppointments, status: string) => {
+        try {
 
+            await APIService.getInstance().editAppointment(item?.id, { status });
+            toast({
+                variant: "destructive",
+                description: "Appointment Updated!",
+            })
+            setFlag(!flag)
+        } catch (error) {
+            toast({
+                variant: "destructive",
+                description: "Error Updating Appointment!",
+            })
+
+        }
+    }
     return (
         <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
             <AppointmentModal visible={modalOpen} closeModal={handleModalClose} val={selectedAppointment} onUpdate={() => setFlag(!flag)} />
@@ -112,7 +128,7 @@ const Appointments = () => {
 
 
 
-            <AppointmentsTable handleEdit={handleEdit} handleDelete={handleDelete} onUpdateFlag={flag} handleRow={handleRow} />
+            <AppointmentsTable handleEdit={handleEdit} handleDelete={handleDelete} onUpdateFlag={flag} handleRow={handleRow} onAppointmentChange={handleAppointmentChange} />
         </div>
     )
 }

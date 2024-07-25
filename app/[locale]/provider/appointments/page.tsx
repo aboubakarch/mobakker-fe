@@ -49,6 +49,23 @@ const Appointments = () => {
         setSelectedAppointment(item)
         setDetailsModalOpen(true)
     }
+    const handleAppointmentChange = async (item: SampleAppointments, status: string) => {
+        try {
+
+            await APIService.getInstance().editAppointment(item?.id, { status });
+            toast({
+                variant: "destructive",
+                description: "Appointment Updated!",
+            })
+            setFlag(!flag)
+        } catch (error) {
+            toast({
+                variant: "destructive",
+                description: "Error Updating Appointment!",
+            })
+
+        }
+    }
     const onDeleteAppointment = async () => {
         try {
             if (selectedAppointment) {
@@ -95,7 +112,7 @@ const Appointments = () => {
 
 
 
-            <AppointmentsTable handleEdit={handleEdit} handleDelete={handleDelete} onUpdateFlag={flag} handleRow={handleRow} />
+            <AppointmentsTable handleEdit={handleEdit} handleDelete={handleDelete} onUpdateFlag={flag} handleRow={handleRow} onAppointmentChange={handleAppointmentChange} />
         </div>
     )
 }

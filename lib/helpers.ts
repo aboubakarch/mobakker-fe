@@ -86,11 +86,12 @@ export function isValidImageSrc(src: string) {
 
 export async function runOneSignal() {
   await OneSignal.init({
-    appId: "8049f716-71c3-43ff-809a-c1cb19b3422b",
-    safari_web_id: "web.onesignal.auto.253751a8-ac24-4181-97da-883dbdadac49",
+    appId: `${process.env.NEXT_PUBLIC_ONESIGNAL_ID}`,
+    // safari_web_id: "web.onesignal.auto.253751a8-ac24-4181-97da-883dbdadac49",
     allowLocalhostAsSecureOrigin: true,
   });
   OneSignal.Slidedown.promptPush();
+  console.log(OneSignal.User.PushSubscription.id);
 }
 
 export function formatTime(time: string): string {

@@ -180,6 +180,9 @@ class APIService extends HTTPService {
   public deleteAppointment<T = any>(id: string): Promise<T> {
     return this.delete<T>(`${endpoints.APPOINTMENTS}/${id}`)
   }
+  public updateAppointmentStatus<T = any>(id: string, status: any): Promise<T> {
+    return this.patch<T>(`${endpoints.APPOINTMENTS}/status/${id}`, status)
+  }
   public deleteUser<T = any>(id: string): Promise<T> {
     return this.delete<T>(`${endpoints.USERS}/${id}`)
   }

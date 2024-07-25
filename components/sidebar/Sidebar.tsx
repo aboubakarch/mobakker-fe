@@ -27,7 +27,7 @@ const Sidebar: FC<ISideBarProps> = ({ navigation }) => {
                     />
                     <div>
                         <p className='font-semibold'>{user ? `${user.firstName} ${user.lastName}` : "Sample"}</p>
-                        <p className='text-xs text-red-500'>29 days left</p>
+                        {/* <p className='text-xs text-red-500'>29 days left</p> */}
                     </div>
                 </div>
             </Link>
