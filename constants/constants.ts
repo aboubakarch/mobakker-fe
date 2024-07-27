@@ -388,7 +388,7 @@ export const sidebarProvidernavigation: ISideBarItem[] = [
   SideBarItems.ServiceTypes("/provider"),
   SideBarItems.Promotions("/provider"),
   // SideBarItems.Rating("/provider"),
-  SideBarItems.Notification("/provider"),
+  // SideBarItems.Notification("/provider"),
 ];
 export const sidebarManagerNavigation: ISideBarItem[] = [
   SideBarItems.Dashboard("/"),
@@ -400,7 +400,7 @@ export const sidebarManagerNavigation: ISideBarItem[] = [
   // SideBarItems.ServiceTypes(""),
   SideBarItems.Promotions(""),
   SideBarItems.Rating(""),
-  SideBarItems.Notification(""),
+  // SideBarItems.Notification(""),
 ];
 export const sidebarCustomerServiceNavigation: ISideBarItem[] = [
   SideBarItems.Dashboard("/"),

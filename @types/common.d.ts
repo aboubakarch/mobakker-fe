@@ -206,3 +206,14 @@ interface Provider {
   isActive: boolean;
   userId: string;
 }
+
+interface SysNotifications {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  isActive: boolean;
+  isRead: boolean;
+  notification: string;
+  timeRead: string | null;
+  userId: string;
+}

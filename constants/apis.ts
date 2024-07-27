@@ -44,4 +44,8 @@ export const endpoints = {
   APPOINTMENTS_WEEK: "/appointment/total-requests/week",
   APPOINTMENTS_MONTH: "/appointment/total-requests/month",
   APPOINTMENTS_TOTAL: "/appointment/total-requests",
+  NOTIFICATIONS: "/notifications",
+  NOTIFICATIONS_UNREAD: "/notifications/unread/count",
+  NOTIFICATIONS_MARK_READ: "/notifications/markAsRead",
+  NOTIFICATIONS_ALL_MARK_READ: "/notifications/markAllAsRead",
 };

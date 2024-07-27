@@ -91,7 +91,7 @@ export async function runOneSignal() {
     allowLocalhostAsSecureOrigin: true,
   });
   OneSignal.Slidedown.promptPush();
-  console.log(OneSignal.User.PushSubscription.id);
+  console.log("ONE SIGNAL", OneSignal.User.PushSubscription.id);
 }
 
 export function formatTime(time: string): string {
@@ -156,4 +156,35 @@ export function convertToFormData(obj: Record<string, any>): FormData {
   });
 
   return formData;
+}
+
+export function timeAgo(isoDate: string): string {
+  const date = new Date(isoDate);
+  const now = new Date();
+  const differenceInMs = now.getTime() - date.getTime();
+
+  const minutes = Math.floor(differenceInMs / 1000 / 60);
+  const hours = Math.floor(differenceInMs / 1000 / 60 / 60);
+  const days = Math.floor(differenceInMs / 1000 / 60 / 60 / 24);
+  const weeks = Math.floor(differenceInMs / 1000 / 60 / 60 / 24 / 7);
+  const months = Math.floor(differenceInMs / 1000 / 60 / 60 / 24 / 30); // Approximation
+  const years = Math.floor(differenceInMs / 1000 / 60 / 60 / 24 / 365); // Approximation
+
+  const pluralize = (unit: number, singular: string, plural: string) => {
+    return unit === 1 ? `${unit} ${singular}` : `${unit} ${plural}`;
+  };
+
+  if (minutes < 60) {
+    return `${pluralize(minutes, "minute", "minutes")} ago`;
+  } else if (hours < 24) {
+    return `${pluralize(hours, "hour", "hours")} ago`;
+  } else if (days < 7) {
+    return `${pluralize(days, "day", "days")} ago`;
+  } else if (weeks < 4) {
+    return `${pluralize(weeks, "week", "weeks")} ago`;
+  } else if (months < 12) {
+    return `${pluralize(months, "month", "months")} ago`;
+  } else {
+    return `${pluralize(years, "year", "years")} ago`;
+  }
 }

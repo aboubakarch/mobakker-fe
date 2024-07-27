@@ -228,6 +228,18 @@ class APIService extends HTTPService {
   public getTotalAppointments<T = any>(params?: any): Promise<T> {
     return this.get<T>(endpoints.APPOINTMENTS_TOTAL, params)
   }
+  public getNotifications<T = any>(params?: any): Promise<T> {
+    return this.get<T>(endpoints.NOTIFICATIONS, params)
+  }
+  public getUnreadNotifications<T = any>(params?: any): Promise<T> {
+    return this.get<T>(endpoints.NOTIFICATIONS_UNREAD, params)
+  }
+  public markNotication<T = any>(id: string, payload?: object): Promise<T> {
+    return this.patch<T>(`${endpoints.NOTIFICATIONS_MARK_READ}/${id}`, payload)
+  }
+  public markAllNotication<T = any>(payload?: object): Promise<T> {
+    return this.patch<T>(`${endpoints.NOTIFICATIONS_ALL_MARK_READ}`, payload)
+  }
 }
 
 export default APIService
