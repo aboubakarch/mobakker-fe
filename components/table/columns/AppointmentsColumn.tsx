@@ -223,7 +223,7 @@ export const appointmentsColumns: (
                 //     Cancel
                 // </Button>
                 <Select disabled={status === "CANCELLED"} onValueChange={(val) => { if (onAppointmentChange) { onAppointmentChange(original, val) } }} value={status} defaultValue={status}>
-                    <SelectTrigger className={cn("flex gap-2 text-white", status === "CANCELED" ? "bg-red-500" : status === "PENDING" ? "bg-yellow-500" : status === "STARTED" ? "bg-indigo-800" : status === "REJECTED" ? "bg-red-500" : "")}>
+                    <SelectTrigger className={cn("flex gap-2 text-white", status === "CANCELED" ? "bg-red-500" : status === "PENDING" ? "bg-yellow-500" : status === "STARTED" ? "bg-indigo-800" : status === "REJECTED" ? "bg-red-500" : status === "COMPLETED" ? "bg-green-600" : "")}>
                         <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
