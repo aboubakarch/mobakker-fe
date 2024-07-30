@@ -79,7 +79,7 @@ const EmployeeTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, handl
         setFilters(fil)
     }
     const handleResetFilters = () => {
-        if (filters.branch) {
+        if (filters.branchId) {
 
             setFilters({})
         }

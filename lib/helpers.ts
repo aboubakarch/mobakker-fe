@@ -85,13 +85,16 @@ export function isValidImageSrc(src: string) {
 }
 
 export async function runOneSignal() {
-  await OneSignal.init({
-    appId: `${process.env.NEXT_PUBLIC_ONESIGNAL_ID}`,
-    // safari_web_id: "web.onesignal.auto.253751a8-ac24-4181-97da-883dbdadac49",
-    allowLocalhostAsSecureOrigin: true,
-  });
-  OneSignal.Slidedown.promptPush();
-  console.log("ONE SIGNAL", OneSignal.User.PushSubscription.id);
+  try {
+    await OneSignal.init({
+      appId: `${process.env.NEXT_PUBLIC_ONESIGNAL_ID}`,
+      // safari_web_id: "web.onesignal.auto.253751a8-ac24-4181-97da-883dbdadac49",
+      allowLocalhostAsSecureOrigin: true,
+    });
+    return true;
+  } catch (error) {
+    return false;
+  }
 }
 
 export function formatTime(time: string): string {

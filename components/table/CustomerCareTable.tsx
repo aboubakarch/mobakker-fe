@@ -78,7 +78,7 @@ const CustomerCareTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, h
         setFilters(fil)
     }
     const handleResetFilters = () => {
-        if (filters.branch) {
+        if (filters.branchId) {
 
             setFilters({})
         }

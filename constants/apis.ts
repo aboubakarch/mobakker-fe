@@ -29,6 +29,7 @@ export const endpoints = {
   SERVICE: "/service",
   SERVICE_TYPE: "/service-type",
   PROMOTION: "/promotion",
+  PROMOTION_STATUS: "/promotion/status",
   CREATE_PROMOTION: "/promotion/create",
   SERVICE_BRANCH_MANAGER: "/employee/branch-manager",
   CUSTOMER_CARE_EMPLOYEE: "/employee/customer-care",
@@ -48,4 +49,5 @@ export const endpoints = {
   NOTIFICATIONS_UNREAD: "/notifications/unread/count",
   NOTIFICATIONS_MARK_READ: "/notifications/markAsRead",
   NOTIFICATIONS_ALL_MARK_READ: "/notifications/markAllAsRead",
+  NOTIFICATIONS_ADD_ID: "/notifications/addNotification",
 };

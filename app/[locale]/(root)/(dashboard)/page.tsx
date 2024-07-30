@@ -5,6 +5,7 @@ import StackedBarChart from "@/components/charts/StackedBar";
 import HeaderInfoItem from "@/components/header/HeaderInfoItem";
 import InfoHeader from "@/components/header/InfoHeader";
 import PromotionItem from "@/components/header/PromotionItem";
+import NotificationHandler from "@/components/notificationHandler/NotificationHandler";
 import { messages } from "@/constants/constants";
 import { ColorsEnum } from "@/constants/enums";
 import APIService from "@/services/api";
@@ -57,7 +58,7 @@ export default function Home() {
             temp.serviceCount = res.status === "fulfilled" ? res.value.servicesCount || null : null
             break;
           case 2:
-            temp.promotionsCount = res.status === "fulfilled" ? res.value.promotionsCount || null : null
+            temp.promotionsCount = res.status === "fulfilled" ? res.value.promotionCount || null : null
             break;
           case 3:
             temp.loyalProgramCount = res.status === "fulfilled" ? res.value.loyalProgramsCount || null : null
@@ -121,8 +122,9 @@ export default function Home() {
 
 
   return (
-
     <div className="flex flex-col gap-3 h-full w-full px-5 py-3 overflow-auto scrollbar">
+      <NotificationHandler />
+
       <div className="md:w-1/2 w-full flex flex-col">
         <h1 className="font-medium text-2xl ">{t(messages.GOOD_MORNING) + "User"}</h1>
         <p className="line-clamp-2 text-sm">{t(messages.YOUR_CENTRAL_HUB)}</p>

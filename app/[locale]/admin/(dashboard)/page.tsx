@@ -1,6 +1,7 @@
 "use client"
 import LineChart from "@/components/charts/LineChart";
 import HeaderInfoItem from "@/components/header/HeaderInfoItem";
+import NotificationHandler from "@/components/notificationHandler/NotificationHandler";
 // import DeleteModal from "@/components/modal/DeleteModal";
 import { Button } from "@/components/ui";
 import { messages } from "@/constants/constants";
@@ -20,6 +21,7 @@ export default function Home() {
   return (
 
     <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
+      <NotificationHandler />
       {/* <DeleteModal visible closeModal={() => { }} onDelete={() => { }} title="dnlssnf" /> */}
       <div className="md:w-1/2 w-full flex flex-col">
         <h1 className="font-medium text-2xl ">{t(messages.GOOD_MORNING) + "User"}</h1>

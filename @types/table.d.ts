@@ -32,5 +32,5 @@ interface IAppointmentFilters {
   customer?: string;
 }
 interface IEmployeeFilters {
-  branch?: string;
+  branchId?: string;
 }

@@ -79,7 +79,7 @@ const BranchManagerTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, 
         setFilters(fil)
     }
     const handleResetFilters = () => {
-        if (filters.branch) {
+        if (filters.branchId) {
 
             setFilters({})
         }

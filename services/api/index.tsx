@@ -204,6 +204,9 @@ class APIService extends HTTPService {
   public editPromotion<T = any>(id: string, payload: object): Promise<T> {
     return this.patch<T>(`${endpoints.PROMOTION}/${id}`, payload)
   }
+  public updatePromotionStatus<T = any>(id: string, payload: object): Promise<T> {
+    return this.patch<T>(`${endpoints.PROMOTION_STATUS}/${id}`, payload)
+  }
   public createPromotion<T = any>(payload: object): Promise<T> {
     return this.post<T>(endpoints.CREATE_PROMOTION, payload)
   }
@@ -239,6 +242,9 @@ class APIService extends HTTPService {
   }
   public markAllNotication<T = any>(payload?: object): Promise<T> {
     return this.patch<T>(`${endpoints.NOTIFICATIONS_ALL_MARK_READ}`, payload)
+  }
+  public addNoticationId<T = any>(payload?: object): Promise<T> {
+    return this.post<T>(`${endpoints.NOTIFICATIONS_ADD_ID}`, payload)
   }
 }
 
