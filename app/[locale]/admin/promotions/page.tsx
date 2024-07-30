@@ -68,7 +68,7 @@ const Promotions = () => {
 
     const editTogglePromotion = async (id: string, active: boolean) => {
 
-        await APIService.getInstance().editPromotion(id, { isActive: active });
+        await APIService.getInstance().updatePromotionStatus(id, { isActive: active });
         setFlag(!flag)
 
         toast({
