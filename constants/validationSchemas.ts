@@ -100,7 +100,6 @@ export const promotionValidationSchema = yup.object().shape({
   startDate: yup.date().required("Start date is required"),
   endDate: yup.date().required("End date is required"),
   service: yup.array().of(yup.string()).required("Service is required"),
-  isActive: yup.boolean().required("Active status is required"),
   type: yup
     .string()
     .oneOf(

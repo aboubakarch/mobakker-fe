@@ -61,7 +61,6 @@ interface IPromotionFormValues {
   startDate: Date | string;
   endDate: Date | string;
   service: string[];
-  isActive: boolean;
   type: "FIXED" | "PERCENTAGE";
   description: string;
   discount: number;
@@ -80,6 +79,7 @@ interface IAppointmentFormValues {
   employeeId: string;
   serviceId: string;
   bookingSlot: string;
+  promotion: string;
 }
 
 interface IOTPFormValues {

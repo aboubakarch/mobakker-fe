@@ -17,7 +17,7 @@ import APIService from '@/services/api'
 import { IAppointmentFormValues, IFormValueObj } from '@/@types/forms'
 import { useFormContext } from 'react-hook-form'
 import { TFunction } from 'i18next'
-import { getCookie } from '@/lib/helpers'
+import { getCookie, isDateBetween } from '@/lib/helpers'
 import { RoleType } from '@/constants/enums'
 
 
@@ -58,9 +58,13 @@ const AppointmentForm: FC<{
     const form = useFormContext()
     const service = form.watch("serviceId")
     const branchId = form.watch("branchId")
+    const bookingDate = form.watch("bookingDate")
+    const promotion = form.watch("promotion")
     const [hours, setHours] = useState<string[] | undefined>(undefined)
     const [services, setServices] = useState<any[] | null>(null)
+    const [promotions, setPromotions] = useState<any[] | null>(null)
     const [serviceMap, setServiceMap] = useState<any | null>(null)
+    const [promotionsMap, setPromotionsMap] = useState<any | null>(null)
 
 
     const role = getCookie("role")
@@ -92,8 +96,8 @@ const AppointmentForm: FC<{
                     serMap[item.id] = item;
                     return i
                 })
-                setServices(tempServ)
                 setServiceMap(serMap)
+                setServices(tempServ)
             }
 
             fetchEmployeesData(branchId)
@@ -101,6 +105,49 @@ const AppointmentForm: FC<{
 
         }
     }, [branchId])
+
+    useEffect(() => {
+        if (bookingDate && service !== "" && serviceMap) {
+            const ser = serviceMap[service]
+            if (ser) {
+                if (ser?.promotions && ser?.promotions?.length > 0) {
+
+                    const serMap: any = {}
+                    const tempServ = ser?.promotions.map((item: SamplePromotions) => {
+                        if (item.discount && item.isActive && isDateBetween(bookingDate, new Date(item.startDate), new Date(item.endDate))) {
+                            const i = {
+                                name: item.promoCode,
+                                value: item.id
+                            }
+                            serMap[item.id] = item;
+                            return i
+
+                        }
+                        return undefined
+                    }).filter((i: any) => i)
+                    setPromotionsMap(serMap)
+                    setPromotions(tempServ.length > 0 ? tempServ : null)
+
+                }
+            }
+        }
+
+    }, [bookingDate, service])
+
+    useEffect(() => {
+        if (promotion !== "" && promotionsMap && serviceMap) {
+            const ser = serviceMap[service]
+            const promo = promotionsMap[promotion];
+            if (promo && ser) {
+                const disc = +promo?.discount
+                const discountedTotal = promo.type === "FIXED" ? ser.price - (disc) : ser.price - (ser.price * (disc / 100))
+                form.setValue("discount", promo.type === "FIXED" ? (disc) : (ser.price * (disc / 100)))
+                form.setValue("grossTotalAmount", discountedTotal < 0 ? 0 : discountedTotal)
+
+            }
+        }
+
+    }, [promotion, serviceMap, promotionsMap])
 
     useEffect(() => {
         if (service !== "" && serviceMap) {
@@ -119,7 +166,7 @@ const AppointmentForm: FC<{
             setHours(undefined)
         }
 
-    }, [service])
+    }, [service, serviceMap])
 
     return (
         <div className='flex flex-col gap-4'>
@@ -135,6 +182,7 @@ const AppointmentForm: FC<{
             </div>
             <div className='grid grid-cols-2 gap-2 w-full'>
                 <InputField {...appointmentFormVal.info(t).bookingDate} disabled={service === ""} />
+                {promotions && <InputField {...appointmentFormVal.info(t).promotion} disabled={service === ""} data={promotions} />}
 
                 <InputField data={repeatOptions} {...appointmentFormVal.info(t).repeat} />
 
@@ -146,9 +194,9 @@ const AppointmentForm: FC<{
 
 
             <div className='flex gap-2'>
-                <InputField {...appointmentFormVal.info(t).grossTotalAmount} disabled />
                 <InputField {...appointmentFormVal.info(t).discount} disabled />
                 <InputField {...appointmentFormVal.info(t).netTotalAmount} disabled />
+                <InputField {...appointmentFormVal.info(t).grossTotalAmount} disabled />
 
             </div>
             <div className='grid grid-cols-2 gap-2 w-full'>

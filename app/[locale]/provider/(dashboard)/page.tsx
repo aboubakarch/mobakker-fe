@@ -9,6 +9,7 @@ import NotificationHandler from "@/components/notificationHandler/NotificationHa
 import { messages } from "@/constants/constants";
 import { ColorsEnum } from "@/constants/enums";
 import APIService from "@/services/api";
+import moment from "moment";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -38,6 +39,7 @@ export default function Home() {
   const [weekAppointments, setWeekAppointments] = useState<StackedBarChartProps | undefined | null>(undefined)
   const [yearAppointments, setYearAppointments] = useState<StackedBarChartProps | undefined | null>(undefined)
   const [totalAppointments, setTotalAppointments] = useState<IAppointmentState | undefined | null>(undefined)
+  const [promotions, setPromotions] = useState<SamplePromotions[] | undefined | null>(undefined)
   const [totalAppointmentsCount, setTotalAppointmentsCount] = useState(0)
 
   const fetchCounts = async () => {
@@ -85,6 +87,19 @@ export default function Home() {
       console.log(error)
     }
   }
+  const getPromotions = async () => {
+    try {
+
+      const data = await APIService.getInstance().getPromotions({
+        page: 1, take: 4, isActive: true
+      })
+      setPromotions(data.items)
+
+    } catch (error) {
+      setPromotions(null)
+      console.log(error)
+    }
+  }
   const getYearlyAppointments = async () => {
     try {
       const data = await APIService.getInstance().getYearsAppointments()
@@ -120,6 +135,7 @@ export default function Home() {
     getWeeksDaysAppointments()
     getYearlyAppointments()
     getTotalAppointments()
+    getPromotions()
   }, [])
 
 
@@ -196,8 +212,22 @@ export default function Home() {
         <div className="col-span-1 bg-appcard rounded-sm px-3 py-2 flex flex-col gap-2 md:overflow-auto scrollbar">
           <div className="text-lg">{t(messages.ACTIVE_PROMOTIONS)}</div>
           <div className="grid grid-rows-3 grid-flow-row grid-cols-1 gap-2 auto-rows-max ">
-            <PromotionItem active title="Ramadan Promo" endDate="12-Jan-2024" startDate="01-Jan-2024" />
-            <PromotionItem active={false} title="Ramadan Promo" endDate="12-Jan-2024" startDate="01-Jan-2024" />
+            {/* <PromotionItem active title="Ramadan Promo" endDate="12-Jan-2024" startDate="01-Jan-2024" />
+            <PromotionItem active={false} title="Ramadan Promo" endDate="12-Jan-2024" startDate="01-Jan-2024" /> */}
+            {promotions && promotions.map(promo => (
+              <PromotionItem key={promo.id} active={promo.isActive} title={promo.promoCode}
+                endDate={promo.endDate as string} startDate={promo.startDate as string} />
+
+            ))}
+            {promotions === undefined && (
+              <div className="col-span-1 row-span-3 h-full w-full flex items-center justify-center">
+
+                <div className="loader_smaller"></div>
+              </div>
+            )}
+            {(promotions === null || (promotions && promotions.length === 0)) && (
+              <div className="text-md font-medium text-center">No Active Promotions</div>
+            )}
 
           </div>
         </div>

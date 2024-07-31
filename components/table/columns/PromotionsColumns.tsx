@@ -6,7 +6,7 @@ import {
 import { Edit, Trash2 } from "lucide-react";
 // import Image from "next/image";
 // import { Checkbox } from "@/components/ui/Checkbox"
-import { messages, tableHeader } from "@/constants/constants";
+import { formConstants, messages, tableHeader } from "@/constants/constants";
 import TextColumn from "../TextColumn";
 import Badge from "@/components/ui/Badge";
 import { Switch } from "@/components/ui/Switch";
@@ -24,6 +24,20 @@ export const promotionsColumns: (t: TFunction<"translation", undefined>, handleE
 
             cell: ({ row }) => {
                 const promotionName: string = row.getValue("promoCode");
+                return (
+                    <div className="w-max flex items-center justify-center  justify-self-center">
+
+                        <p className="text-sm line-clamp-1">{promotionName}</p>
+                    </div>
+                )
+            },
+        },
+        {
+            accessorKey: "discount",
+            header: () => <div className="">{t(formConstants.DISCOUNT)}</div>,
+
+            cell: ({ row }) => {
+                const promotionName: string = row.getValue("discount");
                 return (
                     <div className="w-max flex items-center justify-center  justify-self-center">
 

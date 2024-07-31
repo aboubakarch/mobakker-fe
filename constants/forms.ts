@@ -105,7 +105,6 @@ export const promotionDefaultValues: (
   val?: SamplePromotions
 ) => IPromotionFormValues = (val) => ({
   promoCode: val ? val.promoCode : "",
-  isActive: val ? val.isActive : true,
   endDate: val ? val.endDate : "",
   startDate: val ? val.startDate : "",
   service: val ? val.services.map((s) => s.id) : [],
@@ -129,6 +128,7 @@ export const appointmentDefaultValues: (
   employeeId: val ? val.employeeId : "",
   serviceId: val ? val.serviceId : "",
   bookingSlot: val ? val.bookingSlot : "",
+  promotion: "",
 });
 
 export const loginFormVals: IFormValueObj<ILoginFormValues> = {
@@ -454,13 +454,6 @@ export const promotionFormVals: (
       label: t(formConstants.END_DATE),
       fieldType: FieldTypesEnum.DatePicker,
     },
-    isActive: {
-      placeHolder: t(formConstants.STATUS),
-      hasError: true,
-      name: "isActive",
-      label: t(formConstants.STATUS),
-      fieldType: FieldTypesEnum.Select,
-    },
     service: {
       placeHolder: t(formConstants.SELECT_SERVICE),
       hasError: true,
@@ -577,6 +570,13 @@ export const appointmentFormVals: (
       name: "netTotalAmount",
       label: t(formConstants.NET_TOTAL_AMOUNT_LABEL),
       placeHolder: t(formConstants.NET_TOTAL_AMOUNT_PLACEHOLDER),
+    },
+    promotion: {
+      hasError: false,
+      name: "promotion",
+      label: t(formConstants.PROMOTION_NAME),
+      placeHolder: t(formConstants.PROMOTION_NAME),
+      fieldType: FieldTypesEnum.SingleSearchSelect,
     },
   }),
 });

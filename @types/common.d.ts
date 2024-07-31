@@ -108,6 +108,7 @@ interface SamplePromotions {
   id: string;
   type: "FIXED" | "PERCENTAGE";
   description: string;
+  discount: number;
 }
 
 interface SampleSubscription {

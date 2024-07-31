@@ -191,3 +191,11 @@ export function timeAgo(isoDate: string): string {
     return `${pluralize(years, "year", "years")} ago`;
   }
 }
+
+export function isDateBetween(
+  date: Date,
+  startDate: Date,
+  endDate: Date
+): boolean {
+  return date >= startDate && date <= endDate;
+}

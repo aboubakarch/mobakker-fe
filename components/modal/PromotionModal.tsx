@@ -173,13 +173,11 @@ const PromotionModal: FC<IModalCompProps<SamplePromotions>> = ({ closeModal, vis
                             <InputField data={promotionType} {...promotionFormVal.info(t).type} />
                         </div>
                         <div className='flex-1'>
-                            <InputField data={statusType as any} {...promotionFormVal.info(t).isActive} />
+                            <InputField  {...promotionFormVal.info(t).discount} />
                         </div>
                     </div>
                     <div className='flex gap-2'>
-                        <div className='flex-1'>
-                            <InputField  {...promotionFormVal.info(t).discount} />
-                        </div>
+
                         <div className='flex-1'>
                             <InputField  {...promotionFormVal.info(t).description} />
                         </div>
