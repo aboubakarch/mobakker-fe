@@ -68,6 +68,29 @@ const EmployeeDetailsModal: FC<IModalDetailsProps<SampleEmployee>> = ({ closeMod
                             <p>{`${val.data.user.firstName} ${val.data.user.lastName}`}</p>
                         </div>
                     )} */}
+                        {val.data.branches && val.data.branches.length > 0 && (
+                            <div>
+                                <p className="text-sm text-gray-500 mb-3">Branches</p>
+                                <div className="grid grid-cols-2 grid-flow-row gap-5">
+                                    {val.data.branches.map((branch) => (
+                                        <div key={branch.id} className="flex gap-3 items-center justify-center w-max">
+                                            <div className="rounded-full h-11 w-11 relative">
+                                                <Image
+                                                    src={branch.avatar && isValidImageSrc(branch.avatar) ? branch.avatar : '/assets/sampleImage.jpg'}
+                                                    alt="pfp"
+                                                    fill
+                                                    className="rounded-full"
+                                                />
+                                            </div>
+                                            <div className="flex flex-col text-sm font-medium leading-snug">
+                                                <p className="text-gray-900">{branch.name}</p>
+                                                <p className="text-indigo-800">{branch.city}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
                         {val.data.empBranch && (
                             <div>
                                 <p className="text-sm text-gray-500 mb-3">Branch</p>

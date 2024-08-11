@@ -41,6 +41,7 @@ export default function Home() {
   const [totalAppointments, setTotalAppointments] = useState<IAppointmentState | undefined | null>(undefined)
   const [promotions, setPromotions] = useState<SamplePromotions[] | undefined | null>(undefined)
   const [totalAppointmentsCount, setTotalAppointmentsCount] = useState(0)
+  const [flag, setFlag] = useState(false)
 
   const fetchCounts = async () => {
     try {
@@ -135,9 +136,14 @@ export default function Home() {
     getWeeksDaysAppointments()
     getYearlyAppointments()
     getTotalAppointments()
-    getPromotions()
   }, [])
+  useEffect(() => {
+    getPromotions()
 
+  }, [flag])
+  const handleFlag = () => {
+    setFlag(!flag)
+  }
 
   return (
 
@@ -149,26 +155,30 @@ export default function Home() {
         <p className="line-clamp-2 text-sm">{t(messages.YOUR_CENTRAL_HUB)}</p>
       </div>
       <div className=" w-full">
-        <div className='w-full bg-white grid md:grid-cols-4 grid-cols-2 px-5 py-3 gap-4 rounded-sm shadow-sm'>
-          <HeaderInfoItem color={ColorsEnum.Blue}
-            heading={totalAppointmentsCount}
-            title='Total Requests Today'
-            showIcon iconPosition={true} />
-          <HeaderInfoItem color={ColorsEnum.Red} heading={totalAppointments?.CANCELED || 0}
-            percentage={totalAppointmentsCount === 0 ? 0 : Math.floor((totalAppointments?.CANCELED || 0) / totalAppointmentsCount)}
-            title='Total Canceled Today' showIcon
-            iconPosition={((totalAppointments?.CANCELED || 0) >= (totalAppointments?.COMPLETED || 0))}
-          />
-          <HeaderInfoItem color={ColorsEnum.Green} heading={totalAppointments?.COMPLETED || 0}
-            percentage={totalAppointmentsCount === 0 ? 0 : Math.floor((totalAppointments?.COMPLETED || 0) / totalAppointmentsCount)}
-            title='Total Completed Today'
-            showIcon hasGraph />
-          <HeaderInfoItem color={ColorsEnum.Yellow} heading={totalAppointments?.PENDING || 0}
-            percentage={totalAppointmentsCount === 0 ? 0 : Math.floor((totalAppointments?.PENDING || 0) / totalAppointmentsCount)}
-            title='Total Pending Today'
-            showIcon
-            iconPosition={((totalAppointments?.CANCELED || 0) >= (totalAppointments?.COMPLETED || 0))}
-          />
+        <div className="w-full bg-white px-5 py-3 rounded-sm shadow-sm flex flex-col gap-3">
+          <p className="text-black">{t(messages.TODAYS_PERFORMANCE)}</p>
+
+          <div className='grid md:grid-cols-4 grid-cols-2  gap-4 rounded-sm shadow-sm'>
+            <HeaderInfoItem color={ColorsEnum.Blue}
+              heading={totalAppointmentsCount}
+              title='Total Appointments'
+              showIcon iconPosition={true} />
+            <HeaderInfoItem color={ColorsEnum.Red} heading={totalAppointments?.CANCELED || 0}
+              percentage={totalAppointmentsCount === 0 ? 0 : Math.floor((totalAppointments?.CANCELED || 0) / totalAppointmentsCount)}
+              title='Total Canceled Appointments' showIcon
+              iconPosition={((totalAppointments?.CANCELED || 0) >= (totalAppointments?.COMPLETED || 0))}
+            />
+            <HeaderInfoItem color={ColorsEnum.Green} heading={totalAppointments?.COMPLETED || 0}
+              percentage={totalAppointmentsCount === 0 ? 0 : Math.floor((totalAppointments?.COMPLETED || 0) / totalAppointmentsCount)}
+              title='Total Completed Appointments'
+              showIcon hasGraph />
+            <HeaderInfoItem color={ColorsEnum.Yellow} heading={totalAppointments?.PENDING || 0}
+              percentage={totalAppointmentsCount === 0 ? 0 : Math.floor((totalAppointments?.PENDING || 0) / totalAppointmentsCount)}
+              title='Total Pending Appointments'
+              showIcon
+              iconPosition={((totalAppointments?.CANCELED || 0) >= (totalAppointments?.COMPLETED || 0))}
+            />
+          </div>
         </div>
       </div>
 
@@ -215,12 +225,12 @@ export default function Home() {
             {/* <PromotionItem active title="Ramadan Promo" endDate="12-Jan-2024" startDate="01-Jan-2024" />
             <PromotionItem active={false} title="Ramadan Promo" endDate="12-Jan-2024" startDate="01-Jan-2024" /> */}
             {promotions && promotions.map(promo => (
-              <PromotionItem key={promo.id} active={promo.isActive} title={promo.promoCode}
+              <PromotionItem handleUpdate={handleFlag} id={promo.id} key={promo.id} active={promo.isActive} title={promo.promoCode}
                 endDate={promo.endDate as string} startDate={promo.startDate as string} />
 
             ))}
             {promotions === undefined && (
-              <div className="col-span-1 row-span-3 h-full w-full flex items-center justify-center">
+              <div className="col-span-1 row-span-3 h-full w-full mt-10 flex items-center justify-center">
 
                 <div className="loader_smaller"></div>
               </div>

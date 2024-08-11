@@ -53,7 +53,7 @@ export const serviceTypeColumns: (t: TFunction<"translation", undefined>, handle
                     <div className="flex gap-3 items-center justify-center w-max">
                         <div className="rounded-full h-11 w-11 relative">
                             <Image
-                                src={isValidImageSrc(rowItem.avatar) ? rowItem.avatar : "/assets/profilePlaceholder.png"}
+                                src={isValidImageSrc(rowItem.avatar || "") ? rowItem.avatar : "/assets/profilePlaceholder.png"}
                                 alt="pfp"
                                 fill
                                 className="rounded-full"

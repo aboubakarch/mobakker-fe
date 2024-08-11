@@ -136,6 +136,7 @@ export const messages = {
   ASSIGN_SERVICES: "common:assignServices",
   SUCCESS_SUBSCRIPTION: "common:successSubscription",
   FAILED_SUBSCRIPTION: "common:failedSubscription",
+  TODAYS_REPORTS: "common:todaysReports",
 };
 
 export const tableHeader = {
@@ -301,6 +302,32 @@ export const SideBarItems = {
     icon: PeopleIcon,
     link: `${prefix}/employees`,
   }),
+  Providers: (prefix: string) => ({
+    id: 10,
+    name: "navigation:providers",
+    icon: NotificationIcon,
+    link: `${prefix}/providers`,
+  }),
+  Users: (prefix: string) => ({
+    id: 11,
+    name: "navigation:manageUsers",
+    icon: UserIcon,
+    link: `${prefix}/users`,
+  }),
+  BranchMangers: (prefix: string) => ({
+    id: 15,
+    name: "navigation:branchManagers",
+    // icon: Badge as any,
+    icon: BranchIcon,
+    link: `${prefix}/branch-managers`,
+  }),
+  CustomerCare: (prefix: string) => ({
+    id: 16,
+    name: "navigation:customerCare",
+    // icon: ShieldQuestionIcon as any,
+    icon: UserIcon,
+    link: `${prefix}/customer-care`,
+  }),
   LoyalProgram: (prefix: string) => ({
     id: 5,
     name: "navigation:loyalPrograms",
@@ -343,38 +370,11 @@ export const SideBarItems = {
     icon: ClipboardIcon,
     link: `${prefix}/complaints`,
   }),
-  Providers: (prefix: string) => ({
-    id: 10,
-    name: "navigation:providers",
-    icon: NotificationIcon,
-    link: `${prefix}/providers`,
-  }),
-  Users: (prefix: string) => ({
-    id: 11,
-    name: "navigation:manageUsers",
-    icon: UserIcon,
-    link: `${prefix}/users`,
-  }),
-  BranchMangers: (prefix: string) => ({
-    id: 15,
-    name: "navigation:branchManagers",
-    // icon: Badge as any,
-    icon: BranchIcon,
-    link: `${prefix}/branch-managers`,
-  }),
-  CustomerCare: (prefix: string) => ({
-    id: 16,
-    name: "navigation:customerCare",
-    // icon: ShieldQuestionIcon as any,
-    icon: UserIcon,
-    link: `${prefix}/customer-care`,
-  }),
 };
 export const sidebarAdminNavigation: ISideBarItem[] = Object.values(
   SideBarItems
-)
-  .map((i) => i("/admin"))
-  .filter((i: any) => !(i.id === 15 || i.id === 16));
+).map((i) => i("/admin"));
+// .filter((i: any) => !(i.id === 15 || i.id === 16));
 export const sidebarProvidernavigation: ISideBarItem[] = [
   SideBarItems.Dashboard("/provider"),
   SideBarItems.Branch("/provider"),

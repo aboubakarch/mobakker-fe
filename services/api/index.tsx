@@ -69,6 +69,14 @@ class APIService extends HTTPService {
     }
     return this.patch<T>(`${endpoints.CUSTOMER_CARE_UPDATE}/${id}`, payload, customConfig)
   }
+  public editCustomer<T = any>(id: string, payload: object): Promise<T> {
+    const customConfig = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
+    return this.patch<T>(`${endpoints.CUSTOMER_UPDATE}/${id}`, payload, customConfig)
+  }
   public editEmployee<T = any>(id: string, payload: object): Promise<T> {
     const customConfig = {
       headers: {
@@ -84,7 +92,20 @@ class APIService extends HTTPService {
     return this.post<T>(endpoints.LOGIN, payload)
   }
   public registerProvider<T = any>(payload: IProviderRegistrationFormValues): Promise<T> {
-    return this.post<T>(endpoints.PROVIER_REGISTRATION, payload)
+    const customConfig = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
+    return this.post<T>(endpoints.PROVIER_REGISTRATION, payload, customConfig)
+  }
+  public registerCustomer<T = any>(payload: IProviderRegistrationFormValues): Promise<T> {
+    const customConfig = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
+    return this.post<T>(endpoints.CUSTOMER_REGISTRATION, payload, customConfig)
   }
   public verifyOtp<T = any>(payload: IProviderRegistrationFormValues): Promise<T> {
     return this.post<T>(endpoints.OTP_VERIFY, payload)
@@ -128,6 +149,9 @@ class APIService extends HTTPService {
   public getEmployees<T = any>(params: any): Promise<T> {
     return this.get<T>(endpoints.GET_ALL_EMPLOYEES, params)
   }
+  public getServiceProvider<T = any>(params: any): Promise<T> {
+    return this.get<T>(endpoints.SERVICE_PROVIDER, params)
+  }
   public getAppointments<T = any>(params: any): Promise<T> {
     return this.get<T>(endpoints.APPOINTMENTS, params)
   }
@@ -166,10 +190,20 @@ class APIService extends HTTPService {
     return this.patch<T>(`${endpoints.GET_ALL_EMPLOYEES}/${id}`, payload)
   }
   public createServiceType<T = any>(payload: object): Promise<T> {
-    return this.post<T>(endpoints.CREATE_SERVICE_TYPE, payload)
+    const customConfig = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
+    return this.post<T>(endpoints.CREATE_SERVICE_TYPE, payload, customConfig)
   }
   public editServiceType<T = any>(id: string, payload: object): Promise<T> {
-    return this.patch<T>(`${endpoints.SERVICE_TYPE}/${id}`, payload)
+    const customConfig = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
+    return this.patch<T>(`${endpoints.SERVICE_TYPE}/${id}`, payload, customConfig)
   }
   public deleteServiceType<T = any>(id: string): Promise<T> {
     return this.delete<T>(`${endpoints.SERVICE_TYPE}/${id}`)
@@ -182,6 +216,12 @@ class APIService extends HTTPService {
   }
   public updateAppointmentStatus<T = any>(id: string, status: any): Promise<T> {
     return this.patch<T>(`${endpoints.APPOINTMENTS}/status/${id}`, status)
+  }
+  public updateServiceStatus<T = any>(id: string, status: any): Promise<T> {
+    return this.patch<T>(`${endpoints.SERVICE}/status/${id}`, status)
+  }
+  public updateBranchStatus<T = any>(id: string, status: any): Promise<T> {
+    return this.patch<T>(`${endpoints.BRANCH}/status/${id}`, status)
   }
   public deleteUser<T = any>(id: string): Promise<T> {
     return this.delete<T>(`${endpoints.USERS}/${id}`)

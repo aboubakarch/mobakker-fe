@@ -20,6 +20,7 @@ import { IFormValueObj, IServiceFormValues } from '@/@types/forms'
 import { TFunction } from 'i18next'
 import { format, parse, addMinutes, isBefore, isEqual } from 'date-fns';
 import { convertToFormData, getCookie } from '@/lib/helpers'
+import { RoleType } from '@/constants/enums'
 
 const timeSlotData = [
     {
@@ -203,7 +204,7 @@ const ServiceModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate 
         const currentDate = new Date(); // Current date
         const startDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), startTime[0], startTime[1]);
         const endDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), endTime[0], endTime[1]);
-
+        console.log(user)
 
         const service = {
             name: values.name,
@@ -215,7 +216,7 @@ const ServiceModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate 
             workHourTo: endDate,
             serviceTypeId: values.serviceType,
             bookingCapacity: values.bookingCapacity,
-            providerId: (user as any)?.serviceProvider?.id,
+            providerId: (user as any).role === RoleType.BRANCH_MANAGER ? (user as any)?.employee?.employerId : (user as any)?.serviceProvider?.id,
 
         }
         const formData = convertToFormData(service)
@@ -258,7 +259,7 @@ const ServiceModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate 
             workHourTo: endDate,
             bookingCapacity: values.bookingCapacity,
             serviceTypeId: values.serviceType,
-            providerId: (user as any)?.serviceProvider?.id,
+            providerId: (user as any).role === RoleType.BRANCH_MANAGER ? (user as any)?.employee?.employerId : (user as any)?.serviceProvider?.id,
             avatar: image ? image : undefined,
         }
         const formData = convertToFormData(service)

@@ -11,7 +11,7 @@ import { SortEnum } from '@/constants/enums'
 import { debounce } from 'lodash'
 import BranchFilters from './filters/BranchFilters'
 
-const BranchTable: FC<ITableProps<SampleBranch>> = ({ handleEdit, handleDelete, onUpdateFlag, handleAssign, handleRow }) => {
+const BranchTable: FC<ITableProps<SampleBranch>> = ({ handleEdit, handleDelete, onUpdateFlag, handleAssign, handleRow, onAppointmentChange }) => {
     const { t } = useTranslation()
     const { toast } = useToast()
     const [data, setData] = useState<SampleBranch[]>([])
@@ -100,7 +100,7 @@ const BranchTable: FC<ITableProps<SampleBranch>> = ({ handleEdit, handleDelete, 
                 </div>
             ) : (<DataTable
                 data={data}
-                columns={branchColumns(t, handleEdit, handleDelete, handleAssign)}
+                columns={branchColumns(t, handleEdit, handleDelete, handleAssign, onAppointmentChange)}
                 filterKey='name' count={total}
                 onChangePagination={setPagination}
                 tablePagination={pagination}

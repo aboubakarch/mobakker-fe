@@ -17,6 +17,8 @@ interface IPromotionItemProps {
   startDate: string;
   endDate: string;
   active: boolean;
+  id: string;
+  handleUpdate: () => void;
 }
 
 interface IReportWidgetProps {

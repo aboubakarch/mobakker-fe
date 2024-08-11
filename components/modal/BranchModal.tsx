@@ -19,7 +19,7 @@ import APIService from '@/services/api'
 import { useToast } from '@/hooks/use-toast'
 import BranchManagerModal from './BranchManagerModal'
 import { RoleType } from '@/constants/enums'
-import { convertToFormData } from '@/lib/helpers'
+import { convertToFormData, getCookie } from '@/lib/helpers'
 // import { getCookie } from '@/lib/helpers'
 
 
@@ -118,11 +118,16 @@ const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, v
     const [managerModal, setManagerModal] = useState(false)
     const [image, setImage] = useState<File | null>(null);
     const [cities, setCites] = useState<any[]>([])
+    const [providers, setProviders] = useState<any[]>([])
 
 
     // console.log("states", states)
 
     useEffect(() => {
+        const role = getCookie("role")
+        if (role === RoleType.ADMIN || role === RoleType.SUPER_ADMIN) {
+            fetchProvidersData()
+        }
         fetchData()
     }, [])
 
@@ -138,6 +143,23 @@ const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, v
                 value: item?.id
             }))
             setCites(data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const fetchProvidersData = async () => {
+
+        try {
+            const params = {
+            }
+            const response = await APIService.getInstance().getServiceProvider(params)
+
+            const data = response?.items?.map((item: any) => ({
+                name: `${item?.user?.firstName} ${item?.user?.lastName}`,
+                value: item?.id
+            }))
+            setProviders(data)
         } catch (error) {
             console.log(error)
         }

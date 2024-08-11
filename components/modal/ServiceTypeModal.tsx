@@ -15,6 +15,7 @@ import { Button } from '../ui'
 
 import APIService from '@/services/api'
 import { useToast } from '@/hooks/use-toast'
+import { convertToFormData } from '@/lib/helpers'
 // import { getCookie } from '@/lib/helpers'
 
 
@@ -27,6 +28,7 @@ const ServiceTypeModal: FC<IModalCompProps<ServiceType>> = ({ closeModal, visibl
     const serviceTypeFormVal = serviceTypeFormVals(val)
     const [loading, setLoading] = useState(false)
     const { toast } = useToast()
+    const [image, setImage] = useState<File | null>(null);
 
     // console.log("states", states)
 
@@ -34,9 +36,10 @@ const ServiceTypeModal: FC<IModalCompProps<ServiceType>> = ({ closeModal, visibl
         // const userId = getCookie("userId");
         const branch = {
             name: values.name,
-            avatar: "nldn"
+            avatar: image ? image : undefined
         }
-        await APIService.getInstance().createServiceType(branch as any);
+        const formData = convertToFormData(branch)
+        await APIService.getInstance().createServiceType(formData as any);
         setLoading(false)
 
         toast({
@@ -49,10 +52,12 @@ const ServiceTypeModal: FC<IModalCompProps<ServiceType>> = ({ closeModal, visibl
 
         const branch = {
             name: values.name,
-            avatar: "nldn"
+            avatar: image ? image : undefined
 
         }
-        await APIService.getInstance().editServiceType(val?.id as string, branch as any);
+        const formData = convertToFormData(branch)
+
+        await APIService.getInstance().editServiceType(val?.id as string, formData as any);
         setLoading(false)
 
         toast({
@@ -101,7 +106,7 @@ const ServiceTypeModal: FC<IModalCompProps<ServiceType>> = ({ closeModal, visibl
                 </div>
                 <div>
 
-                    <Dropzone title='Upload Logo' />
+                    <Dropzone title='Upload Logo' onFileSelect={(file) => setImage(file)} url={val?.avatar || undefined} />
                 </div>
 
                 <InputField {...serviceTypeFormVal.info(t).name} />

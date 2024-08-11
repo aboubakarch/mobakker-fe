@@ -11,7 +11,7 @@ import { SortEnum } from '@/constants/enums'
 import ServiceFilters from './filters/ServiceFilters'
 import { debounce } from 'lodash'
 
-const ServicesTable: FC<ITableProps<SampleServices>> = ({ handleEdit, handleDelete, onUpdateFlag, handleRow }) => {
+const ServicesTable: FC<ITableProps<SampleServices>> = ({ handleEdit, handleDelete, onUpdateFlag, handleRow, onAppointmentChange }) => {
     const { t } = useTranslation()
 
     const { toast } = useToast()
@@ -98,7 +98,7 @@ const ServicesTable: FC<ITableProps<SampleServices>> = ({ handleEdit, handleDele
                     <Skeleton className="h-[75px] w-full rounded-xl" />
                 </div>
             ) : (
-                <DataTable data={data} columns={serviceColumns(t, handleEdit, handleDelete)} filterKey='name' count={total}
+                <DataTable data={data} columns={serviceColumns(t, handleEdit, handleDelete, onAppointmentChange)} filterKey='name' count={total}
                     onChangePagination={setPagination}
                     tablePagination={pagination}
                     sort={sort}

@@ -18,6 +18,7 @@ interface SampleEmployee {
     employerId?: string;
     employer?: SampleBranchManager;
     rating?: number;
+    branches: SampleBranch[];
   };
 }
 interface SampleServices {

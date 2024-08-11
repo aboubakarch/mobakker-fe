@@ -16,7 +16,7 @@ import { useToast } from '@/hooks/use-toast'
 import { convertToFormData } from '@/lib/helpers'
 import APIService from '@/services/api'
 
-const ProviderModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate }) => {
+const CustomerModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate }) => {
     const { t } = useTranslation();
     const providerFormVal = providerFormVals(val)
     const [loading, setLoading] = useState(false)
@@ -30,11 +30,11 @@ const ProviderModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate
             ...values, avatar: image ? image : undefined,
         })
 
-        await APIService.getInstance().registerProvider(formData as any);
+        await APIService.getInstance().registerCustomer(formData as any);
         setLoading(false)
 
         toast({
-            description: "Employee added!",
+            description: "User added!",
             variant: "success"
         })
 
@@ -49,11 +49,11 @@ const ProviderModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate
         }
         const formData = convertToFormData(vals)
 
-        await APIService.getInstance().editServiceProvider(val?.id as string, formData as any);
+        await APIService.getInstance().editCustomer(val?.id as string, formData as any);
         setLoading(false)
 
         toast({
-            description: "Employee Updated!",
+            description: "User Updated!",
             variant: "success"
         })
 
@@ -94,7 +94,7 @@ const ProviderModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate
                 className="px-3 py-4 flex gap-4 flex-col"
                 {...providerFormVal}>
                 <div className='flex justify-between w-full'>
-                    <p className='text-black text-xl font-medium  leading-[30px]'>{val ? t(messages.UPDATE) : t(messages.ADD_EMPLOYEE)}</p>
+                    <p className='text-black text-xl font-medium  leading-[30px]'>{val ? t(messages.UPDATE) : t(messages.CREATE_USER)}</p>
                     <Button variant={'ghost'} onClick={closeModal} className='px-3 py-0'>
                         <X className='w-4 h-4 relative text-black' />
                     </Button>
@@ -125,7 +125,7 @@ const ProviderModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate
                 </div>
                 {!val && <InputField {...providerFormVal.info(t).password} />}
                 <div className='self-end flex gap-3'>
-                    <SubmitButton loading={loading} title={val ? t(messages.EDIT) : t(messages.ADD_PROVIDER)} className="self-end bg-primaryBlue" />
+                    <SubmitButton loading={loading} title={val ? t(messages.EDIT) : t(messages.CREATE_USER)} className="self-end bg-primaryBlue" />
                     <Button onClick={closeModal} variant={"outline"} >
                         {t(messages.CANCEL)}
                     </Button>
@@ -139,4 +139,4 @@ const ProviderModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate
     )
 }
 
-export default ProviderModal
+export default CustomerModal

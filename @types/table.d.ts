@@ -9,7 +9,7 @@ interface ITableProps<T = any> {
   onToggle?: (id: string, val: boolean) => void;
   handleAssign?: (val: T) => void;
   handleRow?: (val: T) => void;
-  onAppointmentChange?: (val: SampleAppointments, status: string) => void;
+  onAppointmentChange?: (val: T, status: string) => void;
 }
 
 type ISort = "DESC" | "ASC";

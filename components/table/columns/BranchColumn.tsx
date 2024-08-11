@@ -13,12 +13,33 @@ import TextColumn from "../TextColumn";
 import { Checkbox } from "@/components/ui/Checkbox";
 import { TFunction } from "i18next";
 import Image from "next/image";
-import { isValidImageSrc } from "@/lib/helpers";
+import { getCookie, isValidImageSrc } from "@/lib/helpers";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/Tooltip";
+import { RoleType } from "@/constants/enums";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/Select";
+import { cn } from "@/lib/utils";
+
+enum Status {
+    PENDING = 'PENDING',
+    APPROVED = 'APPROVED',
+    REJECTED = 'REJECTED',
+}
 
 
-export const branchColumns: (t: TFunction<"translation", undefined>, handleEdit?: (val: SampleBranch) => void, handleDelete?: (val: SampleBranch) => void, handleAssign?: (val: SampleBranch) => void) => ColumnDef<SampleBranch>[]
-    = (t, handleEdit, handleDelete, handleAssign) => [
+const statusOptions = [
+    { name: "Pending", value: "PENDING" },
+    { name: "Approved", value: "APPROVED" },
+    { name: "Rejected", value: "REJECTED" }
+];
+
+export const branchColumns: (
+    t: TFunction<"translation", undefined>,
+    handleEdit?: (val: SampleBranch) => void,
+    handleDelete?: (val: SampleBranch) => void,
+    handleAssign?: (val: SampleBranch) => void,
+    onStatusChange?: (val: SampleBranch, status: string) => void
+) => ColumnDef<SampleBranch>[]
+    = (t, handleEdit, handleDelete, handleAssign, onStatusChange) => [
         {
             id: "select",
             header: ({ table }) => (
@@ -105,6 +126,24 @@ export const branchColumns: (t: TFunction<"translation", undefined>, handleEdit?
 
             cell: ({ row }) => {
                 const isActive: boolean = row.getValue("isActive");
+                const role = getCookie("role")
+                const original = row.original
+                if (role === RoleType.ADMIN || role === RoleType.SUPER_ADMIN) {
+                    return (
+
+                        <Select onValueChange={(val) => { if (onStatusChange) { onStatusChange(original, val) } }} value={isActive ? Status.APPROVED : Status.REJECTED} >
+                            {/* <SelectTrigger className={cn("flex gap-2 text-white", isActive === "REJECTED" ? "bg-red-500" : status === "PENDING" ? "bg-yellow-500" : status === "APPROVED" ? "bg-green-600" : "")}> */}
+                            <SelectTrigger className={cn("flex gap-2 text-white", !isActive ? "bg-red-500" : "bg-green-600")}>
+                                <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {statusOptions.map(item => (
+                                    <SelectItem key={item.value} value={`${item.value}`}>{item.name}</SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                    )
+                }
                 return (
                     <TextColumn text={isActive ? "Active" : "Inactive"} />
                 )
