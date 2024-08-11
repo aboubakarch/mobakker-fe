@@ -25,8 +25,7 @@ export default function Home() {
       {/* <DeleteModal visible closeModal={() => { }} onDelete={() => { }} title="dnlssnf" /> */}
       <div className="md:w-1/2 w-full flex flex-col">
         <h1 className="font-medium text-2xl ">{t(messages.GOOD_MORNING) + "User"}</h1>
-        <p className="line-clamp-2 text-sm">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, asperiores rerum? Earum quod, maxime fugiat dolore laborum, illo minima aperiam amet ipsam, architecto voluptatum fugit laudantium aliquid quisquam reprehenderit natus.</p>
-      </div>
+        <p className="line-clamp-2 text-sm">{t(messages.YOUR_CENTRAL_HUB)}</p>      </div>
       <div className="bg-white rounded-sm w-full grid md:grid-rows-2 grid-cols-2 md:grid-cols-4 px-4 py-2 gap-3 ">
         {Array(8).fill(0).map(i => (
           <HeaderInfoItem title="Lorem Ipsum" color={ColorsEnum.Blue} heading={"Lorem Ipsum"} className="bg-indigo-800/5" key={i} />

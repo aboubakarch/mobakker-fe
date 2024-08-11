@@ -18,6 +18,7 @@ interface IBranchFormValues {
   location: string;
   city: string;
   manager?: string;
+  ownerId?: string;
 }
 interface IServiceTypeFormValues {
   name: string;
@@ -55,6 +56,7 @@ interface IServiceFormValues {
   endHour: string;
   slotTime: string;
   bookingCapacity: number;
+  providerId?: string;
 }
 interface IPromotionFormValues {
   promoCode: string;

@@ -76,7 +76,7 @@ const Services = () => {
     const handlStatusChange = async (item: SampleServices, status: string) => {
         try {
 
-            await APIService.getInstance().updateServiceStatus(item?.id, status);
+            await APIService.getInstance().updateServiceStatus(item?.id, { status: status });
             toast({
                 variant: "destructive",
                 description: "Service Updated!",

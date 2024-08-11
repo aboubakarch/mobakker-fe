@@ -101,7 +101,7 @@ const Branch = () => {
     const handlStatusChange = async (item: SampleBranch, status: string) => {
         try {
 
-            await APIService.getInstance().updateBranchStatus(item?.id, status);
+            await APIService.getInstance().updateBranchStatus(item?.id, { status: status });
             toast({
                 variant: "destructive",
                 description: "Branch Updated!",

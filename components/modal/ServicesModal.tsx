@@ -50,7 +50,31 @@ const ServiceForm: FC<{
     const slotTime = form.watch("slotTime")
     const endHour = form.watch("endHour")
     const [timeSlots, setTimeSlots] = useState<string[] | null>(null)
+    const role = getCookie("role")
+    const [providers, setProviders] = useState<any[]>([])
 
+    useEffect(() => {
+        if (role === RoleType.ADMIN || role === RoleType.SUPER_ADMIN) {
+            fetchProvidersData()
+        }
+    }, [])
+    const fetchProvidersData = async () => {
+
+        try {
+            const params = {
+                page: 1, take: 100
+            }
+            const response = await APIService.getInstance().getServiceProvider(params)
+
+            const data = response?.items?.map((item: any) => ({
+                name: `${item?.user?.firstName} ${item?.user?.lastName}`,
+                value: item?.id
+            }))
+            setProviders(data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     function divideTimeIntoSlots(startTimeStr: string, endTimeStr: string, slotDuration: number): string[] {
         // Define the input and output time formats
@@ -111,8 +135,13 @@ const ServiceForm: FC<{
 
     return (
         <div className='flex flex-col gap-2'>
+            {(role === RoleType.ADMIN || role === RoleType.SUPER_ADMIN) &&
+                <InputField {...serviceFormVal.info(t).providerId as any} data={providers ? providers as any : undefined} />
+
+            }
 
             <div className='flex gap-2'>
+
                 <div className='flex-1 flex flex-col gap-4'>
                     <InputField {...serviceFormVal.info(t).name} />
                     <InputField data={serviceTypes as any[]} disabled={!serviceTypes} {...serviceFormVal.info(t).serviceType} />
@@ -157,6 +186,7 @@ const ServiceModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate 
     const { toast } = useToast()
     const [serviceTypes, setServiceTypes] = useState<any[] | null>([])
     const [image, setImage] = useState<File | null>(null);
+    const role = getCookie("role")
 
 
     const fetchData = async () => {
@@ -216,7 +246,7 @@ const ServiceModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate 
             workHourTo: endDate,
             serviceTypeId: values.serviceType,
             bookingCapacity: values.bookingCapacity,
-            providerId: (user as any).role === RoleType.BRANCH_MANAGER ? (user as any)?.employee?.employerId : (user as any)?.serviceProvider?.id,
+            providerId: role === RoleType.ADMIN || role === RoleType.SUPER_ADMIN ? values.providerId : (user as any).role === RoleType.BRANCH_MANAGER ? (user as any)?.employee?.employerId : (user as any)?.serviceProvider?.id,
 
         }
         const formData = convertToFormData(service)
@@ -259,7 +289,7 @@ const ServiceModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate 
             workHourTo: endDate,
             bookingCapacity: values.bookingCapacity,
             serviceTypeId: values.serviceType,
-            providerId: (user as any).role === RoleType.BRANCH_MANAGER ? (user as any)?.employee?.employerId : (user as any)?.serviceProvider?.id,
+            providerId: role === RoleType.ADMIN || role === RoleType.SUPER_ADMIN ? values.providerId : (user as any).role === RoleType.BRANCH_MANAGER ? (user as any)?.employee?.employerId : (user as any)?.serviceProvider?.id,
             avatar: image ? image : undefined,
         }
         const formData = convertToFormData(service)
@@ -276,6 +306,13 @@ const ServiceModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate 
 
 
     const onSubmit = async (values: yup.InferType<typeof serviceValidationSchema>) => {
+        if ((role === RoleType.ADMIN || role === RoleType.SUPER_ADMIN) && (!values.providerId || values.providerId === "")) {
+            toast({
+                description: "Please Select Service Provider!",
+                variant: "success"
+            })
+            return
+        }
         console.log(values);
         setLoading(true)
         try {

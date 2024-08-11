@@ -34,6 +34,7 @@ export const branchValidationSchema = yup.object().shape({
     .max(300, "City is required")
     .required("City is required"),
   manager: yup.string().optional(),
+  ownerId: yup.string().optional(),
 });
 export const serviceTypeValidationSchema = yup.object().shape({
   name: yup
@@ -91,6 +92,7 @@ export const serviceValidationSchema = yup.object().shape({
   startHour: yup.string().required("Start hour is required"),
   endHour: yup.string().required("End hour is required"),
   slotTime: yup.string().required("Slot time is required"),
+  providerId: yup.string().optional(),
 });
 export const promotionValidationSchema = yup.object().shape({
   promoCode: yup

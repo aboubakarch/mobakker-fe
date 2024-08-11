@@ -29,7 +29,7 @@ import {
   serviceTypeValidationSchema,
   serviceValidationSchema,
 } from "./validationSchemas";
-import { formConstants } from "./constants";
+import { formConstants, messages } from "./constants";
 import { FieldTypesEnum } from "./enums";
 import { formatTime } from "@/lib/helpers";
 
@@ -53,6 +53,7 @@ export const branchDefaultValues: (val?: SampleBranch) => IBranchFormValues = (
   city: val ? val.branchCityId || "" : "",
   location: val ? val.address : "",
   manager: val ? val.managerId || "" : "",
+  ownerId: val ? val.ownerId || "" : "",
 });
 export const serviceTypeDefaultValues: (
   val?: ServiceType
@@ -99,6 +100,7 @@ export const serviceDefaultValues: (
   endHour: val ? formatTime(val.workHourTo) : "",
   slotTime: val ? val.slotTime.split(" ")[0] || "" : "",
   bookingCapacity: val ? val.bookingCapacity || 0 : 0,
+  providerId: val ? val.providerId || "" : "",
 });
 
 export const promotionDefaultValues: (
@@ -239,6 +241,13 @@ export const branchFormVals: (
       hasError: true,
       name: "manager",
       label: t(formConstants.SELECT_MANAGER),
+      fieldType: FieldTypesEnum.SingleSearchSelect,
+    },
+    ownerId: {
+      placeHolder: t("Service Provider"),
+      hasError: true,
+      name: "ownerId",
+      label: t("Service Provider"),
       fieldType: FieldTypesEnum.SingleSearchSelect,
     },
   }),
@@ -416,6 +425,13 @@ export const serviceFormVals: (
       name: "slotTime",
       label: t(formConstants.TIME_SLOT),
       fieldType: FieldTypesEnum.Select,
+    },
+    providerId: {
+      placeHolder: t("Service Provider"),
+      hasError: true,
+      name: "providerId",
+      label: t("Service Provider"),
+      fieldType: FieldTypesEnum.SingleSearchSelect,
     },
   }),
 });
