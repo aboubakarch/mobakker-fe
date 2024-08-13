@@ -238,6 +238,30 @@ class APIService extends HTTPService {
   public getCities<T = any>(params: any): Promise<T> {
     return this.get<T>(endpoints.GET_CITIES, params)
   }
+  public getStates<T = any>(params: any): Promise<T> {
+    return this.get<T>(endpoints.STATES, params)
+  }
+  public getCountries<T = any>(params: any): Promise<T> {
+    return this.get<T>(endpoints.COUNTRIES, params)
+  }
+  public createCountry<T = any>(params: any): Promise<T> {
+    return this.post<T>(endpoints.COUNTRIES, params)
+  }
+  public editCountry<T = any>(id: string, params: any): Promise<T> {
+    return this.put<T>(`${endpoints.COUNTRIES}/${id}`, params)
+  }
+  public createState<T = any>(params: any): Promise<T> {
+    return this.post<T>(endpoints.STATES, params)
+  }
+  public editState<T = any>(id: string, params: any): Promise<T> {
+    return this.put<T>(`${endpoints.STATES}/${id}`, params)
+  }
+  public createCity<T = any>(params: any): Promise<T> {
+    return this.post<T>(endpoints.GET_CITIES, params)
+  }
+  public editCity<T = any>(id: string, params: any): Promise<T> {
+    return this.put<T>(`${endpoints.GET_CITIES}/${id}`, params)
+  }
   public getCustomerCare<T = any>(params: any): Promise<T> {
     return this.get<T>(endpoints.CUSTOMER_CARE_EMPLOYEE, params)
   }

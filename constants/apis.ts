@@ -53,4 +53,6 @@ export const endpoints = {
   NOTIFICATIONS_MARK_READ: "/notifications/markAsRead",
   NOTIFICATIONS_ALL_MARK_READ: "/notifications/markAllAsRead",
   NOTIFICATIONS_ADD_ID: "/notifications/addNotification",
+  COUNTRIES: "/country-state-city/countries",
+  STATES: "/country-state-city/states",
 };

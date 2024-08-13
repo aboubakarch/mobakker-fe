@@ -88,6 +88,24 @@ interface IOTPFormValues {
   pin: string;
 }
 
+interface ICountryFormValues {
+  name: string;
+  code: string;
+  mobileCode: string;
+}
+
+interface IStateFormValues {
+  name: string;
+  code: string;
+  countryId: string;
+}
+
+interface ICityFormValues {
+  name: string;
+  code: string;
+  stateId: string;
+}
+
 type IFormTemplate = IAppFormProps;
 
 interface IAppFormProps<T> {

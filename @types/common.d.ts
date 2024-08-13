@@ -219,3 +219,24 @@ interface SysNotifications {
   timeRead: string | null;
   userId: string;
 }
+
+interface Country {
+  id: string;
+  name: string;
+  code: string;
+  mobileCode: string;
+}
+
+interface State {
+  id: string;
+  name: string;
+  code: string;
+  countryId: string; // UUID
+}
+
+interface City {
+  id: string;
+  name: string;
+  code: string;
+  stateId: string; // UUID
+}

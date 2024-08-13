@@ -4,6 +4,8 @@ import {
   IAssignServiceFormValues,
   IBranchEditFormValues,
   IBranchFormValues,
+  ICityFormValues,
+  ICountryFormValues,
   IEmployeeFormValues,
   IFormValueObj,
   ILoginFormValues,
@@ -13,6 +15,7 @@ import {
   IProviderRegistrationFormValues,
   IServiceFormValues,
   IServiceTypeFormValues,
+  IStateFormValues,
 } from "@/@types/forms";
 import {
   appointmentValidationSchema,
@@ -20,6 +23,8 @@ import {
   assignServiceValidationSchema,
   branchEditValidationSchema,
   branchValidationSchema,
+  cityValidationSchema,
+  countryValidationSchema,
   employeeValidationSchema,
   loginValidationSchema,
   otpValidationSchema,
@@ -28,6 +33,7 @@ import {
   providerValidationSchema,
   serviceTypeValidationSchema,
   serviceValidationSchema,
+  stateValidationSchema,
 } from "./validationSchemas";
 import { formConstants, messages } from "./constants";
 import { FieldTypesEnum } from "./enums";
@@ -131,6 +137,25 @@ export const appointmentDefaultValues: (
   serviceId: val ? val.serviceId : "",
   bookingSlot: val ? val.bookingSlot : "",
   promotion: "",
+});
+
+export const countryDefaultValues: (val?: Country) => ICountryFormValues = (
+  val
+) => ({
+  name: val ? val.name : "",
+  code: val ? val.code : "",
+  mobileCode: val ? val.mobileCode : "",
+});
+export const stateDefaultValues: (val?: State) => IStateFormValues = (val) => ({
+  name: val ? val.name : "",
+  code: val ? val.code : "",
+  countryId: val ? val.countryId : "",
+});
+
+export const cityDefaultValues: (val?: City) => ICityFormValues = (val) => ({
+  name: val ? val.name : "",
+  code: val ? val.code : "",
+  stateId: val ? val.stateId : "",
 });
 
 export const loginFormVals: IFormValueObj<ILoginFormValues> = {
@@ -625,3 +650,86 @@ export const assignBranchFormVals: () => IFormValueObj<IAssignBranchFormValues> 
       },
     }),
   });
+
+export const countryFormVals: (
+  val?: Country
+) => IFormValueObj<ICountryFormValues> = (val) => ({
+  validationSchema: countryValidationSchema,
+  initialValues: countryDefaultValues(val),
+  info: (t) => ({
+    name: {
+      placeHolder: t(formConstants.NAME_PLACEHOLER),
+      hasError: true,
+      name: "name",
+      label: t(formConstants.COUNTRY_NAME_LABEL),
+    },
+    code: {
+      placeHolder: t(formConstants.COUNTRY_CODE_PLACEHOLDER),
+      hasError: true,
+      name: "code",
+      label: t(formConstants.COUNTRY_CODE_LABEL),
+    },
+    mobileCode: {
+      placeHolder: t(formConstants.MOBILE_CODE_PLACEHOLDER),
+      hasError: true,
+      name: "mobileCode",
+      label: t(formConstants.MOBILE_CODE_LABEL),
+    },
+  }),
+});
+
+export const stateFormVals: (val?: State) => IFormValueObj<IStateFormValues> = (
+  val
+) => ({
+  validationSchema: stateValidationSchema,
+  initialValues: stateDefaultValues(val),
+  info: (t) => ({
+    name: {
+      placeHolder: t(formConstants.NAME_PLACEHOLER),
+      hasError: true,
+      name: "name",
+      label: t(formConstants.STATE_NAME_LABEL),
+    },
+    code: {
+      placeHolder: t(formConstants.STATE_CODE_PLACEHOLDER),
+      hasError: true,
+      name: "code",
+      label: t(formConstants.STATE_CODE_LABEL),
+    },
+    countryId: {
+      placeHolder: t(formConstants.COUNTRY_LABEL),
+      hasError: true,
+      name: "countryId",
+      label: t(formConstants.COUNTRY_PLACEHOLDER),
+      fieldType: FieldTypesEnum.SingleSearchSelect,
+    },
+  }),
+});
+
+export const cityFormVals: (val?: City) => IFormValueObj<ICityFormValues> = (
+  val
+) => ({
+  validationSchema: cityValidationSchema,
+  initialValues: cityDefaultValues(val),
+  info: (t) => ({
+    name: {
+      placeHolder: t(formConstants.NAME_PLACEHOLER),
+      hasError: true,
+      name: "name",
+      label: t(formConstants.CITY_NAME_LABEL),
+    },
+    code: {
+      placeHolder: t(formConstants.CITY_CODE_PLACEHOLDER),
+      hasError: true,
+      name: "code",
+      label: t(formConstants.CITY_CODE_LABEL),
+    },
+    stateId: {
+      placeHolder: t(formConstants.STATE),
+      hasError: true,
+      name: "stateId",
+      label: t(formConstants.STATE),
+      fieldType: FieldTypesEnum.SingleSearchSelect,
+    },
+  }),
+});

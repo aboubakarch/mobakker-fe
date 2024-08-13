@@ -311,3 +311,27 @@ export const paymentValidationSchema = yup.object().shape({
 //     .required("Subscription ID is required"),
 //   source: cardSchema.required("Credit card information is required"),
 // });
+
+export const countryValidationSchema = yup.object().shape({
+  name: yup.string().required("Country name is required"),
+  code: yup.string().required("Country code is required"),
+  mobileCode: yup.string().required("Mobile code is required"),
+});
+
+export const stateValidationSchema = yup.object().shape({
+  name: yup.string().required("State name is required"),
+  code: yup.string().required("State code is required"),
+  countryId: yup
+    .string()
+    .uuid("Invalid country ID")
+    .required("Country ID is required"),
+});
+
+export const cityValidationSchema = yup.object().shape({
+  name: yup.string().required("City name is required"),
+  code: yup.string().required("City code is required"),
+  stateId: yup
+    .string()
+    .uuid("Invalid state ID")
+    .required("State ID is required"),
+});

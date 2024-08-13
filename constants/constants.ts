@@ -137,6 +137,17 @@ export const messages = {
   SUCCESS_SUBSCRIPTION: "common:successSubscription",
   FAILED_SUBSCRIPTION: "common:failedSubscription",
   TODAYS_REPORTS: "common:todaysReports",
+  ADD_COUNTRY: "common:addCountry",
+  EDIT_COUNTRY: "common:editCountry",
+  ADD_STATE: "common:addState",
+  EDIT_STATE: "common:editState",
+  ADD_CITY: "common:addCity",
+  EDIT_CITY: "common:editCity",
+  COUNTRIES: "common:countries",
+  CITIES: "common:cities",
+  STATES: "common:states",
+  LOCATION: "common:location",
+  LOCATION_INFO: "common:locationInfo",
 };
 
 export const tableHeader = {
@@ -269,6 +280,29 @@ export const formConstants = {
   CUSTOMER: "auth:customer",
   PROMO_CODE: "auth:promoCode",
   DISCOUNT: "auth:discount",
+  // Country
+  COUNTRY_NAME_LABEL: "auth:countryNameLabel",
+  COUNTRY_NAME_PLACEHOLDER: "auth:countryNamePlaceholder",
+  COUNTRY_CODE_LABEL: "auth:countryCodeLabel",
+  COUNTRY_CODE_PLACEHOLDER: "auth:countryCodePlaceholder",
+  MOBILE_CODE_LABEL: "auth:mobileCodeLabel",
+  MOBILE_CODE_PLACEHOLDER: "auth:mobileCodePlaceholder",
+
+  // State
+  STATE_NAME_LABEL: "auth:stateNameLabel",
+  STATE_NAME_PLACEHOLDER: "auth:stateNamePlaceholder",
+  STATE_CODE_LABEL: "auth:stateCodeLabel",
+  STATE_CODE_PLACEHOLDER: "auth:stateCodePlaceholder",
+  COUNTRY_LABEL: "auth:countryLabel",
+  COUNTRY_PLACEHOLDER: "auth:countryPlaceholder",
+
+  // City
+  CITY_NAME_LABEL: "auth:cityNameLabel",
+  CITY_NAME_PLACEHOLDER: "auth:cityNamePlaceholder",
+  CITY_CODE_LABEL: "auth:cityCodeLabel",
+  CITY_CODE_PLACEHOLDER: "auth:cityCodePlaceholder",
+  STATE_LABEL: "auth:stateLabel",
+  STATE_PLACEHOLDER: "auth:statePlaceholder",
 };
 
 export const SideBarItems = {
