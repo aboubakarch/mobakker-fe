@@ -58,4 +58,8 @@ export const endpoints = {
   NOTIFICATIONS_ADD_ID: "/notifications/addNotification",
   COUNTRIES: "/country-state-city/countries",
   STATES: "/country-state-city/states",
+  APPOINTMENTS_CITY: "/appointment/most-active/city",
+  APPOINTMENTS_SERVICE: "/appointment/most-active/service",
+  APPOINTMENTS_PROVIDER: "/appointment/most-active/provider",
+  SERVICE_ACTIVE_CATE: "/service/category/most-active",
 };

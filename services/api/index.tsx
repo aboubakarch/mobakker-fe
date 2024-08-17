@@ -331,6 +331,18 @@ class APIService extends HTTPService {
   public addNoticationId<T = any>(payload?: object): Promise<T> {
     return this.post<T>(`${endpoints.NOTIFICATIONS_ADD_ID}`, payload)
   }
+  public getMostActiveCity<T = any>(): Promise<T> {
+    return this.get<T>(endpoints.APPOINTMENTS_CITY)
+  }
+  public getMostActiveProvider<T = any>(): Promise<T> {
+    return this.get<T>(endpoints.APPOINTMENTS_PROVIDER)
+  }
+  public getMostActiveService<T = any>(): Promise<T> {
+    return this.get<T>(endpoints.APPOINTMENTS_SERVICE)
+  }
+  public getMostActiveCategory<T = any>(): Promise<T> {
+    return this.get<T>(endpoints.SERVICE_ACTIVE_CATE)
+  }
 }
 
 export default APIService

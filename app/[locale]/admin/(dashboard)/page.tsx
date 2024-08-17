@@ -5,6 +5,7 @@ import PerformanceChart from "@/components/header/PerformanceChart";
 import NotificationHandler from "@/components/notificationHandler/NotificationHandler";
 // import DeleteModal from "@/components/modal/DeleteModal";
 import { Button } from "@/components/ui";
+import { Skeleton } from "@/components/ui/Skeleton";
 import { messages } from "@/constants/constants";
 import { ColorsEnum } from "@/constants/enums";
 import APIService from "@/services/api";
@@ -19,11 +20,62 @@ interface IAppointmentState {
   REJECTED?: number;
   CANCELED?: number;
 }
+interface ICountsState {
+  activeCity: undefined | null | string;
+  activeProvider: undefined | null | string;
+  activeService: undefined | null | string;
+  activeCategory: undefined | null | string;
 
+}
 export default function Home() {
   const { t } = useTranslation()
   const [totalAppointments, setTotalAppointments] = useState<IAppointmentState | undefined | null>(undefined)
   const [totalAppointmentsCount, setTotalAppointmentsCount] = useState(0)
+  const [loading, setLoading] = useState(false)
+  const [counts, setCounts] = useState<ICountsState>({
+    activeCity: undefined,
+    activeProvider: undefined,
+    activeService: undefined,
+    activeCategory: undefined
+  })
+
+  const fetchCounts = async () => {
+    setLoading(true)
+    try {
+      const results = await Promise.allSettled([
+        APIService.getInstance().getMostActiveCity(),
+        APIService.getInstance().getMostActiveProvider(),
+        APIService.getInstance().getMostActiveService(),
+        APIService.getInstance().getMostActiveCategory(),
+      ])
+      const temp: any = {}
+      results.forEach((res, index) => {
+        switch (index) {
+          case 0:
+            temp.activeCity = res.status === "fulfilled" ? res.value.branch_city || null : null
+            break;
+          case 1:
+            temp.activeProvider = res.status === "fulfilled" ? `${res?.value?.user?.firstName || ""} ${res?.value?.user?.lastName || ""}` || null : null
+            break;
+          case 2:
+            temp.activeService = res.status === "fulfilled" ? res.value.service_name || null : null
+            break;
+          case 3:
+            temp.activeCategory = res.status === "fulfilled" ? res.value.serviceTypeName || null : null
+            break;
+        }
+      })
+      setCounts(temp)
+
+    } catch (error) {
+      console.log(error)
+
+    }
+    setLoading(false)
+  }
+
+
+
   const getTotalAppointments = async () => {
     try {
       let param: any = {}
@@ -44,6 +96,7 @@ export default function Home() {
     }
   }
   useEffect(() => {
+    fetchCounts()
     getTotalAppointments()
   }, [])
 
@@ -59,13 +112,25 @@ export default function Home() {
       {/* <DeleteModal visible closeModal={() => { }} onDelete={() => { }} title="dnlssnf" /> */}
       <div className="md:w-1/2 w-full flex flex-col">
         <h1 className="font-medium text-2xl ">{t(messages.GOOD_MORNING) + "User"}</h1>
-        <p className="line-clamp-2 text-sm">{t(messages.YOUR_CENTRAL_HUB)}</p>      </div>
-      <div className="bg-white rounded-sm w-full grid md:grid-rows-2 grid-cols-2 md:grid-cols-4 px-4 py-2 gap-3 ">
-        {Array(8).fill(0).map(i => (
-          <HeaderInfoItem title="Lorem Ipsum" color={ColorsEnum.Blue} heading={"Lorem Ipsum"} className="bg-indigo-800/5" key={i} />
-        ))}
-
+        <p className="line-clamp-2 text-sm">{t(messages.YOUR_CENTRAL_HUB)}</p>
       </div>
+      {loading ? (
+        <div id="skeleton" className="bg-white rounded-sm w-full grid grid-cols-2 md:grid-cols-4 grid-flow-row px-4 py-2 gap-3 ">
+
+          {Array(4).fill(0).map(i => (
+            <Skeleton className="h-[75px] w-full rounded-xl" />
+          ))}
+        </div>
+
+      ) : (<div id="main" className="bg-white rounded-sm w-full grid grid-cols-2 md:grid-cols-4 grid-flow-row px-4 py-2 gap-3 ">
+
+        <HeaderInfoItem title="Most Active Service" color={ColorsEnum.Blue} heading={counts.activeService ?? ""} className="bg-indigo-800/5" />
+        <HeaderInfoItem title="Most Active City" color={ColorsEnum.Blue} heading={counts.activeCity ?? ""} className="bg-indigo-800/5" />
+        <HeaderInfoItem title="Most Active Provider" color={ColorsEnum.Blue} heading={counts.activeProvider ?? ""} className="bg-indigo-800/5" />
+        <HeaderInfoItem title="Most Active Category" color={ColorsEnum.Blue} heading={counts.activeCategory ?? ""} className="bg-indigo-800/5" />
+
+      </div>)
+      }
 
       <div className="w-full grid grid-cols-1 md:grid-cols-4 md:grid-row-1 gap-3">
         <PerformanceChart />
@@ -82,6 +147,6 @@ export default function Home() {
       </div>
 
 
-    </div>
+    </div >
   );
 }

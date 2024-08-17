@@ -28,7 +28,7 @@ const PerformanceChart = () => {
                 // selectedMonth: monthtemp,
                 // selectedYear: yeartemp
             })
-            console.log(data)
+            // console.log(data)
             setData(data)
 
         } catch (error) {
