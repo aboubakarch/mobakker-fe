@@ -386,6 +386,12 @@ export const SideBarItems = {
     icon: SpeakerIcon,
     link: `${prefix}/promotions`,
   }),
+  Location: (prefix: string) => ({
+    id: 18,
+    name: messages.LOCATION,
+    icon: SpeakerIcon,
+    link: `${prefix}/location`,
+  }),
   Rating: (prefix: string) => ({
     id: 8,
     name: "navigation:rating",

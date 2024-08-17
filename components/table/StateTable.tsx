@@ -1,7 +1,7 @@
 "use client";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { DataTable } from "./DataTable";
-import { cityColumns } from "./columns/CityColumn";
+import { stateColumns } from "./columns/StateColumn";
 import { useTranslation } from "react-i18next";
 import APIService from "@/services/api";
 import { useToast } from "@/hooks/use-toast";
@@ -10,7 +10,7 @@ import { PaginationState } from "@tanstack/react-table";
 import { SortEnum } from "@/constants/enums";
 import { debounce } from "lodash";
 
-const CityTable: FC<ITableProps<City>> = ({
+const StateTable: FC<ITableProps<State>> = ({
     handleEdit,
     handleDelete,
     onUpdateFlag,
@@ -18,7 +18,7 @@ const CityTable: FC<ITableProps<City>> = ({
 }) => {
     const { t } = useTranslation();
     const { toast } = useToast();
-    const [data, setData] = useState<City[]>([]);
+    const [data, setData] = useState<State[]>([]);
     const [total, setTotal] = useState<number>(1);
     const [pageLoaded, setPageLoaded] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -28,7 +28,7 @@ const CityTable: FC<ITableProps<City>> = ({
     });
     const [sort, setSort] = useState<SortEnum>(SortEnum.Descending);
     const [search, setSearch] = useState("");
-    // const [filters, setFilters] = useState<ICityFilters>({});
+    // const [filters, setFilters] = useState<IStateFilters>({});
 
     const fetchData = async () => {
         try {
@@ -43,7 +43,7 @@ const CityTable: FC<ITableProps<City>> = ({
             if (search !== "") {
                 params = { ...params, search };
             }
-            const response = await APIService.getInstance().getCities(params);
+            const response = await APIService.getInstance().getStates(params);
             setData(response);
             setTotal(response.length);
         } catch (error: any) {
@@ -80,12 +80,12 @@ const CityTable: FC<ITableProps<City>> = ({
         setPagination({ pageIndex: 0, pageSize: 100 });
     }, 400);
 
-    // const handleApplyFilters = (fil: ICityFilters) => {
+    // const handleApplyFilters = (fil: IStateFilters) => {
     //     setFilters(fil);
     // };
 
     // const handleResetFilters = () => {
-    //     if (filters.name || filters.stateId) {
+    //     if (filters.name || filters.code) {
     //         setFilters({});
     //     }
     // };
@@ -105,7 +105,7 @@ const CityTable: FC<ITableProps<City>> = ({
             ) : (
                 <DataTable
                     data={data}
-                    columns={cityColumns(t, handleEdit, handleDelete)}
+                    columns={stateColumns(t, handleEdit, handleDelete)}
                     filterKey="name"
                     count={total}
                     onChangePagination={setPagination}
@@ -124,4 +124,4 @@ const CityTable: FC<ITableProps<City>> = ({
     );
 };
 
-export default CityTable;
+export default StateTable;

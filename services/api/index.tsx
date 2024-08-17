@@ -262,6 +262,15 @@ class APIService extends HTTPService {
   public editCity<T = any>(id: string, params: any): Promise<T> {
     return this.put<T>(`${endpoints.GET_CITIES}/${id}`, params)
   }
+  public deleteCity<T = any>(id: string): Promise<T> {
+    return this.delete<T>(`${endpoints.GET_CITIES}/${id}`)
+  }
+  public deleteState<T = any>(id: string): Promise<T> {
+    return this.delete<T>(`${endpoints.STATES}/${id}`)
+  }
+  public deleteCountry<T = any>(id: string): Promise<T> {
+    return this.delete<T>(`${endpoints.COUNTRIES}/${id}`)
+  }
   public getCustomerCare<T = any>(params: any): Promise<T> {
     return this.get<T>(endpoints.CUSTOMER_CARE_EMPLOYEE, params)
   }

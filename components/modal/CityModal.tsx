@@ -27,6 +27,26 @@ const CityModal: FC<IModalCompProps<City>> = ({
     const cityFormVal = cityFormVals(val);
     const [loading, setLoading] = useState(false);
     const { toast } = useToast();
+    const [states, setStates] = useState<null | any>(null)
+
+
+    useEffect(() => {
+        fetchData()
+    }, [])
+    const fetchData = async () => {
+        try {
+            setLoading(true)
+            const data = await APIService.getInstance().getStates({});
+            const res = data.map((d: State) => ({
+                name: d.name,
+                value: d.id
+            }))
+            setStates(res)
+        } catch (error) {
+            console.log(error)
+        }
+        setLoading(false)
+    }
 
     const createNewCity = async (values: yup.InferType<typeof cityValidationSchema>) => {
         const city = { ...values };
@@ -91,7 +111,7 @@ const CityModal: FC<IModalCompProps<City>> = ({
                 <div className="flex flex-col gap-4">
                     <InputField {...cityFormVal.info(t).name} />
                     <InputField {...cityFormVal.info(t).code} />
-                    <InputField {...cityFormVal.info(t).stateId} />
+                    <InputField {...cityFormVal.info(t).stateId} data={states} disabled={!states} />
                 </div>
 
                 <div className="self-end flex gap-3">

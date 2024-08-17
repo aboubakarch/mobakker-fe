@@ -78,7 +78,7 @@ export const countryColumns: (
         cell: ({ row }) => {
             const isActive: boolean = row.getValue("isActive");
             return (
-                <Badge containerStyle={isActive ? "bg-green-600" : "bg-red-500"} textStyle="text-white" text={isActive ? "Active" : "Inactive"} />
+                <Badge containerStyle={isActive ? "bg-green-500 bg-opacity-100" : "bg-red-500 bg-opacity-100"} textStyle="text-white" text={isActive ? "Active" : "Inactive"} />
             );
         },
     },

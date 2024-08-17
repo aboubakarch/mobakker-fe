@@ -44,8 +44,9 @@ const CountryTable: FC<ITableProps<Country>> = ({
                 params = { ...params, search };
             }
             const response = await APIService.getInstance().getCountries(params);
-            setData(response.items);
-            setTotal(response.pageMetaDto.itemCount);
+
+            setData(response);
+            setTotal(response.length);
         } catch (error: any) {
             toast({
                 variant: "destructive",

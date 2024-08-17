@@ -27,7 +27,25 @@ const StateModal: FC<IModalCompProps<State>> = ({
     const stateFormVal = stateFormVals(val);
     const [loading, setLoading] = useState(false);
     const { toast } = useToast();
+    const [countries, setCountries] = useState<null | any>(null)
 
+    useEffect(() => {
+        fetchData()
+    }, [])
+    const fetchData = async () => {
+        try {
+            setLoading(true)
+            const data = await APIService.getInstance().getCountries({});
+            const res = data.map((d: Country) => ({
+                name: d.name,
+                value: d.id
+            }))
+            setCountries(res)
+        } catch (error) {
+            console.log(error)
+        }
+        setLoading(false)
+    }
     const createNewState = async (values: yup.InferType<typeof stateValidationSchema>) => {
         const state = { ...values };
         await APIService.getInstance().createState(state as any);
@@ -91,7 +109,7 @@ const StateModal: FC<IModalCompProps<State>> = ({
                 <div className="flex flex-col gap-4">
                     <InputField {...stateFormVal.info(t).name} />
                     <InputField {...stateFormVal.info(t).code} />
-                    <InputField {...stateFormVal.info(t).countryId} />
+                    <InputField {...stateFormVal.info(t).countryId} data={countries} disabled={!countries} />
                 </div>
 
                 <div className="self-end flex gap-3">

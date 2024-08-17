@@ -52,33 +52,33 @@ export const cityColumns: (
             );
         },
     },
-    {
-        accessorKey: "stateName",
-        header: () => <div>{t(formConstants.STATE_NAME_LABEL)}</div>,
-        cell: ({ row }) => {
-            const stateName: string = row.getValue("stateName");
-            return (
-                <TextColumn text={stateName} />
-            );
-        },
-    },
-    {
-        accessorKey: "countryName",
-        header: () => <div>{t(formConstants.COUNTRY_NAME_LABEL)}</div>,
-        cell: ({ row }) => {
-            const countryName: string = row.getValue("countryName");
-            return (
-                <TextColumn text={countryName} />
-            );
-        },
-    },
+    // {
+    //     accessorKey: "stateName",
+    //     header: () => <div>{t(formConstants.STATE_NAME_LABEL)}</div>,
+    //     cell: ({ row }) => {
+    //         const stateName: string = row.getValue("stateName");
+    //         return (
+    //             <TextColumn text={stateName} />
+    //         );
+    //     },
+    // },
+    // {
+    //     accessorKey: "countryName",
+    //     header: () => <div>{t(formConstants.COUNTRY_NAME_LABEL)}</div>,
+    //     cell: ({ row }) => {
+    //         const countryName: string = row.getValue("countryName");
+    //         return (
+    //             <TextColumn text={countryName} />
+    //         );
+    //     },
+    // },
     {
         accessorKey: "isActive",
         header: () => <div>{t(tableHeader.STATUS)}</div>,
         cell: ({ row }) => {
             const isActive: boolean = row.getValue("isActive");
             return (
-                <Badge containerStyle={isActive ? "bg-green-600" : "bg-red-500"} textStyle="text-white" text={isActive ? "Active" : "Inactive"} />
+                <Badge containerStyle={isActive ? "bg-green-600 bg-opacity-100" : "bg-red-500 bg-opacity-100"} textStyle="text-white" text={isActive ? "Active" : "Inactive"} />
             );
         },
     },
