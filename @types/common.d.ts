@@ -111,16 +111,55 @@ interface SamplePromotions {
   description: string;
   discount: number;
 }
+interface Subscription {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  isActive: boolean;
+  price: number;
+  duration: "YEARLY" | "MONTHLY" | "WEEKLY" | "DAILY";
+}
 
+interface User {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  isActive: boolean;
+  firstName: string;
+  lastName: string;
+  role: "SERVICE_PROVIDER" | "ADMIN" | "USER"; // Depending on roles available
+  email: string;
+  username: string | null;
+  phone: string;
+  avatar: string;
+  forgotPasswordToken: string | null;
+  forgotPasswordTokenExpiry: string | null;
+  isVerified: "VERIFIED" | "UNVERIFIED";
+}
+
+interface ServiceProvider {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  isActive: boolean;
+  userId: string;
+  user: User;
+}
 interface SampleSubscription {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  isActive: boolean;
+  branchId: string;
   subscriptionId: string;
-  customerName: string;
-  customerNumber: number;
-  type: string;
-  paid: string;
-  status: boolean;
-  renewal: number;
-  dayLeft: number;
+  serviceProviderId: string;
+  subscriptionDate: string;
+  expiryDate: string;
+  transactionId: string;
+  status: "INITIALIZED" | "ACTIVE" | "EXPIRED" | "CANCELLED"; // Depending on the statuses available
+  subscription: Subscription;
+  branch: SampleBranch;
+  serviceProvider: ServiceProvider;
 }
 interface SampleBranch {
   id: string;

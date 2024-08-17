@@ -34,3 +34,8 @@ interface IAppointmentFilters {
 interface IEmployeeFilters {
   branchId?: string;
 }
+interface ISubscriptionFilters {
+  serviceProvider?: string;
+  city?: string;
+  subscriptionStatus?: string;
+}

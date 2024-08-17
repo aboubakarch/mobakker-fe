@@ -146,6 +146,12 @@ class APIService extends HTTPService {
   public getSubscriptions<T = any>(params: any): Promise<T> {
     return this.get<T>(endpoints.SUBSCRIPTION, params)
   }
+  public getSubscribers<T = any>(params: any): Promise<T> {
+    return this.get<T>(endpoints.SUBSCRIPTION_SUBSCRIBERS, params)
+  }
+  public updateSubcriptionStatus<T = any>(id: string, params: any): Promise<T> {
+    return this.patch<T>(`${endpoints.UPDATE_SUBSCRIBERS}/${id}`, params)
+  }
   public getEmployees<T = any>(params: any): Promise<T> {
     return this.get<T>(endpoints.GET_ALL_EMPLOYEES, params)
   }

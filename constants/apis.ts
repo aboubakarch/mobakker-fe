@@ -39,6 +39,8 @@ export const endpoints = {
   SERVICE_PROVIDER: "/srvice-provider",
   GET_ALL_CUSTOMERS: "/customer",
   SUBSCRIPTION: "/subscriptions",
+  SUBSCRIPTION_SUBSCRIBERS: "/subscriptions/subscribers",
+  UPDATE_SUBSCRIBERS: "/subscriptions/branch-subscription",
   SUBSCRIBE_SUBSCRIPTION: "/subscriptions/subscribe",
   GET_CITIES: "/country-state-city/cities",
   EMPLOYEE_COUNT: "/employee/counts",
