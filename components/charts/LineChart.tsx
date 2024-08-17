@@ -34,7 +34,7 @@ const defaultData: { [key: number]: DayData } = {
 };
 
 const LineChart: React.FC<StackedBarChartProps> = ({ data = defaultData }) => {
-    const labels = Object.keys(data).map(day => `Day ${day}`);
+    const labels = Object.keys(data).map(day => `${day}`);
 
     // Extract data for each dataset
     const completedData = Object.values(data).map(d => d?.completed ?? 0);

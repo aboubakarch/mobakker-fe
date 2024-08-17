@@ -15,7 +15,7 @@ import Badge from "@/components/ui/Badge";
 import { Switch } from "@/components/ui/Switch";
 import { TFunction } from "i18next";
 import Image from "next/image";
-import { isValidImageSrc } from "@/lib/helpers";
+import { daysUntil, isValidImageSrc } from "@/lib/helpers";
 import moment from "moment";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/Select";
 import { cn } from "@/lib/utils";
@@ -135,7 +135,7 @@ export const subscriptionColumns: (t: TFunction<"translation", undefined>, onSta
             cell: ({ row }) => {
                 const subs: Subscription = row.original.subscription;
                 return (
-                    <Badge containerStyle={!subs.isActive ? "bg-red-500 bg-opacty-100" : undefined} textStyle={!subs.isActive ? "text-white" : undefined} text={subs.isActive ? "Active" : "Inactive"} />
+                    <Badge containerStyle={!subs.isActive ? "bg-red-500 bg-opacity-100" : undefined} textStyle={!subs.isActive ? "text-white" : undefined} text={subs.isActive ? "Active" : "Inactive"} />
                 )
             },
         },
@@ -150,17 +150,18 @@ export const subscriptionColumns: (t: TFunction<"translation", undefined>, onSta
         //         )
         //     }
         // },
-        // {
-        //     accessorKey: "dayLeft",
-        //     header: () => <div className="text-center">{t(tableHeader.DAY_LEFT)}</div>,
+        {
+            accessorKey: "dayLeft",
+            header: () => <div className="text-center">{t(tableHeader.DAY_LEFT)}</div>,
 
-        //     cell: ({ row }) => {
-        //         const dayLeft: string = row.getValue("dayLeft")
-        //         return (
-        //             <TextColumn text={dayLeft} />
-        //         )
-        //     }
-        // },
+            cell: ({ row }) => {
+                const dayLeft: string = row.original.expiryDate
+                const temp = daysUntil(new Date(dayLeft))
+                return (
+                    <Badge containerStyle={!(temp > 0) ? "bg-red-500 bg-opacity-100" : undefined} textStyle={!(temp > 0) ? "text-white" : undefined} text={temp > 0 ? `${temp} Day` : "Expired"} />
+                )
+            }
+        },
 
         // {
         //     id: "subcriptionAction",

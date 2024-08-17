@@ -199,3 +199,12 @@ export function isDateBetween(
 ): boolean {
   return date >= startDate && date <= endDate;
 }
+
+export function daysUntil(targetDate: Date): number {
+  const today = new Date();
+  const oneDay = 1000 * 60 * 60 * 24; // Milliseconds in one day
+  const timeDifference = targetDate.getTime() - today.getTime();
+
+  // Calculate and return the number of days
+  return Math.ceil(timeDifference / oneDay);
+}
