@@ -335,3 +335,13 @@ export const cityValidationSchema = yup.object().shape({
     .uuid("Invalid state ID")
     .required("State ID is required"),
 });
+export const sendNotificationValidationSchema = yup.object().shape({
+  heading: yup
+    .string()
+    .min(3, "Heading Must be greater than three letters")
+    .required("Heading is Required"),
+  notification: yup
+    .string()
+    .min(3, "Heading Must be greater than three letters")
+    .required("City code is required"),
+});

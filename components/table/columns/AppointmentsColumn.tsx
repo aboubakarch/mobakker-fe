@@ -7,7 +7,7 @@ import {
     DropdownMenuLabel,
     DropdownMenuTrigger,
 } from "@/components/ui"
-import { Edit, MoreVertical, Trash2 } from "lucide-react";
+import { Edit, MailPlus, MoreVertical, Trash2 } from "lucide-react";
 // import Image from "next/image";
 // import { Checkbox } from "@/components/ui/Checkbox"
 import { messages, tableHeader } from "@/constants/constants";
@@ -15,11 +15,12 @@ import TextColumn from "../TextColumn";
 import Badge from "@/components/ui/Badge";
 import { TFunction } from "i18next";
 import Image from "next/image";
-import { isValidImageSrc } from "@/lib/helpers";
+import { getCookie, isValidImageSrc } from "@/lib/helpers";
 // import { Checkbox } from "@/components/ui/Checkbox";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/Tooltip";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/Select";
 import { cn } from "@/lib/utils";
+import { RoleType } from "@/constants/enums";
 
 const statusOptions = [
     { name: "Pending", value: "PENDING" },
@@ -33,8 +34,9 @@ export const appointmentsColumns: (
     t: TFunction<"translation", undefined>,
     handleEdit?: (val: SampleAppointments) => void,
     handleDelete?: (val: SampleAppointments) => void,
-    onAppointmentChange?: (val: SampleAppointments, status: string) => void
-) => ColumnDef<SampleAppointments>[] = (t, handleEdit, handleDelete, onAppointmentChange) => ([
+    onAppointmentChange?: (val: SampleAppointments, status: string) => void,
+    onSendNotification?: (val: SampleAppointments) => void,
+) => ColumnDef<SampleAppointments>[] = (t, handleEdit, handleDelete, onAppointmentChange, onSendNotification) => ([
     // {
     //     id: "select",
     //     header: ({ table }) => (
@@ -216,12 +218,13 @@ export const appointmentsColumns: (
         cell: ({ row }) => {
             const status: any = row.getValue("status");
             const original: any = row.original;
+            const role = getCookie("role")
 
             return (
                 // <Button className='bg-red-500 hover:bg-red-400' onClick={(e) => { e.stopPropagation(); if (onAppointmentChange) { onAppointmentChange(val) } }} >
                 //     Cancel
                 // </Button>
-                <Select disabled={status === "CANCELLED"} onValueChange={(val) => { if (onAppointmentChange) { onAppointmentChange(original, val) } }} value={status} defaultValue={status}>
+                <Select disabled={status === "CANCELLED" || role === RoleType.ADMIN || role === RoleType.SUPER_ADMIN} onValueChange={(val) => { if (onAppointmentChange) { onAppointmentChange(original, val) } }} value={status} defaultValue={status}>
                     <SelectTrigger className={cn("flex gap-2 text-white", status === "CANCELED" ? "bg-red-500" : status === "PENDING" ? "bg-yellow-500" : status === "STARTED" ? "bg-indigo-800" : status === "REJECTED" ? "bg-red-500" : status === "COMPLETED" ? "bg-green-600" : "")}>
                         <SelectValue />
                     </SelectTrigger>
@@ -242,10 +245,25 @@ export const appointmentsColumns: (
         id: "actions",
         cell: ({ row }) => {
             const rowVal = row.original
+            const role = getCookie("role")
+            if (role === RoleType.ADMIN || role === RoleType.SUPER_ADMIN) {
+                return null
+            }
+
 
             return (
                 <TooltipProvider>
                     <div className="flex gap-2">
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Button onClick={onSendNotification ? (e: any) => { e.stopPropagation(); onSendNotification(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
+                                    <MailPlus className="h-5 w-5 text-indigo-800" />
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p>{t("Send Notification")}</p>
+                            </TooltipContent>
+                        </Tooltip>
 
                         <Tooltip>
                             <TooltipTrigger asChild>

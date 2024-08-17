@@ -7,7 +7,7 @@ import {
     DropdownMenuLabel,
     DropdownMenuTrigger,
 } from "@/components/ui"
-import { MoreVertical, Pause, RefreshCw } from "lucide-react";
+import { MailPlus, MoreVertical, Pause, RefreshCw } from "lucide-react";
 // import { Checkbox } from "@/components/ui/Checkbox"
 import { messages, tableHeader } from "@/constants/constants";
 import TextColumn from "../TextColumn";
@@ -19,6 +19,7 @@ import { isValidImageSrc } from "@/lib/helpers";
 import moment from "moment";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/Select";
 import { cn } from "@/lib/utils";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/Tooltip";
 // import { Checkbox } from "@/components/ui/Checkbox";
 
 
@@ -29,9 +30,9 @@ const statusOpts = [
     { name: "Failed", value: "FAILED" },
     { name: "Stopped", value: "STOPPED" }
 ]
-export const subscriptionColumns: (t: TFunction<"translation", undefined>, onStatusChange?: (val: SampleSubscription, status: string) => void
+export const subscriptionColumns: (t: TFunction<"translation", undefined>, onStatusChange?: (val: SampleSubscription, status: string) => void, onSendNotification?: ((val: SampleSubscription) => void)
 ) => ColumnDef<SampleSubscription>[] =
-    (t, onStatusChange) => [
+    (t, onStatusChange, onSendNotification) => [
 
         // {
         //     accessorKey: "subscriptionId",
@@ -209,32 +210,49 @@ export const subscriptionColumns: (t: TFunction<"translation", undefined>, onSta
                 )
             },
         },
-        // {
-        //     id: "actions",
-        //     cell: () => {
-        //         // const row = row.original()
+        {
+            id: "actions",
+            cell: ({ row }) => {
+                const rowVal = row.original
 
-        //         return (
-        //             <DropdownMenu>
-        //                 <DropdownMenuTrigger asChild>
-        //                     <Button variant="ghost" className="h-8 w-8 p-0">
-        //                         <span className="sr-only">Open menu</span>
-        //                         <MoreVertical className="h-4 w-4" />
-        //                     </Button>
-        //                 </DropdownMenuTrigger>
-        //                 <DropdownMenuContent align="end">
-        //                     <DropdownMenuLabel>{messages.ACTIONS}</DropdownMenuLabel>
-        //                     <DropdownMenuItem className="text-indigo-800 hover:bg-indigo-800 hover:bg-opacity-25">
-        //                         {messages.EDIT}
-        //                     </DropdownMenuItem>
-        //                     <DropdownMenuItem className="text-red-400 hover:bg-red-400 hover:bg-opacity-25">
-        //                         {messages.DELETE}
-        //                     </DropdownMenuItem>
+                return (
+                    <TooltipProvider>
+                        <div className="flex gap-2">
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <Button onClick={onSendNotification ? (e: any) => { e.stopPropagation(); onSendNotification(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
+                                        <MailPlus className="h-5 w-5 text-indigo-800" />
+                                    </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>{t("Send Notification")}</p>
+                                </TooltipContent>
+                            </Tooltip>
 
-        //                 </DropdownMenuContent>
-        //             </DropdownMenu>
-        //         )
-        //     },
-        // },
+                            {/* <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <Button onClick={handleEdit ? (e: any) => { e.stopPropagation(); handleEdit(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
+                                        <Edit className="h-5 w-5 text-indigo-800" />
+                                    </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>{t(messages.EDIT)}</p>
+                                </TooltipContent>
+                            </Tooltip>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <Button onClick={handleDelete ? (e: any) => { e.stopPropagation(); handleDelete(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
+                                        <Trash2 className="h-5 w-5 text-red-700" />
+                                    </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>{t(messages.DELETE)}</p>
+                                </TooltipContent>
+                            </Tooltip> */}
+                        </div>
+                    </TooltipProvider>
+                )
+            },
+        },
 
     ]

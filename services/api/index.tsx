@@ -253,6 +253,9 @@ class APIService extends HTTPService {
   public createCountry<T = any>(params: any): Promise<T> {
     return this.post<T>(endpoints.COUNTRIES, params)
   }
+  public sendNotification<T = any>(params: any): Promise<T> {
+    return this.post<T>(`${endpoints.NOTIFICATIONS}/send`, params)
+  }
   public editCountry<T = any>(id: string, params: any): Promise<T> {
     return this.put<T>(`${endpoints.COUNTRIES}/${id}`, params)
   }
@@ -306,6 +309,9 @@ class APIService extends HTTPService {
   }
   public getYearsAppointments<T = any>(params?: any): Promise<T> {
     return this.get<T>(endpoints.APPOINTMENTS_MONTH, params)
+  }
+  public getDailyAppointments<T = any>(params?: any): Promise<T> {
+    return this.get<T>(endpoints.APPOINTMENTS_DAILY_REQUEST, params)
   }
   public getTotalAppointments<T = any>(params?: any): Promise<T> {
     return this.get<T>(endpoints.APPOINTMENTS_TOTAL, params)

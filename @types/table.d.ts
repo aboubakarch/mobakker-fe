@@ -10,6 +10,7 @@ interface ITableProps<T = any> {
   handleAssign?: (val: T) => void;
   handleRow?: (val: T) => void;
   onAppointmentChange?: (val: T, status: string) => void;
+  onSendNotification?: (val: T) => void;
 }
 
 type ISort = "DESC" | "ASC";

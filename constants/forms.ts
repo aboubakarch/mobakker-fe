@@ -13,6 +13,7 @@ import {
   IPromotionFormValues,
   IProviderFormValues,
   IProviderRegistrationFormValues,
+  ISendNotificationFormValues,
   IServiceFormValues,
   IServiceTypeFormValues,
   IStateFormValues,
@@ -31,6 +32,7 @@ import {
   promotionValidationSchema,
   providerRegistrationValidationSchema,
   providerValidationSchema,
+  sendNotificationValidationSchema,
   serviceTypeValidationSchema,
   serviceValidationSchema,
   stateValidationSchema,
@@ -730,6 +732,30 @@ export const cityFormVals: (val?: City) => IFormValueObj<ICityFormValues> = (
       name: "stateId",
       label: t(formConstants.STATE),
       fieldType: FieldTypesEnum.SingleSearchSelect,
+    },
+  }),
+});
+
+export const sendNotificationFormVals: (
+  val?: City
+) => IFormValueObj<ISendNotificationFormValues> = () => ({
+  validationSchema: sendNotificationValidationSchema,
+  initialValues: {
+    heading: "",
+    notification: "",
+  },
+  info: (t) => ({
+    heading: {
+      placeHolder: t("Heading"),
+      hasError: true,
+      name: "heading",
+      label: t("Heading"),
+    },
+    notification: {
+      placeHolder: t(messages.NOTIFICATION),
+      hasError: true,
+      name: "notification",
+      label: t(messages.NOTIFICATION),
     },
   }),
 });

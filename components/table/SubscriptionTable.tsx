@@ -11,7 +11,7 @@ import { debounce } from 'lodash'
 import { subscriptionColumns } from './columns/SubscriptionColumns'
 import SubscriptionFilters from './filters/SubscriptionFilters'
 
-const SubscriptionsTable: FC<ITableProps<SampleSubscription>> = ({ onUpdateFlag, onAppointmentChange, handleRow }) => {
+const SubscriptionsTable: FC<ITableProps<SampleSubscription>> = ({ onUpdateFlag, onAppointmentChange, handleRow, onSendNotification }) => {
     const { t } = useTranslation()
     const { toast } = useToast()
     const [data, setData] = useState<SampleSubscription[]>([])
@@ -91,7 +91,7 @@ const SubscriptionsTable: FC<ITableProps<SampleSubscription>> = ({ onUpdateFlag,
             ) : (
                 <DataTable
                     data={data}
-                    columns={subscriptionColumns(t, onAppointmentChange)}
+                    columns={subscriptionColumns(t, onAppointmentChange, onSendNotification)}
                     filterKey='id' count={total}
                     onChangePagination={setPagination}
                     tablePagination={pagination}

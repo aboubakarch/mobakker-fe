@@ -2,6 +2,7 @@
 import AppointmentModal from '@/components/modal/AppointmentModal'
 import DeleteModal from '@/components/modal/DeleteModal'
 import AppointmentDetailsModal from '@/components/modal/details/AppointmentDetailsModal'
+import SendNotificationModal from '@/components/modal/SendNotificationModal'
 import AppointmentsTable from '@/components/table/AppointmentsTable'
 import { Button } from '@/components/ui'
 import PageHeader from '@/components/ui/PageHeader'
@@ -22,6 +23,8 @@ const Appointments = () => {
     const [selectedAppointment, setSelectedAppointment] = useState<undefined | SampleAppointments>(undefined)
     const [flag, setFlag] = useState(false)
     const { toast } = useToast()
+    const [notificationModalOpen, setNotificationModalOpen] = useState(false);
+
     const role = getCookie("role")
     let user: any = getCookie("user")
     user = JSON.parse(user || "null");
@@ -109,10 +112,20 @@ const Appointments = () => {
 
         }
     }
+
+    const handleNotificationModalClose = () => {
+        setNotificationModalOpen(false);
+        setSelectedAppointment(undefined)
+    }
+    const handleNotificationSend = (item: SampleAppointments) => {
+        setSelectedAppointment(item)
+        setNotificationModalOpen(true)
+    }
     return (
         <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
             <AppointmentModal visible={modalOpen} closeModal={handleModalClose} val={selectedAppointment} onUpdate={() => setFlag(!flag)} />
             <AppointmentDetailsModal visible={detailsModalOpen} closeModal={handleDetailsModalClose} val={selectedAppointment as SampleAppointments} />
+            <SendNotificationModal visible={notificationModalOpen} closeModal={handleNotificationModalClose} val={selectedAppointment ? { id: (selectedAppointment?.customer as any)?.userId } : undefined} />
 
             <DeleteModal
                 visible={deleteModalOpen}
@@ -128,7 +141,7 @@ const Appointments = () => {
 
 
 
-            <AppointmentsTable handleEdit={handleEdit} handleDelete={handleDelete} onUpdateFlag={flag} handleRow={handleRow} onAppointmentChange={handleAppointmentChange} />
+            <AppointmentsTable handleEdit={handleEdit} handleDelete={handleDelete} onUpdateFlag={flag} handleRow={handleRow} onAppointmentChange={handleAppointmentChange} onSendNotification={handleNotificationSend} />
         </div>
     )
 }

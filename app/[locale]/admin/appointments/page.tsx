@@ -95,19 +95,19 @@ const Appointments = () => {
 
     return (
         <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
-            <AppointmentModal visible={modalOpen} closeModal={handleModalClose} val={selectedAppointment} onUpdate={() => setFlag(!flag)} />
+            {/* <AppointmentModal visible={modalOpen} closeModal={handleModalClose} val={selectedAppointment} onUpdate={() => setFlag(!flag)} /> */}
             <AppointmentDetailsModal visible={detailsModalOpen} closeModal={handleDetailsModalClose} val={selectedAppointment as SampleAppointments} />
-
+            {/*
             <DeleteModal
                 visible={deleteModalOpen}
                 closeModal={handleDeleteModalClose}
                 onDelete={onDeleteAppointment}
                 title={messages.APPOINTMENTS}
-            />
+            /> */}
             <PageHeader title={t(messages.APPOINTMENTS)}
                 description={t(messages.TRACK_APPOINTMENTS)}
             >
-                <Button onClick={() => setModalOpen(true)} className='bg-indigo-800 hover:bg-indigo-600'>{t(messages.ADD_APPOINTMENTS)}</Button>
+                {/* <Button onClick={() => setModalOpen(true)} className='bg-indigo-800 hover:bg-indigo-600'>{t(messages.ADD_APPOINTMENTS)}</Button> */}
             </PageHeader>
 
 

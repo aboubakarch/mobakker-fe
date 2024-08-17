@@ -105,6 +105,10 @@ interface ICityFormValues {
   code: string;
   stateId: string;
 }
+interface ISendNotificationFormValues {
+  heading: string;
+  notification: string;
+}
 
 type IFormTemplate = IAppFormProps;
 
