@@ -345,3 +345,15 @@ export const sendNotificationValidationSchema = yup.object().shape({
     .min(3, "Heading Must be greater than three letters")
     .required("City code is required"),
 });
+
+export const ratingValidationSchema = yup.object().shape({
+  rating: yup
+    .number()
+    .min(1, "Rating must be at least 1")
+    .max(5, "Rating must be at most 5")
+    .required("Rating is required"),
+  comment: yup
+    .string()
+    .min(3, "Comment must be greater than three letters")
+    .required("Comment is required"),
+});
