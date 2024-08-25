@@ -11,6 +11,7 @@ export const endpoints = {
   LOGIN: "/auth/login",
   REFRESH_TOKEN: "/auth/regenerate-token",
   PROVIER_REGISTRATION: "/auth/register/service-provider",
+  ADMIN_REGISTRATION: "/auth/register/admin",
   CUSTOMER_REGISTRATION: "/auth/register/customer",
   OTP_VERIFY: "/auth/verify/signup-otp",
   EMPLOYEE_REGISTRATION: "/auth/register/employee",

@@ -14,6 +14,7 @@ import {
   TicketIcon,
   UserIcon,
 } from "@/svgs";
+import { UserCheck } from "lucide-react";
 
 export const messages = {
   DONT_HAVE_ACCOUNT: "common:dontHaveAccount",
@@ -329,6 +330,12 @@ export const SideBarItems = {
     name: "navigation:appointments",
     icon: TicketIcon,
     link: `${prefix}/appointments`,
+  }),
+  Admin: (prefix: string) => ({
+    id: 19,
+    name: "Admin",
+    icon: PeopleIcon,
+    link: `${prefix}/admins`,
   }),
   Employee: (prefix: string) => ({
     id: 4,

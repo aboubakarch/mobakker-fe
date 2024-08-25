@@ -16,7 +16,7 @@ import { useToast } from '@/hooks/use-toast'
 import { convertToFormData } from '@/lib/helpers'
 import APIService from '@/services/api'
 
-const ProviderModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate }) => {
+const AdminModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate }) => {
     const { t } = useTranslation();
     const providerFormVal = providerFormVals(val)
     const [loading, setLoading] = useState(false)
@@ -24,22 +24,22 @@ const ProviderModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate
     const [image, setImage] = useState<File | null>(null);
 
 
-    const createNewProvider = async (values: yup.InferType<typeof providerValidationSchema>) => {
+    const createNewAdmin = async (values: yup.InferType<typeof providerValidationSchema>) => {
         // const userId = getCookie("userId");
         const formData = convertToFormData({
             ...values, avatar: image ? image : undefined,
         })
 
-        await APIService.getInstance().registerProvider(formData as any);
+        await APIService.getInstance().registerAdmin(formData as any);
         setLoading(false)
 
         toast({
-            description: "Provider added!",
+            description: "Admin added!",
             variant: "success"
         })
 
     }
-    const editProvider = async (values: yup.InferType<typeof providerValidationSchema>) => {
+    const editAdmin = async (values: yup.InferType<typeof providerValidationSchema>) => {
         const vals = {
             firstName: values.firstName,
             lastName: values.lastName,
@@ -49,11 +49,11 @@ const ProviderModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate
         }
         const formData = convertToFormData(vals)
 
-        await APIService.getInstance().editServiceProvider(val?.id as string, formData as any);
+        await APIService.getInstance().editAdmin(val?.id as string, formData as any);
         setLoading(false)
 
         toast({
-            description: "Provider Updated!",
+            description: "Admin Updated!",
             variant: "success"
         })
 
@@ -66,10 +66,10 @@ const ProviderModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate
         try {
 
             if (val) {
-                await editProvider(values)
+                await editAdmin(values)
             }
             else {
-                await createNewProvider(values)
+                await createNewAdmin(values)
             }
             // location.reload()
             if (onUpdate) {
@@ -94,7 +94,7 @@ const ProviderModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate
                 className="px-3 py-4 flex gap-4 flex-col"
                 {...providerFormVal}>
                 <div className='flex justify-between w-full'>
-                    <p className='text-black text-xl font-medium  leading-[30px]'>{val ? t(messages.UPDATE) : t(messages.ADD_PROMOTION)}</p>
+                    <p className='text-black text-xl font-medium  leading-[30px]'>{val ? t(messages.UPDATE) : t("Add Admin")}</p>
                     <Button variant={'ghost'} onClick={closeModal} className='px-3 py-0'>
                         <X className='w-4 h-4 relative text-black' />
                     </Button>
@@ -139,4 +139,4 @@ const ProviderModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate
     )
 }
 
-export default ProviderModal
+export default AdminModal

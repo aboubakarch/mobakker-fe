@@ -56,10 +56,20 @@ class APIService extends HTTPService {
     return this.patch<T>(`${endpoints.BRANCH_MANAGER_UPDATE}/${id}`, payload, customConfig)
   }
   public editAdmin<T = any>(id: string, payload: object): Promise<T> {
-    return this.patch<T>(`${endpoints.ADMIN_UPDATE}/${id}`, payload)
+    const customConfig = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
+    return this.patch<T>(`${endpoints.ADMIN_UPDATE}/${id}`, payload, customConfig)
   }
   public editServiceProvider<T = any>(id: string, payload: object): Promise<T> {
-    return this.patch<T>(`${endpoints.SERVICE_PROVIDER_UPDATE}/${id}`, payload)
+    const customConfig = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
+    return this.patch<T>(`${endpoints.SERVICE_PROVIDER_UPDATE}/${id}`, payload, customConfig)
   }
   public editCustomerCare<T = any>(id: string, payload: object): Promise<T> {
     const customConfig = {
@@ -133,6 +143,14 @@ class APIService extends HTTPService {
       },
     }
     return this.post<T>(endpoints.CUSTOMER_CARE_REGISTRATION, payload, customConfig)
+  }
+  public registerAdmin<T = any>(payload: IProviderFormValues): Promise<T> {
+    const customConfig = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
+    return this.post<T>(endpoints.ADMIN_REGISTRATION, payload, customConfig)
   }
   public getBranches<T = any>(params: any): Promise<T> {
     return this.get<T>(endpoints.BRANCH, params)
