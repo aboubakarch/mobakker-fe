@@ -18,11 +18,11 @@ import { Rating } from "react-simple-star-rating";
 import { FieldTypesEnum } from "@/constants/enums";
 
 
-const RatingModal: FC<IModalCompProps<any>> = ({
+const RatingModal: FC<IModalCompProps<SampleAppointments>> = ({
     closeModal,
     visible,
     val,
-    onUpdate,
+    onSubmitData
 }) => {
     const { t } = useTranslation();
     const form = useForm<yup.InferType<typeof ratingValidationSchema>>({
@@ -35,13 +35,13 @@ const RatingModal: FC<IModalCompProps<any>> = ({
     const [loading, setLoading] = useState(false);
     const { toast } = useToast();
 
-    const sendNotification = async (values: yup.InferType<typeof ratingValidationSchema>) => {
-        const country = { ...values, userId: val?.id };
-        await APIService.getInstance().sendNotification(country as any);
+    const sendRating = async (values: yup.InferType<typeof ratingValidationSchema>) => {
+        const rating = { id: val?.customer?.id, review: values.comment, rating: values.rating };
+        await APIService.getInstance().postCustomerRating(rating as any);
         setLoading(false);
 
         toast({
-            description: "Notification sent!",
+            description: "Rating updated!",
             variant: "success",
         });
     };
@@ -51,10 +51,10 @@ const RatingModal: FC<IModalCompProps<any>> = ({
         setLoading(true);
         try {
 
-            await sendNotification(values);
+            await sendRating(values);
 
-            if (onUpdate) {
-                onUpdate();
+            if (onSubmitData) {
+                onSubmitData({} as any);
             }
         } catch (error: any) {
             setLoading(false);
@@ -75,7 +75,7 @@ const RatingModal: FC<IModalCompProps<any>> = ({
 
                     <div className="flex justify-between w-full">
                         <p className="text-black text-xl font-medium  leading-[30px]">
-                            {t("Appointment Rating")}
+                            {t("Customer Rating")}
                         </p>
                         <Button variant={"ghost"} onClick={closeModal} className="px-3 py-0">
                             <X className="w-4 h-4 relative text-black" />
@@ -87,13 +87,15 @@ const RatingModal: FC<IModalCompProps<any>> = ({
                             control={form.control}
                             name="rating"
                             render={({ field }) => (
-                                <FormItem className='flex items-center justify-center flex-col'>
+                                <FormItem className='flex justify-center flex-col'>
                                     <FormLabel>Rating</FormLabel>
-                                    <FormControl>
+                                    <FormControl className="self-center">
 
                                         <Rating
                                             initialValue={field.value}
+                                            onClick={(val) => field.onChange(val)}
                                             {...field}
+                                            SVGclassName="inline-block"
                                         />
                                     </FormControl>
 
@@ -102,7 +104,7 @@ const RatingModal: FC<IModalCompProps<any>> = ({
                             )}
                         />
 
-                        <InputField hasError name="comment" placeHolder="Comments" label="Comment" fieldType={FieldTypesEnum.Textarea} />
+                        <InputField hasError name="comment" placeHolder="Review" label="Review" fieldType={FieldTypesEnum.Textarea} />
                     </div>
 
                     <div className="self-end flex gap-3">

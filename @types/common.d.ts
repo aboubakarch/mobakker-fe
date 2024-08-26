@@ -40,6 +40,7 @@ interface SampleServices {
   provider: Provider;
   branches: any[];
   bookingCapacity: number;
+  Status: string;
   // timeSlots: string[];
 }
 interface SampleAppointments {
@@ -179,6 +180,7 @@ interface SampleBranch {
   appointments: any[];
   avatar: string | null;
   branchCityId?: string;
+  Status: string;
 }
 
 interface SampleProvider {
@@ -278,4 +280,52 @@ interface City {
   name: string;
   code: string;
   stateId: string; // UUID
+}
+
+interface Rating {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  isActive: boolean;
+  rating: number;
+  review: string;
+  avgRating: number;
+  userId: string;
+  user: User;
+}
+
+interface Customer {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  isActive: boolean;
+  userId: string;
+  user: User;
+}
+interface Employee {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  isActive: boolean;
+  userId: string;
+  user: User;
+}
+interface SampleCustomerRating extends Rating {
+  customerId: string;
+  customer: Customer;
+}
+
+interface SampleBranchRating extends Rating {
+  branchId: string;
+  branch: SampleBranch;
+}
+
+interface SampleServiceRating extends Rating {
+  serviceId: string;
+  service: SampleServices;
+}
+
+interface SampleEmployeeRating extends Rating {
+  employeeId: string;
+  employee: Employee;
 }

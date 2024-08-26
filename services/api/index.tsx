@@ -361,6 +361,21 @@ class APIService extends HTTPService {
   public getMostActiveCategory<T = any>(): Promise<T> {
     return this.get<T>(endpoints.SERVICE_ACTIVE_CATE)
   }
+  public getBranchRatings<T = any>(params: any): Promise<T> {
+    return this.get<T>(endpoints.BRANCH_RATING, params)
+  }
+  public getServiceRatings<T = any>(params: any): Promise<T> {
+    return this.get<T>(endpoints.SERVICE_RATING, params)
+  }
+  public getEmployeeRatings<T = any>(params: any): Promise<T> {
+    return this.get<T>(endpoints.EMPLOYEE_RATING, params)
+  }
+  public getCustomerRatings<T = any>(params: any): Promise<T> {
+    return this.get<T>(endpoints.CUSTOMER_RATING, params)
+  }
+  public postCustomerRating<T = any>(params: any): Promise<T> {
+    return this.post<T>(`${endpoints.CUSTOMER_RATING_CREATE}`, params)
+  }
 }
 
 export default APIService

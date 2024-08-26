@@ -63,4 +63,9 @@ export const endpoints = {
   APPOINTMENTS_SERVICE: "/appointment/most-active/service",
   APPOINTMENTS_PROVIDER: "/appointment/most-active/provider",
   SERVICE_ACTIVE_CATE: "/service/category/most-active",
+  BRANCH_RATING: "/ratings/branch/all",
+  EMPLOYEE_RATING: "/ratings/employee/all",
+  SERVICE_RATING: "/ratings/service/all",
+  CUSTOMER_RATING: "/ratings/customer/all",
+  CUSTOMER_RATING_CREATE: "/ratings/customer",
 };

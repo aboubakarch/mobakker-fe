@@ -2,6 +2,7 @@
 import AppointmentModal from '@/components/modal/AppointmentModal'
 import DeleteModal from '@/components/modal/DeleteModal'
 import AppointmentDetailsModal from '@/components/modal/details/AppointmentDetailsModal'
+import RatingModal from '@/components/modal/RatingModal'
 import SendNotificationModal from '@/components/modal/SendNotificationModal'
 import AppointmentsTable from '@/components/table/AppointmentsTable'
 import { Button } from '@/components/ui'
@@ -24,6 +25,7 @@ const Appointments = () => {
     const [flag, setFlag] = useState(false)
     const { toast } = useToast()
     const [notificationModalOpen, setNotificationModalOpen] = useState(false);
+    const [ratingModalOpen, setRatingModalOpen] = useState(false);
 
     const role = getCookie("role")
     let user: any = getCookie("user")
@@ -100,10 +102,18 @@ const Appointments = () => {
 
             await APIService.getInstance().editAppointment(item?.id, { status });
             toast({
-                variant: "destructive",
+                variant: "success",
                 description: "Appointment Updated!",
             })
-            setFlag(!flag)
+            if (status === "COMPLETED") {
+                setSelectedAppointment(item)
+
+                setRatingModalOpen(true)
+
+            } else {
+
+                setFlag(!flag)
+            }
         } catch (error) {
             toast({
                 variant: "destructive",
@@ -117,6 +127,10 @@ const Appointments = () => {
         setNotificationModalOpen(false);
         setSelectedAppointment(undefined)
     }
+    const handleRatingModalClose = () => {
+        setRatingModalOpen(false);
+        setSelectedAppointment(undefined)
+    }
     const handleNotificationSend = (item: SampleAppointments) => {
         setSelectedAppointment(item)
         setNotificationModalOpen(true)
@@ -126,7 +140,7 @@ const Appointments = () => {
             <AppointmentModal visible={modalOpen} closeModal={handleModalClose} val={selectedAppointment} onUpdate={() => setFlag(!flag)} />
             <AppointmentDetailsModal visible={detailsModalOpen} closeModal={handleDetailsModalClose} val={selectedAppointment as SampleAppointments} />
             <SendNotificationModal visible={notificationModalOpen} closeModal={handleNotificationModalClose} val={selectedAppointment ? { id: (selectedAppointment?.customer as any)?.userId } : undefined} />
-
+            <RatingModal visible={ratingModalOpen} closeModal={handleRatingModalClose} val={selectedAppointment as SampleAppointments} onSubmitData={() => setFlag(!flag)} />
             <DeleteModal
                 visible={deleteModalOpen}
                 closeModal={handleDeleteModalClose}
