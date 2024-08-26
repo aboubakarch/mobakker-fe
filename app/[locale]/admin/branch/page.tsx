@@ -103,7 +103,7 @@ const Branch = () => {
 
             await APIService.getInstance().updateBranchStatus(item?.id, { status: status });
             toast({
-                variant: "destructive",
+                variant: "success",
                 description: "Branch Updated!",
             })
             setFlag(!flag)

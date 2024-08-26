@@ -121,19 +121,18 @@ export const branchColumns: (
             },
         },
         {
-            accessorKey: "isActive",
+            accessorKey: "Status",
             header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.STATUS)}</div>,
 
             cell: ({ row }) => {
-                const isActive: boolean = row.getValue("isActive");
+                const status: Status = row.getValue("Status");
                 const role = getCookie("role")
                 const original = row.original
                 if (role === RoleType.ADMIN || role === RoleType.SUPER_ADMIN) {
                     return (
 
-                        <Select onValueChange={(val) => { if (onStatusChange) { onStatusChange(original, val) } }} value={isActive ? Status.APPROVED : Status.REJECTED} >
-                            {/* <SelectTrigger className={cn("flex gap-2 text-white", isActive === "REJECTED" ? "bg-red-500" : status === "PENDING" ? "bg-yellow-500" : status === "APPROVED" ? "bg-green-600" : "")}> */}
-                            <SelectTrigger className={cn("flex gap-2 text-white", !isActive ? "bg-red-500" : "bg-green-600")}>
+                        <Select onValueChange={(val) => { if (onStatusChange) { onStatusChange(original, val) } }} value={status} >
+                            <SelectTrigger className={cn("flex gap-2 text-white", status === "REJECTED" ? "bg-red-500" : status === "PENDING" ? "bg-yellow-500" : status === "APPROVED" ? "bg-green-600" : "")}>
                                 <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
@@ -145,7 +144,7 @@ export const branchColumns: (
                     )
                 }
                 return (
-                    <TextColumn text={isActive ? "Active" : "Inactive"} />
+                    <p className={cn("flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm text-white", status === "REJECTED" ? "bg-red-500" : status === "PENDING" ? "bg-yellow-500" : status === "APPROVED" ? "bg-green-600" : "")}>{status}</p>
                 )
             },
         },

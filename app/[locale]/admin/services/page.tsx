@@ -78,7 +78,7 @@ const Services = () => {
 
             await APIService.getInstance().updateServiceStatus(item?.id, { status: status });
             toast({
-                variant: "destructive",
+                variant: "success",
                 description: "Service Updated!",
             })
             setFlag(!flag)
