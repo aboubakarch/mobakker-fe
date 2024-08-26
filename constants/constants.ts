@@ -405,18 +405,18 @@ export const SideBarItems = {
     icon: StarIcon,
     link: `${prefix}/ratings`,
   }),
-  Notification: (prefix: string) => ({
-    id: 9,
-    name: "navigation:notifications",
-    icon: NotificationIcon,
-    link: `${prefix}/notifications`,
-  }),
-  Complaints: (prefix: string) => ({
-    id: 14,
-    name: "navigation:complaints",
-    icon: ClipboardIcon,
-    link: `${prefix}/complaints`,
-  }),
+  // Notification: (prefix: string) => ({
+  //   id: 9,
+  //   name: "navigation:notifications",
+  //   icon: NotificationIcon,
+  //   link: `${prefix}/notifications`,
+  // }),
+  // Complaints: (prefix: string) => ({
+  //   id: 14,
+  //   name: "navigation:complaints",
+  //   icon: ClipboardIcon,
+  //   link: `${prefix}/complaints`,
+  // }),
 };
 export const sidebarAdminNavigation: ISideBarItem[] = Object.values(
   SideBarItems

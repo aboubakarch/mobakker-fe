@@ -125,7 +125,7 @@ const AdminModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate })
                 </div>
                 {!val && <InputField {...providerFormVal.info(t).password} />}
                 <div className='self-end flex gap-3'>
-                    <SubmitButton loading={loading} title={val ? t(messages.EDIT) : t(messages.ADD_PROVIDER)} className="self-end bg-primaryBlue" />
+                    <SubmitButton loading={loading} title={val ? t(messages.EDIT) : t("Add Admin")} className="self-end bg-primaryBlue" />
                     <Button onClick={closeModal} variant={"outline"} >
                         {t(messages.CANCEL)}
                     </Button>

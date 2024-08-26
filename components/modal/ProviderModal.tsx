@@ -94,7 +94,7 @@ const ProviderModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate
                 className="px-3 py-4 flex gap-4 flex-col"
                 {...providerFormVal}>
                 <div className='flex justify-between w-full'>
-                    <p className='text-black text-xl font-medium  leading-[30px]'>{val ? t(messages.UPDATE) : t(messages.ADD_PROMOTION)}</p>
+                    <p className='text-black text-xl font-medium  leading-[30px]'>{val ? t(messages.UPDATE) : t(messages.ADD_PROVIDER)}</p>
                     <Button variant={'ghost'} onClick={closeModal} className='px-3 py-0'>
                         <X className='w-4 h-4 relative text-black' />
                     </Button>
