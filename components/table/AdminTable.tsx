@@ -33,7 +33,7 @@ const AdminTable: FC<ITableProps<SampleProvider>> = ({ handleEdit, handleDelete,
             if (search !== '') {
                 params = { ...params, search }
             }
-            const response = await APIService.getInstance().getServiceProvider(params)
+            const response = await APIService.getInstance().getAdmins(params)
             setData(response.items.map((item: any) => ({ ...item.user, data: { ...item } })))
             setTotal(response.pageMetaDto.itemCount)
             // console.log(response)
@@ -107,7 +107,7 @@ const AdminTable: FC<ITableProps<SampleProvider>> = ({ handleEdit, handleDelete,
                 loading={loading} rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5'
                 search={search}
                 onSearch={(q: string) => setSearch(q)}
-                filterComponent={undefined}
+                filterComponent={() => <div className='absolute' />}
 
             />)}
 

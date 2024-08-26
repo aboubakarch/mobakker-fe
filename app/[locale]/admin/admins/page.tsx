@@ -95,7 +95,7 @@ const Providers = () => {
                 visible={deleteModalOpen}
                 closeModal={handleDeleteModalClose}
                 onDelete={onDeleteEmplyee}
-                title={messages.PROVIDERS}
+                title={"Admin"}
                 loading={loading}
             />
             <PageHeader title={t("Admins")}

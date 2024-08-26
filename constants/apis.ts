@@ -68,4 +68,5 @@ export const endpoints = {
   SERVICE_RATING: "/ratings/service/all",
   CUSTOMER_RATING: "/ratings/customer/all",
   CUSTOMER_RATING_CREATE: "/ratings/customer",
+  GET_ADMIN: "/users/admins",
 };

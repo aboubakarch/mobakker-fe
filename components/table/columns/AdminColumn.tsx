@@ -117,7 +117,7 @@ export const adminColumns: (t: TFunction<"translation", undefined>, handleEdit?:
                 const rowVal = row.original
                 const role = getCookie("role")
                 console.log(role)
-                if (role === RoleType.CUSTOMER_CARE) {
+                if (role !== RoleType.SUPER_ADMIN) {
                     return null
                 }
 
