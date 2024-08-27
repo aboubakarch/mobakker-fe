@@ -109,7 +109,7 @@ const ProviderTable: FC<ITableProps<SampleProvider>> = ({ handleEdit, handleDele
                 loading={loading} rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5'
                 search={search}
                 onSearch={(q: string) => setSearch(q)}
-                filterComponent={undefined}
+                filterComponent={() => <div className="absolute" />}
 
             />)}
 

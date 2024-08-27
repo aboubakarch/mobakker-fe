@@ -34,7 +34,7 @@ const AdminTable: FC<ITableProps<SampleProvider>> = ({ handleEdit, handleDelete,
                 params = { ...params, search }
             }
             const response = await APIService.getInstance().getAdmins(params)
-            setData(response.items.map((item: any) => ({ ...item.user, data: { ...item } })))
+            setData(response.items.map((item: any) => ({ ...item, data: { ...item } })))
             setTotal(response.pageMetaDto.itemCount)
             // console.log(response)
         } catch (error: any) {

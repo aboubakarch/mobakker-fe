@@ -109,7 +109,7 @@ const UsersTable: FC<ITableProps<SampleProvider>> = ({ handleEdit, handleDelete,
                 search={search}
                 onSearch={(q: string) => setSearch(q)}
                 // filterComponent={() => <EmployeeFilters onApply={handleApplyFilters} onReset={handleResetFilters} />}
-                filterComponent={undefined}
+                filterComponent={() => <div className="absolute" />}
 
             />)}
 

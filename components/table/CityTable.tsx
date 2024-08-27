@@ -117,7 +117,7 @@ const CityTable: FC<ITableProps<City>> = ({
                     onRowClick={handleRow}
                     search={search}
                     onSearch={(q: string) => setSearch(q)}
-                    filterComponent={undefined}
+                    filterComponent={() => <div className="absolute" />}
                 />
             )}
         </div>

@@ -82,6 +82,16 @@ export const branchRatingColumns: (
         },
     },
     {
+        accessorKey: "avgRating",
+        header: () => <div className="text-left">{t("Average Rating")}</div>,
+        cell: ({ row }) => {
+            const rating: number = row.getValue("avgRating");
+            return (
+                <Badge text={`${rating.toFixed(2)}`} />
+            )
+        },
+    },
+    {
         accessorKey: "review",
         header: () => <div className="text-left">{t("Review")}</div>,
         cell: ({ row }) => {
