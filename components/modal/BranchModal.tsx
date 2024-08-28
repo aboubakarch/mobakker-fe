@@ -19,7 +19,7 @@ import APIService from '@/services/api'
 import { useToast } from '@/hooks/use-toast'
 import BranchManagerModal from './BranchManagerModal'
 import { RoleType } from '@/constants/enums'
-import { convertToFormData } from '@/lib/helpers'
+import { convertToFormData, getCookie } from '@/lib/helpers'
 // import { getCookie } from '@/lib/helpers'
 
 
@@ -118,11 +118,15 @@ const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, v
     const [managerModal, setManagerModal] = useState(false)
     const [image, setImage] = useState<File | null>(null);
     const [cities, setCites] = useState<any[]>([])
-
+    const [providers, setProviders] = useState<any[]>([])
+    const role = getCookie("role")
 
     // console.log("states", states)
 
     useEffect(() => {
+        if (role === RoleType.ADMIN || role === RoleType.SUPER_ADMIN) {
+            fetchProvidersData()
+        }
         fetchData()
     }, [])
 
@@ -143,11 +147,30 @@ const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, v
         }
     }
 
+    const fetchProvidersData = async () => {
+
+        try {
+            const params = {
+                page: 1, take: 100
+            }
+            const response = await APIService.getInstance().getServiceProvider(params)
+
+            const data = response?.items?.map((item: any) => ({
+                name: `${item?.user?.firstName} ${item?.user?.lastName}`,
+                value: item?.id
+            }))
+            setProviders(data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
 
     const createNewBranch = async (values: yup.InferType<typeof branchValidationSchema>) => {
+
         const cityName = cities.filter(city => city.value === values.city)
         // const userId = getCookie("userId");
-        const branch = {
+        let branch: any = {
             name: values.name,
             address: values.location,
             city: cityName.length > 0 ? cityName[0].name || values.city : values.city,
@@ -158,6 +181,9 @@ const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, v
             managerId: values.manager || undefined,
             avatar: image ? image : undefined,
             branchCityId: values.city
+        }
+        if (role === RoleType.ADMIN || role === RoleType.SUPER_ADMIN) {
+            branch = { ...branch, ownerId: values.ownerId || undefined }
         }
 
         const formDate = convertToFormData(branch)
@@ -178,26 +204,33 @@ const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, v
     const editBranch = async (values: yup.InferType<typeof branchValidationSchema>) => {
         const cityName = cities.filter(city => city.value === values.city)
 
-        const branch = {
+        let branch: any = {
             name: values.name,
             address: values.location,
             city: cityName.length > 0 ? cityName[0].name || values.city : values.city,
             country: "Saudi Arab",
             managerId: values.manager || undefined,
-            branchCityId: values.city
-        }
-        await APIService.getInstance().editBranch(val?.id as string, branch as any);
-        setLoading(false)
+            branchCityId: values.city,
+            avatar: image ? image : undefined,
 
-        toast({
-            description: "Branch Updated!",
-            variant: "success"
-        })
+        }
+        if (role === RoleType.ADMIN || role === RoleType.SUPER_ADMIN) {
+            branch = { ...branch, ownerId: values.ownerId || undefined }
+        }
+        const formDate = convertToFormData(branch)
+        await APIService.getInstance().editBranch(val?.id as string, formDate as any);
 
     }
 
 
     const onSubmit = async (values: yup.InferType<typeof branchValidationSchema>) => {
+        if ((role === RoleType.ADMIN || role === RoleType.SUPER_ADMIN) && (!values.ownerId || values.ownerId === "")) {
+            toast({
+                description: "Please Select Service Provider!",
+                variant: "success"
+            })
+            return
+        }
         setLoading(true)
         let temp = false;
         try {
@@ -247,10 +280,14 @@ const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, v
                         <X className='w-4 h-4 relative text-black' />
                     </Button>
                 </div>
-                {!val && <div>
 
-                    <Dropzone title='Upload Logo' onFileSelect={(file) => setImage(file)} />
-                </div>}
+                <Dropzone title='Upload Logo' onFileSelect={(file) => setImage(file)} url={val?.avatar || undefined} />
+
+                {(role === RoleType.ADMIN || role === RoleType.SUPER_ADMIN) &&
+                    <InputField {...branchFormVal.info(t).ownerId as any} data={providers ? providers as any : undefined} />
+
+                }
+
 
                 <InputField {...branchFormVal.info(t).name} />
 

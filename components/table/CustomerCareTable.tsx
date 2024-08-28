@@ -11,7 +11,7 @@ import { SortEnum } from '@/constants/enums'
 import EmployeeFilters from './filters/EmployeeFilters'
 import { debounce } from 'lodash'
 
-const CustomerCareTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, handleDelete, onUpdateFlag, handleRow }) => {
+const CustomerCareTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, handleDelete, onUpdateFlag, handleRow, handleAssign }) => {
     const { t } = useTranslation()
     const { toast } = useToast()
     const [data, setData] = useState<SampleBranchManager[]>([])
@@ -33,11 +33,11 @@ const CustomerCareTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, h
                 page: pagination.pageIndex + 1, take: pagination.pageSize, order: sort, ...filters
             }
             if (search !== '') {
-                params = { ...params, q: search, search }
+                params = { ...params, search }
             }
             const response = await APIService.getInstance().getCustomerCare(params)
             console.log(response)
-            setData(response.items.map((item: any) => ({ ...item.user, data: { ...item } })))
+            setData(response.items.map((item: any) => ({ ...item.user, employerId: (item as any)?.employerId, employeeId: (item as any)?.id, data: { ...item } })))
             setTotal(response.pageMetaDto.itemCount)
             // console.log(response)
         } catch (error: any) {
@@ -78,7 +78,7 @@ const CustomerCareTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, h
         setFilters(fil)
     }
     const handleResetFilters = () => {
-        if (filters.branch) {
+        if (filters.branchId) {
 
             setFilters({})
         }
@@ -100,7 +100,7 @@ const CustomerCareTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, h
                 </div>
             ) : (<DataTable
                 data={data}
-                columns={customerColumns(t, handleEdit, handleDelete)}
+                columns={customerColumns(t, handleEdit, handleDelete, handleAssign)}
                 filterKey='firstName' count={total}
                 onChangePagination={setPagination}
                 onRowClick={handleRow}

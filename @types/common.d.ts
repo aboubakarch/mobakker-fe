@@ -18,6 +18,7 @@ interface SampleEmployee {
     employerId?: string;
     employer?: SampleBranchManager;
     rating?: number;
+    branches: SampleBranch[];
   };
 }
 interface SampleServices {
@@ -39,6 +40,7 @@ interface SampleServices {
   provider: Provider;
   branches: any[];
   bookingCapacity: number;
+  Status: string;
   // timeSlots: string[];
 }
 interface SampleAppointments {
@@ -108,17 +110,57 @@ interface SamplePromotions {
   id: string;
   type: "FIXED" | "PERCENTAGE";
   description: string;
+  discount: number;
+}
+interface Subscription {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  isActive: boolean;
+  price: number;
+  duration: "YEARLY" | "MONTHLY" | "WEEKLY" | "DAILY";
 }
 
+interface User {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  isActive: boolean;
+  firstName: string;
+  lastName: string;
+  role: "SERVICE_PROVIDER" | "ADMIN" | "USER"; // Depending on roles available
+  email: string;
+  username: string | null;
+  phone: string;
+  avatar: string;
+  forgotPasswordToken: string | null;
+  forgotPasswordTokenExpiry: string | null;
+  isVerified: "VERIFIED" | "UNVERIFIED";
+}
+
+interface ServiceProvider {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  isActive: boolean;
+  userId: string;
+  user: User;
+}
 interface SampleSubscription {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  isActive: boolean;
+  branchId: string;
   subscriptionId: string;
-  customerName: string;
-  customerNumber: number;
-  type: string;
-  paid: string;
-  status: boolean;
-  renewal: number;
-  dayLeft: number;
+  serviceProviderId: string;
+  subscriptionDate: string;
+  expiryDate: string;
+  transactionId: string;
+  status: "INITIALIZED" | "ACTIVE" | "EXPIRED" | "CANCELLED"; // Depending on the statuses available
+  subscription: Subscription;
+  branch: SampleBranch;
+  serviceProvider: ServiceProvider;
 }
 interface SampleBranch {
   id: string;
@@ -138,6 +180,7 @@ interface SampleBranch {
   appointments: any[];
   avatar: string | null;
   branchCityId?: string;
+  Status: string;
 }
 
 interface SampleProvider {
@@ -186,6 +229,7 @@ interface ILanguageChangerProps {
 interface IDropzonProps {
   title: string;
   subtitle?: string;
+  url?: string;
   onFileSelect?: (file: File | null) => void;
 }
 
@@ -204,4 +248,84 @@ interface Provider {
   updatedAt: string;
   isActive: boolean;
   userId: string;
+}
+
+interface SysNotifications {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  isActive: boolean;
+  isRead: boolean;
+  notification: string;
+  timeRead: string | null;
+  userId: string;
+}
+
+interface Country {
+  id: string;
+  name: string;
+  code: string;
+  mobileCode: string;
+}
+
+interface State {
+  id: string;
+  name: string;
+  code: string;
+  countryId: string; // UUID
+}
+
+interface City {
+  id: string;
+  name: string;
+  code: string;
+  stateId: string; // UUID
+}
+
+interface Rating {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  isActive: boolean;
+  rating: number;
+  review: string;
+  avgRating: number;
+  userId: string;
+  user: User;
+}
+
+interface Customer {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  isActive: boolean;
+  userId: string;
+  user: User;
+}
+interface Employee {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  isActive: boolean;
+  userId: string;
+  user: User;
+}
+interface SampleCustomerRating extends Rating {
+  customerId: string;
+  customer: Customer;
+}
+
+interface SampleBranchRating extends Rating {
+  branchId: string;
+  branch: SampleBranch;
+}
+
+interface SampleServiceRating extends Rating {
+  serviceId: string;
+  service: SampleServices;
+}
+
+interface SampleEmployeeRating extends Rating {
+  employeeId: string;
+  employee: Employee;
 }

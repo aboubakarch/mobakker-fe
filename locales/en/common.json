@@ -117,6 +117,18 @@
   "verify": "Verify",
   "noNotificationsRightNow": "You have no Notifications right now.",
   "assignServices": "Assign Services",
-  "successSubscription": "You have successfully subscribed. Thank You for using our services",
-  "failedSubscription": "We're sorry, but your subscription could not be completed at this time. Please try again later or contact our support team for assistance."
+  "successSubscription": "Your payment has been successfull. Thank You for using our services",
+  "failedSubscription": "We're sorry, but your payment could not be completed at this time. Please try again later or contact our support team for assistance.",
+  "todaysReports": "Today's Reports",
+  "addCountry": "Add Country",
+  "editCountry": "Edit Country",
+  "addState": "Add State",
+  "editState": "Edit State",
+  "addCity": "Add City",
+  "editCity": "Edit City",
+  "countries": "Countries",
+  "cities": "Cities",
+  "states": "States",
+  "location": "Location",
+  "locationInfo": "You can add Countries, States and Cities of your choosing here"
 }

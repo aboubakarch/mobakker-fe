@@ -26,12 +26,22 @@ export const getAllMonths = () => {
 
   return months;
 };
+// Function to get a mapping of month names to their zero-based indices
+export const getMonthMap = () => {
+  const monthMap: { [key: string]: number } = {};
+
+  for (let month = 0; month < 12; month++) {
+    const date = moment().month(month);
+    monthMap[date.format("MMMM")] = month;
+  }
+
+  return monthMap;
+};
 
 // Function to get months for the last 10 years
 export const getLastNYears = (n: number) => {
   const currentYear = moment().year();
   const years = [];
-
   for (let year = currentYear; year > currentYear - n; year--) {
     years.push(year);
   }
@@ -75,12 +85,16 @@ export function isValidImageSrc(src: string) {
 }
 
 export async function runOneSignal() {
-  await OneSignal.init({
-    appId: "8049f716-71c3-43ff-809a-c1cb19b3422b",
-    safari_web_id: "web.onesignal.auto.253751a8-ac24-4181-97da-883dbdadac49",
-    allowLocalhostAsSecureOrigin: true,
-  });
-  OneSignal.Slidedown.promptPush();
+  try {
+    await OneSignal.init({
+      appId: `${process.env.NEXT_PUBLIC_ONESIGNAL_ID}`,
+      // safari_web_id: "web.onesignal.auto.253751a8-ac24-4181-97da-883dbdadac49",
+      allowLocalhostAsSecureOrigin: true,
+    });
+    return true;
+  } catch (error) {
+    return false;
+  }
 }
 
 export function formatTime(time: string): string {
@@ -145,4 +159,52 @@ export function convertToFormData(obj: Record<string, any>): FormData {
   });
 
   return formData;
+}
+
+export function timeAgo(isoDate: string): string {
+  const date = new Date(isoDate);
+  const now = new Date();
+  const differenceInMs = now.getTime() - date.getTime();
+
+  const minutes = Math.floor(differenceInMs / 1000 / 60);
+  const hours = Math.floor(differenceInMs / 1000 / 60 / 60);
+  const days = Math.floor(differenceInMs / 1000 / 60 / 60 / 24);
+  const weeks = Math.floor(differenceInMs / 1000 / 60 / 60 / 24 / 7);
+  const months = Math.floor(differenceInMs / 1000 / 60 / 60 / 24 / 30); // Approximation
+  const years = Math.floor(differenceInMs / 1000 / 60 / 60 / 24 / 365); // Approximation
+
+  const pluralize = (unit: number, singular: string, plural: string) => {
+    return unit === 1 ? `${unit} ${singular}` : `${unit} ${plural}`;
+  };
+
+  if (minutes < 60) {
+    return `${pluralize(minutes, "minute", "minutes")} ago`;
+  } else if (hours < 24) {
+    return `${pluralize(hours, "hour", "hours")} ago`;
+  } else if (days < 7) {
+    return `${pluralize(days, "day", "days")} ago`;
+  } else if (weeks < 4) {
+    return `${pluralize(weeks, "week", "weeks")} ago`;
+  } else if (months < 12) {
+    return `${pluralize(months, "month", "months")} ago`;
+  } else {
+    return `${pluralize(years, "year", "years")} ago`;
+  }
+}
+
+export function isDateBetween(
+  date: Date,
+  startDate: Date,
+  endDate: Date
+): boolean {
+  return date >= startDate && date <= endDate;
+}
+
+export function daysUntil(targetDate: Date): number {
+  const today = new Date();
+  const oneDay = 1000 * 60 * 60 * 24; // Milliseconds in one day
+  const timeDifference = targetDate.getTime() - today.getTime();
+
+  // Calculate and return the number of days
+  return Math.ceil(timeDifference / oneDay);
 }

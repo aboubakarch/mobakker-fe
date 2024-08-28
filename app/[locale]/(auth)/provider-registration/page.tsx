@@ -45,51 +45,54 @@ const Page = () => {
 
   }, [router])
 
-  const handleRegistration = async () => {
+
+  const onSubmit = async (values: yup.InferType<typeof providerRegistrationValidationSchema>) => {
+    setFormValues(values);
     setLoading(true)
     try {
-      await APIService.getInstance().registerProvider(formValues as any);
-      router.push('/login')
+
+
+      await APIService.getInstance().registerProvider(values as any);
+      // router.push('/login')
       setLoading(false)
 
       toast({
         description: "Registration Successful",
         variant: "success"
-      })
+      });
+      setOtpActive(true)
 
-      router.refresh()
     } catch (error: any) {
       setLoading(false)
-      console.log(error)
+
       toast({
         variant: "destructive",
-        description: error?.response?.data?.message || "Error! Something went wrong",
+        description: JSON.stringify(error?.response?.data?.message) || "Error! Something went wrong",
       })
     }
-  }
-
-
-  const onSubmit = async (values: yup.InferType<typeof providerRegistrationValidationSchema>) => {
-    setFormValues(values);
-    setOtpActive(true)
   };
 
   const handleVerifyOtp = async (values: yup.InferType<typeof otpValidationSchema>) => {
     setLoading(true)
     try {
-      // await APIService.getInstance().registerProvider(values as any);
-      // setLoading(false)
+      await APIService.getInstance().verifyOtp({ otp: values.pin, destinationNumber: formValues?.phone } as any);
+      toast({
+        description: "You have been verified Successfully.",
+        variant: "success"
+      });
 
-      handleRegistration()
-
+      router.push('/login')
+      router.refresh()
     } catch (error: any) {
-      setLoading(false)
+      // form.setError("pin", { message: `${JSON.stringify(error?.response?.data?.message) || "Error! Something went wrong"}` })
 
+      form.setError("pin", { message: "Invalid Pin!" })
       toast({
         variant: "destructive",
-        description: error?.response?.data?.message || "Error! Something went wrong",
+        description: JSON.stringify(error?.response?.data?.message) || "Error! Something went wrong",
       })
     }
+    setLoading(false)
   }
   const handleGoBack = () => {
     setFormValues(null);

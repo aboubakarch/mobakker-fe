@@ -37,7 +37,7 @@ const EmployeeFilters: FC<IFilterProps<IEmployeeFilters>> = ({ onApply, onReset 
         console.log("Applying")
         if (onApply) {
             const filters = {
-                branch: branch !== "" ? branch : undefined
+                branchId: branch !== "" ? branch : undefined
             }
             onApply(filters)
         }

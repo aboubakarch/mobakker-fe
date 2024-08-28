@@ -9,6 +9,8 @@ interface ITableProps<T = any> {
   onToggle?: (id: string, val: boolean) => void;
   handleAssign?: (val: T) => void;
   handleRow?: (val: T) => void;
+  onAppointmentChange?: (val: T, status: string) => void;
+  onSendNotification?: (val: T) => void;
 }
 
 type ISort = "DESC" | "ASC";
@@ -31,5 +33,10 @@ interface IAppointmentFilters {
   customer?: string;
 }
 interface IEmployeeFilters {
-  branch?: string;
+  branchId?: string;
+}
+interface ISubscriptionFilters {
+  serviceProvider?: string;
+  city?: string;
+  subscriptionStatus?: string;
 }

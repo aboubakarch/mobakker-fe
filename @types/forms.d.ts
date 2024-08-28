@@ -18,6 +18,7 @@ interface IBranchFormValues {
   location: string;
   city: string;
   manager?: string;
+  ownerId?: string;
 }
 interface IServiceTypeFormValues {
   name: string;
@@ -55,13 +56,13 @@ interface IServiceFormValues {
   endHour: string;
   slotTime: string;
   bookingCapacity: number;
+  providerId?: string;
 }
 interface IPromotionFormValues {
   promoCode: string;
   startDate: Date | string;
   endDate: Date | string;
   service: string[];
-  isActive: boolean;
   type: "FIXED" | "PERCENTAGE";
   description: string;
   discount: number;
@@ -80,10 +81,33 @@ interface IAppointmentFormValues {
   employeeId: string;
   serviceId: string;
   bookingSlot: string;
+  promotion: string;
 }
 
 interface IOTPFormValues {
   pin: string;
+}
+
+interface ICountryFormValues {
+  name: string;
+  code: string;
+  mobileCode: string;
+}
+
+interface IStateFormValues {
+  name: string;
+  code: string;
+  countryId: string;
+}
+
+interface ICityFormValues {
+  name: string;
+  code: string;
+  stateId: string;
+}
+interface ISendNotificationFormValues {
+  heading: string;
+  notification: string;
 }
 
 type IFormTemplate = IAppFormProps;

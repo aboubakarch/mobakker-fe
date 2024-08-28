@@ -60,9 +60,15 @@ export function middleware(request: NextRequest) {
     // console.log(basePath, baseIndex, role);
     if (
       role === RoleType.CUSTOMER_CARE &&
-      !["/", "/appointments", "/ar", "/ar/", "/ar/appointments"].includes(
-        url.pathname
-      )
+      ![
+        "/",
+        "/appointments",
+        "/ar",
+        "/ar/",
+        "/ar/appointments",
+        "/profile",
+        "/ar/profile",
+      ].includes(url.pathname)
     ) {
       url.pathname = `/`;
       return NextResponse.redirect(url);

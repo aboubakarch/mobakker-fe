@@ -33,7 +33,7 @@ const BranchManagerTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, 
                 page: pagination.pageIndex + 1, take: pagination.pageSize, order: sort, ...filters
             }
             if (search !== '') {
-                params = { ...params, q: search, search }
+                params = { ...params, search }
             }
             const response = await APIService.getInstance().getServiceBranchManager(params)
             console.log(response)
@@ -79,7 +79,7 @@ const BranchManagerTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, 
         setFilters(fil)
     }
     const handleResetFilters = () => {
-        if (filters.branch) {
+        if (filters.branchId) {
 
             setFilters({})
         }

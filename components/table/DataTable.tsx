@@ -151,7 +151,7 @@ export function DataTable<TData, TValue>({
                         }
                     }
                     }
-                    className="max-w-sm capitalize bg-indigo-800 bg-opacity-5"
+                    className="max-w-sm bg-indigo-800 bg-opacity-5"
                 />
                 <div className="flex gap-3">
                     <Button

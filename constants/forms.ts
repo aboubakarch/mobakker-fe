@@ -4,6 +4,8 @@ import {
   IAssignServiceFormValues,
   IBranchEditFormValues,
   IBranchFormValues,
+  ICityFormValues,
+  ICountryFormValues,
   IEmployeeFormValues,
   IFormValueObj,
   ILoginFormValues,
@@ -11,8 +13,10 @@ import {
   IPromotionFormValues,
   IProviderFormValues,
   IProviderRegistrationFormValues,
+  ISendNotificationFormValues,
   IServiceFormValues,
   IServiceTypeFormValues,
+  IStateFormValues,
 } from "@/@types/forms";
 import {
   appointmentValidationSchema,
@@ -20,16 +24,20 @@ import {
   assignServiceValidationSchema,
   branchEditValidationSchema,
   branchValidationSchema,
+  cityValidationSchema,
+  countryValidationSchema,
   employeeValidationSchema,
   loginValidationSchema,
   otpValidationSchema,
   promotionValidationSchema,
   providerRegistrationValidationSchema,
   providerValidationSchema,
+  sendNotificationValidationSchema,
   serviceTypeValidationSchema,
   serviceValidationSchema,
+  stateValidationSchema,
 } from "./validationSchemas";
-import { formConstants } from "./constants";
+import { formConstants, messages } from "./constants";
 import { FieldTypesEnum } from "./enums";
 import { formatTime } from "@/lib/helpers";
 
@@ -53,6 +61,7 @@ export const branchDefaultValues: (val?: SampleBranch) => IBranchFormValues = (
   city: val ? val.branchCityId || "" : "",
   location: val ? val.address : "",
   manager: val ? val.managerId || "" : "",
+  ownerId: val ? val.ownerId || "" : "",
 });
 export const serviceTypeDefaultValues: (
   val?: ServiceType
@@ -99,13 +108,13 @@ export const serviceDefaultValues: (
   endHour: val ? formatTime(val.workHourTo) : "",
   slotTime: val ? val.slotTime.split(" ")[0] || "" : "",
   bookingCapacity: val ? val.bookingCapacity || 0 : 0,
+  providerId: val ? val.providerId || "" : "",
 });
 
 export const promotionDefaultValues: (
   val?: SamplePromotions
 ) => IPromotionFormValues = (val) => ({
   promoCode: val ? val.promoCode : "",
-  isActive: val ? val.isActive : true,
   endDate: val ? val.endDate : "",
   startDate: val ? val.startDate : "",
   service: val ? val.services.map((s) => s.id) : [],
@@ -129,6 +138,26 @@ export const appointmentDefaultValues: (
   employeeId: val ? val.employeeId : "",
   serviceId: val ? val.serviceId : "",
   bookingSlot: val ? val.bookingSlot : "",
+  promotion: "",
+});
+
+export const countryDefaultValues: (val?: Country) => ICountryFormValues = (
+  val
+) => ({
+  name: val ? val.name : "",
+  code: val ? val.code : "",
+  mobileCode: val ? val.mobileCode : "",
+});
+export const stateDefaultValues: (val?: State) => IStateFormValues = (val) => ({
+  name: val ? val.name : "",
+  code: val ? val.code : "",
+  countryId: val ? val.countryId : "",
+});
+
+export const cityDefaultValues: (val?: City) => ICityFormValues = (val) => ({
+  name: val ? val.name : "",
+  code: val ? val.code : "",
+  stateId: val ? val.stateId : "",
 });
 
 export const loginFormVals: IFormValueObj<ILoginFormValues> = {
@@ -239,6 +268,13 @@ export const branchFormVals: (
       hasError: true,
       name: "manager",
       label: t(formConstants.SELECT_MANAGER),
+      fieldType: FieldTypesEnum.SingleSearchSelect,
+    },
+    ownerId: {
+      placeHolder: t("Service Provider"),
+      hasError: true,
+      name: "ownerId",
+      label: t("Service Provider"),
       fieldType: FieldTypesEnum.SingleSearchSelect,
     },
   }),
@@ -417,6 +453,13 @@ export const serviceFormVals: (
       label: t(formConstants.TIME_SLOT),
       fieldType: FieldTypesEnum.Select,
     },
+    providerId: {
+      placeHolder: t("Service Provider"),
+      hasError: true,
+      name: "providerId",
+      label: t("Service Provider"),
+      fieldType: FieldTypesEnum.SingleSearchSelect,
+    },
   }),
 });
 export const promotionFormVals: (
@@ -453,13 +496,6 @@ export const promotionFormVals: (
       name: "endDate",
       label: t(formConstants.END_DATE),
       fieldType: FieldTypesEnum.DatePicker,
-    },
-    isActive: {
-      placeHolder: t(formConstants.STATUS),
-      hasError: true,
-      name: "isActive",
-      label: t(formConstants.STATUS),
-      fieldType: FieldTypesEnum.Select,
     },
     service: {
       placeHolder: t(formConstants.SELECT_SERVICE),
@@ -578,6 +614,13 @@ export const appointmentFormVals: (
       label: t(formConstants.NET_TOTAL_AMOUNT_LABEL),
       placeHolder: t(formConstants.NET_TOTAL_AMOUNT_PLACEHOLDER),
     },
+    promotion: {
+      hasError: false,
+      name: "promotion",
+      label: t(formConstants.PROMOTION_NAME),
+      placeHolder: t(formConstants.PROMOTION_NAME),
+      fieldType: FieldTypesEnum.SingleSearchSelect,
+    },
   }),
 });
 
@@ -609,3 +652,110 @@ export const assignBranchFormVals: () => IFormValueObj<IAssignBranchFormValues> 
       },
     }),
   });
+
+export const countryFormVals: (
+  val?: Country
+) => IFormValueObj<ICountryFormValues> = (val) => ({
+  validationSchema: countryValidationSchema,
+  initialValues: countryDefaultValues(val),
+  info: (t) => ({
+    name: {
+      placeHolder: t(formConstants.NAME_PLACEHOLER),
+      hasError: true,
+      name: "name",
+      label: t(formConstants.COUNTRY_NAME_LABEL),
+    },
+    code: {
+      placeHolder: t(formConstants.COUNTRY_CODE_PLACEHOLDER),
+      hasError: true,
+      name: "code",
+      label: t(formConstants.COUNTRY_CODE_LABEL),
+    },
+    mobileCode: {
+      placeHolder: t(formConstants.MOBILE_CODE_PLACEHOLDER),
+      hasError: true,
+      name: "mobileCode",
+      label: t(formConstants.MOBILE_CODE_LABEL),
+    },
+  }),
+});
+
+export const stateFormVals: (val?: State) => IFormValueObj<IStateFormValues> = (
+  val
+) => ({
+  validationSchema: stateValidationSchema,
+  initialValues: stateDefaultValues(val),
+  info: (t) => ({
+    name: {
+      placeHolder: t(formConstants.NAME_PLACEHOLER),
+      hasError: true,
+      name: "name",
+      label: t(formConstants.STATE_NAME_LABEL),
+    },
+    code: {
+      placeHolder: t(formConstants.STATE_CODE_PLACEHOLDER),
+      hasError: true,
+      name: "code",
+      label: t(formConstants.STATE_CODE_LABEL),
+    },
+    countryId: {
+      placeHolder: t(formConstants.COUNTRY_LABEL),
+      hasError: true,
+      name: "countryId",
+      label: t(formConstants.COUNTRY_PLACEHOLDER),
+      fieldType: FieldTypesEnum.SingleSearchSelect,
+    },
+  }),
+});
+
+export const cityFormVals: (val?: City) => IFormValueObj<ICityFormValues> = (
+  val
+) => ({
+  validationSchema: cityValidationSchema,
+  initialValues: cityDefaultValues(val),
+  info: (t) => ({
+    name: {
+      placeHolder: t(formConstants.NAME_PLACEHOLER),
+      hasError: true,
+      name: "name",
+      label: t(formConstants.CITY_NAME_LABEL),
+    },
+    code: {
+      placeHolder: t(formConstants.CITY_CODE_PLACEHOLDER),
+      hasError: true,
+      name: "code",
+      label: t(formConstants.CITY_CODE_LABEL),
+    },
+    stateId: {
+      placeHolder: t(formConstants.STATE),
+      hasError: true,
+      name: "stateId",
+      label: t(formConstants.STATE),
+      fieldType: FieldTypesEnum.SingleSearchSelect,
+    },
+  }),
+});
+
+export const sendNotificationFormVals: (
+  val?: City
+) => IFormValueObj<ISendNotificationFormValues> = () => ({
+  validationSchema: sendNotificationValidationSchema,
+  initialValues: {
+    heading: "",
+    notification: "",
+  },
+  info: (t) => ({
+    heading: {
+      placeHolder: t("Heading"),
+      hasError: true,
+      name: "heading",
+      label: t("Heading"),
+    },
+    notification: {
+      placeHolder: t(messages.NOTIFICATION),
+      hasError: true,
+      name: "notification",
+      label: t(messages.NOTIFICATION),
+    },
+  }),
+});

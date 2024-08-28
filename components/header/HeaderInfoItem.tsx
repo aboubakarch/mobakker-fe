@@ -5,7 +5,7 @@ import { InfoArrowDownIcon, InfoArrowUpIcon } from '@/svgs'
 import React, { FC } from 'react'
 import { PercentagePie } from '../charts/PercentPie'
 
-const HeaderInfoItem: FC<IHeaderInfoProps> = ({ title, heading, color, showIcon = false, hasGraph = false, percentage, className = "" }) => {
+const HeaderInfoItem: FC<IHeaderInfoProps> = ({ title, heading, color, showIcon = false, hasGraph = false, percentage, className = "", loading = false, iconPosition = false }) => {
     const primaryColor = colorHelper[color];
 
     return (
@@ -13,18 +13,18 @@ const HeaderInfoItem: FC<IHeaderInfoProps> = ({ title, heading, color, showIcon 
             <div className=' flex flex-col gap-1'>
                 <div className='flex gap-2 items-center'>
                     <h2 className={`font-semibold text-lg text-${primaryColor.name}`}>{heading}</h2>
-                    {percentage && <p className='text-xs'>{percentage + "% " + (percentage >= 0 ? "Increase" : "Decrease")}</p>}
+                    {percentage !== undefined && <p className='text-xs'>{percentage + "%"}</p>}
                 </div>
                 <div className='text-icon text-xs'>{title}</div>
             </div>
-            {showIcon && percentage && <div>
-                {hasGraph ?
+            {showIcon && <div>
+                {hasGraph && percentage !== undefined ?
                     <div>
                         <PercentagePie color={primaryColor.color} percentage={percentage} />
                     </div>
                     :
                     <div>
-                        {percentage >= 0 ?
+                        {iconPosition ?
                             <InfoArrowUpIcon stroke={primaryColor.color} /> :
                             <InfoArrowDownIcon stroke={primaryColor.color} />
                         }

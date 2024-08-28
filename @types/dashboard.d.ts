@@ -8,6 +8,8 @@ interface IHeaderInfoProps {
   hasGraph?: boolean;
   percentage?: number;
   className?: string;
+  loading?: boolean;
+  iconPosition?: boolean;
 }
 
 interface IPromotionItemProps {
@@ -15,6 +17,8 @@ interface IPromotionItemProps {
   startDate: string;
   endDate: string;
   active: boolean;
+  id: string;
+  handleUpdate: () => void;
 }
 
 interface IReportWidgetProps {

@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import Modal from './Modal'
 import Dropzone from '../ui/Dropzone'
 import AppForm from '../form/Form'
@@ -12,14 +12,81 @@ import { messages } from '@/constants/constants'
 import { X } from 'lucide-react'
 import { IModalCompProps } from '@/@types/modals'
 import { Button } from '../ui'
+import { useToast } from '@/hooks/use-toast'
+import { convertToFormData } from '@/lib/helpers'
+import APIService from '@/services/api'
 
-const ProviderModal: FC<IModalCompProps<SampleProvider>> = ({ closeModal, visible, val }) => {
+const ProviderModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate }) => {
     const { t } = useTranslation();
     const providerFormVal = providerFormVals(val)
+    const [loading, setLoading] = useState(false)
+    const { toast } = useToast()
+    const [image, setImage] = useState<File | null>(null);
 
-    const onSubmit = (values: yup.InferType<typeof providerValidationSchema>) => {
+
+    const createNewProvider = async (values: yup.InferType<typeof providerValidationSchema>) => {
+        // const userId = getCookie("userId");
+        const formData = convertToFormData({
+            ...values, avatar: image ? image : undefined,
+        })
+
+        await APIService.getInstance().registerProvider(formData as any);
+        setLoading(false)
+
+        toast({
+            description: "Provider added!",
+            variant: "success"
+        })
+
+    }
+    const editProvider = async (values: yup.InferType<typeof providerValidationSchema>) => {
+        const vals = {
+            firstName: values.firstName,
+            lastName: values.lastName,
+            email: values.email,
+            phone: values.phone,
+            avatar: image ? image : undefined,
+        }
+        const formData = convertToFormData(vals)
+
+        await APIService.getInstance().editServiceProvider(val?.id as string, formData as any);
+        setLoading(false)
+
+        toast({
+            description: "Provider Updated!",
+            variant: "success"
+        })
+
+    }
+
+
+    const onSubmit = async (values: yup.InferType<typeof providerValidationSchema>) => {
         console.log(values);
+        setLoading(true)
+        try {
+
+            if (val) {
+                await editProvider(values)
+            }
+            else {
+                await createNewProvider(values)
+            }
+            // location.reload()
+            if (onUpdate) {
+                onUpdate()
+            }
+        } catch (error: any) {
+            setLoading(false)
+
+            toast({
+                variant: "destructive",
+                description: error?.response?.data?.message ? JSON.stringify(error?.response?.data?.message) : "Error! Something went wrong",
+            })
+        }
+        closeModal()
     };
+
+
     return (
         <Modal visibility={visible} closeModal={closeModal}>
             <AppForm
@@ -27,15 +94,13 @@ const ProviderModal: FC<IModalCompProps<SampleProvider>> = ({ closeModal, visibl
                 className="px-3 py-4 flex gap-4 flex-col"
                 {...providerFormVal}>
                 <div className='flex justify-between w-full'>
-                    <p className='text-black text-xl font-medium  leading-[30px]'>{t(messages.ADD_NEW_PROVIDER)}</p>
+                    <p className='text-black text-xl font-medium  leading-[30px]'>{val ? t(messages.UPDATE) : t(messages.ADD_PROVIDER)}</p>
                     <Button variant={'ghost'} onClick={closeModal} className='px-3 py-0'>
                         <X className='w-4 h-4 relative text-black' />
                     </Button>
                 </div>
-                <div>
 
-                    <Dropzone title='Upload Profile Image' />
-                </div>
+                <Dropzone title='Upload Profile Image' onFileSelect={(file) => setImage(file)} url={val?.avatar || undefined} />
                 <div className='flex gap-3 w-full'>
                     <div className='flex-1'>
                         <InputField {...providerFormVal.info(t).firstName} />
@@ -58,9 +123,9 @@ const ProviderModal: FC<IModalCompProps<SampleProvider>> = ({ closeModal, visibl
                     </div>
 
                 </div>
-                <InputField {...providerFormVal.info(t).password} />
+                {!val && <InputField {...providerFormVal.info(t).password} />}
                 <div className='self-end flex gap-3'>
-                    <SubmitButton title={t(messages.ADD_PROVIDER)} className="self-end bg-primaryBlue" />
+                    <SubmitButton loading={loading} title={val ? t(messages.EDIT) : t(messages.ADD_PROVIDER)} className="self-end bg-primaryBlue" />
                     <Button onClick={closeModal} variant={"outline"} >
                         {t(messages.CANCEL)}
                     </Button>

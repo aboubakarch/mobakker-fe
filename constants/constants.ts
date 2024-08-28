@@ -14,6 +14,7 @@ import {
   TicketIcon,
   UserIcon,
 } from "@/svgs";
+import { UserCheck } from "lucide-react";
 
 export const messages = {
   DONT_HAVE_ACCOUNT: "common:dontHaveAccount",
@@ -136,6 +137,18 @@ export const messages = {
   ASSIGN_SERVICES: "common:assignServices",
   SUCCESS_SUBSCRIPTION: "common:successSubscription",
   FAILED_SUBSCRIPTION: "common:failedSubscription",
+  TODAYS_REPORTS: "common:todaysReports",
+  ADD_COUNTRY: "common:addCountry",
+  EDIT_COUNTRY: "common:editCountry",
+  ADD_STATE: "common:addState",
+  EDIT_STATE: "common:editState",
+  ADD_CITY: "common:addCity",
+  EDIT_CITY: "common:editCity",
+  COUNTRIES: "common:countries",
+  CITIES: "common:cities",
+  STATES: "common:states",
+  LOCATION: "common:location",
+  LOCATION_INFO: "common:locationInfo",
 };
 
 export const tableHeader = {
@@ -268,6 +281,29 @@ export const formConstants = {
   CUSTOMER: "auth:customer",
   PROMO_CODE: "auth:promoCode",
   DISCOUNT: "auth:discount",
+  // Country
+  COUNTRY_NAME_LABEL: "auth:countryNameLabel",
+  COUNTRY_NAME_PLACEHOLDER: "auth:countryNamePlaceholder",
+  COUNTRY_CODE_LABEL: "auth:countryCodeLabel",
+  COUNTRY_CODE_PLACEHOLDER: "auth:countryCodePlaceholder",
+  MOBILE_CODE_LABEL: "auth:mobileCodeLabel",
+  MOBILE_CODE_PLACEHOLDER: "auth:mobileCodePlaceholder",
+
+  // State
+  STATE_NAME_LABEL: "auth:stateNameLabel",
+  STATE_NAME_PLACEHOLDER: "auth:stateNamePlaceholder",
+  STATE_CODE_LABEL: "auth:stateCodeLabel",
+  STATE_CODE_PLACEHOLDER: "auth:stateCodePlaceholder",
+  COUNTRY_LABEL: "auth:countryLabel",
+  COUNTRY_PLACEHOLDER: "auth:countryPlaceholder",
+
+  // City
+  CITY_NAME_LABEL: "auth:cityNameLabel",
+  CITY_NAME_PLACEHOLDER: "auth:cityNamePlaceholder",
+  CITY_CODE_LABEL: "auth:cityCodeLabel",
+  CITY_CODE_PLACEHOLDER: "auth:cityCodePlaceholder",
+  STATE_LABEL: "auth:stateLabel",
+  STATE_PLACEHOLDER: "auth:statePlaceholder",
 };
 
 export const SideBarItems = {
@@ -295,53 +331,17 @@ export const SideBarItems = {
     icon: TicketIcon,
     link: `${prefix}/appointments`,
   }),
+  Admin: (prefix: string) => ({
+    id: 19,
+    name: "Admin",
+    icon: PeopleIcon,
+    link: `${prefix}/admins`,
+  }),
   Employee: (prefix: string) => ({
     id: 4,
     name: "navigation:employees",
     icon: PeopleIcon,
     link: `${prefix}/employees`,
-  }),
-  LoyalProgram: (prefix: string) => ({
-    id: 5,
-    name: "navigation:loyalPrograms",
-    icon: PersonStarIcon,
-    link: `${prefix}/loyal-program`,
-  }),
-  Services: (prefix: string) => ({
-    id: 6,
-    name: "navigation:services",
-    icon: PageIcon,
-    link: `${prefix}/services`,
-  }),
-  ServiceTypes: (prefix: string) => ({
-    id: 17,
-    name: "navigation:serviceType",
-    icon: PageIcon,
-    link: `${prefix}/service-types`,
-  }),
-  Promotions: (prefix: string) => ({
-    id: 7,
-    name: "navigation:promotions",
-    icon: SpeakerIcon,
-    link: `${prefix}/promotions`,
-  }),
-  Rating: (prefix: string) => ({
-    id: 8,
-    name: "navigation:rating",
-    icon: StarIcon,
-    link: `${prefix}/ratings`,
-  }),
-  Notification: (prefix: string) => ({
-    id: 9,
-    name: "navigation:notifications",
-    icon: NotificationIcon,
-    link: `${prefix}/notifications`,
-  }),
-  Complaints: (prefix: string) => ({
-    id: 14,
-    name: "navigation:complaints",
-    icon: ClipboardIcon,
-    link: `${prefix}/complaints`,
   }),
   Providers: (prefix: string) => ({
     id: 10,
@@ -369,12 +369,59 @@ export const SideBarItems = {
     icon: UserIcon,
     link: `${prefix}/customer-care`,
   }),
+  LoyalProgram: (prefix: string) => ({
+    id: 5,
+    name: "navigation:loyalPrograms",
+    icon: PersonStarIcon,
+    link: `${prefix}/loyal-program`,
+  }),
+  Services: (prefix: string) => ({
+    id: 6,
+    name: "navigation:services",
+    icon: PageIcon,
+    link: `${prefix}/services`,
+  }),
+  ServiceTypes: (prefix: string) => ({
+    id: 17,
+    name: "navigation:serviceType",
+    icon: PageIcon,
+    link: `${prefix}/service-types`,
+  }),
+  Promotions: (prefix: string) => ({
+    id: 7,
+    name: "navigation:promotions",
+    icon: SpeakerIcon,
+    link: `${prefix}/promotions`,
+  }),
+  Location: (prefix: string) => ({
+    id: 18,
+    name: messages.LOCATION,
+    icon: SpeakerIcon,
+    link: `${prefix}/location`,
+  }),
+  Rating: (prefix: string) => ({
+    id: 8,
+    name: "navigation:rating",
+    icon: StarIcon,
+    link: `${prefix}/ratings`,
+  }),
+  // Notification: (prefix: string) => ({
+  //   id: 9,
+  //   name: "navigation:notifications",
+  //   icon: NotificationIcon,
+  //   link: `${prefix}/notifications`,
+  // }),
+  // Complaints: (prefix: string) => ({
+  //   id: 14,
+  //   name: "navigation:complaints",
+  //   icon: ClipboardIcon,
+  //   link: `${prefix}/complaints`,
+  // }),
 };
 export const sidebarAdminNavigation: ISideBarItem[] = Object.values(
   SideBarItems
-)
-  .map((i) => i("/admin"))
-  .filter((i: any) => !(i.id === 15 || i.id === 16));
+).map((i) => i("/admin"));
+// .filter((i: any) => !(i.id === 15 || i.id === 16));
 export const sidebarProvidernavigation: ISideBarItem[] = [
   SideBarItems.Dashboard("/provider"),
   SideBarItems.Branch("/provider"),
@@ -388,7 +435,7 @@ export const sidebarProvidernavigation: ISideBarItem[] = [
   SideBarItems.ServiceTypes("/provider"),
   SideBarItems.Promotions("/provider"),
   // SideBarItems.Rating("/provider"),
-  SideBarItems.Notification("/provider"),
+  // SideBarItems.Notification("/provider"),
 ];
 export const sidebarManagerNavigation: ISideBarItem[] = [
   SideBarItems.Dashboard("/"),
@@ -400,7 +447,7 @@ export const sidebarManagerNavigation: ISideBarItem[] = [
   // SideBarItems.ServiceTypes(""),
   SideBarItems.Promotions(""),
   SideBarItems.Rating(""),
-  SideBarItems.Notification(""),
+  // SideBarItems.Notification(""),
 ];
 export const sidebarCustomerServiceNavigation: ISideBarItem[] = [
   SideBarItems.Dashboard("/"),

@@ -34,6 +34,7 @@ export const branchValidationSchema = yup.object().shape({
     .max(300, "City is required")
     .required("City is required"),
   manager: yup.string().optional(),
+  ownerId: yup.string().optional(),
 });
 export const serviceTypeValidationSchema = yup.object().shape({
   name: yup
@@ -91,6 +92,7 @@ export const serviceValidationSchema = yup.object().shape({
   startHour: yup.string().required("Start hour is required"),
   endHour: yup.string().required("End hour is required"),
   slotTime: yup.string().required("Slot time is required"),
+  providerId: yup.string().optional(),
 });
 export const promotionValidationSchema = yup.object().shape({
   promoCode: yup
@@ -100,7 +102,6 @@ export const promotionValidationSchema = yup.object().shape({
   startDate: yup.date().required("Start date is required"),
   endDate: yup.date().required("End date is required"),
   service: yup.array().of(yup.string()).required("Service is required"),
-  isActive: yup.boolean().required("Active status is required"),
   type: yup
     .string()
     .oneOf(
@@ -310,3 +311,49 @@ export const paymentValidationSchema = yup.object().shape({
 //     .required("Subscription ID is required"),
 //   source: cardSchema.required("Credit card information is required"),
 // });
+
+export const countryValidationSchema = yup.object().shape({
+  name: yup.string().required("Country name is required"),
+  code: yup.string().required("Country code is required"),
+  mobileCode: yup.string().required("Mobile code is required"),
+});
+
+export const stateValidationSchema = yup.object().shape({
+  name: yup.string().required("State name is required"),
+  code: yup.string().required("State code is required"),
+  countryId: yup
+    .string()
+    .uuid("Invalid country ID")
+    .required("Country ID is required"),
+});
+
+export const cityValidationSchema = yup.object().shape({
+  name: yup.string().required("City name is required"),
+  code: yup.string().required("City code is required"),
+  stateId: yup
+    .string()
+    .uuid("Invalid state ID")
+    .required("State ID is required"),
+});
+export const sendNotificationValidationSchema = yup.object().shape({
+  heading: yup
+    .string()
+    .min(3, "Heading Must be greater than three letters")
+    .required("Heading is Required"),
+  notification: yup
+    .string()
+    .min(3, "Heading Must be greater than three letters")
+    .required("City code is required"),
+});
+
+export const ratingValidationSchema = yup.object().shape({
+  rating: yup
+    .number()
+    .min(1, "Rating must be at least 1")
+    .max(5, "Rating must be at most 5")
+    .required("Rating is required"),
+  comment: yup
+    .string()
+    .min(3, "Comment must be greater than three letters")
+    .required("Comment is required"),
+});

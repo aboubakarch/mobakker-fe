@@ -7,7 +7,7 @@ import {
     DropdownMenuLabel,
     DropdownMenuTrigger,
 } from "@/components/ui"
-import { Edit, MoreVertical, Trash2 } from "lucide-react";
+import { Edit, MoreVertical, Trash2, UserCog2 } from "lucide-react";
 import { messages, tableHeader } from "@/constants/constants";
 import { Checkbox } from "@/components/ui/Checkbox";
 import { TFunction } from "i18next";
@@ -16,8 +16,8 @@ import { isValidImageSrc } from "@/lib/helpers";
 import Image from "next/image";
 
 
-export const customerColumns: (t: TFunction<"translation", undefined>, handleEdit?: (val: SampleProvider) => void, handleDelete?: (val: SampleProvider) => void) => ColumnDef<SampleProvider>[] =
-    (t, handleEdit, handleDelete) => [
+export const customerColumns: (t: TFunction<"translation", undefined>, handleEdit?: (val: SampleProvider) => void, handleDelete?: (val: SampleProvider) => void, handleAssign?: (val: SampleProvider) => void) => ColumnDef<SampleProvider>[] =
+    (t, handleEdit, handleDelete, handleAssign) => [
         {
             id: "select",
             header: ({ table }) => (
@@ -42,7 +42,7 @@ export const customerColumns: (t: TFunction<"translation", undefined>, handleEdi
         },
         {
             accessorKey: "firstName",
-            header: () => <div className="text-center">{t(tableHeader.NAME)}</div>,
+            header: () => <div className="text-left">{t(tableHeader.NAME)}</div>,
 
             cell: ({ row }) => {
                 const firstName: string = row.getValue("firstName");
@@ -69,12 +69,12 @@ export const customerColumns: (t: TFunction<"translation", undefined>, handleEdi
 
         {
             accessorKey: "email",
-            header: () => <div className="text-center">{t(tableHeader.EMAIL)}</div>,
+            header: () => <div className="text-left">{t(tableHeader.EMAIL)}</div>,
 
             cell: ({ row }) => {
                 const email: string = row.getValue("email");
                 return (
-                    <div className="w-max flex items-center justify-center text-center justify-self-center">
+                    <div className="w-max flex items-center justify-center text-left justify-self-center">
 
                         <p className="text-sm line-clamp-1">{email}</p>
                     </div>
@@ -84,12 +84,12 @@ export const customerColumns: (t: TFunction<"translation", undefined>, handleEdi
 
         {
             accessorKey: "phone",
-            header: () => <div className="text-center">{t(tableHeader.PHONE)}</div>,
+            header: () => <div className="text-left">{t(tableHeader.PHONE)}</div>,
 
             cell: ({ row }) => {
                 const phone: string = row.getValue("phone");
                 return (
-                    <div className="w-max flex items-center justify-center text-center justify-self-center">
+                    <div className="w-max flex items-center justify-center text-left justify-self-center">
 
                         <p className="text-sm line-clamp-1">{phone}</p>
                     </div>
@@ -98,7 +98,7 @@ export const customerColumns: (t: TFunction<"translation", undefined>, handleEdi
         },
         {
             accessorKey: "isActive",
-            header: () => <div className="text-center">{t(tableHeader.STATUS)}</div>,
+            header: () => <div className="text-left">{t(tableHeader.STATUS)}</div>,
 
             cell: ({ row }) => {
                 const isActive: boolean = row.getValue("isActive");
@@ -118,6 +118,16 @@ export const customerColumns: (t: TFunction<"translation", undefined>, handleEdi
                 return (
                     <TooltipProvider>
                         <div className="flex gap-2">
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <Button disabled={!(row.original as any)?.isActive} onClick={handleAssign ? (e: any) => { e.stopPropagation(); handleAssign(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
+                                        <UserCog2 className="h-5 w-5 text-indigo-800" />
+                                    </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>{t("Assign Branch")}</p>
+                                </TooltipContent>
+                            </Tooltip>
                             <Tooltip>
                                 <TooltipTrigger asChild>
                                     <Button disabled={!(row.original as any)?.isActive} onClick={handleEdit ? (e: any) => { e.stopPropagation(); handleEdit(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">

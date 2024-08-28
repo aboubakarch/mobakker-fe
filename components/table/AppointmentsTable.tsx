@@ -11,7 +11,7 @@ import { SortEnum } from '@/constants/enums'
 import { debounce } from 'lodash'
 import AppointmentFilters from './filters/AppointmentFilters'
 
-const AppointmentsTable: FC<ITableProps<SampleAppointments>> = ({ handleDelete, handleEdit, onUpdateFlag, handleRow }) => {
+const AppointmentsTable: FC<ITableProps<SampleAppointments>> = ({ handleDelete, handleEdit, onUpdateFlag, handleRow, onAppointmentChange, onSendNotification }) => {
     const { t } = useTranslation()
     const { toast } = useToast()
     const [data, setData] = useState<SampleAppointments[]>([])
@@ -33,7 +33,7 @@ const AppointmentsTable: FC<ITableProps<SampleAppointments>> = ({ handleDelete, 
                 page: pagination.pageIndex + 1, take: pagination.pageSize, order: sort, ...filters
             }
             if (search !== '') {
-                params = { ...params, q: search, search }
+                params = { ...params, search }
             }
             const response = await APIService.getInstance().getAppointments(params)
             setData(response.items)
@@ -98,7 +98,7 @@ const AppointmentsTable: FC<ITableProps<SampleAppointments>> = ({ handleDelete, 
                 </div>
             ) : (<DataTable
                 data={data}
-                columns={appointmentsColumns(t, handleEdit, handleDelete)}
+                columns={appointmentsColumns(t, handleEdit, handleDelete, onAppointmentChange, onSendNotification)}
                 filterKey='id' count={total}
                 onChangePagination={setPagination}
                 tablePagination={pagination}
