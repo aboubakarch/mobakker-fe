@@ -83,7 +83,7 @@ const AppointmentFilters: FC<IFilterProps<IAppointmentFilters>> = ({ onApply, on
 
 
                 <div>
-                    <p className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 mb-2'>Category</p>
+                    <p className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 mb-2'>Customer</p>
                     <SingleSearchSelect label={"Customer"} data={customers as any} selected={customer} setSelected={(item: string) => setCustomer(item) as any} />
                 </div>
 

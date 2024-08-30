@@ -96,7 +96,7 @@ const BranchRatingTable: FC<ITableProps<SampleBranchRating>> = ({
                 <DataTable
                     data={data}
                     columns={branchRatingColumns(t)}
-                    filterKey='id'
+                    filterKey='rating'
                     count={total}
                     onChangePagination={setPagination}
                     tablePagination={pagination}

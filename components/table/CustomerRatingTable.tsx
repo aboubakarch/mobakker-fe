@@ -96,7 +96,7 @@ const CustomerRatingTable: FC<ITableProps<SampleCustomerRating>> = ({
                 <DataTable
                     data={data}
                     columns={customerRatingColumns(t)}
-                    filterKey='id'
+                    filterKey='rating'
                     count={total}
                     onChangePagination={setPagination}
                     tablePagination={pagination}

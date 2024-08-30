@@ -61,6 +61,11 @@ const Page = () => {
         variant: "success"
       });
       setOtpActive(true)
+      toast({
+        variant: "success",
+        description: "Please verify your account!",
+      })
+
 
     } catch (error: any) {
       setLoading(false)

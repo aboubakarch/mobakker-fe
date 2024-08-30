@@ -369,12 +369,12 @@ export const SideBarItems = {
     icon: UserIcon,
     link: `${prefix}/customer-care`,
   }),
-  LoyalProgram: (prefix: string) => ({
-    id: 5,
-    name: "navigation:loyalPrograms",
-    icon: PersonStarIcon,
-    link: `${prefix}/loyal-program`,
-  }),
+  // LoyalProgram: (prefix: string) => ({
+  //   id: 5,
+  //   name: "navigation:loyalPrograms",
+  //   icon: PersonStarIcon,
+  //   link: `${prefix}/loyal-program`,
+  // }),
   Services: (prefix: string) => ({
     id: 6,
     name: "navigation:services",
@@ -420,7 +420,9 @@ export const SideBarItems = {
 };
 export const sidebarAdminNavigation: ISideBarItem[] = Object.values(
   SideBarItems
-).map((i) => i("/admin"));
+)
+  .map((i) => i("/admin"))
+  .filter((i) => !(i.id === 3));
 // .filter((i: any) => !(i.id === 15 || i.id === 16));
 export const sidebarProvidernavigation: ISideBarItem[] = [
   SideBarItems.Dashboard("/provider"),
@@ -434,7 +436,7 @@ export const sidebarProvidernavigation: ISideBarItem[] = [
   SideBarItems.Services("/provider"),
   SideBarItems.ServiceTypes("/provider"),
   SideBarItems.Promotions("/provider"),
-  // SideBarItems.Rating("/provider"),
+  SideBarItems.Rating("/provider"),
   // SideBarItems.Notification("/provider"),
 ];
 export const sidebarManagerNavigation: ISideBarItem[] = [
@@ -442,7 +444,7 @@ export const sidebarManagerNavigation: ISideBarItem[] = [
   SideBarItems.Reports(""),
   SideBarItems.Appointment(""),
   SideBarItems.Employee(""),
-  SideBarItems.LoyalProgram(""),
+  // SideBarItems.LoyalProgram(""),
   SideBarItems.Services(""),
   // SideBarItems.ServiceTypes(""),
   SideBarItems.Promotions(""),
@@ -460,12 +462,6 @@ export const SettingsNavigation = (prefix: string): ISideBarItem[] => [
     name: "navigation:subscription",
     icon: PaymentIcon,
     link: `${prefix}/subscription`,
-  },
-  {
-    id: 2,
-    name: "navigation:settings",
-    icon: SettingsIcon,
-    link: `${prefix}/settings`,
   },
 ];
 
