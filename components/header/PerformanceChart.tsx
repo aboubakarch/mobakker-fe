@@ -20,13 +20,10 @@ const PerformanceChart = () => {
     const getYearlyAppointments = async () => {
         try {
             const monthIndex = getMonthMap()[month] || 0;
-            const monthtemp = moment().month(monthIndex).format("YYYY-MM-DD")
-
-            const yeartemp = moment().year(year).format("YYYY-MM-DD")
 
             const data = await APIService.getInstance().getDailyAppointments({
-                // selectedMonth: monthtemp,
-                // selectedYear: yeartemp
+                selectedMonth: monthIndex + 1,
+                selectedYear: year
             })
             // console.log(data)
             setData(data)

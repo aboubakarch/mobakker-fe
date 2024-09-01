@@ -69,12 +69,19 @@ const Page = () => {
       if (error?.response?.data?.statusCode === 403) {
         setOtpActive(true)
 
+        toast({
+          variant: "success",
+          description: JSON.stringify(error?.response?.data?.message) || "Please verify!",
+        })
+      }
+      else {
+        toast({
+          variant: "destructive",
+          description: JSON.stringify(error?.response?.data?.message) || "Error! Something went wrong",
+        })
+
       }
 
-      toast({
-        variant: "destructive",
-        description: JSON.stringify(error?.response?.data?.message) || "Error! Something went wrong",
-      })
     }
   };
 

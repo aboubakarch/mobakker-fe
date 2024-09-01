@@ -181,8 +181,10 @@ export const serviceColumns: (
                 )
             }
             return (
-                <p className={cn("flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm text-white", status === "REJECTED" ? "bg-red-500" : status === "PENDING" ? "bg-yellow-500" : status === "APPROVED" ? "bg-green-600" : "")}>{status}</p>
-            )
+                <div className="flex items-center justify-start">
+
+                    <p className={cn(" h-10 self-start  rounded-md border border-input bg-background px-3 py-2 text-sm text-white", status === "REJECTED" ? "bg-red-500" : status === "PENDING" ? "bg-yellow-500" : status === "APPROVED" ? "bg-green-600" : "")}>{status}</p>
+                </div>)
         },
     },
 

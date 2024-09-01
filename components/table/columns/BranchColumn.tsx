@@ -144,7 +144,10 @@ export const branchColumns: (
                     )
                 }
                 return (
-                    <p className={cn("flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm text-white", status === "REJECTED" ? "bg-red-500" : status === "PENDING" ? "bg-yellow-500" : status === "APPROVED" ? "bg-green-600" : "")}>{status}</p>
+                    <div className="flex items-center justify-start">
+
+                        <p className={cn(" h-10 self-start  rounded-md border border-input bg-background px-3 py-2 text-sm text-white", status === "REJECTED" ? "bg-red-500" : status === "PENDING" ? "bg-yellow-500" : status === "APPROVED" ? "bg-green-600" : "")}>{status}</p>
+                    </div>
                 )
             },
         },
@@ -154,12 +157,13 @@ export const branchColumns: (
             id: "actions",
             cell: ({ row }) => {
                 const rowVal = row.original
+                const role = getCookie("role")
 
                 return (
                     <TooltipProvider>
                         <div className="flex gap-2">
 
-                            <Tooltip>
+                            {role === RoleType.SERVICE_PROVIDER && <Tooltip>
                                 <TooltipTrigger asChild>
                                     <Button onClick={handleAssign ? (e: any) => { e.stopPropagation(); handleAssign(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
                                         <HandPlatter className="h-5 w-5 text-indigo-800" />
@@ -168,7 +172,7 @@ export const branchColumns: (
                                 <TooltipContent>
                                     <p>{t(messages.ASSIGN_SERVICES)}</p>
                                 </TooltipContent>
-                            </Tooltip>
+                            </Tooltip>}
                             <Tooltip>
                                 <TooltipTrigger asChild>
                                     <Button onClick={handleEdit ? (e: any) => { e.stopPropagation(); handleEdit(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">

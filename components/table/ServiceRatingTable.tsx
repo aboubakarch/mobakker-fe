@@ -96,7 +96,7 @@ const ServiceRatingTable: FC<ITableProps<SampleServiceRating>> = ({
                 <DataTable
                     data={data}
                     columns={serviceRatingColumns(t)}
-                    filterKey='id'
+                    filterKey='rating'
                     count={total}
                     onChangePagination={setPagination}
                     tablePagination={pagination}

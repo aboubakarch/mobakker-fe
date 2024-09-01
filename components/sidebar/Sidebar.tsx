@@ -6,12 +6,13 @@ import { ISideBarProps } from '@/@types/sidebar'
 import { NavigationHelperMap, SettingsNavigationHelperMap } from '@/constants/maps'
 import { getCookie, isValidImageSrc } from '@/lib/helpers'
 import Link from 'next/link'
-import { NavigationTypeEnum } from '@/constants/enums'
+import { NavigationTypeEnum, RoleType } from '@/constants/enums'
 
 const Sidebar: FC<ISideBarProps> = ({ navigation }) => {
     const nav = NavigationHelperMap[navigation] ?? []
     const settingsNav = SettingsNavigationHelperMap[navigation] ?? []
     const user = JSON.parse(getCookie("user") || "null")
+    const role = getCookie("role")
 
 
     return (
@@ -37,11 +38,11 @@ const Sidebar: FC<ISideBarProps> = ({ navigation }) => {
                 ))}
                 <hr className='w-2/3 self-center' />
             </div>
-            <div className='w-full flex flex-col gap-3 ltr:pl-5 rtl:pr-5'>
+            {(role === RoleType.ADMIN || role === RoleType.SUPER_ADMIN) && <div className='w-full flex flex-col gap-3 ltr:pl-5 rtl:pr-5'>
                 {settingsNav.map((item) => (
                     <SideListItem key={item.id} {...item} />
                 ))}
-            </div>
+            </div>}
         </div>
     )
 }

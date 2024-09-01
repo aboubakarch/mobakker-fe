@@ -53,8 +53,8 @@ import { convertToFormData, getCookie } from '@/lib/helpers'
 // }
 
 const ManagerPicker: FC<{
-    branchFormVal: IFormValueObj<IBranchFormValues>, t: TFunction<"translation", undefined>, manager: null | SampleBranchManager, children?: React.ReactNode
-}> = ({ branchFormVal, t, manager, children }) => {
+    branchFormVal: IFormValueObj<IBranchFormValues>, t: TFunction<"translation", undefined>, manager: null | SampleBranchManager, val?: SampleBranch, children?: React.ReactNode
+}> = ({ branchFormVal, t, manager, val, children }) => {
 
     const [managers, setManagers] = useState<any[] | null>([])
 
@@ -64,13 +64,13 @@ const ManagerPicker: FC<{
 
         try {
             const params = {
-                page: 1, take: 100
+                page: 1, take: 100,
             }
             const response = await APIService.getInstance().getServiceBranchManager(params)
 
-            const data = response?.items?.map((item: any) => ({
+            const data = response?.items?.filter((i: any) => (val && i?.id === val?.managerId) || !!!i.branchId).map((item: any) => ({
                 name: `${item?.user?.firstName} ${item?.user?.lastName}`,
-                value: item?.id
+                value: item?.id,
             }))
             setManagers(data)
             if (manager) {
@@ -258,6 +258,7 @@ const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, v
 
             closeModal()
         }
+        setLoading(false)
     };
 
 
@@ -295,7 +296,7 @@ const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, v
                 {/* <CityPicker branchFormVal={branchFormVal} states={states} t={t} /> */}
                 <InputField {...branchFormVal.info(t).city} data={cities} disabled={cities.length === 0} />
 
-                <ManagerPicker branchFormVal={branchFormVal} manager={newManager} t={t}>
+                <ManagerPicker branchFormVal={branchFormVal} manager={newManager} val={val} t={t}>
                     <Button type='button' onClick={() => setManagerModal(true)} className='bg-indigo-800 hover:bg-indigo-600'>{t(messages.ADD_MANAGER)}</Button>
 
                 </ManagerPicker>

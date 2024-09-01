@@ -12,6 +12,8 @@ import Badge from "@/components/ui/Badge";
 import { Switch } from "@/components/ui/Switch";
 import { TFunction } from "i18next";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/Tooltip";
+import { getCookie } from "@/lib/helpers";
+import { RoleType } from "@/constants/enums";
 // import { Checkbox } from "@/components/ui/Checkbox";
 
 
@@ -173,6 +175,11 @@ export const promotionsColumns: (t: TFunction<"translation", undefined>, handleE
             id: "actions",
             cell: ({ row }) => {
                 const rowVal = row.original
+
+                const role = getCookie("role");
+                if (role === RoleType.ADMIN || RoleType.SUPER_ADMIN) {
+                    return null;
+                }
 
                 return (
                     <TooltipProvider>
