@@ -191,7 +191,7 @@ export const providerValidationSchema = yup.object().shape({
       // Pakistani phone number regex pattern
       const pakistanPhoneRegex = /^\+92[0-9]{2}[0-9]{7,8}$/;
       // Saudi Arabian phone number regex pattern
-      const saudiPhoneRegex = /^\+966[1-9][0-9]{7}$/;
+      const saudiPhoneRegex = /^(009665|\+9665)(5|0|3|6|4|9|1|8|7)([0-9]{7})$/;
 
       // Check if the phone number matches either pattern
       if (pakistanPhoneRegex.test(value) || saudiPhoneRegex.test(value)) {
@@ -229,8 +229,7 @@ export const providerRegistrationValidationSchema = yup.object().shape({
       // Pakistani phone number regex pattern
       const pakistanPhoneRegex = /^\+92[0-9]{2}[0-9]{7,8}$/;
       // Saudi Arabian phone number regex pattern
-      const saudiPhoneRegex = /^\+966[0-9]{8}$/;
-
+      const saudiPhoneRegex = /^(009665|\+9665)(5|0|3|6|4|9|1|8|7)([0-9]{7})$/;
       // Check if the phone number matches either pattern
       if (pakistanPhoneRegex.test(value) || saudiPhoneRegex.test(value)) {
         return true;
