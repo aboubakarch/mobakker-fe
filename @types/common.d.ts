@@ -327,3 +327,19 @@ interface SampleEmployeeRating extends Rating {
   employeeId: string;
   employee: Employee;
 }
+
+interface Refund {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  isActive: boolean;
+  transactionId: string;
+  amount: number;
+  status: string;
+  createdById: string;
+  customerId: string;
+  appointmentId: string;
+  customer: User;
+  createdBy: User;
+  appointment: SampleAppointments;
+}

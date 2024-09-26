@@ -382,6 +382,15 @@ class APIService extends HTTPService {
   public createRefund<T = any>(params: any): Promise<T> {
     return this.post<T>(`${endpoints.REFUND}`, params)
   }
+  public getRefunds<T = any>(params: any): Promise<T> {
+    return this.get<T>(endpoints.REFUND, params)
+  }
+  public refundExecute<T = any>(payload: any): Promise<T> {
+    return this.post<T>(endpoints.REFUND_EXECUTE, payload)
+  }
+  public editRefund<T = any>(id: string, payload: object): Promise<T> {
+    return this.patch<T>(`${endpoints.REFUND}/${id}`, payload)
+  }
   public createLoyaltyProgram<T = any>(params: any): Promise<T> {
     return this.post<T>(`${endpoints.LOYALTY_PROGRAM_CREATE}`, params)
   }

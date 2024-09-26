@@ -17,5 +17,6 @@
   "branchManagers": "Branch Managers",
   "managers": "Managers",
   "customerCare": "Customer Care",
-  "serviceType": "Service Type"
+  "serviceType": "Service Type",
+  "refund": "Refund"
 }

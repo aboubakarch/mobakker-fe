@@ -405,6 +405,12 @@ export const SideBarItems = {
     icon: StarIcon,
     link: `${prefix}/ratings`,
   }),
+  Refund: (prefix: string) => ({
+    id: 20,
+    name: "navigation:refund",
+    icon: StarIcon,
+    link: `${prefix}/refund`,
+  }),
   // Notification: (prefix: string) => ({
   //   id: 9,
   //   name: "navigation:notifications",
