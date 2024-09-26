@@ -9,6 +9,7 @@ import {
   IEmployeeFormValues,
   IFormValueObj,
   ILoginFormValues,
+  ILoyaltyProgramFormValues,
   IOTPFormValues,
   IPromotionFormValues,
   IProviderFormValues,
@@ -28,6 +29,7 @@ import {
   countryValidationSchema,
   employeeValidationSchema,
   loginValidationSchema,
+  loyaltyProgramValidationSchema,
   otpValidationSchema,
   promotionValidationSchema,
   providerRegistrationValidationSchema,
@@ -79,6 +81,7 @@ export const assignServiceDefaultValues: IAssignServiceFormValues = {
 export const assignBranchDefaultValues: IAssignBranchFormValues = {
   branch: "",
 };
+
 export const providerDefaultValues: (
   val?: SampleProvider
 ) => IProviderFormValues = (val) => ({
@@ -158,6 +161,14 @@ export const cityDefaultValues: (val?: City) => ICityFormValues = (val) => ({
   name: val ? val.name : "",
   code: val ? val.code : "",
   stateId: val ? val.stateId : "",
+});
+
+export const loyaltyDefaultValues: (
+  val?: SampleLoyalPrograms
+) => ILoyaltyProgramFormValues = (val) => ({
+  branch: val ? val.branchId : "",
+  rating: val ? val.rating : 0,
+  noOfBooking: val ? val.noOfBooking : 0,
 });
 
 export const loginFormVals: IFormValueObj<ILoginFormValues> = {
@@ -319,6 +330,37 @@ export const branchEditFormVals: IFormValueObj<IBranchEditFormValues> = {
     },
   }),
 };
+
+export const loyaltyProgramFormVals: (
+  val?: SampleLoyalPrograms
+) => IFormValueObj<ILoyaltyProgramFormValues> = (val) => ({
+  validationSchema: loyaltyProgramValidationSchema,
+  initialValues: loyaltyDefaultValues(val),
+  info: (t) => ({
+    branch: {
+      placeHolder: t(formConstants.BRANCH_ID_LABEL),
+      hasError: true,
+      name: "branch",
+      label: t(formConstants.BRANCH_ID_PLACEHOLDER),
+      fieldType: FieldTypesEnum.SingleSearchSelect,
+    },
+
+    rating: {
+      placeHolder: t(formConstants.LOCATION),
+      hasError: true,
+      name: "rating",
+      label: t(formConstants.LOCATION),
+    },
+    noOfBooking: {
+      placeHolder: t(formConstants.CAPACITY),
+      hasError: true,
+      name: "details",
+      label: t(formConstants.CAPACITY),
+      type: "number",
+    },
+  }),
+});
+
 export const employeeFormVals: IFormValueObj<IEmployeeFormValues> = {
   validationSchema: employeeValidationSchema,
   initialValues: employeeDefaultValues,

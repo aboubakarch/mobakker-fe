@@ -66,16 +66,14 @@ interface SampleAppointments {
   branch: SampleBranch;
 }
 interface SampleLoyalPrograms {
-  rank: string;
-  customerName: string;
-  customerNumber: number;
-  totalBookings: number;
-  serviceType: string;
-  serviceBooked: string;
-  servicePicture: string;
-  lastBooking: string;
-  branchName: string;
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  isActive: boolean;
+  noOfBooking: number;
   rating: number;
+  branchId: string;
+  branch: SampleBranch;
 }
 interface SampleComplaint {
   complaint: string;

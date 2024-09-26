@@ -7,7 +7,7 @@ import {
     DropdownMenuLabel,
     DropdownMenuTrigger,
 } from "@/components/ui"
-import { Edit, MailPlus, MoreVertical, Trash2 } from "lucide-react";
+import { Edit, MailPlus, MoreVertical, TicketSlash, Trash2 } from "lucide-react";
 // import Image from "next/image";
 // import { Checkbox } from "@/components/ui/Checkbox"
 import { messages, tableHeader } from "@/constants/constants";
@@ -36,7 +36,8 @@ export const appointmentsColumns: (
     handleDelete?: (val: SampleAppointments) => void,
     onAppointmentChange?: (val: SampleAppointments, status: string) => void,
     onSendNotification?: (val: SampleAppointments) => void,
-) => ColumnDef<SampleAppointments>[] = (t, handleEdit, handleDelete, onAppointmentChange, onSendNotification) => ([
+    onRefund?: (val: SampleAppointments) => void,
+) => ColumnDef<SampleAppointments>[] = (t, handleEdit, handleDelete, onAppointmentChange, onSendNotification, onRefund) => ([
     // {
     //     id: "select",
     //     header: ({ table }) => (
@@ -262,6 +263,17 @@ export const appointmentsColumns: (
                             </TooltipTrigger>
                             <TooltipContent>
                                 <p>{t("Send Notification")}</p>
+                            </TooltipContent>
+                        </Tooltip>
+
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Button disabled={rowVal.paymentStatus === "PENDING" && rowVal.paymentType !== "CARD"} onClick={onRefund ? (e: any) => { e.stopPropagation(); onRefund(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
+                                    <TicketSlash className="h-5 w-5 text-indigo-800" />
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p>{t("Refund")}</p>
                             </TooltipContent>
                         </Tooltip>
 

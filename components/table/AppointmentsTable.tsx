@@ -11,7 +11,7 @@ import { SortEnum } from '@/constants/enums'
 import { debounce } from 'lodash'
 import AppointmentFilters from './filters/AppointmentFilters'
 
-const AppointmentsTable: FC<ITableProps<SampleAppointments>> = ({ handleDelete, handleEdit, onUpdateFlag, handleRow, onAppointmentChange, onSendNotification }) => {
+const AppointmentsTable: FC<ITableProps<SampleAppointments>> = ({ handleDelete, handleEdit, onUpdateFlag, handleRow, onAppointmentChange, onSendNotification, handleAssign }) => {
     const { t } = useTranslation()
     const { toast } = useToast()
     const [data, setData] = useState<SampleAppointments[]>([])
@@ -98,7 +98,7 @@ const AppointmentsTable: FC<ITableProps<SampleAppointments>> = ({ handleDelete, 
                 </div>
             ) : (<DataTable
                 data={data}
-                columns={appointmentsColumns(t, handleEdit, handleDelete, onAppointmentChange, onSendNotification)}
+                columns={appointmentsColumns(t, handleEdit, handleDelete, onAppointmentChange, onSendNotification, handleAssign)}
                 filterKey='id' count={total}
                 onChangePagination={setPagination}
                 tablePagination={pagination}

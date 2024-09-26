@@ -29,6 +29,11 @@ interface IAssignServiceFormValues {
 interface IAssignBranchFormValues {
   branch: string;
 }
+interface ILoyaltyProgramFormValues {
+  branch: string;
+  noOfBooking: number;
+  rating: number;
+}
 interface IBranchEditFormValues {
   name: string;
   location: string;

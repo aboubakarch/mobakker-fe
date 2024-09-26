@@ -356,3 +356,19 @@ export const ratingValidationSchema = yup.object().shape({
     .min(3, "Comment must be greater than three letters")
     .required("Comment is required"),
 });
+export const cancelAppointmentValidationSchema = yup.object().shape({
+  reason: yup
+    .string()
+    .min(3, "Reason must be greater than three letters")
+    .required("Cancellation Reason is required"),
+});
+
+export const loyaltyProgramValidationSchema = yup.object().shape({
+  branch: yup.string().required("Branch is required"),
+  rating: yup
+    .number()
+    .min(1, "Rating must be at least 1")
+    .max(5, "Rating must be at most 5")
+    .required("Rating is required"),
+  noOfBooking: yup.number().required("Booking Capacity is required"),
+});
