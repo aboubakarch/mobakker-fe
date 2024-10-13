@@ -29,7 +29,7 @@ const DeleteModal: FC<IDeleteModalProps> = ({ closeModal, visible, onDelete, tit
                 </div>
                 <div className='flex gap-4 items-center justify-center'>
 
-                    <Button onClick={closeModal} className='bg-white text-black hover:bg-indigo-800 hover:bg-opacity-5 border border-zinc-200'>{t(messages.CANCEL)}</Button>
+                    <Button onClick={closeModal} className='bg-background text-black hover:bg-indigo-800 hover:bg-opacity-5 border border-zinc-200'>{t(messages.CANCEL)}</Button>
                     <Button onClick={onDelete} disabled={loading} className='flex items-center justify-center gap-3 bg-red-500 hover:bg-red-400 text-white' >
                         <div>{t(messages.DELETE)}</div>
                         {loading && <div className="loader_simple"></div>}

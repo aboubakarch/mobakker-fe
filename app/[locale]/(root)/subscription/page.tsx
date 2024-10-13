@@ -22,7 +22,7 @@ const Subscriptions = () => {
 
             </PageHeader>
             <hr />
-            <div className='rounded-md bg-white p-3 flex flex-col gap-6 mb-5'>
+            <div className='rounded-md bg-background p-3 flex flex-col gap-6 mb-5'>
                 <div className='flex justify-between w-full'>
                     <div className='flex-col justify-center items-start gap-2 inline-flex'>
                         <p className="text-center text-gray-500 text-sm font-normal  leading-normal">{t(messages.PRICING_TABLE)}</p>
@@ -87,7 +87,7 @@ const Subscriptions = () => {
                             <li className="w-full text-white text-sm font-normal  leading-normal">{t(messages.USE_ON_PROJECT)}</li>
                             <li className="w-full text-white text-sm font-normal  leading-normal">{t(messages.THREE_MONTHS_SUPPORT)}</li>
                         </ul>
-                        <Button variant={"default"} className='bg-white bg-opacity-95 w-full hover:bg-white hover:bg-opacity-85 rounded-md border border-zinc-200'>
+                        <Button variant={"default"} className='bg-background bg-opacity-95 w-full hover:bg-background hover:bg-opacity-85 rounded-md border border-zinc-200'>
                             <p className='text-indigo-800 text-base font-medium'>{t(messages.PAUSE)}</p>
                         </Button>
                     </div>

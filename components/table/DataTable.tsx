@@ -137,7 +137,7 @@ export function DataTable<TData, TValue>({
 
     return (
         <div className="flex flex-col gap-2">
-            <div className="flex items-center justify-between py-2 bg-white rounded-md px-3">
+            <div className="flex items-center justify-between py-2 bg-background rounded-md px-3">
                 <Input
                     placeholder={`Search...`}
                     value={search ? search : (table.getColumn(currFilter)?.getFilterValue() as string) ?? ""}
@@ -261,7 +261,7 @@ export function DataTable<TData, TValue>({
                     </TableBody>
                 </Table>
             </div>
-            <div className="flex items-center justify-between py-2 px-3 bg-white rounded-md">
+            <div className="flex items-center justify-between py-2 px-3 bg-background rounded-md">
                 <div className="flex gap-2 items-center text-sm text-gray-500">
                     <p>Rows per page:</p>
                     <DropdownMenu>

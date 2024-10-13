@@ -40,7 +40,7 @@ const PerformanceChart = () => {
 
 
     return (
-        <div className="bg-white rounded-sm md:col-span-3 flex flex-col gap-2 p-3">
+        <div className="bg-background rounded-sm md:col-span-3 flex flex-col gap-2 p-3">
             <div className="flex justify-between ">
                 <div >
                     <p className="text-gray-900 text-lg font-medium leading-[30px]">{t("Monhly Performance")}</p>

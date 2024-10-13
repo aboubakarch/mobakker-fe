@@ -25,11 +25,11 @@ const Report = () => {
 
 
                 <div className="bg-indigo-800/5 rounded-sm col-span-1 grid grid-cols-1 grid-rows-5 gap-3 p-3">
-                    <HeaderInfoItem title="Lorem Ipsum" color={ColorsEnum.Blue} heading={43} className="bg-white" />
-                    <HeaderInfoItem title="Lorem Ipsum" color={ColorsEnum.Green} heading={100} percentage={67} showIcon hasGraph className="bg-white" />
-                    <HeaderInfoItem title="Lorem Ipsum" color={ColorsEnum.Red} heading={342} className="bg-white" />
-                    <HeaderInfoItem title="Lorem Ipsum" color={ColorsEnum.Yellow} heading={32} className="bg-white" />
-                    <HeaderInfoItem title="Lorem Ipsum" color={ColorsEnum.Green} heading={75} percentage={96} showIcon className="bg-white" />
+                    <HeaderInfoItem title="Lorem Ipsum" color={ColorsEnum.Blue} heading={43} className="bg-background" />
+                    <HeaderInfoItem title="Lorem Ipsum" color={ColorsEnum.Green} heading={100} percentage={67} showIcon hasGraph className="bg-background" />
+                    <HeaderInfoItem title="Lorem Ipsum" color={ColorsEnum.Red} heading={342} className="bg-background" />
+                    <HeaderInfoItem title="Lorem Ipsum" color={ColorsEnum.Yellow} heading={32} className="bg-background" />
+                    <HeaderInfoItem title="Lorem Ipsum" color={ColorsEnum.Green} heading={75} percentage={96} showIcon className="bg-background" />
                 </div>
 
             </div> */}

@@ -18,7 +18,7 @@ const PromotionItem: FC<IPromotionItemProps> = ({ title, startDate, endDate, act
         })
     }
     return (
-        <div className='flex flex-col bg-white rounded-sm px-3 py-2'>
+        <div className='flex flex-col bg-background rounded-sm px-3 py-2'>
             <div className='flex justify-between items-center w-full'>
                 <p className='text-md text-sm'>{title}</p>
                 <Switch className='data-[state=checked]:bg-primaryBlue' checked={active} onCheckedChange={handleChecked} />

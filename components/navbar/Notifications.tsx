@@ -103,7 +103,7 @@ const Notifications = () => {
                 <div className='px-2 flex flex-col gap-1'>
 
                     {notifications.length > 0 && notifications.map(notif => (
-                        <DropdownMenuItem key={notif.id} onClick={notif.isRead ? () => markAsRead(notif) : undefined} className={cn("border-b-[1px] border-slate-200 cursor-pointer", !notif.isRead ? "bg-indigo-800 bg-opacity-15 hover:brightness-95" : "bg-white hover:brightness-95")}>
+                        <DropdownMenuItem key={notif.id} onClick={notif.isRead ? () => markAsRead(notif) : undefined} className={cn("border-b-[1px] border-slate-200 cursor-pointer", !notif.isRead ? "bg-indigo-800 bg-opacity-15 hover:brightness-95" : "bg-background hover:brightness-95")}>
                             <div>
                                 <p className='text-base font-medium'>{notif.notification}</p>
                                 <p className='text-sm'>{timeAgo(notif.createdAt)}</p>

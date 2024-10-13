@@ -60,7 +60,7 @@ const AppointmentRatingTable = () => {
 
     return (
         <div>
-            <DataTable data={data} columns={appointmentRatingColumns(t)} filterKey='name' count={data.length} rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5' />
+            <DataTable data={data} columns={appointmentRatingColumns(t)} filterKey='name' count={data.length} rowStyle='odd:bg-background even:bg-indigo-800 even:bg-opacity-5' />
         </div>
     )
 }

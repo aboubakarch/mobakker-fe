@@ -100,7 +100,7 @@ const Profile = () => {
             >
             </PageHeader>
             <div className='flex gap-4 h-min-[60%]'>
-                <div className='flex-[0.30] bg-white rounded py-5 flex gap-4 flex-col'>
+                <div className='flex-[0.30] bg-background rounded py-5 flex gap-4 flex-col'>
                     <div className='w-full border-b border-neutral-200 px-4 pb-3 text-gray-800 text-xl font-medium '>
                         {t("Profile Image")}
                     </div>
@@ -123,7 +123,7 @@ const Profile = () => {
                     </div>
 
                 </div>
-                <div className='flex-[0.70] bg-white rounded'>
+                <div className='flex-[0.70] bg-background rounded'>
 
                     <AppForm
                         onSubmit={onSubmit}

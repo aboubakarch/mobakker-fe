@@ -34,7 +34,7 @@ const Navbar = () => {
         location.reload()
     }
     return (
-        <div className='flex w-full bg-white h-[75px] px-4 shadow-sm'>
+        <div className='flex w-full bg-background h-[75px] px-4 shadow-sm'>
             <div className='flex-[0.5] flex justify-between items-center'>
                 <div className='h-[60%] w-28'>
 

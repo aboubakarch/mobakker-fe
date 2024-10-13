@@ -93,7 +93,7 @@ const ServicesTable: FC<ITableProps<SampleServices>> = ({ handleEdit, handleDele
     return (
         <div>
             {!pageLoaded && data.length === 0 ? (
-                <div className="flex flex-col space-y-2 bg-white p-4">
+                <div className="flex flex-col space-y-2 bg-background p-4">
                     <Skeleton className="h-[75px] w-full rounded-xl" />
                     <Skeleton className="h-[75px] w-full rounded-xl" />
                 </div>
@@ -104,7 +104,7 @@ const ServicesTable: FC<ITableProps<SampleServices>> = ({ handleEdit, handleDele
                     sort={sort}
                     toggleSort={toggleSort}
                     onRowClick={handleRow}
-                    loading={loading} rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5'
+                    loading={loading} rowStyle='odd:bg-background even:bg-indigo-800 even:bg-opacity-5'
                     search={search}
                     onSearch={(q: string) => setSearch(q)}
                     filterComponent={() => <ServiceFilters onApply={handleApplyFilters} onReset={handleResetFilters} />}

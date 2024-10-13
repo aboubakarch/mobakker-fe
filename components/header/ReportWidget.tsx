@@ -86,7 +86,7 @@ const ReportWidget: FC<IReportWidgetProps> = ({ className = "", type }) => {
 
 
     return (
-        <div className={cn('w-full h-full flex flex-col p-4 gap-3 bg-white', className)}>
+        <div className={cn('w-full h-full flex flex-col p-4 gap-3 bg-background', className)}>
             <p className='text-gray-900 text-lg font-medium leading-[30px]'>
                 {`${type} ${t(messages.REPORTS)}`}
             </p>

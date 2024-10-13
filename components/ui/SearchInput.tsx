@@ -11,7 +11,7 @@ const SearchInput = React.forwardRef<HTMLInputElement, InputProps>(
         return (
             <div
                 className={cn(
-                    "flex ltr:pr-4 rtl:pl-4 h-10 items-center rounded-md border border-input bg-white ltr:pl-3 rtl:pr-3 text-sm ring-offset-background focus-within:ring-1 focus-within:ring-ring focus-within:ring-offset-2",
+                    "flex ltr:pr-4 rtl:pl-4 h-10 items-center rounded-md border border-input bg-background ltr:pl-3 rtl:pr-3 text-sm ring-offset-background focus-within:ring-1 focus-within:ring-ring focus-within:ring-offset-2",
                     className,
                 )}
             >
