@@ -10,6 +10,7 @@ import { messages } from '@/constants/constants'
 import { getCookie, isValidImageSrc, removeCookie } from '@/lib/helpers'
 import { useTranslation } from 'react-i18next'
 import Notifications from './Notifications'
+import { ThemeToggle } from '../themeChanger/ThemeToggle'
 
 const Navbar = () => {
     const { t } = useTranslation()
@@ -49,9 +50,7 @@ const Navbar = () => {
             <div className='flex-[0.5] flex justify-end ltr:pr-4 rtl:pl-4 items-center h-full gap-3'>
                 <div className='flex gap-2'>
                     <LanguageChanger selectClassName='border-[#EEF5E4] bg-screen' />
-                    <IconButton>
-                        <BulbIcon className='h-6 w-6' />
-                    </IconButton>
+                    <ThemeToggle />
                     <Notifications />
                 </div>
 

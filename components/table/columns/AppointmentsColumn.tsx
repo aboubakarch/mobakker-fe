@@ -225,7 +225,7 @@ export const appointmentsColumns: (
                 // <Button className='bg-red-500 hover:bg-red-400' onClick={(e) => { e.stopPropagation(); if (onAppointmentChange) { onAppointmentChange(val) } }} >
                 //     Cancel
                 // </Button>
-                <Select disabled={status === "CANCELLED" || role === RoleType.ADMIN || role === RoleType.SUPER_ADMIN} onValueChange={(val) => { if (onAppointmentChange) { onAppointmentChange(original, val) } }} value={status} defaultValue={status}>
+                <Select disabled={status === "CANCELLED" || status === "REJECTED" || status === "COMPLETED" || role === RoleType.ADMIN || role === RoleType.SUPER_ADMIN} onValueChange={(val) => { if (onAppointmentChange) { onAppointmentChange(original, val) } }} value={status} defaultValue={status}>
                     <SelectTrigger className={cn("flex gap-2 text-white", status === "CANCELED" ? "bg-red-500" : status === "PENDING" ? "bg-yellow-500" : status === "STARTED" ? "bg-indigo-800" : status === "REJECTED" ? "bg-red-500" : status === "COMPLETED" ? "bg-green-600" : "")}>
                         <SelectValue />
                     </SelectTrigger>

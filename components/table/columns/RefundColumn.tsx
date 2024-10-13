@@ -135,7 +135,7 @@ export const refundColumns: (
                 // <Button className='bg-red-500 hover:bg-red-400' onClick={(e) => { e.stopPropagation(); if (onAppointmentChange) { onAppointmentChange(val) } }} >
                 //     Cancel
                 // </Button>
-                <Select disabled={status === "REJECTED"} onValueChange={(val) => { if (onStatusChange) { onStatusChange(original, val) } }} value={status} defaultValue={status}>
+                <Select disabled={status !== "PENDING"} onValueChange={(val) => { if (onStatusChange) { onStatusChange(original, val) } }} value={status} defaultValue={status}>
                     <SelectTrigger className={cn("flex gap-2 w-48 text-white", status === "REJECTED" ? "bg-red-500" : status === "PENDING" ? "bg-yellow-500" : status === "APPROVED" ? "bg-green-600" : "")}>
                         <SelectValue />
                     </SelectTrigger>
