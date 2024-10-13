@@ -18,7 +18,7 @@ const Sidebar: FC<ISideBarProps> = ({ navigation }) => {
     return (
         <div className='bg-background w-1/6 h-full flex flex-col gap-3 px-3 py-4 overflow-auto shadow-md dark:shadow-white/05 scrollbar dark:scrollbar-dark'>
             <Link href={navigation === NavigationTypeEnum.Provider ? "/provider/profile" : navigation === NavigationTypeEnum.SuperAdmin ? '/admin/profile' : "/profile"}>
-                <div className='flex gap-2 bg-screen hover:bg-appcard h-16 text-sm items-center px-3 py-2 rounded-md cursor-pointer'>
+                <div className='flex gap-2 bg-screen hover:bg-screen h-16 text-sm items-center px-3 py-2 rounded-md cursor-pointer'>
                     <Image
                         src={user && user.avatar && isValidImageSrc(user.avatar) ? user.avatar : '/assets/profilePlaceholder.png'}
                         height={40}

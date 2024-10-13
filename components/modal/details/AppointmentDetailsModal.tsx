@@ -19,6 +19,9 @@ const AppointmentDetailsModal: FC<IModalDetailsProps<SampleAppointments>> = ({ c
         return null;
     }
 
+
+
+
     return (
         <Modal visibility={visible} closeModal={closeModal} position={2} className='shadow-xl dark:shadow-white/10'>
             <div className="px-6 py-5 flex gap-4 flex-col">
@@ -76,8 +79,14 @@ const AppointmentDetailsModal: FC<IModalDetailsProps<SampleAppointments>> = ({ c
                         <p>{`${(val?.customer as any)?.user?.firstName} ${(val?.customer as any)?.user?.lastName}`}</p>
                     </div>}
                     {(val as any)?.employee?.user && <div>
-                        <p className="text-sm text-gray-500 dark:text-white">Employee Name</p>
-                        <p>{`${(val as any)?.employee?.user?.firstName} ${(val as any)?.employee?.user?.lastName}`}</p>
+                        <div>
+                            <p className="text-sm text-gray-500 dark:text-white">Employee Name</p>
+                            <p>{`${(val as any)?.employee?.user?.firstName} ${(val as any)?.employee?.user?.lastName}`}</p>
+
+                        </div>
+                        <Button className='bg-indigo-800 hover:brightness-75 text-white'>
+                            Reassign
+                        </Button>
                     </div>}
                     <div className='grid grid-cols-2 grid-flow-row gap-5'>
 

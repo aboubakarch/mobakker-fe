@@ -273,7 +273,7 @@ export function DataTable<TData, TValue>({
                         </DropdownMenuTrigger>
                         <DropdownMenuContent className='flex px-1 flex-col items-center justify-center select-none'>
                             {[10, 20, 30, 40, 50, 100, 200, 300, 400, 500].map(i => (
-                                <div onClick={() => table.setPageSize(i)} className={cn("w-full p-2 rounded text-center hover:bg-appcard", i === seletedPagination.pageSize ? "bg-appcard" : "")} key={i}>{i}</div>
+                                <div onClick={() => table.setPageSize(i)} className={cn("w-full p-2 rounded text-center hover:bg-screen", i === seletedPagination.pageSize ? "bg-screen" : "")} key={i}>{i}</div>
                             ))}
                         </DropdownMenuContent>
                     </DropdownMenu>

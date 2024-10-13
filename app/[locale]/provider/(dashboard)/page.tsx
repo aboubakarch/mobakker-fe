@@ -203,7 +203,7 @@ export default function Home() {
         </div>
 
 
-        <div className="col-span-1 bg-appcard rounded-sm px-3 py-2 grid grid-rows-4 grid-flow-row grid-cols-1 gap-2 auto-rows-max md:overflow-auto">
+        <div className="col-span-1 bg-screen rounded-sm px-3 py-2 grid grid-rows-4 grid-flow-row grid-cols-1 gap-2 auto-rows-max md:overflow-auto">
           <HeaderInfoItem color={ColorsEnum.Blue} heading={counts.serviceCount ?? 0} title="Total Services" className="bg-background py-1" loading={counts.serviceCount === undefined} />
           <HeaderInfoItem color={ColorsEnum.Blue} heading={counts.employeeCount ?? 0} title="Total Employees" className="bg-background py-1" loading={counts.employeeCount === undefined} />
           <HeaderInfoItem color={ColorsEnum.Blue} heading={counts.loyalProgramCount ?? 0} title="Total Loyal Programs" className="bg-background py-1" loading={counts.loyalProgramCount === undefined} />
@@ -219,7 +219,7 @@ export default function Home() {
         </div>
 
 
-        <div className="col-span-1 bg-appcard rounded-sm px-3 py-2 flex flex-col gap-2 md:overflow-auto scrollbar dark:scrollbar-dark">
+        <div className="col-span-1 bg-screen rounded-sm px-3 py-2 flex flex-col gap-2 md:overflow-auto scrollbar dark:scrollbar-dark">
           <div className="text-lg">{t(messages.ACTIVE_PROMOTIONS)}</div>
           <div className="grid grid-rows-3 grid-flow-row grid-cols-1 gap-2 auto-rows-max ">
             {/* <PromotionItem active title="Ramadan Promo" endDate="12-Jan-2024" startDate="01-Jan-2024" />
