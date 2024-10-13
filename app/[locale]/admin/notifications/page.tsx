@@ -16,7 +16,7 @@ const Notifaction = () => {
             >
             </PageHeader>
 
-            <div className='flex bg-background items-center justify-center shadow-lg rounded-md h-full'>
+            <div className='flex bg-background items-center justify-center shadow-lg dark:shadow-white/10 dark:shadow-white rounded-md h-full'>
                 <div className='  flex items-center justify-center flex-col'>
                     <Image src={'/assets/notificationBell.gif'} alt='notification' width={300} height={300} />
                     <h1 className='text-lg font-semibold'>{t(messages.NO_NOTIFICATIONS_RIGHT_NOW)}</h1>

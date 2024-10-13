@@ -155,10 +155,10 @@ export default function Home() {
         <p className="line-clamp-2 text-sm">{t(messages.YOUR_CENTRAL_HUB)}</p>
       </div>
       <div className=" w-full">
-        <div className="w-full bg-background px-5 py-3 rounded-sm shadow-sm flex flex-col gap-3">
-          <p className="text-black">{t(messages.TODAYS_PERFORMANCE)}</p>
+        <div className="w-full bg-background px-5 py-3 rounded-sm shadow-md dark:shadow-white/05 flex flex-col gap-3">
+          <p className="text-black dark:text-white">{t(messages.TODAYS_PERFORMANCE)}</p>
 
-          <div className='grid md:grid-cols-4 grid-cols-2  gap-4 rounded-sm shadow-sm'>
+          <div className='grid md:grid-cols-4 grid-cols-2  gap-4 rounded-sm shadow-md dark:shadow-white/05'>
             <HeaderInfoItem color={ColorsEnum.Blue}
               heading={totalAppointmentsCount}
               title='Total Appointments'

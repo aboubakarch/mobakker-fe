@@ -41,7 +41,7 @@ export const serviceRatingColumns: (
                         />
                     </div>
                     <div className="flex flex-col text-sm font-medium leading-snug">
-                        <p className="text-gray-900">{service.name}</p>
+                        <p className="text-gray-900 dark:text-white">{service.name}</p>
                         <p className="text-indigo-800">{service.price}</p>
                     </div>
                 </div>
@@ -64,7 +64,7 @@ export const serviceRatingColumns: (
                         />
                     </div>
                     <div className="flex flex-col text-sm font-medium leading-snug">
-                        <p className="text-gray-900">{`${user.firstName || ""} ${user.lastName || ""}`}</p>
+                        <p className="text-gray-900 dark:text-white">{`${user.firstName || ""} ${user.lastName || ""}`}</p>
                         <p className="text-indigo-800">{user.email}</p>
                     </div>
                 </div>

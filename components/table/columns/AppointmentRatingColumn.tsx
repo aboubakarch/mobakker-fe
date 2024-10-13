@@ -85,7 +85,7 @@ export const appointmentRatingColumns: (t: TFunction<"translation", undefined>) 
                         />
                     </div>
                     <div className="flex flex-col text-sm font-medium leading-snug">
-                        <p className="text-gray-900">{rowItem.serviceBooked}</p>
+                        <p className="text-gray-900 dark:text-white">{rowItem.serviceBooked}</p>
                     </div>
                 </div>
             )

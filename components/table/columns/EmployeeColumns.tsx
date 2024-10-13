@@ -66,7 +66,7 @@ export const employeeColumns: (t: TFunction<"translation", undefined>, handleEdi
                             />
                         </div>
                         <div className="flex flex-col text-sm font-medium leading-snug">
-                            <p className="text-gray-900">{`${firstName} ${lastName}`}</p>
+                            <p className="text-gray-900 dark:text-white">{`${firstName} ${lastName}`}</p>
                         </div>
                     </div>
                 )
@@ -203,7 +203,7 @@ export const employeeColumns: (t: TFunction<"translation", undefined>, handleEdi
         //                     />
         //                 </div>
         //                 <div className="flex flex-col text-sm font-medium leading-snug">
-        //                     <p className="text-gray-900">{rowItem.name}</p>
+        //                     <p className="text-gray-900 dark:text-white">{rowItem.name}</p>
         //                     <p className="text-indigo-800">{rowItem.status}</p>
         //                 </div>
         //             </div>

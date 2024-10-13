@@ -77,14 +77,14 @@ const BranchFilters: FC<IFilterProps<IBranchFilters>> = ({ onApply, onReset }) =
 
 
                 <div>
-                    <p className='text-sm text-black mb-2'>City</p>
+                    <p className='text-sm text-black dark:text-white mb-2'>City</p>
                     <SingleSearchSelect label={"City"}
                         data={cities as any} selected={city}
                         setSelected={(item: string) => setCity(item) as any}
                     />
                 </div>
                 <div>
-                    <p className='text-sm text-black mb-2'>Manager</p>
+                    <p className='text-sm text-black dark:text-white mb-2'>Manager</p>
                     <SingleSearchSelect label={"Manager"} data={managers as any} selected={manager} setSelected={(item: string) => setManager(item) as any} />
                 </div>
 

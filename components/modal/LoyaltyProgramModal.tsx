@@ -165,9 +165,9 @@ const LoyaltyProgramModal: FC<IModalCompProps<SampleLoyalPrograms>> = ({ closeMo
                 className="px-5 py-4 flex gap-4 flex-col"
                 {...loyaltyProgramVal}>
                 <div className='flex justify-between w-full'>
-                    <p className='text-black text-xl font-medium  leading-[30px]'>{!val ? t("Add Loyalty Program") : t(messages.UPDATE)}</p>
+                    <p className='text-black dark:text-white text-xl font-medium  leading-[30px]'>{!val ? t("Add Loyalty Program") : t(messages.UPDATE)}</p>
                     <Button variant={'ghost'} onClick={closeModal} className='px-3 py-0'>
-                        <X className='w-4 h-4 relative text-black' />
+                        <X className='w-4 h-4 relative text-black dark:text-white' />
                     </Button>
                 </div>
 

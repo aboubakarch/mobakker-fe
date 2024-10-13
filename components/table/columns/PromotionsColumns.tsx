@@ -102,7 +102,7 @@ export const promotionsColumns: (t: TFunction<"translation", undefined>, handleE
         //                     />
         //                 </div>
         //                 <div className="flex flex-col text-sm font-medium leading-snug">
-        //                     <p className="text-gray-900">{rowItem.serviceName}</p>
+        //                     <p className="text-gray-900 dark:text-white">{rowItem.serviceName}</p>
         //                 </div>
         //             </div>
         //         )

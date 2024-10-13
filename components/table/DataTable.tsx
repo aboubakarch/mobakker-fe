@@ -262,7 +262,7 @@ export function DataTable<TData, TValue>({
                 </Table>
             </div>
             <div className="flex items-center justify-between py-2 px-3 bg-background rounded-md">
-                <div className="flex gap-2 items-center text-sm text-gray-500">
+                <div className="flex gap-2 items-center text-sm text-gray-500 dark:text-white">
                     <p>Rows per page:</p>
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>

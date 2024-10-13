@@ -98,11 +98,11 @@ const StateModal: FC<IModalCompProps<State>> = ({
                 {...stateFormVal}
             >
                 <div className="flex justify-between w-full">
-                    <p className="text-black text-xl font-medium  leading-[30px]">
+                    <p className="text-black dark:text-white text-xl font-medium  leading-[30px]">
                         {!val ? t(messages.ADD_STATE) : t(messages.UPDATE)}
                     </p>
                     <Button variant={"ghost"} onClick={closeModal} className="px-3 py-0">
-                        <X className="w-4 h-4 relative text-black" />
+                        <X className="w-4 h-4 relative text-black dark:text-white" />
                     </Button>
                 </div>
 

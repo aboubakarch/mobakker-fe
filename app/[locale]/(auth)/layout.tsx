@@ -20,7 +20,7 @@ export default async function AuthLayout({
       >
         <div className="flex h-full w-full bg-screen justify-center items-center relative">
           <LanguageChanger className='absolute top-5 right-10' hasDesc />
-          <div className="bg-background/90 w-3/5 h-[60%] rounded-lg shadow-md">
+          <div className="bg-background/90 w-3/5 h-[60%] rounded-lg shadow-md dark:shadow-white/10">
             {children}
           </div>
 

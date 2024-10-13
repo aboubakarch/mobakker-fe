@@ -39,7 +39,7 @@ export const customerRatingColumns: (
                         />
                     </div>
                     <div className="flex flex-col text-sm font-medium leading-snug">
-                        <p className="text-gray-900">{`${customer.user.firstName || ""} ${customer.user.lastName || ""}`}</p>
+                        <p className="text-gray-900 dark:text-white">{`${customer.user.firstName || ""} ${customer.user.lastName || ""}`}</p>
                         <p className="text-indigo-800">{customer.user.email}</p>
                     </div>
                 </div>
@@ -62,7 +62,7 @@ export const customerRatingColumns: (
                         />
                     </div>
                     <div className="flex flex-col text-sm font-medium leading-snug">
-                        <p className="text-gray-900">{`${user.firstName || ""} ${user.lastName || ""}`}</p>
+                        <p className="text-gray-900 dark:text-white">{`${user.firstName || ""} ${user.lastName || ""}`}</p>
                         <p className="text-indigo-800">{user.email}</p>
                     </div>
                 </div>

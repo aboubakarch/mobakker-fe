@@ -65,7 +65,7 @@ export const subscriptionColumns: (t: TFunction<"translation", undefined>, onSta
                             />
                         </div>
                         <div className="flex flex-col text-sm font-medium leading-snug">
-                            <p className="text-gray-900">{provider?.user ? `${provider?.user?.firstName || ""} ${provider?.user?.lastName || ""}` : provider.id}</p>
+                            <p className="text-gray-900 dark:text-white">{provider?.user ? `${provider?.user?.firstName || ""} ${provider?.user?.lastName || ""}` : provider.id}</p>
                         </div>
                     </div>
                 )
@@ -88,7 +88,7 @@ export const subscriptionColumns: (t: TFunction<"translation", undefined>, onSta
                             />
                         </div>
                         <div className="flex flex-col text-sm font-medium leading-snug">
-                            <p className="text-gray-900">{rowItem.name}</p>
+                            <p className="text-gray-900 dark:text-white">{rowItem.name}</p>
                             <p className="text-indigo-800">{rowItem.city}</p>
                         </div>
                     </div>

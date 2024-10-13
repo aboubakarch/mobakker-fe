@@ -28,7 +28,7 @@ const BranchProfile = () => {
             </PageHeader>
             <div className='flex gap-4'>
                 <div className='flex-[0.30] bg-background rounded py-5 flex gap-4 flex-col'>
-                    <div className='w-full border-b border-neutral-200 px-4 pb-3 text-gray-800 text-xl font-medium '>
+                    <div className='w-full border-b border-neutral-200 px-4 pb-3 text-gray-800 dark:text-white text-xl font-medium '>
                         {t(messages.LOGO)}
                     </div>
                     <div className='flex flex-col w-full items-center px-4 gap-5'>

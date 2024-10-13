@@ -23,12 +23,12 @@ const EmployeeDetailsModal: FC<IModalDetailsProps<SampleEmployee>> = ({ closeMod
     console.log(val)
 
     return (
-        <Modal visibility={visible} closeModal={closeModal} position={2} className='shadow-xl md:w-[55%]'>
+        <Modal visibility={visible} closeModal={closeModal} position={2} className='shadow-xl dark:shadow-white/10 md:w-[55%]'>
             <div className="px-6 py-5 flex gap-4 flex-col">
                 <div className='flex justify-between w-full'>
                     <div></div>
                     <Button variant={'ghost'} onClick={closeModal} className='px-3 py-0'>
-                        <X className='w-4 h-4 relative text-black' />
+                        <X className='w-4 h-4 relative text-black dark:text-white' />
                     </Button>
                 </div>
                 <div className='flex gap-16 divide-x'>
@@ -44,33 +44,33 @@ const EmployeeDetailsModal: FC<IModalDetailsProps<SampleEmployee>> = ({ closeMod
                             </div>
 
                         </div>
-                        <p className='text-black text-xl font-medium leading-[30px]'>{`${val.firstName} ${val.lastName}`}</p>
+                        <p className='text-black dark:text-white text-xl font-medium leading-[30px]'>{`${val.firstName} ${val.lastName}`}</p>
 
                     </div>
 
                     <div className="space-y-4 pl-7">
                         <div>
-                            <p className="text-sm text-gray-500">Email</p>
+                            <p className="text-sm text-gray-500 dark:text-white">Email</p>
                             <p>{val.email}</p>
                         </div>
                         <div>
-                            <p className="text-sm text-gray-500">Phone</p>
+                            <p className="text-sm text-gray-500 dark:text-white">Phone</p>
                             <p>{val.phone}</p>
                         </div>
                         <div>
-                            <p className="text-sm text-gray-500">Active Status</p>
+                            <p className="text-sm text-gray-500 dark:text-white">Active Status</p>
                             <p>{val.data.isActive ? 'Active' : 'Inactive'}</p>
                         </div>
 
                         {/* {val.data.user && (
                         <div>
-                            <p className="text-sm text-gray-500">User</p>
+                            <p className="text-sm text-gray-500 dark:text-white">User</p>
                             <p>{`${val.data.user.firstName} ${val.data.user.lastName}`}</p>
                         </div>
                     )} */}
                         {val.data.branches && val.data.branches.length > 0 && (
                             <div>
-                                <p className="text-sm text-gray-500 mb-3">Branches</p>
+                                <p className="text-sm text-gray-500 dark:text-white mb-3">Branches</p>
                                 <div className="grid grid-cols-2 grid-flow-row gap-5">
                                     {val.data.branches.map((branch) => (
                                         <div key={branch.id} className="flex gap-3 items-center justify-center w-max">
@@ -83,7 +83,7 @@ const EmployeeDetailsModal: FC<IModalDetailsProps<SampleEmployee>> = ({ closeMod
                                                 />
                                             </div>
                                             <div className="flex flex-col text-sm font-medium leading-snug">
-                                                <p className="text-gray-900">{branch.name}</p>
+                                                <p className="text-gray-900 dark:text-white">{branch.name}</p>
                                                 <p className="text-indigo-800">{branch.city}</p>
                                             </div>
                                         </div>
@@ -93,7 +93,7 @@ const EmployeeDetailsModal: FC<IModalDetailsProps<SampleEmployee>> = ({ closeMod
                         )}
                         {val.data.empBranch && (
                             <div>
-                                <p className="text-sm text-gray-500 mb-3">Branch</p>
+                                <p className="text-sm text-gray-500 dark:text-white mb-3">Branch</p>
                                 <div className="flex gap-3 items-center justify-center w-max">
                                     <div className="rounded-full h-11 w-11 relative">
                                         <Image
@@ -104,7 +104,7 @@ const EmployeeDetailsModal: FC<IModalDetailsProps<SampleEmployee>> = ({ closeMod
                                         />
                                     </div>
                                     <div className="flex flex-col text-sm font-medium leading-snug">
-                                        <p className="text-gray-900">{val.data.empBranch.name}</p>
+                                        <p className="text-gray-900 dark:text-white">{val.data.empBranch.name}</p>
                                         <p className="text-indigo-800">{val.data.empBranch.city}</p>
                                     </div>
                                 </div>
@@ -112,22 +112,22 @@ const EmployeeDetailsModal: FC<IModalDetailsProps<SampleEmployee>> = ({ closeMod
                         )}
                         {(val?.data?.employer as any)?.user && (
                             <div>
-                                <p className="text-sm text-gray-500">Employer</p>
+                                <p className="text-sm text-gray-500 dark:text-white">Employer</p>
                                 <p>{`${(val.data.employer as any).user?.firstName} ${(val.data.employer as any)?.user?.lastName}`}</p>
                             </div>
                         )}
                         {val.data.rating !== undefined && (
                             <div>
-                                <p className="text-sm text-gray-500">Rating</p>
+                                <p className="text-sm text-gray-500 dark:text-white">Rating</p>
                                 <p>{val.data.rating}</p>
                             </div>
                         )}
                         <div>
-                            <p className="text-sm text-gray-500">Created At</p>
+                            <p className="text-sm text-gray-500 dark:text-white">Created At</p>
                             <p>{moment(val.data.createdAt).format("DD MMM YYYY hh:mm")}</p>
                         </div>
                         <div>
-                            <p className="text-sm text-gray-500">Updated At</p>
+                            <p className="text-sm text-gray-500 dark:text-white">Updated At</p>
                             <p>{moment(val.data.updatedAt).format("DD MMM YYYY hh:mm")}</p>
                         </div>
                     </div>

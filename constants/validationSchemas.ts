@@ -81,8 +81,8 @@ export const serviceValidationSchema = yup.object().shape({
     .min(4, "Name must be at least 4 characters")
     .max(100, "Name cannot exceed 100 characters")
     .required("Name is required"),
-  price: yup.number().required("Price is required"),
-  bookingCapacity: yup.number().required("Booking Capacity is required"),
+  price: yup.number().min(0).required("Price is required"),
+  bookingCapacity: yup.number().min(0).required("Booking Capacity is required"),
   serviceType: yup.string().required("Service type is required"),
   serviceAvailabilty: yup
     .array()
@@ -140,9 +140,12 @@ export const appointmentValidationSchema = yup.object().shape({
       "Repeat must be one of 'DAILY', 'WEEKLY', 'MONTHLY', 'YEARLY', or 'NONE'"
     )
     .required("Repeat is required"),
-  grossTotalAmount: yup.number().required("Gross total amount is required"),
-  discount: yup.number().required("Discount is required"),
-  netTotalAmount: yup.number().required("Net total amount is required"),
+  grossTotalAmount: yup
+    .number()
+    .min(0)
+    .required("Gross total amount is required"),
+  discount: yup.number().min(0).required("Discount is required"),
+  netTotalAmount: yup.number().min(0).required("Net total amount is required"),
   paymentStatus: yup
     .string()
     .oneOf(
@@ -370,5 +373,5 @@ export const loyaltyProgramValidationSchema = yup.object().shape({
     .min(1, "Rating must be at least 1")
     .max(5, "Rating must be at most 5")
     .required("Rating is required"),
-  noOfBooking: yup.number().required("Booking Capacity is required"),
+  noOfBooking: yup.number().min(0).required("Booking Capacity is required"),
 });

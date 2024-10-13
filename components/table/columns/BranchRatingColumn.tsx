@@ -41,7 +41,7 @@ export const branchRatingColumns: (
                         />
                     </div>
                     <div className="flex flex-col text-sm font-medium leading-snug">
-                        <p className="text-gray-900">{branch.name}</p>
+                        <p className="text-gray-900 dark:text-white">{branch.name}</p>
                         <p className="text-indigo-800">{branch.city}</p>
                     </div>
                 </div>
@@ -64,7 +64,7 @@ export const branchRatingColumns: (
                         />
                     </div>
                     <div className="flex flex-col text-sm font-medium leading-snug">
-                        <p className="text-gray-900">{`${user.firstName || ""} ${user.lastName || ""}`}</p>
+                        <p className="text-gray-900 dark:text-white">{`${user.firstName || ""} ${user.lastName || ""}`}</p>
                         <p className="text-indigo-800">{user.email}</p>
                     </div>
                 </div>

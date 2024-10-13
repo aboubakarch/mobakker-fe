@@ -118,7 +118,7 @@ export const SingleSearchSelect: React.FC<{
                                 />
                             </div>}
                             <div className="flex flex-col text-sm font-medium leading-snug">
-                                <p className="text-gray-900">{per.name}</p>
+                                <p className="text-gray-900 dark:text-white">{per.name}</p>
                             </div>
                         </div>
                     </DropdownMenuCheckboxItem>

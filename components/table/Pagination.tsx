@@ -45,7 +45,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, pagesT
     };
 
     const renderPage = (pageNumber: number) => (
-        <span key={pageNumber} className={cn('h-6 w-6 hover:bg-background/60 cursor-pointer rounded-[3px] text-center text-gray-500', currentPage === pageNumber ? "bg-indigo-800 hover:bg-indigo-400 text-white" : "")} onClick={() => onPageChange(pageNumber)}>
+        <span key={pageNumber} className={cn('h-6 w-6 hover:bg-background/60 cursor-pointer rounded-[3px] text-center text-gray-500 dark:text-white', currentPage === pageNumber ? "bg-indigo-800 hover:bg-indigo-400 text-white" : "")} onClick={() => onPageChange(pageNumber)}>
             {pageNumber + 1}
         </span>
     );

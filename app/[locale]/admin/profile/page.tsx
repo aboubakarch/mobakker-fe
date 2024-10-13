@@ -38,6 +38,7 @@ const Profile = () => {
             })
         }
     }, [])
+
     const handleLogout = () => {
         removeCookie("accessToken")
         removeCookie("refreshToken")
@@ -81,9 +82,10 @@ const Profile = () => {
 
             setLoading(false)
 
+
+
             if (newUser) {
                 document.cookie = `user=${JSON.stringify({ ...user, ...newUser })};path=/`
-
             }
 
             toast({

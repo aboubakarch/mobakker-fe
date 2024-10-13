@@ -86,14 +86,14 @@ const SubscriptionFilters: FC<IFilterProps<ISubscriptionFilters>> = ({ onApply, 
                     <SingleSearchSelect label={"Service Provider"} data={serviceProviders as any} selected={serviceProvider} setSelected={(item: string) => setServiceProvider(item) as any} />
                 </div>
                 <div>
-                    <p className='text-sm text-black mb-2'>City</p>
+                    <p className='text-sm text-black dark:text-white mb-2'>City</p>
                     <SingleSearchSelect label={"City"}
                         data={cities as any} selected={city}
                         setSelected={(item: string) => setCity(item) as any}
                     />
                 </div>
                 <div>
-                    <p className='text-sm text-black mb-2'>Status</p>
+                    <p className='text-sm text-black dark:text-white mb-2'>Status</p>
                     <SingleSearchSelect label={"Status"}
                         data={statusOpts as any} selected={status}
                         setSelected={(item: string) => setStatus(item) as any}

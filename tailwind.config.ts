@@ -24,7 +24,7 @@ const config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        screen: "#F9FAFB",
+        screen: "hsl(var(--cus-screen))",
         primaryBlue: "#3C1EAD",
         primaryRed: "#CC4848",
         primaryGreen: "#06AA8D",

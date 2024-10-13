@@ -87,7 +87,7 @@ const ReportWidget: FC<IReportWidgetProps> = ({ className = "", type }) => {
 
     return (
         <div className={cn('w-full h-full flex flex-col p-4 gap-3 bg-background', className)}>
-            <p className='text-gray-900 text-lg font-medium leading-[30px]'>
+            <p className='text-gray-900 dark:text-white text-lg font-medium leading-[30px]'>
                 {`${type} ${t(messages.REPORTS)}`}
             </p>
             <div className="flex gap-3 w-full justify-end">
@@ -104,20 +104,20 @@ const ReportWidget: FC<IReportWidgetProps> = ({ className = "", type }) => {
             </div>
             <div className='w-full flex flex-col gap-3 '>
                 <div className="w-full px-4 py-3 flex justify-between bg-indigo-800 bg-opacity-5 rounded">
-                    <div className=" text-gray-900 text-sm font-medium leading-snug">{t(messages.TOTAL_REQ)}</div>
-                    <div className="text-right text-gray-500 text-sm font-medium leading-snug">{totalAppointmentsCount}</div>
+                    <div className=" text-gray-900 dark:text-white text-sm font-medium leading-snug">{t(messages.TOTAL_REQ)}</div>
+                    <div className="text-right text-gray-500 dark:text-white text-sm font-medium leading-snug">{totalAppointmentsCount}</div>
                 </div>
                 <div className="w-full px-4 py-3 flex justify-between bg-indigo-800 bg-opacity-5 rounded">
-                    <div className=" text-gray-900 text-sm font-medium leading-snug">{t(messages.COMPLETE)}</div>
-                    <div className="text-right text-gray-500 text-sm font-medium leading-snug">{totalAppointments?.COMPLETED || 0}</div>
+                    <div className=" text-gray-900 dark:text-white text-sm font-medium leading-snug">{t(messages.COMPLETE)}</div>
+                    <div className="text-right text-gray-500 dark:text-white text-sm font-medium leading-snug">{totalAppointments?.COMPLETED || 0}</div>
                 </div>
                 <div className="w-full px-4 py-3 flex justify-between bg-red-500 bg-opacity-5 rounded">
                     <div className=" text-red-500 text-sm font-medium leading-snug">{t(messages.CANCELLED)}</div>
                     <div className="text-right text-red-500 text-sm font-medium leading-snug">{totalAppointments?.CANCELED || 0}</div>
                 </div>
                 <div className="w-full px-4 py-3 flex justify-between bg-indigo-800 bg-opacity-5 rounded">
-                    <div className=" text-gray-900 text-sm font-medium leading-snug">{t("Pending")}</div>
-                    <div className="text-right text-gray-500 text-sm font-medium leading-snug">{totalAppointments?.PENDING || 0}</div>
+                    <div className=" text-gray-900 dark:text-white text-sm font-medium leading-snug">{t("Pending")}</div>
+                    <div className="text-right text-gray-500 dark:text-white text-sm font-medium leading-snug">{totalAppointments?.PENDING || 0}</div>
                 </div>
 
             </div>

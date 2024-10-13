@@ -38,7 +38,7 @@ function Modal({
         >
             <div
                 style={{ zIndex: 10 * position }}
-                className={cn(`w-[80%] md:w-[45%] shadow-xl rounded-md bg-background max-h-[100%] overflow-auto scrollbar`, className)}
+                className={cn(`w-[80%] md:w-[45%] shadow-xl dark:shadow-white/10 rounded-md bg-background max-h-[100%] overflow-auto scrollbar`, className)}
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Stop propagation within the children */}
