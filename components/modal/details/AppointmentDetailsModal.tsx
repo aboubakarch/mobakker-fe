@@ -11,6 +11,7 @@ import { Button } from '@/components/ui'
 import Image from 'next/image'
 import { isValidImageSrc } from '@/lib/helpers'
 import AssignEmployeeModal from '../ReassignEmployeeModal'
+import CountdownTimer from '@/components/countdown/Countdown'
 
 
 const AppointmentDetailsModal: FC<IModalDetailsProps<SampleAppointments>> = ({ closeModal, val, visible }) => {
@@ -37,6 +38,7 @@ const AppointmentDetailsModal: FC<IModalDetailsProps<SampleAppointments>> = ({ c
                         </Button>
                     </div>
                     <div className="space-y-4">
+                        <div><CountdownTimer {...val} /></div>
                         <div>
                             <p className="text-sm text-gray-500 dark:text-white">Booking Slot</p>
                             <p>{val.bookingSlot}</p>
