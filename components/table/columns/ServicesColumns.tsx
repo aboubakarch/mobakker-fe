@@ -114,7 +114,7 @@ export const serviceColumns: (
             let availablity: any = row.getValue("availablity")
             availablity = availablity.split(",");
             return (
-                <div className="grid grid-rows-2 grid-cols-4 gap-3 items-center">
+                <div className="grid grid-cols-4 gap-3 items-center max-h-24 w-auto overflow-y-auto scrollbar">
                     {availablity.map((a: any, i: number) => (
                         <div className={"p-2  rounded justify-center items-center text-white text-[9px] font-medium leading-tight text-center bg-indigo-800"} key={i}>{a}</div>
                     ))}
