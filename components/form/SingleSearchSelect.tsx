@@ -82,7 +82,7 @@ export const SingleSearchSelect: React.FC<{
                     <ChevronsUpDown className="ltr:ml-2 rtl:mr-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="full max-h-96 overflow-auto scrollbar">
+            <DropdownMenuContent className="full max-h-96 overflow-auto scrollbar dark:scrollbar-dark">
                 <DropdownMenuLabel>{label || "Items"}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
 

@@ -63,7 +63,7 @@ const Appointments = () => {
     }
 
     return (
-        <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
+        <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar dark:scrollbar-dark">
             <ProcessRefundModal visible={refundModalOpen} closeModal={handleRefundModalClose} val={selectedAppointment as Refund} onSubmitData={() => setFlag(!flag)} />
 
             <PageHeader title={t("Refund Requests")}

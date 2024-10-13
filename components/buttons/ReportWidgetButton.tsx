@@ -77,7 +77,7 @@ const ReportWidgetButton: FC<IReportWidgetPopoverProps> = ({
                     <ChevronDownIcon />
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className='flex  flex-col select-none max-h-[400px] scrollbar overflow-auto'>
+            <DropdownMenuContent className='flex  flex-col select-none max-h-[400px] scrollbar dark:scrollbar-dark overflow-auto'>
                 {type !== ReportTypesEnum.Day && <DropdownMenuLabel>
                     <p>{type}</p>
                 </DropdownMenuLabel>}

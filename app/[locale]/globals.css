@@ -89,19 +89,38 @@
 
 .scrollbar::-webkit-scrollbar-track {
   border-radius: 100vh;
-  background: #f9fafb;
+  background: var(--cus-screen);
 }
 
 .scrollbar::-webkit-scrollbar-thumb {
-  background: #f9fafb;
+  background: var(--cus-screen);
   border-radius: 100vh;
-  border: 3px solid #fff;
+  border: 3px solid var(--background);
 }
 
 .scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #f9fafb;
+  background: var(--cus-screen);
 }
 
+.scrollbar-dark::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.scrollbar-dark::-webkit-scrollbar-track {
+  border-radius: 100vh;
+  background: #0f172a;
+}
+
+.scrollbar-dark::-webkit-scrollbar-thumb {
+  background: #0f172a;
+  border-radius: 100vh;
+  border: 3px solid #000;
+}
+
+.scrollbar-dark::-webkit-scrollbar-thumb:hover {
+  background: #0f172a;
+}
 /* HTML: <div class="loader"></div> */
 .loader {
   width: 50px;

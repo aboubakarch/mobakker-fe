@@ -147,7 +147,7 @@ export default function Home() {
 
   return (
 
-    <div className="flex flex-col gap-3 h-full w-full px-5 py-3 overflow-auto scrollbar">
+    <div className="flex flex-col gap-3 h-full w-full px-5 py-3 overflow-auto scrollbar dark:scrollbar-dark">
       <NotificationHandler />
 
       <div className="md:w-1/2 w-full flex flex-col">
@@ -219,7 +219,7 @@ export default function Home() {
         </div>
 
 
-        <div className="col-span-1 bg-appcard rounded-sm px-3 py-2 flex flex-col gap-2 md:overflow-auto scrollbar">
+        <div className="col-span-1 bg-appcard rounded-sm px-3 py-2 flex flex-col gap-2 md:overflow-auto scrollbar dark:scrollbar-dark">
           <div className="text-lg">{t(messages.ACTIVE_PROMOTIONS)}</div>
           <div className="grid grid-rows-3 grid-flow-row grid-cols-1 gap-2 auto-rows-max ">
             {/* <PromotionItem active title="Ramadan Promo" endDate="12-Jan-2024" startDate="01-Jan-2024" />

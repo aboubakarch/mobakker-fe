@@ -44,7 +44,7 @@ const Report = () => {
     }, [])
 
     return (
-        <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
+        <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar dark:scrollbar-dark">
             <PageHeader title={t(messages.REPORTS)}
                 description={t(messages.DETAILED_INSIGHTS)}
             >

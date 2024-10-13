@@ -68,7 +68,7 @@ const ServiceTypes = () => {
     }
 
     return (
-        <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
+        <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar dark:scrollbar-dark">
             <ServiceTypeModal visible={modalOpen} closeModal={handleModalClose} val={selectedType} onUpdate={() => setFlag(!flag)} />
             <DeleteModal
                 visible={deleteModalOpen}

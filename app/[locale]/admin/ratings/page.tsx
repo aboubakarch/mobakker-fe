@@ -26,7 +26,7 @@ const Ratings = () => {
     };
 
     return (
-        <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
+        <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar dark:scrollbar-dark">
             <PageHeader
                 title="Ratings"
                 description="Here you can manage Branch, Service, Employee, and Customer Ratings"

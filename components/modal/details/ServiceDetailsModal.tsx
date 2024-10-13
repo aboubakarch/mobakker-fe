@@ -19,7 +19,7 @@ const ServiceDetailsModal: FC<IModalDetailsProps<SampleServices>> = ({ closeModa
     }
 
     return (
-        <Modal visibility={visible} closeModal={closeModal} position={2} className='shadow-xl dark:shadow-white/10 md:w-[55%] max-h-[80%] overflow-auto scrollbar'>
+        <Modal visibility={visible} closeModal={closeModal} position={2} className='shadow-xl dark:shadow-white/10 md:w-[55%] max-h-[80%] overflow-auto scrollbar dark:scrollbar-dark'>
             <div className="px-6 py-5 flex gap-4 flex-col">
                 <div className='flex justify-between w-full'>
                     <div></div>

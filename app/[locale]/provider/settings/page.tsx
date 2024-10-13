@@ -59,7 +59,7 @@ const Settings = () => {
     const { t } = useTranslation()
 
     return (
-        <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
+        <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar dark:scrollbar-dark">
             <PageHeader title={t(messages.SETTINGS)}
                 description={t(messages.CUSTOMIZE_DASHBOARD)}
             >

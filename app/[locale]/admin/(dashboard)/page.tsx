@@ -107,7 +107,7 @@ export default function Home() {
 
   return (
 
-    <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
+    <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar dark:scrollbar-dark">
       <NotificationHandler />
       {/* <DeleteModal visible closeModal={() => { }} onDelete={() => { }} title="dnlssnf" /> */}
       <div className="md:w-1/2 w-full flex flex-col">

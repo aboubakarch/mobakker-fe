@@ -68,7 +68,7 @@ const LoyalProgram = () => {
         handleDeleteModalClose()
     }
     return (
-        <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
+        <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar dark:scrollbar-dark">
             <LoyaltyProgramModal visible={modalOpen} closeModal={handleModalClose} val={selectedProg} onUpdate={() => setFlag(!flag)} />
 
 

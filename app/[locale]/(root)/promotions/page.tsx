@@ -88,7 +88,7 @@ const Promotions = () => {
     }
 
     return (
-        <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
+        <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar dark:scrollbar-dark">
             <PromotionModal visible={modalOpen} closeModal={handleModalClose} val={selectedPromotion} onUpdate={() => setFlag(!flag)} />
             <PromotionDetailsModal visible={detailsModalOpen} closeModal={handleDetailsModalClose} val={selectedPromotion as SamplePromotions} />
 

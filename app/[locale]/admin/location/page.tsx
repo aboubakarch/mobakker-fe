@@ -111,7 +111,7 @@ const Countries = () => {
     };
 
     return (
-        <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
+        <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar dark:scrollbar-dark">
             <CountryModal visible={modalOpen} closeModal={handleModalClose} val={selectedCountry} onUpdate={() => setFlag(!flag)} />
             <StateModal visible={stateModalOpen} closeModal={handleStateModalClose} val={selectedState} onUpdate={() => setFlag(!flag)} />
             <CityModal visible={cityModalOpen} closeModal={handleCityModalClose} val={selectedCity} onUpdate={() => setFlag(!flag)} />

@@ -91,7 +91,7 @@ const Employees = () => {
     }
 
     return (
-        <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
+        <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar dark:scrollbar-dark">
             <EmployeeModal visible={modalOpen} closeModal={handleModalClose} val={selectedEmployee} onUpdate={() => setFlag(!flag)} />
             <EmployeeDetailsModal visible={detailsModalOpen} closeModal={handleDetailsModalClose} val={selectedEmployee as any} />
             <DeleteModal
