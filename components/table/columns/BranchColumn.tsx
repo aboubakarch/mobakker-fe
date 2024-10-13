@@ -85,6 +85,18 @@ export const branchColumns: (
                 )
             },
         },
+        {
+            accessorKey: "description",
+            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.DESC)}</div>,
+
+            cell: ({ row }) => {
+                const location: string = row.getValue("description");
+                return (
+                    <TextColumn text={location} />
+                )
+            },
+        },
+
 
         {
             accessorKey: "address",

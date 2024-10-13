@@ -142,7 +142,7 @@ const AppointmentForm: FC<{
                 const disc = +promo?.discount
                 const discountedTotal = promo.type === "FIXED" ? ser.price - (disc) : ser.price - (ser.price * (disc / 100))
                 form.setValue("discount", promo.type === "FIXED" ? (disc) : (ser.price * (disc / 100)))
-                form.setValue("grossTotalAmount", discountedTotal < 0 ? 0 : discountedTotal)
+                form.setValue("netTotalAmount", discountedTotal < 0 ? 0 : discountedTotal)
 
             }
         }
@@ -194,9 +194,9 @@ const AppointmentForm: FC<{
 
 
             <div className='flex gap-2'>
-                <InputField {...appointmentFormVal.info(t).discount} disabled />
+                {/* <InputField {...appointmentFormVal.info(t).discount} disabled /> */}
                 <InputField {...appointmentFormVal.info(t).netTotalAmount} disabled />
-                <InputField {...appointmentFormVal.info(t).grossTotalAmount} disabled />
+                {/* <InputField {...appointmentFormVal.info(t).grossTotalAmount} disabled /> */}
 
             </div>
             <div className='grid grid-cols-2 gap-2 w-full'>

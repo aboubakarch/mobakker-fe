@@ -16,6 +16,7 @@ interface IProviderRegistrationFormValues {
 interface IBranchFormValues {
   name: string;
   location: string;
+  description: string;
   city: string;
   manager?: string;
   ownerId?: string;
@@ -28,6 +29,9 @@ interface IAssignServiceFormValues {
 }
 interface IAssignBranchFormValues {
   branch: string;
+}
+interface IAssignEmployeeFormValues {
+  employee: string;
 }
 interface ILoyaltyProgramFormValues {
   branch: string;

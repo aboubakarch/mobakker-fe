@@ -17,6 +17,8 @@ const SubscriptionFilters: FC<IFilterProps<ISubscriptionFilters>> = ({ onApply, 
     const [cities, setCites] = useState<any[]>([])
     const [city, setCity] = useState("")
     const [status, setStatus] = useState("")
+    const [subscriptions, setSubscriptions] = useState([])
+    const [subscriptionId, setSubscriptionId] = useState("")
 
     const fetchServiceProvidersData = async () => {
         try {
@@ -52,9 +54,29 @@ const SubscriptionFilters: FC<IFilterProps<ISubscriptionFilters>> = ({ onApply, 
             console.log(error)
         }
     }
+    const fetchSubscriptionDataData = async () => {
+
+        try {
+            // const params = {
+            //     page: 1, take: 100
+            // }
+            const response = await APIService.getInstance().getSubscriptions({})
+            const data = response?.subscriptions?.map((item: any) => ({
+                name: item?.duration,
+                // value: item?.id
+                value: item?.id
+            }))
+
+            setSubscriptions(data)
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     useEffect(() => {
         fetchServiceProvidersData()
+        fetchSubscriptionDataData()
         fetchDataCities()
     }, [])
 
@@ -64,6 +86,7 @@ const SubscriptionFilters: FC<IFilterProps<ISubscriptionFilters>> = ({ onApply, 
                 serviceProvider: serviceProvider !== "" ? serviceProvider : undefined,
                 city: city !== "" ? city : undefined,
                 subscriptionStatus: status !== "" ? status : undefined,
+                subscriptionId: subscriptionId !== "" ? subscriptionId : undefined
             }
             onApply(filters)
         }
@@ -73,6 +96,7 @@ const SubscriptionFilters: FC<IFilterProps<ISubscriptionFilters>> = ({ onApply, 
         setServiceProvider("")
         setCity("")
         setStatus("")
+        setSubscriptionId("")
         if (onReset) {
             onReset()
         }
@@ -90,6 +114,13 @@ const SubscriptionFilters: FC<IFilterProps<ISubscriptionFilters>> = ({ onApply, 
                     <SingleSearchSelect label={"City"}
                         data={cities as any} selected={city}
                         setSelected={(item: string) => setCity(item) as any}
+                    />
+                </div>
+                <div>
+                    <p className='text-sm text-black dark:text-white mb-2'>Subscription Type</p>
+                    <SingleSearchSelect label={"Subscription Type"}
+                        data={subscriptions as any} selected={subscriptionId}
+                        setSelected={(item: string) => setSubscriptionId(item) as any}
                     />
                 </div>
                 <div>

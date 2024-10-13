@@ -32,6 +32,7 @@ const testSelectData = [{
 
 const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, fieldType = FieldTypesEnum.Text, disabled = false, data, type, times, dateDisabled }) => {
     const form = useFormContext()
+    console.log(form)
     const selectData = data ? data : testSelectData
     // console.log("in form", selectData, label, fieldType)
 

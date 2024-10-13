@@ -23,11 +23,11 @@ export const branchValidationSchema = yup.object().shape({
     .max(100, "Name cannot exceed 100 characters")
     .required("Name is required"),
   location: yup.string().required("Location is required"),
-  // state: yup
-  //   .string()
-  //   .min(2, "State is required")
-  //   .max(300, "State is required")
-  //   .required("State is required"),
+  description: yup
+    .string()
+    .min(5, "Description must be at least 5 characters")
+    .max(100, "Description cannot exceed 30 characters")
+    .required("Description is required"),
   city: yup
     .string()
     .min(2, "City is required")
@@ -264,6 +264,9 @@ export const assignServiceValidationSchema = yup.object().shape({
 });
 export const assignBranchValidationSchema = yup.object().shape({
   branch: yup.string().required("Branch is required"),
+});
+export const assignEmployeeValidationSchema = yup.object().shape({
+  employee: yup.string().required("Employee is required"),
 });
 
 export const paymentValidationSchema = yup.object().shape({

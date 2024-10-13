@@ -162,6 +162,7 @@ interface SampleSubscription {
 }
 interface SampleBranch {
   id: string;
+  description: string;
   createdAt: string;
   updatedAt: string;
   isActive: boolean;

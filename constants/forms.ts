@@ -1,6 +1,7 @@
 import {
   IAppointmentFormValues,
   IAssignBranchFormValues,
+  IAssignEmployeeFormValues,
   IAssignServiceFormValues,
   IBranchEditFormValues,
   IBranchFormValues,
@@ -22,6 +23,7 @@ import {
 import {
   appointmentValidationSchema,
   assignBranchValidationSchema,
+  assignEmployeeValidationSchema,
   assignServiceValidationSchema,
   branchEditValidationSchema,
   branchValidationSchema,
@@ -61,6 +63,7 @@ export const branchDefaultValues: (val?: SampleBranch) => IBranchFormValues = (
   name: val ? val.name : "",
   state: "",
   city: val ? val.branchCityId || "" : "",
+  description: val ? val.description || "" : "",
   location: val ? val.address : "",
   manager: val ? val.managerId || "" : "",
   ownerId: val ? val.ownerId || "" : "",
@@ -80,6 +83,9 @@ export const assignServiceDefaultValues: IAssignServiceFormValues = {
 };
 export const assignBranchDefaultValues: IAssignBranchFormValues = {
   branch: "",
+};
+export const assignEmployeeDefaultValues: IAssignEmployeeFormValues = {
+  employee: "",
 };
 
 export const providerDefaultValues: (
@@ -259,6 +265,13 @@ export const branchFormVals: (
       hasError: true,
       name: "location",
       label: t(formConstants.LOCATION),
+    },
+    description: {
+      placeHolder: t(formConstants.DESC),
+      hasError: true,
+      name: "description",
+      label: t(formConstants.DESC),
+      fieldType: FieldTypesEnum.Textarea,
     },
     // state: {
     //   placeHolder: t(formConstants.STATE),
@@ -653,8 +666,8 @@ export const appointmentFormVals: (
     netTotalAmount: {
       hasError: true,
       name: "netTotalAmount",
-      label: t(formConstants.NET_TOTAL_AMOUNT_LABEL),
-      placeHolder: t(formConstants.NET_TOTAL_AMOUNT_PLACEHOLDER),
+      label: t(formConstants.PRICE),
+      placeHolder: t(formConstants.PRICE),
     },
     promotion: {
       hasError: false,
@@ -686,10 +699,24 @@ export const assignBranchFormVals: () => IFormValueObj<IAssignBranchFormValues> 
     initialValues: assignBranchDefaultValues,
     info: (t) => ({
       branch: {
-        placeHolder: t(formConstants.BRANCH_ID_LABEL),
+        placeHolder: t(formConstants.BRANCH_NAME_LABEL),
         hasError: true,
         name: "branch",
-        label: t(formConstants.BRANCH_ID_PLACEHOLDER),
+        label: t(formConstants.BRANCH_NAME_LABEL),
+        fieldType: FieldTypesEnum.SingleSearchSelect,
+      },
+    }),
+  });
+export const assignEmployeeFormVals: () => IFormValueObj<IAssignEmployeeFormValues> =
+  () => ({
+    validationSchema: assignEmployeeValidationSchema,
+    initialValues: assignEmployeeDefaultValues,
+    info: (t) => ({
+      employee: {
+        placeHolder: t(formConstants.EMPLOYEE_NAME),
+        hasError: true,
+        name: "employee",
+        label: t(formConstants.EMPLOYEE_NAME),
         fieldType: FieldTypesEnum.SingleSearchSelect,
       },
     }),
