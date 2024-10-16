@@ -9,42 +9,33 @@ import {
     DropdownMenuLabel,
     DropdownMenuTrigger,
 } from "@/components/ui"
-import { timeAgo } from '@/lib/helpers'
+import { getCookie, timeAgo } from '@/lib/helpers'
 import { DropdownMenuSeparator } from '@radix-ui/react-dropdown-menu'
 import APIService from '@/services/api'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import { messages } from '@/constants/constants'
 import { useTranslation } from 'react-i18next'
+import { io } from "socket.io-client";
+import { URLs } from '@/constants/apis'
+import { useToast } from '@/hooks/use-toast'
+import { RoleType } from '@/constants/enums'
+const socket = io(process.env.NEXT_PUBLIC_BASE_URL, {
+    extraHeaders: {
+        "ngrok-skip-browser-warning": "69420"
+    }
+});
 
-// const notifications = [
-//     {
-//         "id": "a6a60a1f-c228-4608-b42d-675e46f52a51",
-//         "createdAt": "2024-07-27T06:26:50.670Z",
-//         "updatedAt": "2024-07-27T06:26:50.670Z",
-//         "isActive": true,
-//         "isRead": true,
-//         "notification": "Testing notification",
-//         "timeRead": null,
-//         "userId": "0dbff447-a719-4819-beae-129f5311f22c"
-//     },
-//     {
-//         "id": "fc8cd302-a855-4705-8ae1-6021cfb77dab",
-//         "createdAt": "2024-07-27T06:42:26.421Z",
-//         "updatedAt": "2024-07-27T06:42:26.421Z",
-//         "isActive": true,
-//         "isRead": false,
-//         "notification": "This is a test",
-//         "timeRead": null,
-//         "userId": "0dbff447-a719-4819-beae-129f5311f22c"
-//     }
-// ]
 
 const Notifications = () => {
     const [unreadCount, setUnreadCount] = useState(0)
     const [flag, setFlag] = useState(false)
     const { t } = useTranslation()
     const [notifications, setNotifications] = useState<SysNotifications[]>([])
+    const { toast } = useToast()
+
+
+
 
     const getUnreadCount = async () => {
         try {
@@ -66,6 +57,36 @@ const Notifications = () => {
         getUnreadCount()
         getAllNotifications()
     }, [flag])
+
+
+
+    useEffect(() => {
+        let user: any = getCookie("user")
+        let role: string | null = getCookie("role")
+        user = JSON.parse(user || "null");
+
+        function onNotification(data: any) {
+            setFlag((prev) => !prev)
+            toast({
+                variant: "notification",
+                description: data?.message || ""
+            })
+        }
+
+        if (user && role) {
+            socket.emit('joinRoom', role === RoleType.SERVICE_PROVIDER ? user.serviceProvider.id || "" : (role === RoleType.BRANCH_MANAGER || role === RoleType.CUSTOMER_CARE) ? user.employee.id || "" : (role === RoleType.ADMIN || role === RoleType.SUPER_ADMIN) ? user.id || "" : "");
+
+        }
+
+
+        socket.on('notification', onNotification);
+
+        return () => {
+
+            socket.off('notification', onNotification);
+        };
+    }, []);
+
 
     const markAsRead = async (notif: SysNotifications) => {
         try {
