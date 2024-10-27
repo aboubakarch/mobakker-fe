@@ -52,7 +52,7 @@ const CountdownTimer: FC<SampleAppointments> = ({ bookingDate, bookingSlot, stat
     return (
         <div>
             {(timeLeft !== "Expired" && timeLeft !== "Completed") && <p>Time Left: {timeLeft}</p>}
-            {(timeLeft === "Expired" || timeLeft === "Completed") && <p className={cn("px-2 rounded-lg py-1 max-w-fit", timeLeft === "Expired" ? "bg-gray-600" : "bg-green-600")}>{timeLeft}</p>}
+            {(timeLeft === "Expired" || timeLeft === "Completed") && <p className={cn("px-2 rounded-lg py-1 max-w-fit text-white", timeLeft === "Expired" ? "bg-red-600" : "bg-green-600")}>{timeLeft}</p>}
         </div>
     );
 };

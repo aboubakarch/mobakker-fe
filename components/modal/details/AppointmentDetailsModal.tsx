@@ -12,6 +12,7 @@ import Image from 'next/image'
 import { isValidImageSrc } from '@/lib/helpers'
 import AssignEmployeeModal from '../ReassignEmployeeModal'
 import CountdownTimer from '@/components/countdown/Countdown'
+import { AppointmentStatus, statusColors, statusIcons, statusOptions } from '@/components/table/columns/AppointmentsColumn'
 
 
 const AppointmentDetailsModal: FC<IModalDetailsProps<SampleAppointments>> = ({ closeModal, val, visible }) => {
@@ -39,6 +40,54 @@ const AppointmentDetailsModal: FC<IModalDetailsProps<SampleAppointments>> = ({ c
                     </div>
                     <div className="space-y-4">
                         <div><CountdownTimer {...val} /></div>
+                        <ol className="items-center sm:flex flex-wrap gap-y-2">
+                            {statusOptions.map((status, index) => {
+                                // Determine if we should render this status
+                                const isPaid = val.paymentStatus === "PAID" || val.paymentStatus === "APPROVED"
+                                const isRated = val.paymentStatus === "PAID" || val.paymentStatus === "APPROVED"
+                                const isCurrentOrPast =
+                                    statusOptions.findIndex(option => option.value === status.value) <=
+                                    statusOptions.findIndex(option => option.value === val.status);
+                                const isExcludedStatus =
+                                    ((val.status === AppointmentStatus.REJECTED || val.status === AppointmentStatus.CANCELED) &&
+                                        ([AppointmentStatus.COMPLETED, AppointmentStatus.PAID, AppointmentStatus.RATED, AppointmentStatus.STARTED, (val.status === AppointmentStatus.CANCELED ? AppointmentStatus.REJECTED : AppointmentStatus.CANCELED)].includes(status.value)))
+                                    ||
+                                    (val.status === AppointmentStatus.COMPLETED && (status.value === AppointmentStatus.REJECTED || status.value === AppointmentStatus.CANCELED));
+
+                                if (isExcludedStatus) return null; // Skip rendering excluded statuses
+
+                                if ((status.value === AppointmentStatus.REJECTED || status.value === AppointmentStatus.CANCELED) && status.value !== val.status) {
+                                    return null
+                                }
+
+                                return (
+                                    <li key={status.value} className="relative mb-6 sm:mb-0">
+                                        <div className="flex items-center">
+                                            <div
+                                                className={`z-10 flex items-center justify-center w-10 h-10 ${isCurrentOrPast ? statusColors[status.value] : 'bg-gray-300 dark:bg-gray-700'
+                                                    } rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0`}
+                                            >
+                                                {statusIcons[status.value]}
+                                            </div>
+                                            {index < statusOptions.length - 1 && !(status.value === AppointmentStatus.REJECTED || status.value === AppointmentStatus.CANCELED) && (
+                                                <div
+                                                    className={`hidden sm:flex min-w-16 w-full h-0.5 ${isCurrentOrPast ? 'bg-gray-200 dark:bg-gray-700' : 'bg-gray-300 dark:bg-gray-600'
+                                                        }`}
+                                                ></div>
+                                            )}
+                                        </div>
+                                        <div className="mt-3 relative sm:pe-8">
+                                            <h3
+                                                className={`text-sm font-semibold ${isCurrentOrPast ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-400'
+                                                    }`}
+                                            >
+                                                {status.name}
+                                            </h3>
+                                        </div>
+                                    </li>
+                                );
+                            })}
+                        </ol>
                         <div>
                             <p className="text-sm text-gray-500 dark:text-white">Booking Slot</p>
                             <p>{val.bookingSlot}</p>
@@ -132,6 +181,12 @@ const AppointmentDetailsModal: FC<IModalDetailsProps<SampleAppointments>> = ({ c
                                 </div>
                             </div>
                         </div>
+
+
+
+
+
+
 
                     </div>
                 </div>

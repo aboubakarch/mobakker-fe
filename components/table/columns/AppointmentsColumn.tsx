@@ -7,7 +7,7 @@ import {
     DropdownMenuLabel,
     DropdownMenuTrigger,
 } from "@/components/ui"
-import { Edit, MailPlus, MoreVertical, TicketSlash, Trash2 } from "lucide-react";
+import { Edit, MailPlus, MoreVertical, TicketSlash, Trash2, Loader2Icon, PlayCircle, CheckCircle, Ban, GitPullRequestClosedIcon, Star, BadgePlus, CircleDollarSign } from "lucide-react";
 // import Image from "next/image";
 // import { Checkbox } from "@/components/ui/Checkbox"
 import { messages, tableHeader } from "@/constants/constants";
@@ -22,13 +22,51 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { cn } from "@/lib/utils";
 import { RoleType } from "@/constants/enums";
 
-const statusOptions = [
-    { name: "Pending", value: "PENDING" },
-    { name: "Started", value: "STARTED" },
-    { name: "Completed", value: "COMPLETED" },
-    { name: "Canceled", value: "CANCELED" },
-    { name: "Rejected", value: "REJECTED" }
+export enum AppointmentStatus {
+    PENDING = 'PENDING',
+    STARTED = 'STARTED',
+    COMPLETED = 'COMPLETED',
+    CANCELED = 'CANCELED',
+    REJECTED = 'REJECTED',
+    APPROVED = 'APPROVED',
+    RATED = 'RATED',
+    CREATED = 'CREATED',
+    PAID = 'PAID',
+}
+export const statusOptions = [
+    { name: "Created", value: AppointmentStatus.CREATED },
+    { name: "Pending", value: AppointmentStatus.PENDING },
+    { name: "Approved", value: AppointmentStatus.APPROVED },
+    { name: "Paid", value: AppointmentStatus.PAID },
+    { name: "Started", value: AppointmentStatus.STARTED },
+    { name: "Completed", value: AppointmentStatus.COMPLETED },
+    { name: "Canceled", value: AppointmentStatus.CANCELED },
+    { name: "Rejected", value: AppointmentStatus.REJECTED },
+    { name: "Rated", value: AppointmentStatus.RATED },
 ];
+
+export const statusColors = {
+    [AppointmentStatus.PENDING]: "bg-yellow-500",
+    [AppointmentStatus.STARTED]: "bg-indigo-800",
+    [AppointmentStatus.COMPLETED]: "bg-green-600",
+    [AppointmentStatus.CANCELED]: "bg-red-500",
+    [AppointmentStatus.REJECTED]: "bg-red-500",
+    [AppointmentStatus.APPROVED]: "bg-blue-500",
+    [AppointmentStatus.RATED]: "bg-purple-500",
+    [AppointmentStatus.CREATED]: "bg-gray-400",
+    [AppointmentStatus.PAID]: "bg-teal-500",
+};
+export const statusIcons = {
+    [AppointmentStatus.PENDING]: <Loader2Icon className="w-6 h-6 text-white " />,
+    [AppointmentStatus.STARTED]: <PlayCircle className="w-6 h-6 text-white" />,
+    [AppointmentStatus.COMPLETED]: <CheckCircle className="w-6 h-6 text-white" />,
+    [AppointmentStatus.CANCELED]: <Ban className="w-6 h-6 text-white" />,
+    [AppointmentStatus.REJECTED]: <GitPullRequestClosedIcon className="w-6 h-6 text-white" />,
+    [AppointmentStatus.APPROVED]: <CheckCircle className="w-6 h-6 text-white" />,
+    [AppointmentStatus.RATED]: <Star className="w-6 h-6 text-white" />,
+    [AppointmentStatus.CREATED]: <BadgePlus className="w-6 h-6 text-white" />,
+    [AppointmentStatus.PAID]: <CircleDollarSign className="w-6 h-6 text-white" />,
+};
 
 export const appointmentsColumns: (
     t: TFunction<"translation", undefined>,
@@ -226,7 +264,7 @@ export const appointmentsColumns: (
                 //     Cancel
                 // </Button>
                 <Select disabled={status === "CANCELLED" || status === "REJECTED" || status === "COMPLETED" || role === RoleType.ADMIN || role === RoleType.SUPER_ADMIN} onValueChange={(val) => { if (onAppointmentChange) { onAppointmentChange(original, val) } }} value={status} defaultValue={status}>
-                    <SelectTrigger className={cn("flex gap-2 text-white", status === "CANCELED" ? "bg-red-500" : status === "PENDING" ? "bg-yellow-500" : status === "STARTED" ? "bg-indigo-800" : status === "REJECTED" ? "bg-red-500" : status === "COMPLETED" ? "bg-green-600" : "")}>
+                    <SelectTrigger className={cn("flex gap-2 text-white", statusColors[status as keyof typeof statusColors] || "")}>
                         <SelectValue />
                     </SelectTrigger>
                     <SelectContent>

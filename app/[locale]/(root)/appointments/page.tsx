@@ -113,15 +113,13 @@ const Appointments = () => {
                 setCancelModalOpen(true)
                 return
             }
-            if (status === "COMPLETED" && item.paymentStatus !== "APPROVED" || item.paymentStatus !== "PAID") {
+            if ((status === "COMPLETED") && (item.paymentStatus !== "APPROVED" && item.paymentStatus !== "PAID")) {
                 toast({
                     variant: "destructive",
                     description: "Please Complete the payment first!",
                 })
                 return;
             }
-
-
             await APIService.getInstance().editAppointment(item?.id, { status });
             toast({
                 variant: "success",
@@ -136,6 +134,8 @@ const Appointments = () => {
 
                 setFlag(!flag)
             }
+
+
         } catch (error) {
             toast({
                 variant: "destructive",
