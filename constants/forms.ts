@@ -8,6 +8,7 @@ import {
   ICityFormValues,
   ICountryFormValues,
   IEmployeeFormValues,
+  IEmployeeProviderFormValues,
   IFormValueObj,
   ILoginFormValues,
   ILoyaltyProgramFormValues,
@@ -29,6 +30,7 @@ import {
   branchValidationSchema,
   cityValidationSchema,
   countryValidationSchema,
+  employeeProviderValidationSchema,
   employeeValidationSchema,
   loginValidationSchema,
   loyaltyProgramValidationSchema,
@@ -95,7 +97,27 @@ export const providerDefaultValues: (
   lastName: val ? val.lastName : "",
   email: val ? val.email : "",
   phone: val ? val.phone : "",
-  password: val ? "Password@12" : "",
+  password: val ? val.password || "Password@12" : "",
+});
+export const employeeProviderDefaultValues: (
+  val?: SampleEmployeeProvider
+) => IEmployeeProviderFormValues = (val) => ({
+  firstName: val ? val.firstName : "",
+  lastName: val ? val.lastName : "",
+  email: val ? val.email : "",
+  phone: val ? val.phone : "",
+  password: val ? val.password || "Password@12" : "",
+  jobDescription: val ? val.jobDescription || "" : "",
+  workHourFrom: val
+    ? val.workHourFrom
+      ? formatTime(val.workHourFrom)
+      : ("" as any)
+    : ("" as any),
+  workHourTo: val
+    ? val.workHourTo
+      ? formatTime(val.workHourTo)
+      : ("" as any)
+    : ("" as any),
 });
 export const employeeDefaultValues: IEmployeeFormValues = {
   name: "",
@@ -442,6 +464,66 @@ export const providerFormVals: (
       name: "password",
       label: t(formConstants.PASS_PLACEHOLDER),
       type: "password",
+    },
+  }),
+});
+export const employeeProvFormVals: (
+  val?: SampleEmployeeProvider
+) => IFormValueObj<IEmployeeProviderFormValues> = (val) => ({
+  validationSchema: employeeProviderValidationSchema,
+  initialValues: employeeProviderDefaultValues(val),
+  info: (t) => ({
+    firstName: {
+      placeHolder: t(formConstants.FIRST_NAME),
+      hasError: true,
+      name: "firstName",
+      label: t(formConstants.FIRST_NAME),
+    },
+    lastName: {
+      placeHolder: t(formConstants.LAST_NAME),
+      hasError: true,
+      name: "lastName",
+      label: t(formConstants.LAST_NAME),
+    },
+    email: {
+      placeHolder: t(formConstants.EMAIL_PLACEHOLDER),
+      hasError: true,
+      name: "email",
+      label: t(formConstants.EMAIL_LABEL),
+    },
+    phone: {
+      placeHolder: t("+966 *******"),
+      hasError: true,
+      name: "phone",
+      label: t(formConstants.PHONE),
+    },
+    password: {
+      placeHolder: t(formConstants.PASS_PLACEHOLDER),
+      hasError: true,
+      name: "password",
+      label: t(formConstants.PASS_PLACEHOLDER),
+      type: "password",
+    },
+    jobDescription: {
+      placeHolder: t(formConstants.JOB_DESC),
+      hasError: true,
+      name: "jobDescription",
+      label: t(formConstants.JOB_DESC),
+      type: FieldTypesEnum.Textarea,
+    },
+    workHourFrom: {
+      placeHolder: t(formConstants.FROM),
+      hasError: true,
+      name: "workHourFrom",
+      label: t(formConstants.WORKING_HOURS),
+      type: "time",
+    },
+    workHourTo: {
+      placeHolder: t(formConstants.TO),
+      hasError: true,
+      name: "workHourTo",
+      // label: t(formConstants.JOB_DESC),
+      type: "time",
     },
   }),
 });

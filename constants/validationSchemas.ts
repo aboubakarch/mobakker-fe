@@ -210,6 +210,50 @@ export const providerValidationSchema = yup.object().shape({
     .max(32, "Password cannot exceed 32 characters")
     .required("Password is required"),
 });
+export const employeeProviderValidationSchema = yup.object().shape({
+  firstName: yup
+    .string()
+    .min(2, "First name must be at least 2 characters")
+    .max(100, "First name cannot exceed 100 characters")
+    .required("First name is required"),
+  lastName: yup
+    .string()
+    .min(2, "Last name must be at least 2 characters")
+    .max(100, "Last name cannot exceed 100 characters")
+    .required("Last name is required"),
+  email: yup
+    .string()
+    .email("Invalid email format")
+    .required("Email is required"),
+  phone: yup
+    .string()
+    .test("phone-validation", "Invalid phone number", function (value: any) {
+      // Pakistani phone number regex pattern
+      const pakistanPhoneRegex = /^\+92[0-9]{2}[0-9]{7,8}$/;
+      // Saudi Arabian phone number regex pattern
+      const saudiPhoneRegex = /^((?:[+?0?0?966]+)(?:\s?\d{2})(?:\s?\d{7}))$/;
+
+      // Check if the phone number matches either pattern
+      if (pakistanPhoneRegex.test(value) || saudiPhoneRegex.test(value)) {
+        return true;
+      }
+
+      return false;
+    })
+    .required("Phone is required"),
+  password: yup
+    .string()
+    .min(8, "Password must be at least 8 characters")
+    .max(32, "Password cannot exceed 32 characters")
+    .required("Password is required"),
+  jobDescription: yup
+    .string()
+    .min(2, "Job description must be at least 2 characters")
+    .max(100, "Job description cannot exceed 100 characters")
+    .required("Job description is required"),
+  workHourFrom: yup.string().required("Start hour is required"),
+  workHourTo: yup.string().required("End hour is required"),
+});
 
 export const providerRegistrationValidationSchema = yup.object().shape({
   firstName: yup

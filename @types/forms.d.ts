@@ -50,6 +50,16 @@ interface IProviderFormValues {
   phone: string;
   password: string;
 }
+interface IEmployeeProviderFormValues {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  password: string;
+  jobDescription: string;
+  workHourFrom: Date;
+  workHourTo: Date;
+}
 interface IEmployeeFormValues {
   name: string;
   hours: string;

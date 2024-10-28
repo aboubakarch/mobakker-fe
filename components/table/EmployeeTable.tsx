@@ -14,7 +14,7 @@ import EmployeeFilters from './filters/EmployeeFilters'
 const EmployeeTable: FC<ITableProps<SampleBranchManager>> = ({ handleEdit, handleDelete, onUpdateFlag, handleAssign, handleRow }) => {
     const { t } = useTranslation()
     const { toast } = useToast()
-    const [data, setData] = useState<SampleBranchManager[]>([])
+    const [data, setData] = useState<SampleEmployeeProvider[]>([])
     const [total, setTotal] = useState<number>(1)
     const [pageLoaded, setPageLoaded] = useState(false)
     const [loading, setLoading] = useState(false)

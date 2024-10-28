@@ -11,6 +11,7 @@ const AppForm: FC<IAppFormProps<IFormTemplate>> = ({ initialValues, onSubmit, va
         resolver: yupResolver(validationSchema),
         defaultValues: initialValues,
     })
+    console.log(form.formState.errors)
 
     return (
         <Form {...form}>

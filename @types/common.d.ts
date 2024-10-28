@@ -190,6 +190,17 @@ interface SampleProvider {
   phone: string;
   description: string;
 }
+interface SampleEmployeeProvider {
+  firstName: string;
+  lastName: string;
+  password: string;
+  email: string;
+  phone: string;
+  description: string;
+  jobDescription: string;
+  workHourFrom: string;
+  workHourTo: string;
+}
 interface SampleCustomerCare {
   firstName: string;
   lastName: string;
@@ -206,6 +217,9 @@ interface SampleBranchManager {
   email: string;
   phone: string;
   description: string;
+  jobDescription?: string;
+  workHourFrom?: string;
+  workHourTo?: string;
 }
 interface SampleUser {
   name: string;

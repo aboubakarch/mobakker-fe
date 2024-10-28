@@ -21,7 +21,7 @@ import { getCookie, isValidImageSrc } from "@/lib/helpers";
 import { RoleType } from "@/constants/enums";
 
 
-export const employeeColumns: (t: TFunction<"translation", undefined>, handleEdit?: (val: SampleProvider) => void, handleDelete?: (val: SampleProvider) => void, handleAssign?: (val: SampleProvider) => void) => ColumnDef<SampleProvider>[] =
+export const employeeColumns: (t: TFunction<"translation", undefined>, handleEdit?: (val: SampleEmployeeProvider) => void, handleDelete?: (val: SampleEmployeeProvider) => void, handleAssign?: (val: SampleEmployeeProvider) => void) => ColumnDef<SampleEmployeeProvider>[] =
     (t, handleEdit, handleDelete, handleAssign) => [
 
         {
@@ -80,7 +80,7 @@ export const employeeColumns: (t: TFunction<"translation", undefined>, handleEdi
             cell: ({ row }) => {
                 const email: string = row.getValue("email");
                 return (
-                    <div className="w-max flex items-center justify-center text-left justify-self-center">
+                    <div className="w-max flex items-center justify-center text-left ">
 
                         <p className="text-sm line-clamp-1">{email}</p>
                     </div>
@@ -95,9 +95,53 @@ export const employeeColumns: (t: TFunction<"translation", undefined>, handleEdi
             cell: ({ row }) => {
                 const phone: string = row.getValue("phone");
                 return (
-                    <div className="w-max flex items-center justify-center text-left justify-self-center">
+                    <div className="w-max flex items-center justify-center text-left ">
 
                         <p className="text-sm line-clamp-1">{phone}</p>
+                    </div>
+                )
+            },
+        },
+        {
+            accessorKey: "jobDescription",
+            header: () => <div className="text-left">{t(tableHeader.JOB_DESC)}</div>,
+
+            cell: ({ row }) => {
+                const email: string = row.original.jobDescription || "-";
+                return (
+                    <div className="w-max flex items-center justify-center text-left ">
+
+                        <p className="text-sm line-clamp-1">{email}</p>
+                    </div>
+                )
+            },
+        },
+
+        {
+            accessorKey: "workHourFrom",
+            header: () => <div className="text-left">{t(tableHeader.START_DATE)}</div>,
+
+            cell: ({ row }) => {
+                const email: string = row.original.workHourFrom || "-";
+                return (
+                    <div className="w-max flex items-center justify-center text-left ">
+
+                        <p className="text-sm line-clamp-1">{email}</p>
+                    </div>
+                )
+            },
+        },
+
+        {
+            accessorKey: "workHourTo",
+            header: () => <div className="text-left">{t(tableHeader.END_DATE)}</div>,
+
+            cell: ({ row }) => {
+                const email: string = row.original.workHourTo || "-";
+                return (
+                    <div className="w-max flex items-center justify-center text-left ">
+
+                        <p className="text-sm line-clamp-1">{email}</p>
                     </div>
                 )
             },
