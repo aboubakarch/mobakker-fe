@@ -28,7 +28,7 @@ const Subscriptions = () => {
                         <p className="text-center text-gray-500 dark:text-white text-sm font-normal  leading-normal">{t(messages.PRICING_TABLE)}</p>
                         <p className='text-black dark:text-white text-3xl font-normal '>{t(messages.OUR_PRICING_PLAN)}</p>
                     </div>
-                    <div className="w-[516px] flex justify-between  bg-gradient-to-b py-3 px-2 text-white from-emerald-900 to-indigo-800 rounded-lg" >
+                    <div className="w-[516px] flex justify-between  bg-gradient-to-b py-3 px-2 text-white dark:text-white from-emerald-900 to-indigo-800 rounded-lg" >
                         <div className='flex flex-col gap-3 h-full justify-between '>
                             <p className='text-sm font-medium '>{t(messages.YOUR_CURRENT_PACKAGE)}</p>
                             <p className='text-sm font-medium '>72 Days Left</p>
@@ -76,16 +76,16 @@ const Subscriptions = () => {
                                 <div className="text-white text-3xl font-semibold ">SR189</div>
                                 <div className="text-white text-sm font-medium font-['Inter'] leading-normal">/3 month</div>
                             </div>
-                            <div className="w-full text-white text-sm font-normal line-clamp-2 leading-normal">{t(messages.PERSONAL_WEBSITE_PROJECT)}</div>
+                            <div className="w-full text-white dark:text-white text-sm font-normal line-clamp-2 leading-normal">{t(messages.PERSONAL_WEBSITE_PROJECT)}</div>
                         </div>
                         <div className="w-full h-[0px] border border-white"></div>
                         <ul className='flex flex-col gap-3'>
-                            <li className="w-full text-white text-sm font-normal  leading-normal">1 {t(messages.USER)}</li>
-                            <li className="w-full text-white text-sm font-normal  leading-normal">{t(messages.ALL_UI_COMPONENTS)}</li>
-                            <li className="w-full text-white text-sm font-normal  leading-normal">{t(messages.LIFETIME_ACCESS)}</li>
-                            <li className="w-full text-white text-sm font-normal  leading-normal">{t(messages.FREE_UPDATES)}</li>
-                            <li className="w-full text-white text-sm font-normal  leading-normal">{t(messages.USE_ON_PROJECT)}</li>
-                            <li className="w-full text-white text-sm font-normal  leading-normal">{t(messages.THREE_MONTHS_SUPPORT)}</li>
+                            <li className="w-full text-white dark:text-white text-sm font-normal  leading-normal">1 {t(messages.USER)}</li>
+                            <li className="w-full text-white dark:text-white text-sm font-normal  leading-normal">{t(messages.ALL_UI_COMPONENTS)}</li>
+                            <li className="w-full text-white dark:text-white text-sm font-normal  leading-normal">{t(messages.LIFETIME_ACCESS)}</li>
+                            <li className="w-full text-white dark:text-white text-sm font-normal  leading-normal">{t(messages.FREE_UPDATES)}</li>
+                            <li className="w-full text-white dark:text-white text-sm font-normal  leading-normal">{t(messages.USE_ON_PROJECT)}</li>
+                            <li className="w-full text-white dark:text-white text-sm font-normal  leading-normal">{t(messages.THREE_MONTHS_SUPPORT)}</li>
                         </ul>
                         <Button variant={"default"} className='bg-background bg-opacity-95 w-full hover:bg-background hover:bg-opacity-85 rounded-md border border-zinc-200'>
                             <p className='text-indigo-800 text-base font-medium'>{t(messages.PAUSE)}</p>

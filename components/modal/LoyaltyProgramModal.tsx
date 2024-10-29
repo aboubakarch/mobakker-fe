@@ -121,7 +121,7 @@ const LoyaltyProgramModal: FC<IModalCompProps<SampleLoyalPrograms>> = ({ closeMo
     const editPromotion = async (values: yup.InferType<typeof loyaltyProgramValidationSchema>) => {
 
         console.log(values)
-        // await APIService.getInstance().editPromotion(val?.id as string, values);
+        await APIService.getInstance().editLoyalProgram(val?.id as string, values);
         setLoading(false)
 
         toast({

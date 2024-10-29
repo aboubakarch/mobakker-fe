@@ -12,7 +12,7 @@ import { SortEnum } from '@/constants/enums'
 import { debounce } from 'lodash'
 import EmployeeFilters from './filters/EmployeeFilters'
 
-const ProviderTable: FC<ITableProps<SampleProvider>> = ({ handleEdit, handleDelete, handleRow, onUpdateFlag }) => {
+const ProviderTable: FC<ITableProps<SampleProvider>> = ({ handleEdit, handleDelete, handleRow, onUpdateFlag, onToggle }) => {
     const { t } = useTranslation()
     const { toast } = useToast()
     const [data, setData] = useState<SampleBranchManager[]>([])
@@ -89,6 +89,7 @@ const ProviderTable: FC<ITableProps<SampleProvider>> = ({ handleEdit, handleDele
         setPagination({ pageIndex: 0, pageSize: 10 })
     }
 
+
     return (
 
         <div>
@@ -99,7 +100,7 @@ const ProviderTable: FC<ITableProps<SampleProvider>> = ({ handleEdit, handleDele
                 </div>
             ) : (<DataTable
                 data={data}
-                columns={providerColumns(t, handleEdit, handleDelete)}
+                columns={providerColumns(t, handleEdit, handleDelete, onToggle as any)}
                 filterKey='firstName' count={total}
                 onChangePagination={setPagination}
                 tablePagination={pagination}

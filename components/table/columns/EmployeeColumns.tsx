@@ -107,7 +107,7 @@ export const employeeColumns: (t: TFunction<"translation", undefined>, handleEdi
             header: () => <div className="text-left">{t(tableHeader.JOB_DESC)}</div>,
 
             cell: ({ row }) => {
-                const email: string = row.original.jobDescription || "-";
+                const email: string = (row.original as any).data.jobDescription || "-";
                 return (
                     <div className="w-max flex items-center justify-center text-left ">
 
@@ -122,7 +122,8 @@ export const employeeColumns: (t: TFunction<"translation", undefined>, handleEdi
             header: () => <div className="text-left">{t(tableHeader.START_DATE)}</div>,
 
             cell: ({ row }) => {
-                const email: string = row.original.workHourFrom || "-";
+
+                const email: string = (row.original as any).data.workHourFrom || "-";
                 return (
                     <div className="w-max flex items-center justify-center text-left ">
 
@@ -137,7 +138,7 @@ export const employeeColumns: (t: TFunction<"translation", undefined>, handleEdi
             header: () => <div className="text-left">{t(tableHeader.END_DATE)}</div>,
 
             cell: ({ row }) => {
-                const email: string = row.original.workHourTo || "-";
+                const email: string = (row.original as any).data.workHourTo || "-";
                 return (
                     <div className="w-max flex items-center justify-center text-left ">
 
@@ -274,7 +275,7 @@ export const employeeColumns: (t: TFunction<"translation", undefined>, handleEdi
         //         return (
         //             <div className="grid grid-rows-2 grid-cols-4 gap-3 items-center">
         //                 {booking.map((book, i) => (
-        //                     <div className={cn("p-2  rounded justify-center items-center text-white text-xs font-medium leading-tight text-left", i === (Math.floor(Math.random() * 8)) ? "bg-amber-400" : "bg-indigo-800")} key={i}>{book}</div>
+        //                     <div className={cn("p-2  rounded justify-center items-center text-white dark:text-white text-xs font-medium leading-tight text-left", i === (Math.floor(Math.random() * 8)) ? "bg-amber-400" : "bg-indigo-800")} key={i}>{book}</div>
         //                 ))}
         //             </div>
         //         )

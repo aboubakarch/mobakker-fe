@@ -129,6 +129,11 @@ export const promotionValidationSchema = yup.object().shape({
     .min(5, "Description cannot be less than 5 characters.")
     .max(250, "Description cannot exceed 500 characters.")
     .required("Please enter a description."),
+  totalCapacity: yup
+    .number()
+    .min(0, "Capacity cannot be negative")
+    .max(99999)
+    .required("Discount is required"),
 });
 export const appointmentValidationSchema = yup.object().shape({
   bookingDate: yup.date().required("Booking date is required"),

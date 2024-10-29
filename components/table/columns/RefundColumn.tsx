@@ -67,6 +67,60 @@ export const refundColumns: (
         },
     },
     {
+        accessorKey: "appointment.service",
+        header: () => <div className="text-left">{t(tableHeader.SERVICES_BOOKED)}</div>,
+        cell: ({ row }) => {
+            const rowItem: SampleServices = row.original?.appointment?.services || (row?.original?.appointment as any).service;
+            if (!rowItem) {
+                return null
+            }
+            return (
+                <div className="flex gap-3 items-center justify-center w-max">
+                    <div className="rounded-full h-11 w-11 relative">
+                        <Image
+                            src={rowItem.avatar && isValidImageSrc(rowItem.avatar) ? rowItem.avatar : '/assets/sampleImage.jpg'}
+                            alt="pfp"
+                            fill
+                            className="rounded-full"
+                        />
+                    </div>
+                    <div className="flex flex-col text-sm font-medium leading-snug">
+                        <p className="text-gray-900 dark:text-white">{rowItem.name}</p>
+                        <p className="text-indigo-800">{rowItem.price}</p>
+                    </div>
+                </div>
+            )
+        },
+    },
+
+    {
+        accessorKey: "appointment.branch",
+        header: () => <div className="text-left">{t(tableHeader.BRANCH_NAME)}</div>,
+
+        cell: ({ row }) => {
+            const rowItem: SampleBranch = row.original.appointment?.branch;
+            if (!rowItem) {
+                return null
+            }
+            return (
+                <div className="flex gap-3 items-center justify-center w-max">
+                    <div className="rounded-full h-11 w-11 relative">
+                        <Image
+                            src={rowItem.avatar && isValidImageSrc(rowItem.avatar) ? rowItem.avatar : '/assets/sampleImage.jpg'}
+                            alt="pfp"
+                            fill
+                            className="rounded-full"
+                        />
+                    </div>
+                    <div className="flex flex-col text-sm font-medium leading-snug">
+                        <p className="text-gray-900 dark:text-white">{rowItem.name}</p>
+                        <p className="text-indigo-800">{rowItem.city}</p>
+                    </div>
+                </div>
+            )
+        },
+    },
+    {
         accessorKey: "customer",
         header: () => <div className="text-left">{t(tableHeader.CUSTOMER_NAME)}</div>,
 

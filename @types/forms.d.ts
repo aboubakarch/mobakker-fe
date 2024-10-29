@@ -85,6 +85,7 @@ interface IPromotionFormValues {
   type: "FIXED" | "PERCENTAGE";
   description: string;
   discount: number;
+  totalCapacity: number;
 }
 interface IAppointmentFormValues {
   bookingDate: Date;

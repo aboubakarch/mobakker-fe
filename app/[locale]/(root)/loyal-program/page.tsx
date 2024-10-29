@@ -67,6 +67,25 @@ const LoyalProgram = () => {
         }
         handleDeleteModalClose()
     }
+    const onToggle = async (id: string, val: boolean) => {
+        try {
+
+            await APIService.getInstance().editLoyalProgram(id, { isActive: val });
+
+
+            toast({
+                variant: "success",
+                description: "Loyal Program Updated!",
+            })
+            setFlag(!flag)
+        } catch (error) {
+            toast({
+                variant: "destructive",
+                description: "Error updating Loyal Program!",
+            })
+
+        }
+    }
     return (
         <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar dark:scrollbar-dark">
             <LoyaltyProgramModal visible={modalOpen} closeModal={handleModalClose} val={selectedProg} onUpdate={() => setFlag(!flag)} />
@@ -89,6 +108,7 @@ const LoyalProgram = () => {
                 handleEdit={handleEdit}
                 handleDelete={handleDelete}
                 onUpdateFlag={flag}
+                onToggle={onToggle}
             />
         </div>
     )

@@ -26,10 +26,10 @@ const BaseFilter: FC<{ onApply?: () => void, onReset?: () => void, children?: Re
 
                 <SheetFooter>
                     <SheetClose asChild>
-                        <Button onClick={onReset ? onReset : undefined} type="button" className="ltr:ml-auto rtl:mr-auto bg-indigo-800 text-white  hover:bg-indigo-600">Reset Filter</Button>
+                        <Button onClick={onReset ? onReset : undefined} type="button" className="ltr:ml-auto rtl:mr-auto bg-indigo-800 text-white dark:text-white  hover:bg-indigo-600">Reset Filter</Button>
                     </SheetClose>
                     <SheetClose asChild>
-                        <Button onClick={onApply ? onApply : undefined} type="button" className="ltr:ml-auto rtl:mr-auto bg-indigo-800 text-white  hover:bg-indigo-600">Apply Filter</Button>
+                        <Button onClick={onApply ? onApply : undefined} type="button" className="ltr:ml-auto rtl:mr-auto bg-indigo-800 text-white dark:text-white  hover:bg-indigo-600">Apply Filter</Button>
                     </SheetClose>
                 </SheetFooter>
             </SheetContent>

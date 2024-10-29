@@ -215,7 +215,7 @@ export const adminColumns: (t: TFunction<"translation", undefined>, handleEdit?:
         //         return (
         //             <div className="grid grid-rows-2 grid-cols-4 gap-3 items-center">
         //                 {booking.map((book, i) => (
-        //                     <div className={cn("p-2  rounded justify-center items-center text-white text-xs font-medium leading-tight text-left", i === (Math.floor(Math.random() * 8)) ? "bg-amber-400" : "bg-indigo-800")} key={i}>{book}</div>
+        //                     <div className={cn("p-2  rounded justify-center items-center text-white dark:text-white text-xs font-medium leading-tight text-left", i === (Math.floor(Math.random() * 8)) ? "bg-amber-400" : "bg-indigo-800")} key={i}>{book}</div>
         //                 ))}
         //             </div>
         //         )

@@ -109,6 +109,8 @@ interface SamplePromotions {
   type: "FIXED" | "PERCENTAGE";
   description: string;
   discount: number;
+  totalCapacity: number;
+  currentCapacity: number;
 }
 interface Subscription {
   id: string;
@@ -189,6 +191,7 @@ interface SampleProvider {
   email: string;
   phone: string;
   description: string;
+  isVerified: string;
 }
 interface SampleEmployeeProvider {
   firstName: string;
@@ -200,6 +203,7 @@ interface SampleEmployeeProvider {
   jobDescription: string;
   workHourFrom: string;
   workHourTo: string;
+  isVerified: string;
 }
 interface SampleCustomerCare {
   firstName: string;
@@ -220,6 +224,7 @@ interface SampleBranchManager {
   jobDescription?: string;
   workHourFrom?: string;
   workHourTo?: string;
+  isVerified: string;
 }
 interface SampleUser {
   name: string;

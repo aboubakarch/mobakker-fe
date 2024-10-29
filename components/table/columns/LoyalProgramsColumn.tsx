@@ -17,11 +17,12 @@ import { TFunction } from "i18next";
 import { getCookie, isValidImageSrc } from "@/lib/helpers";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/Tooltip";
 import { RoleType } from "@/constants/enums";
+import { Switch } from "@/components/ui/Switch";
 // import { Checkbox } from "@/components/ui/Checkbox";
 
 
-export const loyalProgramsColumns: (t: TFunction<"translation", undefined>, handleEdit?: (val: SampleLoyalPrograms) => void, handleDelete?: (val: SampleLoyalPrograms) => void) => ColumnDef<SampleLoyalPrograms>[] =
-    (t, handleEdit, handleDelete) => [
+export const loyalProgramsColumns: (t: TFunction<"translation", undefined>, handleEdit?: (val: SampleLoyalPrograms) => void, handleDelete?: (val: SampleLoyalPrograms) => void, onToggle?: (id: string, val: boolean) => void) => ColumnDef<SampleLoyalPrograms>[] =
+    (t, handleEdit, handleDelete, onToggle) => [
 
         {
             accessorKey: "branch",
@@ -66,6 +67,22 @@ export const loyalProgramsColumns: (t: TFunction<"translation", undefined>, hand
                 const rating: string = row.getValue("rating");
                 return (
                     <Badge text={rating} containerStyle="bg-emerald-500" textStyle="text-emerald-500" />
+                )
+            },
+        },
+        {
+            accessorKey: "isActive",
+            header: () => <div className="">{t(tableHeader.STATUS)}</div>,
+
+            cell: ({ row }) => {
+                const status: boolean = row.getValue("isActive");
+                const id = row.original.id
+                return (
+                    <Switch className='data-[state=checked]:bg-indigo-800 data-[state=unchecked]:bg-red-400 ' checked={status} onClick={(e) => e.stopPropagation()} onCheckedChange={(checked: boolean) => {
+                        if (onToggle) {
+                            onToggle(id || "", checked)
+                        }
+                    }} />
                 )
             },
         },

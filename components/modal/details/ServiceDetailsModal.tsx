@@ -88,7 +88,7 @@ const ServiceDetailsModal: FC<IModalDetailsProps<SampleServices>> = ({ closeModa
                         <p className="text-sm text-gray-500 dark:text-white mb-3">Availability</p>
                         <div className="grid grid-flow-row grid-cols-4 gap-3 items-center">
                             {val.availablity.split(",").map((a: any, i: number) => (
-                                <div className={"p-2  rounded justify-center items-center text-white text-[9px] font-medium leading-tight text-center bg-indigo-800"} key={i}>{a}</div>
+                                <div className={"p-2  rounded justify-center items-center text-white dark:text-white text-[9px] font-medium leading-tight text-center bg-indigo-800"} key={i}>{a}</div>
                             ))}
                         </div>                    </div>
                     {val.branches && val.branches.length > 0 && (

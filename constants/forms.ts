@@ -107,15 +107,15 @@ export const employeeProviderDefaultValues: (
   email: val ? val.email : "",
   phone: val ? val.phone : "",
   password: val ? val.password || "Password@12" : "",
-  jobDescription: val ? val.jobDescription || "" : "",
+  jobDescription: val ? (val as any).data.jobDescription || "" : "",
   workHourFrom: val
-    ? val.workHourFrom
-      ? formatTime(val.workHourFrom)
+    ? (val as any).data.workHourFrom
+      ? formatTime((val as any).data.workHourFrom)
       : ("" as any)
     : ("" as any),
   workHourTo: val
-    ? val.workHourTo
-      ? formatTime(val.workHourTo)
+    ? (val as any).data.workHourTo
+      ? formatTime((val as any).data.workHourTo)
       : ("" as any)
     : ("" as any),
 });
@@ -152,6 +152,7 @@ export const promotionDefaultValues: (
   type: val ? val.type : "FIXED",
   description: val ? val.description : "",
   discount: val ? (val as any)?.discount || "" : "",
+  totalCapacity: val ? (val as any).totalCapacity || "" : "",
 });
 export const appointmentDefaultValues: (
   val?: SampleAppointments
@@ -653,6 +654,13 @@ export const promotionFormVals: (
       hasError: true,
       name: "discount",
       label: t(formConstants.DISCOUNT_LABEL),
+      type: "number",
+    },
+    totalCapacity: {
+      placeHolder: t(formConstants.CAPACITY),
+      hasError: true,
+      name: "totalCapacity",
+      label: t(formConstants.CAPACITY),
       type: "number",
     },
   }),

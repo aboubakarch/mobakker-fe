@@ -394,6 +394,9 @@ class APIService extends HTTPService {
   public createLoyaltyProgram<T = any>(params: any): Promise<T> {
     return this.post<T>(`${endpoints.LOYALTY_PROGRAM_CREATE}`, params)
   }
+  public editLoyalProgram<T = any>(id: string, payload?: object): Promise<T> {
+    return this.patch<T>(`${endpoints.LOYALTY_PROGRAM}/${id}`, payload)
+  }
   public getLoyalPrograms<T = any>(params: any): Promise<T> {
     return this.get<T>(endpoints.LOYALTY_PROGRAM, params)
   }

@@ -10,7 +10,7 @@ import { debounce } from 'lodash'
 import { PaginationState } from '@tanstack/react-table'
 import { Skeleton } from '../ui/Skeleton'
 
-const LoyalProgramTable: FC<ITableProps<SampleLoyalPrograms>> = ({ handleEdit, handleDelete, onUpdateFlag }) => {
+const LoyalProgramTable: FC<ITableProps<SampleLoyalPrograms>> = ({ handleEdit, handleDelete, onUpdateFlag, onToggle }) => {
     const { t } = useTranslation()
     const { toast } = useToast()
     const [data, setData] = useState<SampleLoyalPrograms[]>([])
@@ -80,7 +80,7 @@ const LoyalProgramTable: FC<ITableProps<SampleLoyalPrograms>> = ({ handleEdit, h
                 </div>
             ) : (<DataTable
                 data={data}
-                columns={loyalProgramsColumns(t, handleEdit, handleDelete)}
+                columns={loyalProgramsColumns(t, handleEdit, handleDelete, onToggle)}
                 filterKey='promoCode' count={total}
                 onChangePagination={setPagination}
                 tablePagination={pagination}

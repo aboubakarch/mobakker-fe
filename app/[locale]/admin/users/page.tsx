@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import DeleteModal from '@/components/modal/DeleteModal'
 import EmployeeDetailsModal from '@/components/modal/details/EmployeeDetailsModal'
 import ProviderModal from '@/components/modal/ProviderModal'
-import ProviderTable from '@/components/table/ProviderTable'
 import { Button } from '@/components/ui'
 import PageHeader from '@/components/ui/PageHeader'
 import { messages } from '@/constants/constants'
@@ -12,6 +11,7 @@ import APIService from '@/services/api'
 import { useTranslation } from 'react-i18next'
 import UsersTable from '@/components/table/UsersTable'
 import CustomerModal from '@/components/modal/CustomerModal'
+import { convertToFormData } from '@/lib/helpers'
 
 const LoyalProgram = () => {
     const { t } = useTranslation()
@@ -62,19 +62,48 @@ const LoyalProgram = () => {
                 await APIService.getInstance().deleteUser(selectedProvider?.id as any);
             }
             else {
-                throw new Error("No Provider selected")
+                throw new Error("No User selected")
             }
 
 
             toast({
                 variant: "destructive",
-                description: "Provider Deleted!",
+                description: "User Deleted!",
             })
             setFlag(!flag)
         } catch (error) {
             toast({
                 variant: "destructive",
-                description: "Error deleting Provider!",
+                description: "Error deleting User!",
+            })
+
+        }
+        setLoading(false)
+
+        handleDeleteModalClose()
+    }
+
+    const onToggle = async (val: SampleProvider, active: boolean) => {
+        setLoading(true)
+        try {
+
+            const vals = {
+                isVerified: active ? "UNVERIFIED" : "BLOCKED"
+            }
+            const formData = convertToFormData(vals)
+
+            await APIService.getInstance().editCustomer((val as any).id as string, formData as any);
+
+
+            toast({
+                variant: "success",
+                description: "User Updated!",
+            })
+            setFlag(!flag)
+        } catch (error) {
+            toast({
+                variant: "destructive",
+                description: "Error updating use!",
             })
 
         }
@@ -102,7 +131,7 @@ const LoyalProgram = () => {
                 <Button onClick={() => setModalOpen(true)} className='bg-indigo-800 hover:bg-indigo-600'>{t(messages.CREATE_USER)}</Button>
 
             </PageHeader>
-            <UsersTable handleEdit={handleEdit} handleDelete={handleDelete} onUpdateFlag={flag} handleRow={handleRow} />
+            <UsersTable handleEdit={handleEdit} handleDelete={handleDelete} onUpdateFlag={flag} handleRow={handleRow} onToggle={onToggle as any} />
         </div>
     )
 }

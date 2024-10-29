@@ -156,7 +156,7 @@ const PromotionModal: FC<IModalCompProps<SamplePromotions>> = ({ closeModal, vis
                     </Button>
                 </div>
 
-                <div className='flex gap-2 flex-col gap-4'>
+                <div className='flex flex-col gap-4'>
 
                     <div className='flex gap-2'>
                         <div className='flex-1'>
@@ -181,6 +181,9 @@ const PromotionModal: FC<IModalCompProps<SamplePromotions>> = ({ closeModal, vis
                         <div className='flex-1'>
                             <InputField  {...promotionFormVal.info(t).description} />
                         </div>
+                    </div>
+                    <div className='flex-1'>
+                        <InputField  {...promotionFormVal.info(t).totalCapacity} />
                     </div>
                 </div>
 

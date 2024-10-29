@@ -112,7 +112,7 @@ const Notifications = () => {
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <div className='inline-flex cursor-pointer items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input  hover:bg-accent hover:text-accent-foreground h-8 p-1 bg-screen relative'>
-                    {unreadCount > 0 && <span className='absolute text-center h-4 w-4 text-xs rounded-full bg-red-600 text-white -top-2 -right-2'>{unreadCount}</span>}
+                    {unreadCount > 0 && <span className='absolute text-center h-4 w-4 text-xs rounded-full bg-red-600 text-white dark:text-white -top-2 -right-2'>{unreadCount}</span>}
                     <BellIcon className='h-6 w-6' />
                 </div>
             </DropdownMenuTrigger>

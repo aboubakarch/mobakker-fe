@@ -3,16 +3,17 @@ import {
     Button,
     Checkbox,
 } from "@/components/ui"
-import { Edit, MoreVertical, Trash2, UserCog2 } from "lucide-react";
+import { Edit, MoreVertical, ShieldMinus, ShieldPlus, Trash2, UserCog2 } from "lucide-react";
 import { messages, tableHeader } from "@/constants/constants";
 import { TFunction } from "i18next";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/Tooltip";
 import { getCookie, isValidImageSrc } from "@/lib/helpers";
 import { RoleType } from "@/constants/enums";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 
-export const userColumns: (t: TFunction<"translation", undefined>, handleEdit?: (val: SampleProvider) => void, handleDelete?: (val: SampleProvider) => void) => ColumnDef<SampleProvider>[] =
-    (t, handleEdit, handleDelete) => [
+export const userColumns: (t: TFunction<"translation", undefined>, handleEdit?: (val: SampleProvider) => void, handleDelete?: (val: SampleProvider) => void, onToggle?: (val: SampleProvider, active: boolean) => void) => ColumnDef<SampleProvider>[] =
+    (t, handleEdit, handleDelete, onToggle) => [
 
         {
             id: "select",
@@ -119,6 +120,22 @@ export const userColumns: (t: TFunction<"translation", undefined>, handleEdit?: 
                 return (
                     <TooltipProvider>
                         <div className="flex gap-2">
+                            {(role === RoleType.ADMIN || role === RoleType.SUPER_ADMIN) &&
+                                <Tooltip>
+                                    <TooltipTrigger asChild>
+                                        <Button onClick={onToggle ? (e: any) => { e.stopPropagation(); onToggle(rowVal, rowVal.isVerified === "BLOCKED") } : undefined} variant="ghost" className={cn("h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5", rowVal.isVerified === "BLOCKED" ? "hover:bg-red-600" : "hover:bg-green-500")}>
+                                            {rowVal.isVerified === "BLOCKED" ?
+
+                                                <ShieldPlus className="h-5 w-5 text-green-500" /> :
+                                                <ShieldMinus className="h-5 w-5 text-red-500" />
+                                            }
+                                        </Button>
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                        <p>{t(rowVal.isVerified === "BLOCKED" ? "Unblock User" : "Block User")}</p>
+                                    </TooltipContent>
+                                </Tooltip>
+                            }
                             <Tooltip>
                                 <TooltipTrigger asChild>
                                     <Button disabled={!(row.original as any)?.isActive} onClick={handleEdit ? (e: any) => { e.stopPropagation(); handleEdit(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
@@ -140,7 +157,7 @@ export const userColumns: (t: TFunction<"translation", undefined>, handleEdit?: 
                                 </TooltipContent>
                             </Tooltip>
                         </div>
-                    </TooltipProvider>
+                    </TooltipProvider >
 
                 )
             },
