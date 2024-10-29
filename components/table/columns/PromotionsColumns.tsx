@@ -131,6 +131,28 @@ export const promotionsColumns: (t: TFunction<"translation", undefined>, handleE
         //     }
         // },
         {
+            accessorKey: "currentCapacity",
+            header: () => <div className="">{t("Used")}</div>,
+
+            cell: ({ row }) => {
+                const services: string = row.getValue("currentCapacity");
+                return (
+                    <TextColumn text={services} />
+                )
+            },
+        },
+        {
+            accessorKey: "totalCapacity",
+            header: () => <div className="">{t(tableHeader.CAPACITY)}</div>,
+
+            cell: ({ row }) => {
+                const type: string = row.getValue("totalCapacity");
+                return (
+                    <Badge text={type} />
+                )
+            },
+        },
+        {
             accessorKey: "type",
             header: () => <div className="">{t(tableHeader.TYPE)}</div>,
 
