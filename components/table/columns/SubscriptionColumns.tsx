@@ -41,7 +41,7 @@ export const subscriptionColumns: (t: TFunction<"translation", undefined>, onSta
         //     cell: ({ row }) => {
         //         const subscriptionId: string = row.getValue("subscriptionId");
         //         return (
-        //             <div className="w-max flex items-center justify-center text-center justify-self-center">
+        //             <div className="w-max flex items-center justify-center text-center ">
 
         //                 <p className="text-sm line-clamp-1">{subscriptionId}</p>
         //             </div>

@@ -71,7 +71,7 @@ export const userColumns: (t: TFunction<"translation", undefined>, handleEdit?: 
             cell: ({ row }) => {
                 const email: string = row.getValue("email");
                 return (
-                    <div className="w-max flex items-center justify-center text-left justify-self-center">
+                    <div className="w-max flex items-center justify-center text-left ">
 
                         <p className="text-sm line-clamp-1">{email}</p>
                     </div>
@@ -86,7 +86,7 @@ export const userColumns: (t: TFunction<"translation", undefined>, handleEdit?: 
             cell: ({ row }) => {
                 const phone: string = row.getValue("phone");
                 return (
-                    <div className="w-max flex items-center justify-center text-left justify-self-center">
+                    <div className="w-max flex items-center justify-center text-left ">
 
                         <p className="text-sm line-clamp-1">{phone}</p>
                     </div>

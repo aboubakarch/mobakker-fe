@@ -127,7 +127,7 @@ export const refundColumns: (
         cell: ({ row }) => {
             const customerNumber: any = row.getValue("customer");
             return (
-                <div className="w-max flex items-center justify-center text-left justify-self-center">
+                <div className="w-max flex items-center justify-center text-left ">
                     <p className="text-sm line-clamp-1">{customerNumber?.user ? `${customerNumber?.user?.firstName || ""} ${customerNumber?.user?.lastName || ""}` : customerNumber.id}</p>
                 </div>
             )
@@ -141,7 +141,7 @@ export const refundColumns: (
         cell: ({ row }) => {
             const createdBy: any = row.getValue("createdBy");
             return (
-                <div className="w-max flex items-center justify-center text-left justify-self-center">
+                <div className="w-max flex items-center justify-center text-left ">
                     <p className="text-sm line-clamp-1">{`${createdBy?.firstName || ""} ${createdBy?.lastName || ""}`}</p>
                 </div>
             )

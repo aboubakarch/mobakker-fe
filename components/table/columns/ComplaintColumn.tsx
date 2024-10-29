@@ -25,7 +25,7 @@ export const complaintColumns: (t: TFunction<"translation", undefined>) => Colum
         cell: ({ row }) => {
             const complaint: string = row.getValue("complaint");
             return (
-                <div className="w-max flex items-center justify-center text-center justify-self-center">
+                <div className="w-max flex items-center justify-center text-center ">
 
                     <p className="text-sm line-clamp-1">{complaint}</p>
                 </div>
@@ -52,7 +52,7 @@ export const complaintColumns: (t: TFunction<"translation", undefined>) => Colum
         cell: ({ row }) => {
             const customerNumber: number = row.getValue("customerNumber");
             return (
-                <div className="w-max flex items-center justify-center text-center justify-self-center">
+                <div className="w-max flex items-center justify-center text-center ">
                     <p className="text-sm line-clamp-1">{customerNumber}</p>
                 </div>
             )

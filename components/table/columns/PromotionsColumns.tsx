@@ -27,7 +27,7 @@ export const promotionsColumns: (t: TFunction<"translation", undefined>, handleE
             cell: ({ row }) => {
                 const promotionName: string = row.getValue("promoCode");
                 return (
-                    <div className="w-max flex items-center justify-center  justify-self-center">
+                    <div className="w-max flex items-center justify-center  ">
 
                         <p className="text-sm line-clamp-1">{promotionName}</p>
                     </div>
@@ -41,7 +41,7 @@ export const promotionsColumns: (t: TFunction<"translation", undefined>, handleE
             cell: ({ row }) => {
                 const promotionName: string = row.getValue("discount");
                 return (
-                    <div className="w-max flex items-center justify-center  justify-self-center">
+                    <div className="w-max flex items-center justify-center  ">
 
                         <p className="text-sm line-clamp-1">{promotionName}</p>
                     </div>
@@ -80,7 +80,7 @@ export const promotionsColumns: (t: TFunction<"translation", undefined>, handleE
             cell: ({ row }) => {
                 const endDate: string = row.getValue("endDate");
                 return (
-                    <div className="w-max flex items-center justify-center  justify-self-center">
+                    <div className="w-max flex items-center justify-center  ">
                         <p className="text-sm line-clamp-1">{endDate}</p>
                     </div>
                 )
