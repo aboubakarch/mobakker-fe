@@ -100,12 +100,12 @@ export const appointmentsColumns: (
     // },
     {
         accessorKey: "id",
-        header: () => <div className="text-left">{t(tableHeader.BOOKING_ID)}</div>,
+        header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.BOOKING_ID)}</div>,
 
         cell: ({ row }) => {
             const bookingId: string = row.getValue("id");
             return (
-                <div className="w-max flex items-center justify-center text-left ">
+                <div className="w-max flex items-center justify-center ltr:text-left rtl:text-right ">
 
                     <p className="text-sm line-clamp-1">{bookingId}</p>
                 </div>
@@ -114,12 +114,12 @@ export const appointmentsColumns: (
     },
     {
         accessorKey: "customer",
-        header: () => <div className="text-left">{t(tableHeader.CUSTOMER_NAME)}</div>,
+        header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.CUSTOMER_NAME)}</div>,
 
         cell: ({ row }) => {
             const customerNumber: any = row.getValue("customer");
             return (
-                <div className="w-max flex items-center justify-center text-left ">
+                <div className="w-max flex items-center justify-center ltr:text-left rtl:text-right ">
                     <p className="text-sm line-clamp-1">{customerNumber?.user ? `${customerNumber?.user?.firstName || ""} ${customerNumber?.user?.lastName || ""}` : customerNumber.id}</p>
                 </div>
             )
@@ -128,7 +128,7 @@ export const appointmentsColumns: (
 
     {
         accessorKey: "services",
-        header: () => <div className="text-left">{t(tableHeader.SERVICES_BOOKED)}</div>,
+        header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.SERVICES_BOOKED)}</div>,
         cell: ({ row }) => {
             const rowItem: SampleServices = row.getValue("services");
             return (
@@ -151,7 +151,7 @@ export const appointmentsColumns: (
     },
     // {
     //     accessorKey: "serviceType",
-    //     header: () => <div className="text-left">{t(tableHeader.SERVICE_TYPE)}</div>,
+    //     header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.SERVICE_TYPE)}</div>,
 
     //     cell: ({ row }) => {
     //         const serviceType: string = row.getValue("serviceType");
@@ -162,7 +162,7 @@ export const appointmentsColumns: (
     // },
     {
         accessorKey: "branch",
-        header: () => <div className="text-left">{t(tableHeader.BRANCH_NAME)}</div>,
+        header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.BRANCH_NAME)}</div>,
 
         cell: ({ row }) => {
             const rowItem: SampleBranch = row.getValue("branch");
@@ -186,7 +186,7 @@ export const appointmentsColumns: (
     },
     {
         accessorKey: "bookingSlot",
-        header: () => <div className="text-left">{t(tableHeader.TIME_SLOT)}</div>,
+        header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.TIME_SLOT)}</div>,
 
         cell: ({ row }) => {
             const bookingSlot: string = row.getValue("bookingSlot");
@@ -197,7 +197,7 @@ export const appointmentsColumns: (
     },
     // {
     //     accessorKey: "",
-    //     header: () => <div className="text-left">{t(tableHeader.TIME)}</div>,
+    //     header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.TIME)}</div>,
 
     //     cell: ({ row }) => {
     //         const hours: string = row.getValue("hours");
@@ -208,7 +208,7 @@ export const appointmentsColumns: (
     // },
     {
         accessorKey: "bookingDate",
-        header: () => <div className="text-left">{t(tableHeader.START_DATE)}</div>,
+        header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.START_DATE)}</div>,
 
         cell: ({ row }) => {
             const bookingDate: number = row.getValue("bookingDate");
@@ -219,7 +219,7 @@ export const appointmentsColumns: (
     },
     {
         accessorKey: "paymentStatus",
-        header: () => <div className="text-left">{t(tableHeader.PAID)}</div>,
+        header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.PAID)}</div>,
 
         cell: ({ row }) => {
             const paymentStatus: number = row.getValue("paymentStatus");
@@ -230,7 +230,7 @@ export const appointmentsColumns: (
     },
     {
         accessorKey: "paymentType",
-        header: () => <div className="text-left">{t(tableHeader.PAID)}</div>,
+        header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.PAID)}</div>,
 
         cell: ({ row }) => {
             const paymentType: number = row.getValue("paymentType");
@@ -241,7 +241,7 @@ export const appointmentsColumns: (
     },
     // {
     //     accessorKey: "status",
-    //     header: () => <div className="text-left">{t(tableHeader.STATUS)}</div>,
+    //     header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.STATUS)}</div>,
 
     //     cell: ({ row }) => {
     //         const status: number = row.getValue("status");
@@ -252,7 +252,7 @@ export const appointmentsColumns: (
     // },
     {
         accessorKey: "status",
-        header: () => <div className="text-left">{t(tableHeader.STATUS)}</div>,
+        header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.STATUS)}</div>,
 
         cell: ({ row }) => {
             const status: any = row.getValue("status");

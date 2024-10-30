@@ -7,6 +7,7 @@ import { Button } from '@/components/ui';
 import moment from 'moment';
 import Image from 'next/image';
 import { isValidImageSrc } from '@/lib/helpers';
+import { messages } from '@/constants/constants';
 
 
 
@@ -28,39 +29,39 @@ const PromotionDetailsModal: FC<IModalDetailsProps<SamplePromotions>> = ({ close
                 </div>
                 <div className="space-y-4">
                     <div>
-                        <p className="text-sm text-gray-500 dark:text-white">Description</p>
+                        <p className="text-sm text-gray-500 dark:text-white">{t(messages.DESCRIPTION)}</p>
                         <p>{val.description}</p>
                     </div>
                     <div className='grid grid-cols-2 grid-flow-row gap-5'>
 
                         <div>
-                            <p className="text-sm text-gray-500 dark:text-white">Start Date</p>
+                            <p className="text-sm text-gray-500 dark:text-white">{t(messages.START_DATE)}</p>
                             <p>{val.startDate.toString()}</p>
                         </div>
                         <div>
-                            <p className="text-sm text-gray-500 dark:text-white">End Date</p>
+                            <p className="text-sm text-gray-500 dark:text-white">{t(messages.END_DATE)}</p>
                             <p>{val.endDate.toString()}</p>
                         </div>
                         <div>
-                            <p className="text-sm text-gray-500 dark:text-white">Type</p>
+                            <p className="text-sm text-gray-500 dark:text-white">{t(messages.TYPE)}</p>
                             <p>{val.type}</p>
                         </div>
                         <div>
-                            <p className="text-sm text-gray-500 dark:text-white">Created At</p>
+                            <p className="text-sm text-gray-500 dark:text-white">{t(messages.CREATED_AT)}</p>
                             <p>{moment(val.createdAt).format("DD-MMM-YYYY hh:mm a")}</p>
                         </div>
                         <div>
-                            <p className="text-sm text-gray-500 dark:text-white">Updated At</p>
+                            <p className="text-sm text-gray-500 dark:text-white">{t(messages.UPDATED_AT)}</p>
                             <p>{moment(val.updatedAt).format("DD-MMM-YYYY hh:mm a")}</p>
                         </div>
                         <div>
-                            <p className="text-sm text-gray-500 dark:text-white">Status</p>
+                            <p className="text-sm text-gray-500 dark:text-white">{t(messages.STATUS)}</p>
                             <p>{val.isActive ? "Active" : "Inactive"}</p>
                         </div>
                     </div>
                     {val.services && val.services.length > 0 && (
                         <div>
-                            <p className="text-sm text-gray-500 dark:text-white mb-3">Services</p>
+                            <p className="text-sm text-gray-500 dark:text-white mb-3">{t(messages.SERVICES)}</p>
                             <div className="grid grid-cols-2 grid-flow-row gap-5">
                                 {val.services.map((service) => (
                                     <div key={service.id} className="flex gap-3 items-center justify-center w-max">

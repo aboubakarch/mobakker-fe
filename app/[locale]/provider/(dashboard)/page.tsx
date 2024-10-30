@@ -161,20 +161,21 @@ export default function Home() {
           <div className='grid md:grid-cols-4 grid-cols-2  gap-4 rounded-sm shadow-md dark:shadow-white/05'>
             <HeaderInfoItem color={ColorsEnum.Blue}
               heading={totalAppointmentsCount}
-              title='Total Appointments'
+              title={t(messages.TOTAL_APPOINTMENTS)}
               showIcon iconPosition={true} />
             <HeaderInfoItem color={ColorsEnum.Red} heading={totalAppointments?.CANCELED || 0}
               percentage={totalAppointmentsCount === 0 ? 0 : Math.floor((totalAppointments?.CANCELED || 0) / totalAppointmentsCount)}
-              title='Total Canceled Appointments' showIcon
+              title={t(messages.TOTAL_CANCELED)}
+              showIcon
               iconPosition={((totalAppointments?.CANCELED || 0) >= (totalAppointments?.COMPLETED || 0))}
             />
             <HeaderInfoItem color={ColorsEnum.Green} heading={totalAppointments?.COMPLETED || 0}
               percentage={totalAppointmentsCount === 0 ? 0 : Math.floor((totalAppointments?.COMPLETED || 0) / totalAppointmentsCount)}
-              title='Total Completed Appointments'
+              title={t(messages.TOTAL_COMPLETED)}
               showIcon hasGraph />
             <HeaderInfoItem color={ColorsEnum.Yellow} heading={totalAppointments?.PENDING || 0}
               percentage={totalAppointmentsCount === 0 ? 0 : Math.floor((totalAppointments?.PENDING || 0) / totalAppointmentsCount)}
-              title='Total Pending Appointments'
+              title={t(messages.TOTAL_PENDING)}
               showIcon
               iconPosition={((totalAppointments?.CANCELED || 0) >= (totalAppointments?.COMPLETED || 0))}
             />
@@ -204,10 +205,10 @@ export default function Home() {
 
 
         <div className="col-span-1 bg-screen rounded-sm px-3 py-2 grid grid-rows-4 grid-flow-row grid-cols-1 gap-2 auto-rows-max md:overflow-auto">
-          <HeaderInfoItem color={ColorsEnum.Blue} heading={counts.serviceCount ?? 0} title="Total Services" className="bg-background py-1" loading={counts.serviceCount === undefined} />
-          <HeaderInfoItem color={ColorsEnum.Blue} heading={counts.employeeCount ?? 0} title="Total Employees" className="bg-background py-1" loading={counts.employeeCount === undefined} />
-          <HeaderInfoItem color={ColorsEnum.Blue} heading={counts.loyalProgramCount ?? 0} title="Total Loyal Programs" className="bg-background py-1" loading={counts.loyalProgramCount === undefined} />
-          <HeaderInfoItem color={ColorsEnum.Blue} heading={counts.promotionsCount ?? 0} title="Total Promotions" className="bg-background py-1" loading={counts.promotionsCount === undefined} />
+          <HeaderInfoItem color={ColorsEnum.Blue} heading={counts.serviceCount ?? 0} title={t(messages.TOTAL_SERVICES)} className="bg-background py-1" loading={counts.serviceCount === undefined} />
+          <HeaderInfoItem color={ColorsEnum.Blue} heading={counts.employeeCount ?? 0} title={t(messages.TOTAL_EMPLOYEES)} className="bg-background py-1" loading={counts.employeeCount === undefined} />
+          <HeaderInfoItem color={ColorsEnum.Blue} heading={counts.loyalProgramCount ?? 0} title={t(messages.TOTAL_LOYAL_PROGRAMS)} className="bg-background py-1" loading={counts.loyalProgramCount === undefined} />
+          <HeaderInfoItem color={ColorsEnum.Blue} heading={counts.promotionsCount ?? 0} title={t(messages.TOTAL_PROMOTIONS)} className="bg-background py-1" loading={counts.promotionsCount === undefined} />
         </div>
 
 

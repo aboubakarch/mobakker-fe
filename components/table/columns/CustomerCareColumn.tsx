@@ -42,7 +42,7 @@ export const customerColumns: (t: TFunction<"translation", undefined>, handleEdi
         },
         {
             accessorKey: "firstName",
-            header: () => <div className="text-left">{t(tableHeader.NAME)}</div>,
+            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.NAME)}</div>,
 
             cell: ({ row }) => {
                 const firstName: string = row.getValue("firstName");
@@ -69,12 +69,12 @@ export const customerColumns: (t: TFunction<"translation", undefined>, handleEdi
 
         {
             accessorKey: "email",
-            header: () => <div className="text-left">{t(tableHeader.EMAIL)}</div>,
+            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.EMAIL)}</div>,
 
             cell: ({ row }) => {
                 const email: string = row.getValue("email");
                 return (
-                    <div className="w-max flex items-center justify-center text-left ">
+                    <div className="w-max flex items-center justify-center ltr:text-left rtl:text-right ">
 
                         <p className="text-sm line-clamp-1">{email}</p>
                     </div>
@@ -84,12 +84,12 @@ export const customerColumns: (t: TFunction<"translation", undefined>, handleEdi
 
         {
             accessorKey: "phone",
-            header: () => <div className="text-left">{t(tableHeader.PHONE)}</div>,
+            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.PHONE)}</div>,
 
             cell: ({ row }) => {
                 const phone: string = row.getValue("phone");
                 return (
-                    <div className="w-max flex items-center justify-center text-left ">
+                    <div className="w-max flex items-center justify-center ltr:text-left rtl:text-right ">
 
                         <p className="text-sm line-clamp-1">{phone}</p>
                     </div>
@@ -98,7 +98,7 @@ export const customerColumns: (t: TFunction<"translation", undefined>, handleEdi
         },
         {
             accessorKey: "isActive",
-            header: () => <div className="text-left">{t(tableHeader.STATUS)}</div>,
+            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.STATUS)}</div>,
 
             cell: ({ row }) => {
                 const isActive: boolean = row.getValue("isActive");

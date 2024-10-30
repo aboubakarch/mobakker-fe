@@ -73,13 +73,13 @@ const ReportWidgetButton: FC<IReportWidgetPopoverProps> = ({
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <Button variant={"default"} className="bg-indigo-800  bg-opacity-5 hover:bg-indigo-300  rounded-md justify-center items-center gap-2 inline-flex">
-                    <p className="text-center text-indigo-800  text-sm font-normal  leading-normal">{selected === "" ? `${t(messages.SELECT)} ${type}` : type === ReportTypesEnum.Day ? moment(selectedDate).format("MMM DD, YYYY") : selected}</p>
+                    <p className="text-center text-indigo-800  text-sm font-normal  leading-normal">{selected === "" ? `${t(messages.SELECT)} ${t(messages[type] || type)}` : type === ReportTypesEnum.Day ? moment(selectedDate).format("MMM DD, YYYY") : selected}</p>
                     <ChevronDownIcon />
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className='flex  flex-col select-none max-h-[400px] scrollbar dark:scrollbar-dark overflow-auto'>
                 {type !== ReportTypesEnum.Day && <DropdownMenuLabel>
-                    <p>{type}</p>
+                    <p>{t(messages[type] || type)}</p>
                 </DropdownMenuLabel>}
                 {renderSelectButton()}
             </DropdownMenuContent>

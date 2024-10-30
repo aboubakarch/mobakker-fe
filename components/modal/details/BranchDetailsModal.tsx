@@ -32,8 +32,8 @@ const BranchDetailsModal: FC<IModalDetailsProps<SampleBranch>> = ({ closeModal, 
                     </Button>
                 </div>
 
-                <div className='flex gap-16 divide-x'>
-                    <div className='h-full flex flex-col pl-4 gap-3 '>
+                <div className='flex gap-16 ltr:divide-x rtl:divide-x-reverse'>
+                    <div className='h-full flex flex-col ltr:pl-4 rtl:pr-4 gap-3 '>
                         <div className="flex gap-3">
                             <div className="rounded-full h-24 w-24 relative">
                                 <Image
@@ -49,17 +49,17 @@ const BranchDetailsModal: FC<IModalDetailsProps<SampleBranch>> = ({ closeModal, 
                     </div>
                     {/* <div></div> */}
 
-                    <div className="space-y-4 pl-7">
+                    <div className="space-y-4 ltr:pl-7 rtl:pr-7">
                         <div>
-                            <p className="text-sm text-gray-500 dark:text-white">Address</p>
+                            <p className="text-sm text-gray-500 dark:text-white">{t(messages.ADDRESS)}</p>
                             <p>{val?.address}</p>
                         </div>
                         <div>
-                            <p className="text-sm text-gray-500 dark:text-white">City</p>
+                            <p className="text-sm text-gray-500 dark:text-white">{t(messages.CITY)}</p>
                             <p>{val?.city}</p>
                         </div>
                         <div>
-                            <p className="text-sm text-gray-500 dark:text-white">Country</p>
+                            <p className="text-sm text-gray-500 dark:text-white">{t(messages.COUNTRY)}</p>
                             <p>{val?.country}</p>
                         </div>
                         {/* {val?.ownerId && <div>
@@ -67,7 +67,7 @@ const BranchDetailsModal: FC<IModalDetailsProps<SampleBranch>> = ({ closeModal, 
                             <p>{val?.ownerId}</p>
                         </div>} */}
                         {val?.owner && val?.owner?.user && <div>
-                            <p className="text-sm text-gray-500 dark:text-white">Owner Name</p>
+                            <p className="text-sm text-gray-500 dark:text-white">{t(messages.OWNER_NAME)}</p>
                             <p>{`${val?.owner?.user?.firstName} ${val?.owner?.user?.lastName}`}</p>
                         </div>}
                         {/* {val.managerId && <div>
@@ -75,15 +75,15 @@ const BranchDetailsModal: FC<IModalDetailsProps<SampleBranch>> = ({ closeModal, 
                             <p>{val?.managerId}</p>
                         </div>} */}
                         {val?.manager && val?.manager?.user && <div>
-                            <p className="text-sm text-gray-500 dark:text-white">Manager Name</p>
+                            <p className="text-sm text-gray-500 dark:text-white">{t(messages.MANAGERS)}</p>
                             <p>{`${val?.manager?.user?.firstName} ${val?.manager?.user?.lastName}`}</p>
                         </div>}
                         {val?.services && Array.isArray(val.services) && <div>
-                            <p className="text-sm text-gray-500 dark:text-white">No. of Services</p>
+                            <p className="text-sm text-gray-500 dark:text-white">{t(messages.SERVICES_COUNT)}</p>
                             <p>{val?.services.length}</p>
                         </div>}
                         {val?.appointments && Array.isArray(val?.appointments) && <div>
-                            <p className="text-sm text-gray-500 dark:text-white">No. of Appointments</p>
+                            <p className="text-sm text-gray-500 dark:text-white">{t(messages.APPOINTMENTS_COUNT)}</p>
                             <p>{val?.appointments.length}</p>
                         </div>}
 

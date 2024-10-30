@@ -73,7 +73,7 @@ export const subscriptionColumns: (t: TFunction<"translation", undefined>, onSta
         },
         {
             accessorKey: "branch",
-            header: () => <div className="text-left">{t(tableHeader.BRANCH_NAME)}</div>,
+            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.BRANCH_NAME)}</div>,
 
             cell: ({ row }) => {
                 const rowItem: SampleBranch = row.getValue("branch");
@@ -108,7 +108,7 @@ export const subscriptionColumns: (t: TFunction<"translation", undefined>, onSta
         },
         {
             accessorKey: "subscriptionDate",
-            header: () => <div className="text-center">{t("Date")}</div>,
+            header: () => <div className="text-center">{t(messages.DATE)}</div>,
 
             cell: ({ row }) => {
                 const sub: string = row.getValue("subscriptionDate");
@@ -119,7 +119,7 @@ export const subscriptionColumns: (t: TFunction<"translation", undefined>, onSta
         },
         {
             accessorKey: "expiryDate",
-            header: () => <div className="text-center">{t("Expiry Date")}</div>,
+            header: () => <div className="text-center">{t(messages.EXPIRY_DATE)}</div>,
 
             cell: ({ row }) => {
                 const paid: string = row.getValue("expiryDate")
@@ -130,7 +130,7 @@ export const subscriptionColumns: (t: TFunction<"translation", undefined>, onSta
         },
         {
             accessorKey: "subcription_status",
-            header: () => <div className="text-center">{"Type " + t(tableHeader.STATUS)}</div>,
+            header: () => <div className="text-center">{t(tableHeader.TYPE) + t(tableHeader.STATUS)}</div>,
 
             cell: ({ row }) => {
                 const subs: Subscription = row.original.subscription;
@@ -158,7 +158,7 @@ export const subscriptionColumns: (t: TFunction<"translation", undefined>, onSta
                 const dayLeft: string = row.original.expiryDate
                 const temp = daysUntil(new Date(dayLeft))
                 return (
-                    <Badge containerStyle={!(temp > 0) ? "bg-red-500 bg-opacity-100" : undefined} textStyle={!(temp > 0) ? "text-white" : undefined} text={temp > 0 ? `${temp} Day` : "Expired"} />
+                    <Badge containerStyle={!(temp > 0) ? "bg-red-500 bg-opacity-100" : undefined} textStyle={!(temp > 0) ? "text-white" : undefined} text={temp > 0 ? `${temp} ${t(messages.Day)}` : "Expired"} />
                 )
             }
         },
@@ -184,7 +184,7 @@ export const subscriptionColumns: (t: TFunction<"translation", undefined>, onSta
         // },
         {
             accessorKey: "status",
-            header: () => <div className="text-left">{t(tableHeader.STATUS)}</div>,
+            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.STATUS)}</div>,
 
             cell: ({ row }) => {
                 const status: any = row.getValue("status");

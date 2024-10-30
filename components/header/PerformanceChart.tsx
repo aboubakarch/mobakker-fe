@@ -43,7 +43,7 @@ const PerformanceChart = () => {
         <div className="bg-background rounded-sm md:col-span-3 flex flex-col gap-2 p-3">
             <div className="flex justify-between ">
                 <div >
-                    <p className="text-gray-900 dark:text-white text-lg font-medium leading-[30px]">{t("Monhly Performance")}</p>
+                    <p className="text-gray-900 dark:text-white text-lg font-medium leading-[30px]">{t(messages.MONTHLY_PERFORMANCE)}</p>
                     <p className="text-gray-500 dark:text-white text-sm font-normal leading-normal">{`${month}, ${year}`}</p>
                 </div>
 

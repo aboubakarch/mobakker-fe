@@ -196,7 +196,7 @@ const InputField: FC<IFormField> = ({ name, hasError, placeHolder, desc, label, 
                                             disabled={disabled}
                                             variant={"outline"}
                                             className={cn(
-                                                "w-full ltr:pl-3 rtl:pr-3 text-left font-normal",
+                                                "w-full ltr:pl-3 rtl:pr-3 ltr:text-left rtl:text-right font-normal",
                                                 !field.value && "text-muted-foreground"
                                             )}
                                         >

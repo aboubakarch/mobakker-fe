@@ -88,7 +88,7 @@ const ReportWidget: FC<IReportWidgetProps> = ({ className = "", type }) => {
     return (
         <div className={cn('w-full h-full flex flex-col p-4 gap-3 bg-background', className)}>
             <p className='text-gray-900 dark:text-white text-lg font-medium leading-[30px]'>
-                {`${type} ${t(messages.REPORTS)}`}
+                {`${t(messages[type] || type)} ${t(messages.REPORTS)}`}
             </p>
             <div className="flex gap-3 w-full justify-end">
                 {/* <Button variant={"default"} className="bg-indigo-800  bg-opacity-5 hover:bg-indigo-300  rounded-md justify-center items-center gap-2 inline-flex">
@@ -116,7 +116,7 @@ const ReportWidget: FC<IReportWidgetProps> = ({ className = "", type }) => {
                     <div className="text-right text-red-500 text-sm font-medium leading-snug">{totalAppointments?.CANCELED || 0}</div>
                 </div>
                 <div className="w-full px-4 py-3 flex justify-between bg-indigo-800 bg-opacity-5 rounded">
-                    <div className=" text-gray-900 dark:text-white text-sm font-medium leading-snug">{t("Pending")}</div>
+                    <div className=" text-gray-900 dark:text-white text-sm font-medium leading-snug">{t(messages.TOTAL_PENDING)}</div>
                     <div className="text-right text-gray-500 dark:text-white text-sm font-medium leading-snug">{totalAppointments?.PENDING || 0}</div>
                 </div>
 

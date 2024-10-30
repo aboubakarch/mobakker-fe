@@ -50,7 +50,7 @@ export const promotionsColumns: (t: TFunction<"translation", undefined>, handleE
         },
         {
             accessorKey: "description",
-            header: () => <div className="text-left">{t(tableHeader.DETAILS)}</div>,
+            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.DETAILS)}</div>,
 
             cell: ({ row }) => {
                 const description: string = row.getValue("description");

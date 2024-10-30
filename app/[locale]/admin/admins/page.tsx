@@ -94,14 +94,14 @@ const Providers = () => {
                 visible={deleteModalOpen}
                 closeModal={handleDeleteModalClose}
                 onDelete={onDeleteEmplyee}
-                title={"Admin"}
+                title={t(messages.ADMIN)}
                 loading={loading}
             />
-            <PageHeader title={t("Admins")}
+            <PageHeader title={t(messages.ADMINS)}
                 description={t(messages.VIEW_TEAM_INFO)}
             >
                 {role === RoleType.SUPER_ADMIN &&
-                    <Button onClick={() => setModalOpen(true)} className='bg-indigo-800 hover:bg-indigo-600'>{t("Add Admin")}</Button>
+                    <Button onClick={() => setModalOpen(true)} className='bg-indigo-800 hover:bg-indigo-600'>{t(messages.ADD_ADMIN)}</Button>
                 }
             </PageHeader>
             <AdminTable handleEdit={handleEdit} handleDelete={handleDelete} onUpdateFlag={flag} handleRow={handleRow} />

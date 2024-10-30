@@ -89,40 +89,40 @@ const AppointmentDetailsModal: FC<IModalDetailsProps<SampleAppointments>> = ({ c
                             })}
                         </ol>
                         <div>
-                            <p className="text-sm text-gray-500 dark:text-white">Booking Slot</p>
+                            <p className="text-sm text-gray-500 dark:text-white">{t(messages.BOOKING_SLOT)}</p>
                             <p>{val.bookingSlot}</p>
                         </div>
                         <div>
-                            <p className="text-sm text-gray-500 dark:text-white">Booking Date</p>
+                            <p className="text-sm text-gray-500 dark:text-white">{t(messages.BOOKING_DATE)}</p>
                             <p>{val.bookingDate}</p>
                         </div>
                         <div className='grid grid-cols-2 grid-flow-row gap-5'>
                             <div>
-                                <p className="text-sm text-gray-500 dark:text-white">Repeat</p>
+                                <p className="text-sm text-gray-500 dark:text-white">{t(messages.REPEAT)}</p>
                                 <p>{val.repeat}</p>
                             </div>
                             <div>
-                                <p className="text-sm text-gray-500 dark:text-white">Gross Total Amount</p>
+                                <p className="text-sm text-gray-500 dark:text-white">{t(messages.GROSS_TOTAL)}</p>
                                 <p>{val.grossTotalAmount}</p>
                             </div>
                             <div>
-                                <p className="text-sm text-gray-500 dark:text-white">Discount</p>
+                                <p className="text-sm text-gray-500 dark:text-white">{t(messages.DISCOUNT)}</p>
                                 <p>{val.discount}</p>
                             </div>
                             <div>
-                                <p className="text-sm text-gray-500 dark:text-white">Net Total Amount</p>
+                                <p className="text-sm text-gray-500 dark:text-white">{t(messages.NET_TOTAL)}</p>
                                 <p>{val.netTotalAmount}</p>
                             </div>
                             <div>
-                                <p className="text-sm text-gray-500 dark:text-white">Payment Status</p>
+                                <p className="text-sm text-gray-500 dark:text-white">{t(messages.PAYMENT_STATUS)}</p>
                                 <p>{val.paymentStatus}</p>
                             </div>
                             <div>
-                                <p className="text-sm text-gray-500 dark:text-white">Payment Type</p>
+                                <p className="text-sm text-gray-500 dark:text-white">{t(messages.PAYMENT_TYPE)}</p>
                                 <p>{val.paymentType}</p>
                             </div>
                             <div>
-                                <p className="text-sm text-gray-500 dark:text-white">Status</p>
+                                <p className="text-sm text-gray-500 dark:text-white">{t(messages.STATUS)}</p>
                                 <p>{val.status}</p>
                             </div>
                         </div>
@@ -131,12 +131,12 @@ const AppointmentDetailsModal: FC<IModalDetailsProps<SampleAppointments>> = ({ c
                         <p>{val.customer.id}</p>
                     </div> */}
                         {(val?.customer as any)?.user && <div>
-                            <p className="text-sm text-gray-500 dark:text-white">Customer Name</p>
+                            <p className="text-sm text-gray-500 dark:text-white">{t(messages.CUSTOMER_NAME)}</p>
                             <p>{`${(val?.customer as any)?.user?.firstName} ${(val?.customer as any)?.user?.lastName}`}</p>
                         </div>}
                         {(val as any)?.employee?.user && <div className='flex flex-row justify-between items-center'>
                             <div>
-                                <p className="text-sm text-gray-500 dark:text-white">Employee Name</p>
+                                <p className="text-sm text-gray-500 dark:text-white">{t(messages.EMPLOYEE_NAME)}</p>
                                 <p>{`${(val as any)?.employee?.user?.firstName} ${(val as any)?.employee?.user?.lastName}`}</p>
 
                             </div>
@@ -147,7 +147,7 @@ const AppointmentDetailsModal: FC<IModalDetailsProps<SampleAppointments>> = ({ c
                         <div className='grid grid-cols-2 grid-flow-row gap-5'>
 
                             <div>
-                                <p className="text-sm text-gray-500 dark:text-white mb-3">Service</p>
+                                <p className="text-sm text-gray-500 dark:text-white mb-3">{t(messages.SERVICES)}</p>
                                 <div className="flex gap-3 items-center justify-center w-max">
                                     <div className="rounded-full h-11 w-11 relative">
                                         <Image
@@ -164,7 +164,7 @@ const AppointmentDetailsModal: FC<IModalDetailsProps<SampleAppointments>> = ({ c
                                 </div>
                             </div>
                             <div>
-                                <p className="text-sm text-gray-500 dark:text-white mb-3">Branch</p>
+                                <p className="text-sm text-gray-500 dark:text-white mb-3">{t(messages.BRANCH)}</p>
                                 <div className="flex gap-3 items-center justify-center w-max">
                                     <div className="rounded-full h-11 w-11 relative">
                                         <Image

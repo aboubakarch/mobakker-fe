@@ -43,7 +43,7 @@ export const adminColumns: (t: TFunction<"translation", undefined>, handleEdit?:
         },
         {
             accessorKey: "firstName",
-            header: () => <div className="text-left">{t(tableHeader.NAME)}</div>,
+            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.NAME)}</div>,
 
             cell: ({ row }) => {
                 const firstName: string = row.getValue("firstName");
@@ -70,12 +70,12 @@ export const adminColumns: (t: TFunction<"translation", undefined>, handleEdit?:
 
         {
             accessorKey: "email",
-            header: () => <div className="text-left">{t(tableHeader.EMAIL)}</div>,
+            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.EMAIL)}</div>,
 
             cell: ({ row }) => {
                 const email: string = row.getValue("email");
                 return (
-                    <div className="w-max flex items-center justify-center text-left ">
+                    <div className="w-max flex items-center justify-center ltr:text-left rtl:text-right ">
 
                         <p className="text-sm line-clamp-1">{email}</p>
                     </div>
@@ -85,12 +85,12 @@ export const adminColumns: (t: TFunction<"translation", undefined>, handleEdit?:
 
         {
             accessorKey: "phone",
-            header: () => <div className="text-left">{t(tableHeader.PHONE)}</div>,
+            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.PHONE)}</div>,
 
             cell: ({ row }) => {
                 const phone: string = row.getValue("phone");
                 return (
-                    <div className="w-max flex items-center justify-center text-left ">
+                    <div className="w-max flex items-center justify-center ltr:text-left rtl:text-right ">
 
                         <p className="text-sm line-clamp-1">{phone}</p>
                     </div>
@@ -99,7 +99,7 @@ export const adminColumns: (t: TFunction<"translation", undefined>, handleEdit?:
         },
         {
             accessorKey: "isActive",
-            header: () => <div className="text-left">{t(tableHeader.STATUS)}</div>,
+            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.STATUS)}</div>,
 
             cell: ({ row }) => {
                 const isActive: boolean = row.getValue("isActive");
@@ -174,7 +174,7 @@ export const adminColumns: (t: TFunction<"translation", undefined>, handleEdit?:
         // },
         // {
         //     accessorKey: "name",
-        //     header: () => <div className="text-left">{t(tableHeader.NAME)}</div>,
+        //     header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.NAME)}</div>,
         //     cell: ({ row }) => {
         //         const rowItem = row.original
         //         return (
@@ -197,7 +197,7 @@ export const adminColumns: (t: TFunction<"translation", undefined>, handleEdit?:
         // },
         // {
         //     accessorKey: "jobDesc",
-        //     header: () => <div className="text-left">{t(tableHeader.JOB_DESC)}</div>,
+        //     header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.JOB_DESC)}</div>,
 
         //     cell: ({ row }) => {
         //         const job: string = row.getValue("jobDesc");
@@ -208,14 +208,14 @@ export const adminColumns: (t: TFunction<"translation", undefined>, handleEdit?:
         // },
         // {
         //     accessorKey: "bookedToday",
-        //     header: () => <div className="text-left">{t(tableHeader.BOOKED_TODAY)}</div>,
+        //     header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.BOOKED_TODAY)}</div>,
 
         //     cell: ({ row }) => {
         //         const booking: string[] = row.getValue("bookedToday");
         //         return (
         //             <div className="grid grid-rows-2 grid-cols-4 gap-3 items-center">
         //                 {booking.map((book, i) => (
-        //                     <div className={cn("p-2  rounded justify-center items-center text-white dark:text-white text-xs font-medium leading-tight text-left", i === (Math.floor(Math.random() * 8)) ? "bg-amber-400" : "bg-indigo-800")} key={i}>{book}</div>
+        //                     <div className={cn("p-2  rounded justify-center items-center text-white dark:text-white text-xs font-medium leading-tight ltr:text-left rtl:text-right", i === (Math.floor(Math.random() * 8)) ? "bg-amber-400" : "bg-indigo-800")} key={i}>{book}</div>
         //                 ))}
         //             </div>
         //         )
@@ -223,7 +223,7 @@ export const adminColumns: (t: TFunction<"translation", undefined>, handleEdit?:
         // },
         // {
         //     accessorKey: "workingHours",
-        //     header: () => <div className="text-left">{t(tableHeader.WORKING_HOURS)}</div>,
+        //     header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.WORKING_HOURS)}</div>,
 
         //     cell: ({ row }) => {
         //         const hours: string = row.getValue("workingHours")
@@ -234,7 +234,7 @@ export const adminColumns: (t: TFunction<"translation", undefined>, handleEdit?:
         // },
         // {
         //     accessorKey: "rating",
-        //     header: () => <div className="text-left">{t(tableHeader.RATING)}</div>,
+        //     header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.RATING)}</div>,
 
         //     cell: ({ row }) => {
         //         const rating: string = row.getValue("rating");

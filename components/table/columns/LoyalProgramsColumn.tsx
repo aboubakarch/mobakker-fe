@@ -26,7 +26,7 @@ export const loyalProgramsColumns: (t: TFunction<"translation", undefined>, hand
 
         {
             accessorKey: "branch",
-            header: () => <div className="text-left">{t(tableHeader.BRANCH_NAME)}</div>,
+            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.BRANCH_NAME)}</div>,
 
             cell: ({ row }) => {
                 const rowItem: SampleBranch = row.getValue("branch");
@@ -50,7 +50,7 @@ export const loyalProgramsColumns: (t: TFunction<"translation", undefined>, hand
         },
         {
             accessorKey: "noOfBooking",
-            header: () => <div className="text-left">{t(tableHeader.TOTAL_BOOKING)}</div>,
+            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.TOTAL_BOOKING)}</div>,
 
             cell: ({ row }) => {
                 const noOfBooking: string = row.getValue("noOfBooking");
@@ -61,7 +61,7 @@ export const loyalProgramsColumns: (t: TFunction<"translation", undefined>, hand
         },
         {
             accessorKey: "rating",
-            header: () => <div className="text-left">{t(tableHeader.RATING)}</div>,
+            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.RATING)}</div>,
 
             cell: ({ row }) => {
                 const rating: string = row.getValue("rating");

@@ -8,6 +8,7 @@ import { Button } from '@/components/ui';
 import moment from 'moment';
 import Image from 'next/image';
 import { isValidImageSrc } from '@/lib/helpers';
+import { messages } from '@/constants/constants';
 
 
 
@@ -47,45 +48,45 @@ const ServiceDetailsModal: FC<IModalDetailsProps<SampleServices>> = ({ closeModa
                     <div className='grid grid-cols-2 grid-flow-row gap-3'>
 
                         <div>
-                            <p className="text-sm text-gray-500 dark:text-white">Service Type</p>
+                            <p className="text-sm text-gray-500 dark:text-white">{t(messages.SERVICE_TYPE)}</p>
                             <p>{val.serviceType.name}</p>
                         </div>
                         <div>
-                            <p className="text-sm text-gray-500 dark:text-white">Rating</p>
+                            <p className="text-sm text-gray-500 dark:text-white">{t(messages.RATING)}</p>
                             <p>{val.rating}</p>
                         </div>
                         <div>
-                            <p className="text-sm text-gray-500 dark:text-white">Price</p>
+                            <p className="text-sm text-gray-500 dark:text-white">{t(messages.PRICE)}</p>
                             <p>{val.price}</p>
                         </div>
                         <div>
-                            <p className="text-sm text-gray-500 dark:text-white">Booking Capacity</p>
+                            <p className="text-sm text-gray-500 dark:text-white">{t(messages.BOOKING_CAPACITY)}</p>
                             <p>{val.bookingCapacity}</p>
                         </div>
                         <div>
-                            <p className="text-sm text-gray-500 dark:text-white">Slot Time</p>
+                            <p className="text-sm text-gray-500 dark:text-white">{t(messages.SLOT_TIME)}</p>
                             <p>{val.slotTime}</p>
                         </div>
                         <div>
-                            <p className="text-sm text-gray-500 dark:text-white">Work Hour From</p>
+                            <p className="text-sm text-gray-500 dark:text-white">{t(messages.WORK_HOUR_FROM)}</p>
                             <p>{val.workHourFrom}</p>
                         </div>
                         <div>
-                            <p className="text-sm text-gray-500 dark:text-white">Work Hour To</p>
+                            <p className="text-sm text-gray-500 dark:text-white">{t(messages.WORK_HOUR_TO)}</p>
                             <p>{val.workHourTo}</p>
                         </div>
                         <div>
-                            <p className="text-sm text-gray-500 dark:text-white">Created At</p>
+                            <p className="text-sm text-gray-500 dark:text-white">{t(messages.CREATED_AT)}</p>
                             <p>{moment(val.createdAt).format("DD-MMM-YYYY hh:mm a")}</p>
                         </div>
                         <div>
-                            <p className="text-sm text-gray-500 dark:text-white">Updated At</p>
+                            <p className="text-sm text-gray-500 dark:text-white">{t(messages.UPDATED_AT)}</p>
                             <p>{moment(val.updatedAt).format("DD-MMM-YYYY hh:mm a")}</p>
                         </div>
 
                     </div>
                     <div>
-                        <p className="text-sm text-gray-500 dark:text-white mb-3">Availability</p>
+                        <p className="text-sm text-gray-500 dark:text-white mb-3">{t(messages.SLOT_TIME)}</p>
                         <div className="grid grid-flow-row grid-cols-4 gap-3 items-center">
                             {val.availablity.split(",").map((a: any, i: number) => (
                                 <div className={"p-2  rounded justify-center items-center text-white dark:text-white text-[9px] font-medium leading-tight text-center bg-indigo-800"} key={i}>{a}</div>
@@ -93,7 +94,7 @@ const ServiceDetailsModal: FC<IModalDetailsProps<SampleServices>> = ({ closeModa
                         </div>                    </div>
                     {val.branches && val.branches.length > 0 && (
                         <div>
-                            <p className="text-sm text-gray-500 dark:text-white mb-3">Branches</p>
+                            <p className="text-sm text-gray-500 dark:text-white mb-3">{t(messages.BRANCH)}</p>
                             <div className="grid grid-cols-2 grid-flow-row gap-5">
                                 {val.branches.map((branch) => (
                                     <div key={branch.id} className="flex gap-3 items-center justify-center w-max">

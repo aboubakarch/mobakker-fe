@@ -56,11 +56,11 @@ export const refundColumns: (
     // },
     {
         accessorKey: "transactionId",
-        header: () => <div className="text-left">{t("Transaction ID")}</div>,
+        header: () => <div className="ltr:text-left rtl:text-right">{t(messages.TRANSACTION_ID)}</div>,
         cell: ({ row }) => {
             const transactionID: string = row.getValue("transactionId");
             return (
-                <div className="w-max flex items-center justify-center text-left">
+                <div className="w-max flex items-center justify-center ltr:text-left rtl:text-right">
                     <p className="text-sm line-clamp-1">{transactionID}</p>
                 </div>
             );
@@ -68,7 +68,7 @@ export const refundColumns: (
     },
     {
         accessorKey: "appointment.service",
-        header: () => <div className="text-left">{t(tableHeader.SERVICES_BOOKED)}</div>,
+        header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.SERVICES_BOOKED)}</div>,
         cell: ({ row }) => {
             const rowItem: SampleServices = row.original?.appointment?.services || (row?.original?.appointment as any).service;
             if (!rowItem) {
@@ -95,7 +95,7 @@ export const refundColumns: (
 
     {
         accessorKey: "appointment.branch",
-        header: () => <div className="text-left">{t(tableHeader.BRANCH_NAME)}</div>,
+        header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.BRANCH_NAME)}</div>,
 
         cell: ({ row }) => {
             const rowItem: SampleBranch = row.original.appointment?.branch;
@@ -122,12 +122,12 @@ export const refundColumns: (
     },
     {
         accessorKey: "customer",
-        header: () => <div className="text-left">{t(tableHeader.CUSTOMER_NAME)}</div>,
+        header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.CUSTOMER_NAME)}</div>,
 
         cell: ({ row }) => {
             const customerNumber: any = row.getValue("customer");
             return (
-                <div className="w-max flex items-center justify-center text-left ">
+                <div className="w-max flex items-center justify-center ltr:text-left rtl:text-right ">
                     <p className="text-sm line-clamp-1">{customerNumber?.user ? `${customerNumber?.user?.firstName || ""} ${customerNumber?.user?.lastName || ""}` : customerNumber.id}</p>
                 </div>
             )
@@ -136,12 +136,12 @@ export const refundColumns: (
 
     {
         accessorKey: "createdBy",
-        header: () => <div className="text-left">{t("Initiated By")}</div>,
+        header: () => <div className="ltr:text-left rtl:text-right">{t(messages.INITIATED_BY)}</div>,
 
         cell: ({ row }) => {
             const createdBy: any = row.getValue("createdBy");
             return (
-                <div className="w-max flex items-center justify-center text-left ">
+                <div className="w-max flex items-center justify-center ltr:text-left rtl:text-right ">
                     <p className="text-sm line-clamp-1">{`${createdBy?.firstName || ""} ${createdBy?.lastName || ""}`}</p>
                 </div>
             )
@@ -149,11 +149,11 @@ export const refundColumns: (
     },
     {
         accessorKey: "amount",
-        header: () => <div className="text-left">{t("Amount")}</div>,
+        header: () => <div className="ltr:text-left rtl:text-right">{t(messages.AMOUNT)}</div>,
         cell: ({ row }) => {
             const amount: number = row.getValue("amount");
             return (
-                <div className="w-max flex items-center justify-center text-left">
+                <div className="w-max flex items-center justify-center ltr:text-left rtl:text-right">
                     <p className="text-sm">${amount.toFixed(2)}</p>
                 </div>
             );
@@ -161,7 +161,7 @@ export const refundColumns: (
     },
     // {
     //     accessorKey: "paymentMethod",
-    //     header: () => <div className="text-left">{t("Payment Method")}</div>,
+    //     header: () => <div className="ltr:text-left rtl:text-right">{t("Payment Method")}</div>,
     //     cell: ({ row }) => {
     //         const paymentMethod: string = row.getValue("paymentMethod");
     //         return <TextColumn text={paymentMethod} />;
@@ -169,7 +169,7 @@ export const refundColumns: (
     // },
     // {
     //     accessorKey: "transactionDate",
-    //     header: () => <div className="text-left">{t("Date")}</div>,
+    //     header: () => <div className="ltr:text-left rtl:text-right">{t("Date")}</div>,
     //     cell: ({ row }) => {
     //         const transactionDate: string = row.getValue("transactionDate");
     //         return <TextColumn text={transactionDate} />;
@@ -178,7 +178,7 @@ export const refundColumns: (
 
     {
         accessorKey: "status",
-        header: () => <div className="text-left">{t(tableHeader.STATUS)}</div>,
+        header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.STATUS)}</div>,
 
         cell: ({ row }) => {
             const status: any = row.getValue("status");
