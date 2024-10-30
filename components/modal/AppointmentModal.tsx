@@ -15,7 +15,7 @@ import { Button } from '../ui'
 import { useToast } from '@/hooks/use-toast'
 import APIService from '@/services/api'
 import { IAppointmentFormValues, IFormValueObj } from '@/@types/forms'
-import { useFormContext } from 'react-hook-form'
+import { FieldValues, useFormContext, UseFormReturn } from 'react-hook-form'
 import { TFunction } from 'i18next'
 import { getCookie, isDateBetween } from '@/lib/helpers'
 import { RoleType } from '@/constants/enums'
@@ -53,7 +53,7 @@ const paymentTypeOptions = [
 
 const AppointmentForm: FC<{
     appointmentFormVal: IFormValueObj<IAppointmentFormValues>, t: TFunction<"translation", undefined>, branches: any[] | null, employees: any[] | null, customers: any[] | null,
-    fetchEmployeesData: (branchId: string) => Promise<void>, branchMap: any | null
+    fetchEmployeesData: (branchId: string, form: any) => Promise<void>, branchMap: any | null
 }> = ({ appointmentFormVal, t, branches, customers, employees, fetchEmployeesData, branchMap }) => {
     const form = useFormContext()
     const service = form.watch("serviceId")
@@ -98,9 +98,12 @@ const AppointmentForm: FC<{
                 })
                 setServiceMap(serMap)
                 setServices(tempServ)
+                if (form && (tempServ.length === 0 || !tempServ)) {
+                    form.setError("serviceId", { message: "This Branch has no service please assign first" })
+                }
             }
 
-            fetchEmployeesData(branchId)
+            fetchEmployeesData(branchId, form)
 
 
         }
@@ -318,7 +321,7 @@ const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal,
         }
         setLoading(false)
     }
-    const fetchEmployeesData = async (branchId: string) => {
+    const fetchEmployeesData = async (branchId: string, form?: UseFormReturn<FieldValues, any, undefined>) => {
         setLoading(true)
         try {
             const params = {
@@ -330,6 +333,9 @@ const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal,
                 name: `${item?.user?.firstName || ""} ${item?.user?.lastName || ""}`,
                 value: item.id
             }))
+            if (form && (data?.length === 0 || !data)) {
+                form.setError("branchId", { message: "This Branch has no employees" })
+            }
             setEmployees(data)
         } catch (error: any) {
             toast({
