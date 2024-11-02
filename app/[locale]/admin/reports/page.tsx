@@ -44,7 +44,7 @@ const Report = () => {
     }, [])
 
     return (
-        <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
+        <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar dark:scrollbar-dark">
             <PageHeader title={t(messages.REPORTS)}
                 description={t(messages.DETAILED_INSIGHTS)}
             >
@@ -55,11 +55,11 @@ const Report = () => {
 
 
                 <div className="bg-indigo-800/5 rounded-sm col-span-1 grid grid-cols-1 grid-rows-5 gap-3 p-3">
-                    <HeaderInfoItem title={t(messages.TOTAL_REQ)} color={ColorsEnum.Blue} heading={totalAppointmentsCount} className="bg-white" />
-                    <HeaderInfoItem title={t(messages.COMPLETE)} color={ColorsEnum.Green} heading={totalAppointments?.COMPLETED || 0} className="bg-white" />
-                    <HeaderInfoItem title={t("Pending")} color={ColorsEnum.Yellow} heading={totalAppointments?.PENDING || 0} className="bg-white" />
-                    <HeaderInfoItem title={t(messages.CANCELLED)} color={ColorsEnum.Red} heading={totalAppointments?.CANCELED || 0} className="bg-white" />
-                    <HeaderInfoItem title={t("Rejected")} color={ColorsEnum.Red} heading={totalAppointments?.REJECTED || 0} className="bg-white" />
+                    <HeaderInfoItem title={t(messages.TOTAL_REQ)} color={ColorsEnum.Blue} heading={totalAppointmentsCount} className="bg-background" />
+                    <HeaderInfoItem title={t(messages.COMPLETE)} color={ColorsEnum.Green} heading={totalAppointments?.COMPLETED || 0} className="bg-background" />
+                    <HeaderInfoItem title={t("Pending")} color={ColorsEnum.Yellow} heading={totalAppointments?.PENDING || 0} className="bg-background" />
+                    <HeaderInfoItem title={t(messages.CANCELLED)} color={ColorsEnum.Red} heading={totalAppointments?.CANCELED || 0} className="bg-background" />
+                    <HeaderInfoItem title={t("Rejected")} color={ColorsEnum.Red} heading={totalAppointments?.REJECTED || 0} className="bg-background" />
                 </div>
 
             </div>

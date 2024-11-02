@@ -24,7 +24,7 @@ const Page = () => {
                     />
                 </div>
             </Link>
-            <div className='bg-white shadow-lg rounded-md h-[60%] md:h-[60%] w-[90%] md:w-[30%] flex flex-col items-center '>
+            <div className='bg-background shadow-lg dark:shadow-white/10 dark:shadow-white rounded-md h-[60%] md:h-[60%] w-[90%] md:w-[30%] flex flex-col items-center '>
                 {status === "paid" ?
                     <Image src={'/assets/success.gif'} alt='success' width={250} height={250} /> :
                     <Image src={'/assets/error.gif'} alt='error' width={250} height={250} />

@@ -107,7 +107,7 @@ export default function Home() {
 
   return (
 
-    <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
+    <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar dark:scrollbar-dark">
       <NotificationHandler />
       {/* <DeleteModal visible closeModal={() => { }} onDelete={() => { }} title="dnlssnf" /> */}
       <div className="md:w-1/2 w-full flex flex-col">
@@ -115,19 +115,19 @@ export default function Home() {
         <p className="line-clamp-2 text-sm">{t(messages.YOUR_CENTRAL_HUB)}</p>
       </div>
       {loading ? (
-        <div id="skeleton" className="bg-white rounded-sm w-full grid grid-cols-2 md:grid-cols-4 grid-flow-row px-4 py-2 gap-3 ">
+        <div id="skeleton" className="bg-background rounded-sm w-full grid grid-cols-2 md:grid-cols-4 grid-flow-row px-4 py-2 gap-3 ">
 
           {Array(4).fill(0).map(i => (
             <Skeleton className="h-[75px] w-full rounded-xl" />
           ))}
         </div>
 
-      ) : (<div id="main" className="bg-white rounded-sm w-full grid grid-cols-2 md:grid-cols-4 grid-flow-row px-4 py-2 gap-3 ">
+      ) : (<div id="main" className="bg-background rounded-sm w-full grid grid-cols-2 md:grid-cols-4 grid-flow-row px-4 py-2 gap-3 ">
 
-        <HeaderInfoItem title="Most Active Service" color={ColorsEnum.Blue} heading={counts.activeService ?? ""} className="bg-indigo-800/5" />
-        <HeaderInfoItem title="Most Active City" color={ColorsEnum.Blue} heading={counts.activeCity ?? ""} className="bg-indigo-800/5" />
-        <HeaderInfoItem title="Most Active Provider" color={ColorsEnum.Blue} heading={counts.activeProvider ?? ""} className="bg-indigo-800/5" />
-        <HeaderInfoItem title="Most Active Category" color={ColorsEnum.Blue} heading={counts.activeCategory ?? ""} className="bg-indigo-800/5" />
+        <HeaderInfoItem title={t(messages.MOST_ACTIVE_SERVICE)} color={ColorsEnum.Blue} heading={counts.activeService ?? ""} className="bg-indigo-800/5" />
+        <HeaderInfoItem title={t(messages.MOST_ACTIVE_CITY)} color={ColorsEnum.Blue} heading={counts.activeCity ?? ""} className="bg-indigo-800/5" />
+        <HeaderInfoItem title={t(messages.MOST_ACTIVE_PROVIDER)} color={ColorsEnum.Blue} heading={counts.activeProvider ?? ""} className="bg-indigo-800/5" />
+        <HeaderInfoItem title={t(messages.MOST_ACTIVE_CATEGORY)} color={ColorsEnum.Blue} heading={counts.activeCategory ?? ""} className="bg-indigo-800/5" />
 
       </div>)
       }
@@ -137,11 +137,11 @@ export default function Home() {
 
 
         <div className="bg-indigo-800/5 rounded-sm col-span-1 grid grid-cols-1 grid-rows-5 gap-3 p-3">
-          <HeaderInfoItem title={t(messages.TOTAL_REQ)} color={ColorsEnum.Blue} heading={totalAppointmentsCount} className="bg-white" />
-          <HeaderInfoItem title={t(messages.COMPLETE)} color={ColorsEnum.Green} heading={totalAppointments?.COMPLETED || 0} className="bg-white" />
-          <HeaderInfoItem title={t("Pending")} color={ColorsEnum.Yellow} heading={totalAppointments?.PENDING || 0} className="bg-white" />
-          <HeaderInfoItem title={t(messages.CANCELLED)} color={ColorsEnum.Red} heading={totalAppointments?.CANCELED || 0} className="bg-white" />
-          <HeaderInfoItem title={t("Rejected")} color={ColorsEnum.Red} heading={totalAppointments?.REJECTED || 0} className="bg-white" />
+          <HeaderInfoItem title={t(messages.TOTAL_REQ)} color={ColorsEnum.Blue} heading={totalAppointmentsCount} className="bg-background" />
+          <HeaderInfoItem title={t(messages.COMPLETE)} color={ColorsEnum.Green} heading={totalAppointments?.COMPLETED || 0} className="bg-background" />
+          <HeaderInfoItem title={t(messages.PENDING)} color={ColorsEnum.Yellow} heading={totalAppointments?.PENDING || 0} className="bg-background" />
+          <HeaderInfoItem title={t(messages.CANCELLED)} color={ColorsEnum.Red} heading={totalAppointments?.CANCELED || 0} className="bg-background" />
+          <HeaderInfoItem title={t(messages.REJECTED)} color={ColorsEnum.Red} heading={totalAppointments?.REJECTED || 0} className="bg-background" />
         </div>
 
       </div>

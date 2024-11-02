@@ -10,6 +10,7 @@ import { messages } from '@/constants/constants'
 import { getCookie, isValidImageSrc, removeCookie } from '@/lib/helpers'
 import { useTranslation } from 'react-i18next'
 import Notifications from './Notifications'
+import { ThemeToggle } from '../themeChanger/ThemeToggle'
 
 const Navbar = () => {
     const { t } = useTranslation()
@@ -33,7 +34,7 @@ const Navbar = () => {
         location.reload()
     }
     return (
-        <div className='flex w-full bg-white h-[75px] px-4 shadow-sm'>
+        <div className='flex w-full bg-background h-[75px] px-4 shadow-md dark:shadow-white/05'>
             <div className='flex-[0.5] flex justify-between items-center'>
                 <div className='h-[60%] w-28'>
 
@@ -48,10 +49,8 @@ const Navbar = () => {
             </div>
             <div className='flex-[0.5] flex justify-end ltr:pr-4 rtl:pl-4 items-center h-full gap-3'>
                 <div className='flex gap-2'>
-                    <LanguageChanger selectClassName='border-[#EEF5E4] bg-screen' />
-                    <IconButton>
-                        <BulbIcon className='h-6 w-6' />
-                    </IconButton>
+                    <LanguageChanger selectClassName='border-[#EEF5E4] dark:border-screen bg-screen' />
+                    <ThemeToggle />
                     <Notifications />
                 </div>
 
@@ -77,7 +76,7 @@ const Navbar = () => {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className='w-56'>
                         {/* <DropdownMenuLabel>{t(messages.ACTIONS)}</DropdownMenuLabel> */}
-                        <DropdownMenuItem onClick={handleLogout} className="text-black hover:bg-indigo-800 hover:bg-opacity-25">
+                        <DropdownMenuItem onClick={handleLogout} className=" hover:bg-indigo-800 hover:bg-opacity-25">
                             {t(messages.LOGOUT)}
                         </DropdownMenuItem>
 

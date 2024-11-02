@@ -34,6 +34,8 @@ import { Input } from "@/components/ui"
 import { Filter, SortAsc, SortDesc } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { SortEnum } from "@/constants/enums"
+import { useTranslation } from "react-i18next"
+import { messages } from "@/constants/constants"
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
@@ -85,7 +87,7 @@ export function DataTable<TData, TValue>({
     const [rowSelection, setRowSelection] = useState({})
     const [currFilter, setCurrFilter] = useState(filterKey)
     const seletedPagination = tablePagination ? tablePagination : pagination
-
+    const { t } = useTranslation()
 
 
 
@@ -137,7 +139,7 @@ export function DataTable<TData, TValue>({
 
     return (
         <div className="flex flex-col gap-2">
-            <div className="flex items-center justify-between py-2 bg-white rounded-md px-3">
+            <div className="flex items-center justify-between py-2 bg-background rounded-md px-3">
                 <Input
                     placeholder={`Search...`}
                     value={search ? search : (table.getColumn(currFilter)?.getFilterValue() as string) ?? ""}
@@ -164,7 +166,7 @@ export function DataTable<TData, TValue>({
                         className="ltr:ml-auto rtl:mr-auto bg-indigo-800 text-indigo-800 bg-opacity-5 hover:bg-indigo-100">
                         {sort && sort === SortEnum.Ascending ? <SortAsc className="ltr:mr-2 rtl:ml-2 h-4 w-4" /> : <SortDesc className="ltr:mr-2 rtl:ml-2 h-4 w-4" />}
                         {!sort && <SortAsc className="ltr:mr-2 rtl:ml-2 h-4 w-4" />}
-                        <p>Sort</p>
+                        <p>{t(messages.SORT)}</p>
                     </Button>
                     {filterComponent ? (
                         filterComponent()
@@ -174,7 +176,7 @@ export function DataTable<TData, TValue>({
                             <DropdownMenuTrigger asChild>
                                 <Button variant="outline" className="ltr:ml-auto rtl:mr-auto bg-indigo-800 text-indigo-800 bg-opacity-5 hover:bg-indigo-100">
                                     <Filter className="ltr:mr-2 rtl:ml-2 h-4 w-4" />
-                                    <p>Filter</p>
+                                    <p>{t(messages.FILTER)}</p>
                                 </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end">
@@ -261,9 +263,9 @@ export function DataTable<TData, TValue>({
                     </TableBody>
                 </Table>
             </div>
-            <div className="flex items-center justify-between py-2 px-3 bg-white rounded-md">
-                <div className="flex gap-2 items-center text-sm text-gray-500">
-                    <p>Rows per page:</p>
+            <div className="flex items-center justify-between py-2 px-3 bg-background rounded-md">
+                <div className="flex gap-2 items-center text-sm text-gray-500 dark:text-white">
+                    <p>{t(messages.ROWS_PER_PAGE)}:</p>
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <Button variant={"default"} className="bg-indigo-800 bg-opacity-5 hover:bg-indigo-100  rounded-md justify-center items-center gap-2 inline-flex">
@@ -273,7 +275,7 @@ export function DataTable<TData, TValue>({
                         </DropdownMenuTrigger>
                         <DropdownMenuContent className='flex px-1 flex-col items-center justify-center select-none'>
                             {[10, 20, 30, 40, 50, 100, 200, 300, 400, 500].map(i => (
-                                <div onClick={() => table.setPageSize(i)} className={cn("w-full p-2 rounded text-center hover:bg-appcard", i === seletedPagination.pageSize ? "bg-appcard" : "")} key={i}>{i}</div>
+                                <div onClick={() => table.setPageSize(i)} className={cn("w-full p-2 rounded text-center hover:bg-screen", i === seletedPagination.pageSize ? "bg-screen" : "")} key={i}>{i}</div>
                             ))}
                         </DropdownMenuContent>
                     </DropdownMenu>

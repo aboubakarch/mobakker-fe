@@ -38,7 +38,7 @@ export const branchManagerColumns: (t: TFunction<"translation", undefined>, hand
         },
         {
             accessorKey: "firstName",
-            header: () => <div className="text-left">{t(tableHeader.NAME)}</div>,
+            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.NAME)}</div>,
 
             cell: ({ row }) => {
                 const firstName: string = row.getValue("firstName");
@@ -56,7 +56,7 @@ export const branchManagerColumns: (t: TFunction<"translation", undefined>, hand
                             />
                         </div>
                         <div className="flex flex-col text-sm font-medium leading-snug">
-                            <p className="text-gray-900">{`${firstName} ${lastName}`}</p>
+                            <p className="text-gray-900 dark:text-white">{`${firstName} ${lastName}`}</p>
                         </div>
                     </div>
                 )
@@ -65,12 +65,12 @@ export const branchManagerColumns: (t: TFunction<"translation", undefined>, hand
 
         {
             accessorKey: "email",
-            header: () => <div className="text-left">{t(tableHeader.EMAIL)}</div>,
+            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.EMAIL)}</div>,
 
             cell: ({ row }) => {
                 const email: string = row.getValue("email");
                 return (
-                    <div className="w-max flex items-center justify-center text-left justify-self-center">
+                    <div className="w-max flex items-center justify-center ltr:text-left rtl:text-right ">
 
                         <p className="text-sm line-clamp-1">{email}</p>
                     </div>
@@ -80,12 +80,12 @@ export const branchManagerColumns: (t: TFunction<"translation", undefined>, hand
 
         {
             accessorKey: "phone",
-            header: () => <div className="text-left">{t(tableHeader.PHONE)}</div>,
+            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.PHONE)}</div>,
 
             cell: ({ row }) => {
                 const phone: string = row.getValue("phone");
                 return (
-                    <div className="w-max flex items-center justify-center text-left justify-self-center">
+                    <div className="w-max flex items-center justify-center ltr:text-left rtl:text-right ">
 
                         <p className="text-sm line-clamp-1">{phone}</p>
                     </div>
@@ -94,7 +94,7 @@ export const branchManagerColumns: (t: TFunction<"translation", undefined>, hand
         },
         {
             accessorKey: "isActive",
-            header: () => <div className="text-left">{t(tableHeader.STATUS)}</div>,
+            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.STATUS)}</div>,
 
             cell: ({ row }) => {
                 const isActive: boolean = row.getValue("isActive");

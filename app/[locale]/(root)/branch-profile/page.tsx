@@ -21,14 +21,14 @@ const BranchProfile = () => {
         console.log(values);
     };
     return (
-        <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
+        <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar dark:scrollbar-dark">
             <PageHeader title={t(messages.BRANCH_PROFILE)}
                 description="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis asperiores, aperiam ipsum corrupti minus recusandae exercitationem dolorum temporibus esse at officia iure in hic consequatur ea nisi placeat praesentium officiis."
             >
             </PageHeader>
             <div className='flex gap-4'>
-                <div className='flex-[0.30] bg-white rounded py-5 flex gap-4 flex-col'>
-                    <div className='w-full border-b border-neutral-200 px-4 pb-3 text-gray-800 text-xl font-medium '>
+                <div className='flex-[0.30] bg-background rounded py-5 flex gap-4 flex-col'>
+                    <div className='w-full border-b border-neutral-200 px-4 pb-3 text-gray-800 dark:text-white text-xl font-medium '>
                         {t(messages.LOGO)}
                     </div>
                     <div className='flex flex-col w-full items-center px-4 gap-5'>
@@ -52,7 +52,7 @@ const BranchProfile = () => {
                     </div>
 
                 </div>
-                <div className='flex-[0.70] bg-white rounded'>
+                <div className='flex-[0.70] bg-background rounded'>
 
                     <AppForm
                         onSubmit={onSubmit}

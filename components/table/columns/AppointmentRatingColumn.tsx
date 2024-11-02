@@ -25,7 +25,7 @@ export const appointmentRatingColumns: (t: TFunction<"translation", undefined>) 
         cell: ({ row }) => {
             const rank: string = row.getValue("rank");
             return (
-                <div className="w-max flex items-center justify-center text-center justify-self-center">
+                <div className="w-max flex items-center justify-center text-center ">
 
                     <p className="text-sm line-clamp-1">{rank}</p>
                 </div>
@@ -52,7 +52,7 @@ export const appointmentRatingColumns: (t: TFunction<"translation", undefined>) 
         cell: ({ row }) => {
             const customerNumber: number = row.getValue("customerNumber");
             return (
-                <div className="w-max flex items-center justify-center text-center justify-self-center">
+                <div className="w-max flex items-center justify-center text-center ">
                     <p className="text-sm line-clamp-1">{customerNumber}</p>
                 </div>
             )
@@ -85,7 +85,7 @@ export const appointmentRatingColumns: (t: TFunction<"translation", undefined>) 
                         />
                     </div>
                     <div className="flex flex-col text-sm font-medium leading-snug">
-                        <p className="text-gray-900">{rowItem.serviceBooked}</p>
+                        <p className="text-gray-900 dark:text-white">{rowItem.serviceBooked}</p>
                     </div>
                 </div>
             )

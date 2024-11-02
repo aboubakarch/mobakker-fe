@@ -1,14 +1,17 @@
 import {
   IAppointmentFormValues,
   IAssignBranchFormValues,
+  IAssignEmployeeFormValues,
   IAssignServiceFormValues,
   IBranchEditFormValues,
   IBranchFormValues,
   ICityFormValues,
   ICountryFormValues,
   IEmployeeFormValues,
+  IEmployeeProviderFormValues,
   IFormValueObj,
   ILoginFormValues,
+  ILoyaltyProgramFormValues,
   IOTPFormValues,
   IPromotionFormValues,
   IProviderFormValues,
@@ -21,13 +24,16 @@ import {
 import {
   appointmentValidationSchema,
   assignBranchValidationSchema,
+  assignEmployeeValidationSchema,
   assignServiceValidationSchema,
   branchEditValidationSchema,
   branchValidationSchema,
   cityValidationSchema,
   countryValidationSchema,
+  employeeProviderValidationSchema,
   employeeValidationSchema,
   loginValidationSchema,
+  loyaltyProgramValidationSchema,
   otpValidationSchema,
   promotionValidationSchema,
   providerRegistrationValidationSchema,
@@ -59,6 +65,7 @@ export const branchDefaultValues: (val?: SampleBranch) => IBranchFormValues = (
   name: val ? val.name : "",
   state: "",
   city: val ? val.branchCityId || "" : "",
+  description: val ? val.description || "" : "",
   location: val ? val.address : "",
   manager: val ? val.managerId || "" : "",
   ownerId: val ? val.ownerId || "" : "",
@@ -79,6 +86,10 @@ export const assignServiceDefaultValues: IAssignServiceFormValues = {
 export const assignBranchDefaultValues: IAssignBranchFormValues = {
   branch: "",
 };
+export const assignEmployeeDefaultValues: IAssignEmployeeFormValues = {
+  employee: "",
+};
+
 export const providerDefaultValues: (
   val?: SampleProvider
 ) => IProviderFormValues = (val) => ({
@@ -86,7 +97,27 @@ export const providerDefaultValues: (
   lastName: val ? val.lastName : "",
   email: val ? val.email : "",
   phone: val ? val.phone : "",
-  password: val ? "Password@12" : "",
+  password: val ? val.password || "Password@12" : "",
+});
+export const employeeProviderDefaultValues: (
+  val?: SampleEmployeeProvider
+) => IEmployeeProviderFormValues = (val) => ({
+  firstName: val ? val.firstName : "",
+  lastName: val ? val.lastName : "",
+  email: val ? val.email : "",
+  phone: val ? val.phone : "",
+  password: val ? val.password || "Password@12" : "",
+  jobDescription: val ? (val as any).data.jobDescription || "" : "",
+  workHourFrom: val
+    ? (val as any).data.workHourFrom
+      ? formatTime((val as any).data.workHourFrom)
+      : ("" as any)
+    : ("" as any),
+  workHourTo: val
+    ? (val as any).data.workHourTo
+      ? formatTime((val as any).data.workHourTo)
+      : ("" as any)
+    : ("" as any),
 });
 export const employeeDefaultValues: IEmployeeFormValues = {
   name: "",
@@ -121,6 +152,7 @@ export const promotionDefaultValues: (
   type: val ? val.type : "FIXED",
   description: val ? val.description : "",
   discount: val ? (val as any)?.discount || "" : "",
+  totalCapacity: val ? (val as any).totalCapacity || "" : "",
 });
 export const appointmentDefaultValues: (
   val?: SampleAppointments
@@ -158,6 +190,14 @@ export const cityDefaultValues: (val?: City) => ICityFormValues = (val) => ({
   name: val ? val.name : "",
   code: val ? val.code : "",
   stateId: val ? val.stateId : "",
+});
+
+export const loyaltyDefaultValues: (
+  val?: SampleLoyalPrograms
+) => ILoyaltyProgramFormValues = (val) => ({
+  branch: val ? val.branchId : "",
+  rating: val ? val.rating : 0,
+  noOfBooking: val ? val.noOfBooking : 0,
 });
 
 export const loginFormVals: IFormValueObj<ILoginFormValues> = {
@@ -249,6 +289,13 @@ export const branchFormVals: (
       name: "location",
       label: t(formConstants.LOCATION),
     },
+    description: {
+      placeHolder: t(formConstants.DESC),
+      hasError: true,
+      name: "description",
+      label: t(formConstants.DESC),
+      fieldType: FieldTypesEnum.Textarea,
+    },
     // state: {
     //   placeHolder: t(formConstants.STATE),
     //   hasError: true,
@@ -319,6 +366,37 @@ export const branchEditFormVals: IFormValueObj<IBranchEditFormValues> = {
     },
   }),
 };
+
+export const loyaltyProgramFormVals: (
+  val?: SampleLoyalPrograms
+) => IFormValueObj<ILoyaltyProgramFormValues> = (val) => ({
+  validationSchema: loyaltyProgramValidationSchema,
+  initialValues: loyaltyDefaultValues(val),
+  info: (t) => ({
+    branch: {
+      placeHolder: t(formConstants.BRANCH_ID_LABEL),
+      hasError: true,
+      name: "branch",
+      label: t(formConstants.BRANCH_ID_PLACEHOLDER),
+      fieldType: FieldTypesEnum.SingleSearchSelect,
+    },
+
+    rating: {
+      placeHolder: t(formConstants.LOCATION),
+      hasError: true,
+      name: "rating",
+      label: t(formConstants.LOCATION),
+    },
+    noOfBooking: {
+      placeHolder: t(formConstants.CAPACITY),
+      hasError: true,
+      name: "details",
+      label: t(formConstants.CAPACITY),
+      type: "number",
+    },
+  }),
+});
+
 export const employeeFormVals: IFormValueObj<IEmployeeFormValues> = {
   validationSchema: employeeValidationSchema,
   initialValues: employeeDefaultValues,
@@ -387,6 +465,66 @@ export const providerFormVals: (
       name: "password",
       label: t(formConstants.PASS_PLACEHOLDER),
       type: "password",
+    },
+  }),
+});
+export const employeeProvFormVals: (
+  val?: SampleEmployeeProvider
+) => IFormValueObj<IEmployeeProviderFormValues> = (val) => ({
+  validationSchema: employeeProviderValidationSchema,
+  initialValues: employeeProviderDefaultValues(val),
+  info: (t) => ({
+    firstName: {
+      placeHolder: t(formConstants.FIRST_NAME),
+      hasError: true,
+      name: "firstName",
+      label: t(formConstants.FIRST_NAME),
+    },
+    lastName: {
+      placeHolder: t(formConstants.LAST_NAME),
+      hasError: true,
+      name: "lastName",
+      label: t(formConstants.LAST_NAME),
+    },
+    email: {
+      placeHolder: t(formConstants.EMAIL_PLACEHOLDER),
+      hasError: true,
+      name: "email",
+      label: t(formConstants.EMAIL_LABEL),
+    },
+    phone: {
+      placeHolder: t("+966 *******"),
+      hasError: true,
+      name: "phone",
+      label: t(formConstants.PHONE),
+    },
+    password: {
+      placeHolder: t(formConstants.PASS_PLACEHOLDER),
+      hasError: true,
+      name: "password",
+      label: t(formConstants.PASS_PLACEHOLDER),
+      type: "password",
+    },
+    jobDescription: {
+      placeHolder: t(formConstants.JOB_DESC),
+      hasError: true,
+      name: "jobDescription",
+      label: t(formConstants.JOB_DESC),
+      type: FieldTypesEnum.Textarea,
+    },
+    workHourFrom: {
+      placeHolder: t(formConstants.FROM),
+      hasError: true,
+      name: "workHourFrom",
+      label: t(formConstants.WORKING_HOURS),
+      type: "time",
+    },
+    workHourTo: {
+      placeHolder: t(formConstants.TO),
+      hasError: true,
+      name: "workHourTo",
+      // label: t(formConstants.JOB_DESC),
+      type: "time",
     },
   }),
 });
@@ -518,6 +656,13 @@ export const promotionFormVals: (
       label: t(formConstants.DISCOUNT_LABEL),
       type: "number",
     },
+    totalCapacity: {
+      placeHolder: t(formConstants.CAPACITY),
+      hasError: true,
+      name: "totalCapacity",
+      label: t(formConstants.CAPACITY),
+      type: "number",
+    },
   }),
 });
 export const appointmentFormVals: (
@@ -611,8 +756,8 @@ export const appointmentFormVals: (
     netTotalAmount: {
       hasError: true,
       name: "netTotalAmount",
-      label: t(formConstants.NET_TOTAL_AMOUNT_LABEL),
-      placeHolder: t(formConstants.NET_TOTAL_AMOUNT_PLACEHOLDER),
+      label: t(formConstants.PRICE),
+      placeHolder: t(formConstants.PRICE),
     },
     promotion: {
       hasError: false,
@@ -644,10 +789,24 @@ export const assignBranchFormVals: () => IFormValueObj<IAssignBranchFormValues> 
     initialValues: assignBranchDefaultValues,
     info: (t) => ({
       branch: {
-        placeHolder: t(formConstants.BRANCH_ID_LABEL),
+        placeHolder: t(formConstants.BRANCH_NAME_LABEL),
         hasError: true,
         name: "branch",
-        label: t(formConstants.BRANCH_ID_PLACEHOLDER),
+        label: t(formConstants.BRANCH_NAME_LABEL),
+        fieldType: FieldTypesEnum.SingleSearchSelect,
+      },
+    }),
+  });
+export const assignEmployeeFormVals: () => IFormValueObj<IAssignEmployeeFormValues> =
+  () => ({
+    validationSchema: assignEmployeeValidationSchema,
+    initialValues: assignEmployeeDefaultValues,
+    info: (t) => ({
+      employee: {
+        placeHolder: t(formConstants.EMPLOYEE_NAME),
+        hasError: true,
+        name: "employee",
+        label: t(formConstants.EMPLOYEE_NAME),
         fieldType: FieldTypesEnum.SingleSearchSelect,
       },
     }),

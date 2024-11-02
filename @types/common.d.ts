@@ -66,16 +66,14 @@ interface SampleAppointments {
   branch: SampleBranch;
 }
 interface SampleLoyalPrograms {
-  rank: string;
-  customerName: string;
-  customerNumber: number;
-  totalBookings: number;
-  serviceType: string;
-  serviceBooked: string;
-  servicePicture: string;
-  lastBooking: string;
-  branchName: string;
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  isActive: boolean;
+  noOfBooking: number;
   rating: number;
+  branchId: string;
+  branch: SampleBranch;
 }
 interface SampleComplaint {
   complaint: string;
@@ -111,6 +109,8 @@ interface SamplePromotions {
   type: "FIXED" | "PERCENTAGE";
   description: string;
   discount: number;
+  totalCapacity: number;
+  currentCapacity: number;
 }
 interface Subscription {
   id: string;
@@ -164,6 +164,7 @@ interface SampleSubscription {
 }
 interface SampleBranch {
   id: string;
+  description: string;
   createdAt: string;
   updatedAt: string;
   isActive: boolean;
@@ -190,6 +191,19 @@ interface SampleProvider {
   email: string;
   phone: string;
   description: string;
+  isVerified: string;
+}
+interface SampleEmployeeProvider {
+  firstName: string;
+  lastName: string;
+  password: string;
+  email: string;
+  phone: string;
+  description: string;
+  jobDescription: string;
+  workHourFrom: string;
+  workHourTo: string;
+  isVerified: string;
 }
 interface SampleCustomerCare {
   firstName: string;
@@ -207,6 +221,10 @@ interface SampleBranchManager {
   email: string;
   phone: string;
   description: string;
+  jobDescription?: string;
+  workHourFrom?: string;
+  workHourTo?: string;
+  isVerified: string;
 }
 interface SampleUser {
   name: string;
@@ -328,4 +346,20 @@ interface SampleServiceRating extends Rating {
 interface SampleEmployeeRating extends Rating {
   employeeId: string;
   employee: Employee;
+}
+
+interface Refund {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  isActive: boolean;
+  transactionId: string;
+  amount: number;
+  status: string;
+  createdById: string;
+  customerId: string;
+  appointmentId: string;
+  customer: User;
+  createdBy: User;
+  appointment: SampleAppointments;
 }

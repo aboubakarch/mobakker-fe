@@ -53,7 +53,7 @@ const Subscriptions = () => {
     }
 
     return (
-        <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
+        <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar dark:scrollbar-dark">
             {/* <SubscriptionDetailsModal visible={detailsModalOpen} closeModal={handleDetailsModalClose} val={selectedSubscription as SampleSubscriptions} /> */}
 
             <SendNotificationModal visible={notificationModalOpen} closeModal={handleNotificationModalClose} val={selectedSubscription ? { id: selectedSubscription.serviceProvider.userId } : undefined} />

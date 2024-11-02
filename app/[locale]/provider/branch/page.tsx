@@ -98,7 +98,7 @@ const Branch = () => {
         setPaymentModalOpen(true)
     }
     return (
-        <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
+        <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar dark:scrollbar-dark">
             <BranchModal visible={modalOpen} closeModal={handleModalClose} val={selectedBranch} onUpdate={() => setFlag(!flag)} onSubmitData={onAddNewBranch} />
             <BranchDetailsModal visible={detailsModalOpen} closeModal={handleDetailsModalClose} val={selectedBranch as SampleBranch} />
             <PaymentModal visible={paymentModalOpen} closeModal={handlePaymentModalClose} val={selectedBranch as SampleBranch} />

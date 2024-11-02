@@ -10,7 +10,7 @@ import { RoleType } from '@/constants/enums'
 import { branchFormVals, providerFormVals } from '@/constants/forms'
 import { branchEditValidationSchema, providerValidationSchema } from '@/constants/validationSchemas'
 import { useToast } from '@/hooks/use-toast'
-import { convertToFormData, getCookie, isValidImageSrc } from '@/lib/helpers'
+import { convertToFormData, getCookie, isValidImageSrc, removeCookie } from '@/lib/helpers'
 import APIService from '@/services/api'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
@@ -38,6 +38,14 @@ const Profile = () => {
             })
         }
     }, [])
+    const handleLogout = () => {
+        removeCookie("accessToken")
+        removeCookie("refreshToken")
+        removeCookie("role")
+        removeCookie("userId")
+        removeCookie("user")
+        location.reload()
+    }
 
     const onSubmit = async (values: yup.InferType<typeof providerValidationSchema>) => {
         console.log(values);
@@ -82,6 +90,10 @@ const Profile = () => {
                 description: "User Updated!",
                 variant: "success"
             })
+            if (values.email !== user.email) {
+
+                handleLogout()
+            }
             location.reload()
         } catch (error: any) {
             setLoading(false)
@@ -94,14 +106,14 @@ const Profile = () => {
         }
     };
     return (
-        <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
+        <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar dark:scrollbar-dark">
             <PageHeader title={t("User Profile")}
                 description="Manage your profile."
             >
             </PageHeader>
             <div className='flex gap-4 h-min-[60%]'>
-                <div className='flex-[0.30] bg-white rounded py-5 flex gap-4 flex-col'>
-                    <div className='w-full border-b border-neutral-200 px-4 pb-3 text-gray-800 text-xl font-medium '>
+                <div className='flex-[0.30] bg-background rounded py-5 flex gap-4 flex-col'>
+                    <div className='w-full border-b border-neutral-200 px-4 pb-3 text-gray-800 dark:text-white text-xl font-medium '>
                         {t("Profile Image")}
                     </div>
                     <div className='flex flex-col w-full items-center px-4 gap-5'>
@@ -123,7 +135,7 @@ const Profile = () => {
                     </div>
 
                 </div>
-                <div className='flex-[0.70] bg-white rounded'>
+                <div className='flex-[0.70] bg-background rounded'>
 
                     <AppForm
                         onSubmit={onSubmit}

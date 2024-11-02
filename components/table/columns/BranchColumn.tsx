@@ -79,12 +79,24 @@ export const branchColumns: (
                             />
                         </div>
                         <div className="flex flex-col text-sm font-medium leading-snug">
-                            <p className="text-gray-900">{rowItem.name}</p>
+                            <p className="text-gray-900 dark:text-white">{rowItem.name}</p>
                         </div>
                     </div>
                 )
             },
         },
+        {
+            accessorKey: "description",
+            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.DESC)}</div>,
+
+            cell: ({ row }) => {
+                const location: string = row.getValue("description");
+                return (
+                    <TextColumn text={location} />
+                )
+            },
+        },
+
 
         {
             accessorKey: "address",

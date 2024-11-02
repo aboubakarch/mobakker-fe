@@ -25,7 +25,7 @@ export const customerRatingColumns: (
 ) => ColumnDef<SampleCustomerRating>[] = (t, handleEdit, handleDelete) => ([
     {
         accessorKey: "customer",
-        header: () => <div className="text-left">{t(tableHeader.CUSTOMER_NAME)}</div>,
+        header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.CUSTOMER_NAME)}</div>,
         cell: ({ row }) => {
             const customer: Customer = row.getValue("customer");
             return (
@@ -39,7 +39,7 @@ export const customerRatingColumns: (
                         />
                     </div>
                     <div className="flex flex-col text-sm font-medium leading-snug">
-                        <p className="text-gray-900">{`${customer.user.firstName || ""} ${customer.user.lastName || ""}`}</p>
+                        <p className="text-gray-900 dark:text-white">{`${customer.user.firstName || ""} ${customer.user.lastName || ""}`}</p>
                         <p className="text-indigo-800">{customer.user.email}</p>
                     </div>
                 </div>
@@ -48,7 +48,7 @@ export const customerRatingColumns: (
     },
     {
         accessorKey: "user",
-        header: () => <div className="text-left">{t("Reviewer")}</div>,
+        header: () => <div className="ltr:text-left rtl:text-right">{t(messages.REVIEWER)}</div>,
         cell: ({ row }) => {
             const user: User = row.getValue("user");
             return (
@@ -62,7 +62,7 @@ export const customerRatingColumns: (
                         />
                     </div>
                     <div className="flex flex-col text-sm font-medium leading-snug">
-                        <p className="text-gray-900">{`${user.firstName || ""} ${user.lastName || ""}`}</p>
+                        <p className="text-gray-900 dark:text-white">{`${user.firstName || ""} ${user.lastName || ""}`}</p>
                         <p className="text-indigo-800">{user.email}</p>
                     </div>
                 </div>
@@ -71,7 +71,7 @@ export const customerRatingColumns: (
     },
     {
         accessorKey: "rating",
-        header: () => <div className="text-left">{t(tableHeader.RATING)}</div>,
+        header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.RATING)}</div>,
         cell: ({ row }) => {
             const rating: number = row.getValue("rating");
             return <Badge text={`${rating}`} />;
@@ -79,7 +79,7 @@ export const customerRatingColumns: (
     },
     {
         accessorKey: "avgRating",
-        header: () => <div className="text-left">{t("Average Rating")}</div>,
+        header: () => <div className="ltr:text-left rtl:text-right">{t(messages.AVERAGE_RATING)}</div>,
         cell: ({ row }) => {
             const rating: number = row.getValue("avgRating");
             return (
@@ -89,7 +89,7 @@ export const customerRatingColumns: (
     },
     {
         accessorKey: "review",
-        header: () => <div className="text-left">{t("Review")}</div>,
+        header: () => <div className="ltr:text-left rtl:text-right">{t(messages.REVIEW)}</div>,
         cell: ({ row }) => {
             const review: string = row.getValue("review");
             return <TextColumn text={review} />;

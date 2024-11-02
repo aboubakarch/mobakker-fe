@@ -17,5 +17,6 @@
   "branchManagers": "مديري الفرع",
   "managers": "المديرين",
   "customerCare": "خدمة العملاء",
-  "serviceType": "نوع الخدمة"
+  "serviceType": "نوع الخدمة",
+  "refund": "استرداد"
 }

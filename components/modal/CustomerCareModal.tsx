@@ -95,9 +95,9 @@ const CustomerCareModal: FC<IModalCompProps<SampleBranchManager>> = ({ closeModa
                 className="px-3 py-4 flex gap-4 flex-col"
                 {...providerFormVal}>
                 <div className='flex justify-between w-full'>
-                    <p className='text-black text-xl font-medium  leading-[30px]'>{val ? t(messages.UPDATE) : t(messages.ADD_REPRESENTATIVE)}</p>
+                    <p className='text-black dark:text-white text-xl font-medium  leading-[30px]'>{val ? t(messages.UPDATE) : t(messages.ADD_REPRESENTATIVE)}</p>
                     <Button variant={'ghost'} onClick={closeModal} className='px-3 py-0'>
-                        <X className='w-4 h-4 relative text-black' />
+                        <X className='w-4 h-4 relative text-black dark:text-white' />
                     </Button>
                 </div>
                 <Dropzone title='Upload Profile Image' onFileSelect={(file) => setImage(file)} url={(val as any)?.avatar || undefined} />

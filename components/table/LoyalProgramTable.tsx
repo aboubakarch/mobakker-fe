@@ -1,67 +1,98 @@
 "use client"
-import React from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { DataTable } from './DataTable'
 import { loyalProgramsColumns } from './columns/LoyalProgramsColumn'
 import { useTranslation } from 'react-i18next'
+import { SortEnum } from '@/constants/enums'
+import { useToast } from '@/hooks/use-toast'
+import APIService from '@/services/api'
+import { debounce } from 'lodash'
+import { PaginationState } from '@tanstack/react-table'
+import { Skeleton } from '../ui/Skeleton'
 
-const LoyalProgramTable = () => {
+const LoyalProgramTable: FC<ITableProps<SampleLoyalPrograms>> = ({ handleEdit, handleDelete, onUpdateFlag, onToggle }) => {
     const { t } = useTranslation()
+    const { toast } = useToast()
+    const [data, setData] = useState<SampleLoyalPrograms[]>([])
+    const [total, setTotal] = useState<number>(1)
+    const [pageLoaded, setPageLoaded] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [pagination, setPagination] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 })
+    const [sort, setSort] = useState<SortEnum>(SortEnum.Descending)
+    const [search, setSearch] = useState("")
 
-    const data: SampleLoyalPrograms[] = [
-        {
-            rank: "#1",
-            customerNumber: 5637572384,
-            customerName: 'Abdullah Ali Al-Raddadi',
-            serviceBooked: "Full Body Massage",
-            serviceType: "Massage",
-            rating: 3.5,
-            servicePicture: "/assets/sampleImage.jpg",
-            branchName: "Median",
-            lastBooking: "12-12-2023",
-            totalBookings: 15
-        },
-        {
-            rank: "#2",
-            customerNumber: 5637572384,
-            customerName: 'Abdullah Ali Al-Raddadi',
-            serviceBooked: "Full Body Massage",
-            serviceType: "Massage",
-            rating: 3.5,
-            servicePicture: "/assets/sampleImage.jpg",
-            branchName: "Median",
-            lastBooking: "12-12-2023",
-            totalBookings: 15
-        },
-        {
-            rank: "#3",
-            customerNumber: 5637572384,
-            customerName: 'Abdullah Ali Al-Raddadi',
-            serviceBooked: "Full Body Massage",
-            serviceType: "Massage",
-            rating: 3.5,
-            servicePicture: "/assets/sampleImage.jpg",
-            branchName: "Median",
-            lastBooking: "12-12-2023",
-            totalBookings: 15
-        },
-        {
-            rank: "#4",
-            customerNumber: 5637572384,
-            customerName: 'Abdullah Ali Al-Raddadi',
-            serviceBooked: "Full Body Massage",
-            serviceType: "Massage",
-            rating: 3.5,
-            servicePicture: "/assets/sampleImage.jpg",
-            branchName: "Median",
-            lastBooking: "12-12-2023",
-            totalBookings: 15
-        },
+    const fetchData = async () => {
 
-    ]
+        try {
+            setLoading(true)
+
+            let params: any = {
+                page: pagination.pageIndex + 1, take: pagination.pageSize, order: sort
+            }
+            if (search !== '') {
+                params = { ...params, search }
+            }
+            const response = await APIService.getInstance().getLoyalPrograms(params)
+            setData(response.items)
+            setTotal(response.pageMetaDto.itemCount)
+            // console.log(response)
+        } catch (error: any) {
+            toast({
+                variant: "destructive",
+                description: error?.response?.data?.message || "Error! Something went wrong",
+            })
+        }
+        setLoading(false)
+        setPageLoaded(true)
+    }
+    useEffect(() => {
+
+        fetchData()
+
+    }, [onUpdateFlag])
+    useEffect(() => {
+        fetchData()
+
+    }, [pagination])
+
+    useEffect(() => {
+        handleSearch(search)
+
+    }, [search])
+
+    const handleSearch =
+        debounce((term: string) => {
+            console.log(term)
+            setPagination({ pageIndex: 0, pageSize: 10 })
+        }, 400)
+
+    const toggleSort = () => {
+        setSort(sort === SortEnum.Ascending ? SortEnum.Descending : SortEnum.Ascending)
+        setPagination({ pageIndex: 0, pageSize: 10 })
+    }
 
     return (
         <div>
-            <DataTable data={data} columns={loyalProgramsColumns(t)} filterKey='name' count={data.length} rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5' />
+            {!pageLoaded && data.length === 0 ? (
+                <div className="flex flex-col space-y-2 bg-background p-4">
+                    <Skeleton className="h-[75px] w-full rounded-xl" />
+                    <Skeleton className="h-[75px] w-full rounded-xl" />
+                </div>
+            ) : (<DataTable
+                data={data}
+                columns={loyalProgramsColumns(t, handleEdit, handleDelete, onToggle)}
+                filterKey='promoCode' count={total}
+                onChangePagination={setPagination}
+                tablePagination={pagination}
+                sort={sort}
+                toggleSort={toggleSort}
+                loading={loading} rowStyle='odd:bg-background even:bg-indigo-800 even:bg-opacity-5'
+                search={search}
+                onSearch={(q: string) => setSearch(q)}
+                filterComponent={() => <div className='absolute'></div>}
+            />)}
+
+            {/* <DataTable data={data} columns={loyalProgramsColumns(t)} filterKey='name' count={data.length} rowStyle='odd:bg-background even:bg-indigo-800 even:bg-opacity-5' /> */}
         </div>
     )
 }

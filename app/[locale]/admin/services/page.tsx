@@ -92,7 +92,7 @@ const Services = () => {
     }
 
     return (
-        <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
+        <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar dark:scrollbar-dark">
             <ServiceModal visible={modalOpen} closeModal={handleModalClose} val={selectedService} onUpdate={() => setFlag(!flag)} />
             <ServiceDetailsModal visible={detailsModalOpen} closeModal={handleDetailsModalClose} val={selectedService as SampleServices} />
 

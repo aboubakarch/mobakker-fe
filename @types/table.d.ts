@@ -33,6 +33,7 @@ interface IAppointmentFilters {
   customer?: string;
 }
 interface IEmployeeFilters {
+  serviceProvider?: string;
   branchId?: string;
 }
 interface ISubscriptionFilters {

@@ -60,7 +60,7 @@ export const serviceTypeColumns: (t: TFunction<"translation", undefined>, handle
                             />
                         </div>
                         <div className="flex flex-col text-sm font-medium leading-snug">
-                            <p className="text-gray-900">{rowItem.name}</p>
+                            <p className="text-gray-900 dark:text-white">{rowItem.name}</p>
                         </div>
                     </div>
                 )

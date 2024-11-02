@@ -15,7 +15,7 @@ import { Button } from '../ui'
 import { useToast } from '@/hooks/use-toast'
 import APIService from '@/services/api'
 import { IAppointmentFormValues, IFormValueObj } from '@/@types/forms'
-import { useFormContext } from 'react-hook-form'
+import { FieldValues, useFormContext, UseFormReturn } from 'react-hook-form'
 import { TFunction } from 'i18next'
 import { getCookie, isDateBetween } from '@/lib/helpers'
 import { RoleType } from '@/constants/enums'
@@ -53,7 +53,7 @@ const paymentTypeOptions = [
 
 const AppointmentForm: FC<{
     appointmentFormVal: IFormValueObj<IAppointmentFormValues>, t: TFunction<"translation", undefined>, branches: any[] | null, employees: any[] | null, customers: any[] | null,
-    fetchEmployeesData: (branchId: string) => Promise<void>, branchMap: any | null
+    fetchEmployeesData: (branchId: string, form: any) => Promise<void>, branchMap: any | null
 }> = ({ appointmentFormVal, t, branches, customers, employees, fetchEmployeesData, branchMap }) => {
     const form = useFormContext()
     const service = form.watch("serviceId")
@@ -98,9 +98,12 @@ const AppointmentForm: FC<{
                 })
                 setServiceMap(serMap)
                 setServices(tempServ)
+                if (form && (tempServ.length === 0 || !tempServ)) {
+                    form.setError("serviceId", { message: "This Branch has no service please assign first" })
+                }
             }
 
-            fetchEmployeesData(branchId)
+            fetchEmployeesData(branchId, form)
 
 
         }
@@ -142,7 +145,7 @@ const AppointmentForm: FC<{
                 const disc = +promo?.discount
                 const discountedTotal = promo.type === "FIXED" ? ser.price - (disc) : ser.price - (ser.price * (disc / 100))
                 form.setValue("discount", promo.type === "FIXED" ? (disc) : (ser.price * (disc / 100)))
-                form.setValue("grossTotalAmount", discountedTotal < 0 ? 0 : discountedTotal)
+                form.setValue("netTotalAmount", discountedTotal < 0 ? 0 : discountedTotal)
 
             }
         }
@@ -194,9 +197,9 @@ const AppointmentForm: FC<{
 
 
             <div className='flex gap-2'>
-                <InputField {...appointmentFormVal.info(t).discount} disabled />
+                {/* <InputField {...appointmentFormVal.info(t).discount} disabled /> */}
                 <InputField {...appointmentFormVal.info(t).netTotalAmount} disabled />
-                <InputField {...appointmentFormVal.info(t).grossTotalAmount} disabled />
+                {/* <InputField {...appointmentFormVal.info(t).grossTotalAmount} disabled /> */}
 
             </div>
             <div className='grid grid-cols-2 gap-2 w-full'>
@@ -318,7 +321,7 @@ const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal,
         }
         setLoading(false)
     }
-    const fetchEmployeesData = async (branchId: string) => {
+    const fetchEmployeesData = async (branchId: string, form?: UseFormReturn<FieldValues, any, undefined>) => {
         setLoading(true)
         try {
             const params = {
@@ -330,6 +333,9 @@ const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal,
                 name: `${item?.user?.firstName || ""} ${item?.user?.lastName || ""}`,
                 value: item.id
             }))
+            if (form && (data?.length === 0 || !data)) {
+                form.setError("branchId", { message: "This Branch has no employees" })
+            }
             setEmployees(data)
         } catch (error: any) {
             toast({
@@ -415,9 +421,9 @@ const AppointmentModal: FC<IModalCompProps<SampleAppointments>> = ({ closeModal,
                 className="px-3 py-4 flex gap-4 flex-col"
                 {...appointmentFormVal}>
                 <div className='flex justify-between w-full'>
-                    <p className='text-black text-xl font-medium  leading-[30px]'>{t(messages.ADD_NEW_APPOINTMENT)}</p>
+                    <p className='text-black dark:text-white text-xl font-medium  leading-[30px]'>{t(messages.ADD_NEW_APPOINTMENT)}</p>
                     <Button variant={'ghost'} onClick={closeModal} className='px-3 py-0'>
-                        <X className='w-4 h-4 relative text-black' />
+                        <X className='w-4 h-4 relative text-black dark:text-white' />
                     </Button>                </div>
 
                 <AppointmentForm appointmentFormVal={appointmentFormVal}

@@ -27,7 +27,7 @@ export const serviceRatingColumns: (
 
     {
         accessorKey: "service",
-        header: () => <div className="text-left">{t(tableHeader.SERVICE_NAME)}</div>,
+        header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.SERVICE_NAME)}</div>,
         cell: ({ row }) => {
             const service: SampleServices = row.getValue("service");
             return (
@@ -41,7 +41,7 @@ export const serviceRatingColumns: (
                         />
                     </div>
                     <div className="flex flex-col text-sm font-medium leading-snug">
-                        <p className="text-gray-900">{service.name}</p>
+                        <p className="text-gray-900 dark:text-white">{service.name}</p>
                         <p className="text-indigo-800">{service.price}</p>
                     </div>
                 </div>
@@ -50,7 +50,7 @@ export const serviceRatingColumns: (
     },
     {
         accessorKey: "user",
-        header: () => <div className="text-left">{t("Reviewer")}</div>,
+        header: () => <div className="ltr:text-left rtl:text-right">{t(messages.REVIEWER)}</div>,
         cell: ({ row }) => {
             const user: User = row.getValue("user");
             return (
@@ -64,7 +64,7 @@ export const serviceRatingColumns: (
                         />
                     </div>
                     <div className="flex flex-col text-sm font-medium leading-snug">
-                        <p className="text-gray-900">{`${user.firstName || ""} ${user.lastName || ""}`}</p>
+                        <p className="text-gray-900 dark:text-white">{`${user.firstName || ""} ${user.lastName || ""}`}</p>
                         <p className="text-indigo-800">{user.email}</p>
                     </div>
                 </div>
@@ -73,7 +73,7 @@ export const serviceRatingColumns: (
     },
     {
         accessorKey: "rating",
-        header: () => <div className="text-left">{t(tableHeader.RATING)}</div>,
+        header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.RATING)}</div>,
         cell: ({ row }) => {
             const rating: number = row.getValue("rating");
             return (
@@ -83,7 +83,7 @@ export const serviceRatingColumns: (
     },
     {
         accessorKey: "avgRating",
-        header: () => <div className="text-left">{t("Average Rating")}</div>,
+        header: () => <div className="ltr:text-left rtl:text-right">{t(messages.AVERAGE_RATING)}</div>,
         cell: ({ row }) => {
             const rating: number = row.getValue("avgRating");
             return (
@@ -93,7 +93,7 @@ export const serviceRatingColumns: (
     },
     {
         accessorKey: "review",
-        header: () => <div className="text-left">{t("Review")}</div>,
+        header: () => <div className="ltr:text-left rtl:text-right">{t(messages.REVIEW)}</div>,
         cell: ({ row }) => {
             const comments: string = row.getValue("review");
             return (

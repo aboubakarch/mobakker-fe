@@ -3,16 +3,17 @@ import {
     Button,
     Checkbox,
 } from "@/components/ui"
-import { Edit, MoreVertical, Trash2, UserCog2 } from "lucide-react";
+import { Edit, MoreVertical, ShieldMinus, ShieldPlus, Trash2, UserCog2 } from "lucide-react";
 import { messages, tableHeader } from "@/constants/constants";
 import { TFunction } from "i18next";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/Tooltip";
 import { getCookie, isValidImageSrc } from "@/lib/helpers";
 import { RoleType } from "@/constants/enums";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 
-export const userColumns: (t: TFunction<"translation", undefined>, handleEdit?: (val: SampleProvider) => void, handleDelete?: (val: SampleProvider) => void) => ColumnDef<SampleProvider>[] =
-    (t, handleEdit, handleDelete) => [
+export const userColumns: (t: TFunction<"translation", undefined>, handleEdit?: (val: SampleProvider) => void, handleDelete?: (val: SampleProvider) => void, onToggle?: (val: SampleProvider, active: boolean) => void) => ColumnDef<SampleProvider>[] =
+    (t, handleEdit, handleDelete, onToggle) => [
 
         {
             id: "select",
@@ -38,7 +39,7 @@ export const userColumns: (t: TFunction<"translation", undefined>, handleEdit?: 
         },
         {
             accessorKey: "firstName",
-            header: () => <div className="text-left">{t(tableHeader.NAME)}</div>,
+            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.NAME)}</div>,
 
             cell: ({ row }) => {
                 const firstName: string = row.getValue("firstName");
@@ -56,7 +57,7 @@ export const userColumns: (t: TFunction<"translation", undefined>, handleEdit?: 
                             />
                         </div>
                         <div className="flex flex-col text-sm font-medium leading-snug">
-                            <p className="text-gray-900">{`${firstName} ${lastName}`}</p>
+                            <p className="text-gray-900 dark:text-white">{`${firstName} ${lastName}`}</p>
                         </div>
                     </div>
                 )
@@ -65,12 +66,12 @@ export const userColumns: (t: TFunction<"translation", undefined>, handleEdit?: 
 
         {
             accessorKey: "email",
-            header: () => <div className="text-left">{t(tableHeader.EMAIL)}</div>,
+            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.EMAIL)}</div>,
 
             cell: ({ row }) => {
                 const email: string = row.getValue("email");
                 return (
-                    <div className="w-max flex items-center justify-center text-left justify-self-center">
+                    <div className="w-max flex items-center justify-center ltr:text-left rtl:text-right ">
 
                         <p className="text-sm line-clamp-1">{email}</p>
                     </div>
@@ -80,12 +81,12 @@ export const userColumns: (t: TFunction<"translation", undefined>, handleEdit?: 
 
         {
             accessorKey: "phone",
-            header: () => <div className="text-left">{t(tableHeader.PHONE)}</div>,
+            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.PHONE)}</div>,
 
             cell: ({ row }) => {
                 const phone: string = row.getValue("phone");
                 return (
-                    <div className="w-max flex items-center justify-center text-left justify-self-center">
+                    <div className="w-max flex items-center justify-center ltr:text-left rtl:text-right ">
 
                         <p className="text-sm line-clamp-1">{phone}</p>
                     </div>
@@ -94,7 +95,7 @@ export const userColumns: (t: TFunction<"translation", undefined>, handleEdit?: 
         },
         {
             accessorKey: "isActive",
-            header: () => <div className="text-left">{t(tableHeader.STATUS)}</div>,
+            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.STATUS)}</div>,
 
             cell: ({ row }) => {
                 const isActive: boolean = row.getValue("isActive");
@@ -119,6 +120,22 @@ export const userColumns: (t: TFunction<"translation", undefined>, handleEdit?: 
                 return (
                     <TooltipProvider>
                         <div className="flex gap-2">
+                            {(role === RoleType.ADMIN || role === RoleType.SUPER_ADMIN) &&
+                                <Tooltip>
+                                    <TooltipTrigger asChild>
+                                        <Button onClick={onToggle ? (e: any) => { e.stopPropagation(); onToggle(rowVal, rowVal.isVerified === "BLOCKED") } : undefined} variant="ghost" className={cn("h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5", rowVal.isVerified === "BLOCKED" ? "hover:bg-red-600" : "hover:bg-green-500")}>
+                                            {rowVal.isVerified === "BLOCKED" ?
+
+                                                <ShieldPlus className="h-5 w-5 text-green-500" /> :
+                                                <ShieldMinus className="h-5 w-5 text-red-500" />
+                                            }
+                                        </Button>
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                        <p>{t(rowVal.isVerified === "BLOCKED" ? "Unblock User" : "Block User")}</p>
+                                    </TooltipContent>
+                                </Tooltip>
+                            }
                             <Tooltip>
                                 <TooltipTrigger asChild>
                                     <Button disabled={!(row.original as any)?.isActive} onClick={handleEdit ? (e: any) => { e.stopPropagation(); handleEdit(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
@@ -140,7 +157,7 @@ export const userColumns: (t: TFunction<"translation", undefined>, handleEdit?: 
                                 </TooltipContent>
                             </Tooltip>
                         </div>
-                    </TooltipProvider>
+                    </TooltipProvider >
 
                 )
             },

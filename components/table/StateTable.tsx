@@ -98,7 +98,7 @@ const StateTable: FC<ITableProps<State>> = ({
     return (
         <div>
             {!pageLoaded && data.length === 0 ? (
-                <div className="flex flex-col space-y-2 bg-white p-4">
+                <div className="flex flex-col space-y-2 bg-background p-4">
                     <Skeleton className="h-[75px] w-full rounded-xl" />
                     <Skeleton className="h-[75px] w-full rounded-xl" />
                 </div>
@@ -111,7 +111,7 @@ const StateTable: FC<ITableProps<State>> = ({
                     onChangePagination={setPagination}
                     tablePagination={pagination}
                     loading={loading}
-                    rowStyle="odd:bg-white even:bg-indigo-800 even:bg-opacity-5"
+                    rowStyle="odd:bg-background even:bg-indigo-800 even:bg-opacity-5"
                     sort={sort}
                     toggleSort={toggleSort}
                     onRowClick={handleRow}

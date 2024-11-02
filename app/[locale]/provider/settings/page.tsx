@@ -59,21 +59,21 @@ const Settings = () => {
     const { t } = useTranslation()
 
     return (
-        <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
+        <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar dark:scrollbar-dark">
             <PageHeader title={t(messages.SETTINGS)}
                 description={t(messages.CUSTOMIZE_DASHBOARD)}
             >
 
             </PageHeader>
 
-            <Tabs defaultValue={SettingsData(t)[0].id} className="w-full bg-white">
+            <Tabs defaultValue={SettingsData(t)[0].id} className="w-full bg-background">
 
-                <TabsList className='bg-white'>
+                <TabsList className='bg-background'>
                     {SettingsData(t).map(item => (
                         <TabsTrigger
                             key={item.id}
                             value={item.id}
-                            className='bg-white data-[state=active]:bg-indigo-800 data-[state=active]:bg-opacity-10 data-[state=active]:text-indigo-800 '>
+                            className='bg-background data-[state=active]:bg-indigo-800 data-[state=active]:bg-opacity-10 data-[state=active]:text-indigo-800 '>
                             {item.tab}
                         </TabsTrigger>
                     ))}

@@ -84,7 +84,7 @@ const ServiceFilters: FC<IFilterProps<IServiceFilters>> = ({ onApply, onReset })
 
                 </div>
                 <div>
-                    <p className='text-sm text-black mb-2'>Price Range</p>
+                    <p className='text-sm text-black dark:text-white mb-2'>Price Range</p>
                     <Slider
                         minStepsBetweenThumbs={1000}
                         min={0}

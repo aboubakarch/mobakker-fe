@@ -5,6 +5,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/Toaster";
 import Script from "next/script";
+import { ThemeProvider } from "@/components/themeProvider/ThemeProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,8 +26,16 @@ export default function RootLayout({
       </head>
       <Script src="https://cdn.moyasar.com/mpf/1.13.0/moyasar.js" />
       <body className={cn(inter.className, "h-screen w-screen ")}>
-        {children}
-        <Toaster />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+
+          {children}
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );

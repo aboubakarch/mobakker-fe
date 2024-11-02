@@ -16,6 +16,7 @@ interface IProviderRegistrationFormValues {
 interface IBranchFormValues {
   name: string;
   location: string;
+  description: string;
   city: string;
   manager?: string;
   ownerId?: string;
@@ -29,6 +30,14 @@ interface IAssignServiceFormValues {
 interface IAssignBranchFormValues {
   branch: string;
 }
+interface IAssignEmployeeFormValues {
+  employee: string;
+}
+interface ILoyaltyProgramFormValues {
+  branch: string;
+  noOfBooking: number;
+  rating: number;
+}
 interface IBranchEditFormValues {
   name: string;
   location: string;
@@ -40,6 +49,16 @@ interface IProviderFormValues {
   email: string;
   phone: string;
   password: string;
+}
+interface IEmployeeProviderFormValues {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  password: string;
+  jobDescription: string;
+  workHourFrom: Date;
+  workHourTo: Date;
 }
 interface IEmployeeFormValues {
   name: string;
@@ -66,6 +85,7 @@ interface IPromotionFormValues {
   type: "FIXED" | "PERCENTAGE";
   description: string;
   discount: number;
+  totalCapacity: number;
 }
 interface IAppointmentFormValues {
   bookingDate: Date;

@@ -3,7 +3,7 @@ import {
     Button,
     Checkbox,
 } from "@/components/ui"
-import { Edit, MoreVertical, Trash2, UserCog2 } from "lucide-react";
+import { Edit, MoreVertical, ShieldMinus, ShieldPlus, Trash2, UserCog2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 // import { Checkbox } from "@/components/ui/Checkbox"
@@ -16,8 +16,8 @@ import { getCookie, isValidImageSrc } from "@/lib/helpers";
 import { RoleType } from "@/constants/enums";
 
 
-export const providerColumns: (t: TFunction<"translation", undefined>, handleEdit?: (val: SampleProvider) => void, handleDelete?: (val: SampleProvider) => void) => ColumnDef<SampleProvider>[] =
-    (t, handleEdit, handleDelete) => [
+export const providerColumns: (t: TFunction<"translation", undefined>, handleEdit?: (val: SampleProvider) => void, handleDelete?: (val: SampleProvider) => void, onToggle?: (val: SampleProvider, active: boolean) => void) => ColumnDef<SampleProvider>[] =
+    (t, handleEdit, handleDelete, onToggle) => [
 
         {
             id: "select",
@@ -43,7 +43,7 @@ export const providerColumns: (t: TFunction<"translation", undefined>, handleEdi
         },
         {
             accessorKey: "firstName",
-            header: () => <div className="text-left">{t(tableHeader.NAME)}</div>,
+            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.NAME)}</div>,
 
             cell: ({ row }) => {
                 const firstName: string = row.getValue("firstName");
@@ -61,7 +61,7 @@ export const providerColumns: (t: TFunction<"translation", undefined>, handleEdi
                             />
                         </div>
                         <div className="flex flex-col text-sm font-medium leading-snug">
-                            <p className="text-gray-900">{`${firstName} ${lastName}`}</p>
+                            <p className="text-gray-900 dark:text-white">{`${firstName} ${lastName}`}</p>
                         </div>
                     </div>
                 )
@@ -70,12 +70,12 @@ export const providerColumns: (t: TFunction<"translation", undefined>, handleEdi
 
         {
             accessorKey: "email",
-            header: () => <div className="text-left">{t(tableHeader.EMAIL)}</div>,
+            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.EMAIL)}</div>,
 
             cell: ({ row }) => {
                 const email: string = row.getValue("email");
                 return (
-                    <div className="w-max flex items-center justify-center text-left justify-self-center">
+                    <div className="w-max flex items-center justify-center ltr:text-left rtl:text-right ">
 
                         <p className="text-sm line-clamp-1">{email}</p>
                     </div>
@@ -85,12 +85,12 @@ export const providerColumns: (t: TFunction<"translation", undefined>, handleEdi
 
         {
             accessorKey: "phone",
-            header: () => <div className="text-left">{t(tableHeader.PHONE)}</div>,
+            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.PHONE)}</div>,
 
             cell: ({ row }) => {
                 const phone: string = row.getValue("phone");
                 return (
-                    <div className="w-max flex items-center justify-center text-left justify-self-center">
+                    <div className="w-max flex items-center justify-center ltr:text-left rtl:text-right ">
 
                         <p className="text-sm line-clamp-1">{phone}</p>
                     </div>
@@ -99,7 +99,7 @@ export const providerColumns: (t: TFunction<"translation", undefined>, handleEdi
         },
         {
             accessorKey: "isActive",
-            header: () => <div className="text-left">{t(tableHeader.STATUS)}</div>,
+            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.STATUS)}</div>,
 
             cell: ({ row }) => {
                 const isActive: boolean = row.getValue("isActive");
@@ -124,6 +124,22 @@ export const providerColumns: (t: TFunction<"translation", undefined>, handleEdi
                 return (
                     <TooltipProvider>
                         <div className="flex gap-2">
+                            {(role === RoleType.ADMIN || role === RoleType.SUPER_ADMIN) &&
+                                <Tooltip>
+                                    <TooltipTrigger asChild>
+                                        <Button onClick={onToggle ? (e: any) => { e.stopPropagation(); onToggle(rowVal, rowVal.isVerified === "BLOCKED") } : undefined} variant="ghost" className={cn("h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5", rowVal.isVerified === "BLOCKED" ? "hover:bg-red-600" : "hover:bg-green-500")}>
+                                            {rowVal.isVerified === "BLOCKED" ?
+
+                                                <ShieldPlus className="h-5 w-5 text-green-500" /> :
+                                                <ShieldMinus className="h-5 w-5 text-red-500" />
+                                            }
+                                        </Button>
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                        <p>{t(rowVal.isVerified === "BLOCKED" ? "Unblock User" : "Block User")}</p>
+                                    </TooltipContent>
+                                </Tooltip>
+                            }
                             <Tooltip>
                                 <TooltipTrigger asChild>
                                     <Button disabled={!(row.original as any)?.isActive} onClick={handleEdit ? (e: any) => { e.stopPropagation(); handleEdit(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
@@ -174,7 +190,7 @@ export const providerColumns: (t: TFunction<"translation", undefined>, handleEdi
         // },
         // {
         //     accessorKey: "name",
-        //     header: () => <div className="text-left">{t(tableHeader.NAME)}</div>,
+        //     header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.NAME)}</div>,
         //     cell: ({ row }) => {
         //         const rowItem = row.original
         //         return (
@@ -188,7 +204,7 @@ export const providerColumns: (t: TFunction<"translation", undefined>, handleEdi
         //                     />
         //                 </div>
         //                 <div className="flex flex-col text-sm font-medium leading-snug">
-        //                     <p className="text-gray-900">{rowItem.name}</p>
+        //                     <p className="text-gray-900 dark:text-white">{rowItem.name}</p>
         //                     <p className="text-indigo-800">{rowItem.status}</p>
         //                 </div>
         //             </div>
@@ -197,7 +213,7 @@ export const providerColumns: (t: TFunction<"translation", undefined>, handleEdi
         // },
         // {
         //     accessorKey: "jobDesc",
-        //     header: () => <div className="text-left">{t(tableHeader.JOB_DESC)}</div>,
+        //     header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.JOB_DESC)}</div>,
 
         //     cell: ({ row }) => {
         //         const job: string = row.getValue("jobDesc");
@@ -208,14 +224,14 @@ export const providerColumns: (t: TFunction<"translation", undefined>, handleEdi
         // },
         // {
         //     accessorKey: "bookedToday",
-        //     header: () => <div className="text-left">{t(tableHeader.BOOKED_TODAY)}</div>,
+        //     header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.BOOKED_TODAY)}</div>,
 
         //     cell: ({ row }) => {
         //         const booking: string[] = row.getValue("bookedToday");
         //         return (
         //             <div className="grid grid-rows-2 grid-cols-4 gap-3 items-center">
         //                 {booking.map((book, i) => (
-        //                     <div className={cn("p-2  rounded justify-center items-center text-white text-xs font-medium leading-tight text-left", i === (Math.floor(Math.random() * 8)) ? "bg-amber-400" : "bg-indigo-800")} key={i}>{book}</div>
+        //                     <div className={cn("p-2  rounded justify-center items-center text-white dark:text-white text-xs font-medium leading-tight ltr:text-left rtl:text-right", i === (Math.floor(Math.random() * 8)) ? "bg-amber-400" : "bg-indigo-800")} key={i}>{book}</div>
         //                 ))}
         //             </div>
         //         )
@@ -223,7 +239,7 @@ export const providerColumns: (t: TFunction<"translation", undefined>, handleEdi
         // },
         // {
         //     accessorKey: "workingHours",
-        //     header: () => <div className="text-left">{t(tableHeader.WORKING_HOURS)}</div>,
+        //     header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.WORKING_HOURS)}</div>,
 
         //     cell: ({ row }) => {
         //         const hours: string = row.getValue("workingHours")
@@ -234,7 +250,7 @@ export const providerColumns: (t: TFunction<"translation", undefined>, handleEdi
         // },
         // {
         //     accessorKey: "rating",
-        //     header: () => <div className="text-left">{t(tableHeader.RATING)}</div>,
+        //     header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.RATING)}</div>,
 
         //     cell: ({ row }) => {
         //         const rating: string = row.getValue("rating");

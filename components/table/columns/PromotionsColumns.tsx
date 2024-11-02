@@ -27,7 +27,7 @@ export const promotionsColumns: (t: TFunction<"translation", undefined>, handleE
             cell: ({ row }) => {
                 const promotionName: string = row.getValue("promoCode");
                 return (
-                    <div className="w-max flex items-center justify-center  justify-self-center">
+                    <div className="w-max flex items-center justify-center  ">
 
                         <p className="text-sm line-clamp-1">{promotionName}</p>
                     </div>
@@ -41,7 +41,7 @@ export const promotionsColumns: (t: TFunction<"translation", undefined>, handleE
             cell: ({ row }) => {
                 const promotionName: string = row.getValue("discount");
                 return (
-                    <div className="w-max flex items-center justify-center  justify-self-center">
+                    <div className="w-max flex items-center justify-center  ">
 
                         <p className="text-sm line-clamp-1">{promotionName}</p>
                     </div>
@@ -50,7 +50,7 @@ export const promotionsColumns: (t: TFunction<"translation", undefined>, handleE
         },
         {
             accessorKey: "description",
-            header: () => <div className="text-left">{t(tableHeader.DETAILS)}</div>,
+            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.DETAILS)}</div>,
 
             cell: ({ row }) => {
                 const description: string = row.getValue("description");
@@ -80,7 +80,7 @@ export const promotionsColumns: (t: TFunction<"translation", undefined>, handleE
             cell: ({ row }) => {
                 const endDate: string = row.getValue("endDate");
                 return (
-                    <div className="w-max flex items-center justify-center  justify-self-center">
+                    <div className="w-max flex items-center justify-center  ">
                         <p className="text-sm line-clamp-1">{endDate}</p>
                     </div>
                 )
@@ -102,7 +102,7 @@ export const promotionsColumns: (t: TFunction<"translation", undefined>, handleE
         //                     />
         //                 </div>
         //                 <div className="flex flex-col text-sm font-medium leading-snug">
-        //                     <p className="text-gray-900">{rowItem.serviceName}</p>
+        //                     <p className="text-gray-900 dark:text-white">{rowItem.serviceName}</p>
         //                 </div>
         //             </div>
         //         )
@@ -130,6 +130,28 @@ export const promotionsColumns: (t: TFunction<"translation", undefined>, handleE
         //         )
         //     }
         // },
+        {
+            accessorKey: "currentCapacity",
+            header: () => <div className="">{t("Used")}</div>,
+
+            cell: ({ row }) => {
+                const services: string = row.getValue("currentCapacity");
+                return (
+                    <TextColumn text={services} />
+                )
+            },
+        },
+        {
+            accessorKey: "totalCapacity",
+            header: () => <div className="">{t(tableHeader.CAPACITY)}</div>,
+
+            cell: ({ row }) => {
+                const type: string = row.getValue("totalCapacity");
+                return (
+                    <Badge text={type} />
+                )
+            },
+        },
         {
             accessorKey: "type",
             header: () => <div className="">{t(tableHeader.TYPE)}</div>,

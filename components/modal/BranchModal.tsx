@@ -175,6 +175,8 @@ const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, v
             address: values.location,
             city: cityName.length > 0 ? cityName[0].name || values.city : values.city,
             cover: "cover",
+            description: values.description,
+
             // ownerId: userId,
             // ownerId: "9ed6eeca-1659-4667-a2a0-2f68d3ad92d6",
             country: "Saudi Arab",
@@ -207,6 +209,7 @@ const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, v
         let branch: any = {
             name: values.name,
             address: values.location,
+            description: values.description,
             city: cityName.length > 0 ? cityName[0].name || values.city : values.city,
             country: "Saudi Arab",
             managerId: values.manager || undefined,
@@ -276,9 +279,9 @@ const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, v
                 className="px-3 py-4 flex gap-4 flex-col"
                 {...branchFormVal}>
                 <div className='flex justify-between w-full'>
-                    <p className='text-black text-xl font-medium  leading-[30px]'>{val ? t(messages.EDIT) : t(messages.ADD_BRANCH)}</p>
+                    <p className='text-black dark:text-white text-xl font-medium  leading-[30px]'>{val ? t(messages.EDIT) : t(messages.ADD_BRANCH)}</p>
                     <Button variant={'ghost'} onClick={closeModal} className='px-3 py-0'>
-                        <X className='w-4 h-4 relative text-black' />
+                        <X className='w-4 h-4 relative text-black dark:text-white' />
                     </Button>
                 </div>
 
@@ -292,6 +295,7 @@ const BranchModal: FC<IModalCompProps<SampleBranch>> = ({ closeModal, visible, v
 
                 <InputField {...branchFormVal.info(t).name} />
 
+                <InputField {...branchFormVal.info(t).description} />
                 <InputField {...branchFormVal.info(t).location} />
                 {/* <CityPicker branchFormVal={branchFormVal} states={states} t={t} /> */}
                 <InputField {...branchFormVal.info(t).city} data={cities} disabled={cities.length === 0} />

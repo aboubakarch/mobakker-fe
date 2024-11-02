@@ -23,11 +23,11 @@ export const branchValidationSchema = yup.object().shape({
     .max(100, "Name cannot exceed 100 characters")
     .required("Name is required"),
   location: yup.string().required("Location is required"),
-  // state: yup
-  //   .string()
-  //   .min(2, "State is required")
-  //   .max(300, "State is required")
-  //   .required("State is required"),
+  description: yup
+    .string()
+    .min(5, "Description must be at least 5 characters")
+    .max(100, "Description cannot exceed 30 characters")
+    .required("Description is required"),
   city: yup
     .string()
     .min(2, "City is required")
@@ -81,8 +81,8 @@ export const serviceValidationSchema = yup.object().shape({
     .min(4, "Name must be at least 4 characters")
     .max(100, "Name cannot exceed 100 characters")
     .required("Name is required"),
-  price: yup.number().required("Price is required"),
-  bookingCapacity: yup.number().required("Booking Capacity is required"),
+  price: yup.number().min(0).required("Price is required"),
+  bookingCapacity: yup.number().min(0).required("Booking Capacity is required"),
   serviceType: yup.string().required("Service type is required"),
   serviceAvailabilty: yup
     .array()
@@ -129,6 +129,11 @@ export const promotionValidationSchema = yup.object().shape({
     .min(5, "Description cannot be less than 5 characters.")
     .max(250, "Description cannot exceed 500 characters.")
     .required("Please enter a description."),
+  totalCapacity: yup
+    .number()
+    .min(0, "Capacity cannot be negative")
+    .max(99999)
+    .required("Discount is required"),
 });
 export const appointmentValidationSchema = yup.object().shape({
   bookingDate: yup.date().required("Booking date is required"),
@@ -140,9 +145,12 @@ export const appointmentValidationSchema = yup.object().shape({
       "Repeat must be one of 'DAILY', 'WEEKLY', 'MONTHLY', 'YEARLY', or 'NONE'"
     )
     .required("Repeat is required"),
-  grossTotalAmount: yup.number().required("Gross total amount is required"),
-  discount: yup.number().required("Discount is required"),
-  netTotalAmount: yup.number().required("Net total amount is required"),
+  grossTotalAmount: yup
+    .number()
+    .min(0)
+    .required("Gross total amount is required"),
+  discount: yup.number().min(0).required("Discount is required"),
+  netTotalAmount: yup.number().min(0).required("Net total amount is required"),
   paymentStatus: yup
     .string()
     .oneOf(
@@ -207,6 +215,50 @@ export const providerValidationSchema = yup.object().shape({
     .max(32, "Password cannot exceed 32 characters")
     .required("Password is required"),
 });
+export const employeeProviderValidationSchema = yup.object().shape({
+  firstName: yup
+    .string()
+    .min(2, "First name must be at least 2 characters")
+    .max(100, "First name cannot exceed 100 characters")
+    .required("First name is required"),
+  lastName: yup
+    .string()
+    .min(2, "Last name must be at least 2 characters")
+    .max(100, "Last name cannot exceed 100 characters")
+    .required("Last name is required"),
+  email: yup
+    .string()
+    .email("Invalid email format")
+    .required("Email is required"),
+  phone: yup
+    .string()
+    .test("phone-validation", "Invalid phone number", function (value: any) {
+      // Pakistani phone number regex pattern
+      const pakistanPhoneRegex = /^\+92[0-9]{2}[0-9]{7,8}$/;
+      // Saudi Arabian phone number regex pattern
+      const saudiPhoneRegex = /^((?:[+?0?0?966]+)(?:\s?\d{2})(?:\s?\d{7}))$/;
+
+      // Check if the phone number matches either pattern
+      if (pakistanPhoneRegex.test(value) || saudiPhoneRegex.test(value)) {
+        return true;
+      }
+
+      return false;
+    })
+    .required("Phone is required"),
+  password: yup
+    .string()
+    .min(8, "Password must be at least 8 characters")
+    .max(32, "Password cannot exceed 32 characters")
+    .required("Password is required"),
+  jobDescription: yup
+    .string()
+    .min(2, "Job description must be at least 2 characters")
+    .max(100, "Job description cannot exceed 100 characters")
+    .required("Job description is required"),
+  workHourFrom: yup.string().required("Start hour is required"),
+  workHourTo: yup.string().required("End hour is required"),
+});
 
 export const providerRegistrationValidationSchema = yup.object().shape({
   firstName: yup
@@ -261,6 +313,9 @@ export const assignServiceValidationSchema = yup.object().shape({
 });
 export const assignBranchValidationSchema = yup.object().shape({
   branch: yup.string().required("Branch is required"),
+});
+export const assignEmployeeValidationSchema = yup.object().shape({
+  employee: yup.string().required("Employee is required"),
 });
 
 export const paymentValidationSchema = yup.object().shape({
@@ -355,4 +410,20 @@ export const ratingValidationSchema = yup.object().shape({
     .string()
     .min(3, "Comment must be greater than three letters")
     .required("Comment is required"),
+});
+export const cancelAppointmentValidationSchema = yup.object().shape({
+  reason: yup
+    .string()
+    .min(3, "Reason must be greater than three letters")
+    .required("Cancellation Reason is required"),
+});
+
+export const loyaltyProgramValidationSchema = yup.object().shape({
+  branch: yup.string().required("Branch is required"),
+  rating: yup
+    .number()
+    .min(1, "Rating must be at least 1")
+    .max(5, "Rating must be at most 5")
+    .required("Rating is required"),
+  noOfBooking: yup.number().min(0).required("Booking Capacity is required"),
 });

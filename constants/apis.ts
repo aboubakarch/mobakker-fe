@@ -69,4 +69,8 @@ export const endpoints = {
   CUSTOMER_RATING: "/ratings/customer/all",
   CUSTOMER_RATING_CREATE: "/ratings/customer",
   GET_ADMIN: "/users/admins",
+  REFUND: "/refund",
+  REFUND_EXECUTE: "/refund/execute",
+  LOYALTY_PROGRAM_CREATE: "/Loyal-Program/create",
+  LOYALTY_PROGRAM: "/Loyal-Program",
 };

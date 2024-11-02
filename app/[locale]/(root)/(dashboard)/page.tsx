@@ -147,7 +147,7 @@ export default function Home() {
 
   return (
 
-    <div className="flex flex-col gap-3 h-full w-full px-5 py-3 overflow-auto scrollbar">
+    <div className="flex flex-col gap-3 h-full w-full px-5 py-3 overflow-auto scrollbar dark:scrollbar-dark">
       <NotificationHandler />
 
       <div className="md:w-1/2 w-full flex flex-col">
@@ -155,26 +155,27 @@ export default function Home() {
         <p className="line-clamp-2 text-sm">{t(messages.YOUR_CENTRAL_HUB)}</p>
       </div>
       <div className=" w-full">
-        <div className="w-full bg-white px-5 py-3 rounded-sm shadow-sm flex flex-col gap-3">
-          <p className="text-black">{t(messages.TODAYS_PERFORMANCE)}</p>
+        <div className="w-full bg-background px-5 py-3 rounded-sm shadow-md dark:shadow-white/05 flex flex-col gap-3">
+          <p className="text-black dark:text-white">{t(messages.TODAYS_PERFORMANCE)}</p>
 
-          <div className='grid md:grid-cols-4 grid-cols-2  gap-4 rounded-sm shadow-sm'>
+          <div className='grid md:grid-cols-4 grid-cols-2  gap-4 rounded-sm shadow-md dark:shadow-white/05'>
             <HeaderInfoItem color={ColorsEnum.Blue}
               heading={totalAppointmentsCount}
-              title='Total Appointments'
+              title={t(messages.TOTAL_APPOINTMENTS)}
               showIcon iconPosition={true} />
             <HeaderInfoItem color={ColorsEnum.Red} heading={totalAppointments?.CANCELED || 0}
               percentage={totalAppointmentsCount === 0 ? 0 : Math.floor((totalAppointments?.CANCELED || 0) / totalAppointmentsCount)}
-              title='Total Canceled Appointments' showIcon
+              title={t(messages.TOTAL_CANCELED)}
+              showIcon
               iconPosition={((totalAppointments?.CANCELED || 0) >= (totalAppointments?.COMPLETED || 0))}
             />
             <HeaderInfoItem color={ColorsEnum.Green} heading={totalAppointments?.COMPLETED || 0}
               percentage={totalAppointmentsCount === 0 ? 0 : Math.floor((totalAppointments?.COMPLETED || 0) / totalAppointmentsCount)}
-              title='Total Completed Appointments'
+              title={t(messages.TOTAL_COMPLETED)}
               showIcon hasGraph />
             <HeaderInfoItem color={ColorsEnum.Yellow} heading={totalAppointments?.PENDING || 0}
               percentage={totalAppointmentsCount === 0 ? 0 : Math.floor((totalAppointments?.PENDING || 0) / totalAppointmentsCount)}
-              title='Total Pending Appointments'
+              title={t(messages.TOTAL_PENDING)}
               showIcon
               iconPosition={((totalAppointments?.CANCELED || 0) >= (totalAppointments?.COMPLETED || 0))}
             />
@@ -185,7 +186,7 @@ export default function Home() {
       <div className="h-full w-full grid grid-cols-1 md:grid-cols-5 md:grid-rows-2 gap-3">
         <div className="col-span-1 md:col-span-4 grid gap-3 grid-cols-1 md:grid-cols-6 grid-row-1 md:grid-row-2">
 
-          <div className="md:col-span-4 bg-white py-2 flex flex-col justify-between">
+          <div className="md:col-span-4 bg-background py-2 flex flex-col justify-between">
             <h1 className="px-3 font-medium w-full">{t(messages.SALES_AMOUNT)}</h1>
             <div className="h-[90%] w-full relative">
               {/* <BarChart /> */}
@@ -194,7 +195,7 @@ export default function Home() {
           </div>
 
 
-          <div className="md:col-span-2 bg-white py-2 flex items-center flex-col">
+          <div className="md:col-span-2 bg-background py-2 flex items-center flex-col">
             <h1 className="px-3 font-medium w-full">{t(messages.DAILY_PROGRESS)}</h1>
             <div className="h-[90%] w-full flex items-center justify-center relative ">
               <DoughnutChart data={totalAppointments || undefined as any} />
@@ -203,15 +204,15 @@ export default function Home() {
         </div>
 
 
-        <div className="col-span-1 bg-appcard rounded-sm px-3 py-2 grid grid-rows-4 grid-flow-row grid-cols-1 gap-2 auto-rows-max md:overflow-auto">
-          <HeaderInfoItem color={ColorsEnum.Blue} heading={counts.serviceCount ?? 0} title="Total Services" className="bg-white py-1" loading={counts.serviceCount === undefined} />
-          <HeaderInfoItem color={ColorsEnum.Blue} heading={counts.employeeCount ?? 0} title="Total Employees" className="bg-white py-1" loading={counts.employeeCount === undefined} />
-          <HeaderInfoItem color={ColorsEnum.Blue} heading={counts.loyalProgramCount ?? 0} title="Total Loyal Programs" className="bg-white py-1" loading={counts.loyalProgramCount === undefined} />
-          <HeaderInfoItem color={ColorsEnum.Blue} heading={counts.promotionsCount ?? 0} title="Total Promotions" className="bg-white py-1" loading={counts.promotionsCount === undefined} />
+        <div className="col-span-1 bg-screen rounded-sm px-3 py-2 grid grid-rows-4 grid-flow-row grid-cols-1 gap-2 auto-rows-max md:overflow-auto">
+          <HeaderInfoItem color={ColorsEnum.Blue} heading={counts.serviceCount ?? 0} title={t(messages.TOTAL_SERVICES)} className="bg-background py-1" loading={counts.serviceCount === undefined} />
+          <HeaderInfoItem color={ColorsEnum.Blue} heading={counts.employeeCount ?? 0} title={t(messages.TOTAL_EMPLOYEES)} className="bg-background py-1" loading={counts.employeeCount === undefined} />
+          <HeaderInfoItem color={ColorsEnum.Blue} heading={counts.loyalProgramCount ?? 0} title={t(messages.TOTAL_LOYAL_PROGRAMS)} className="bg-background py-1" loading={counts.loyalProgramCount === undefined} />
+          <HeaderInfoItem color={ColorsEnum.Blue} heading={counts.promotionsCount ?? 0} title={t(messages.TOTAL_PROMOTIONS)} className="bg-background py-1" loading={counts.promotionsCount === undefined} />
         </div>
 
 
-        <div className=" md:col-span-4 bg-white py-2">
+        <div className=" md:col-span-4 bg-background py-2">
           <h1 className="px-3 font-medium w-full">{t(messages.MONTHLY_PROGRESS)}</h1>
           <div className="h-[90%] w-full relative">
             <BarChart data={yearAppointments || undefined as any} />
@@ -219,7 +220,7 @@ export default function Home() {
         </div>
 
 
-        <div className="col-span-1 bg-appcard rounded-sm px-3 py-2 flex flex-col gap-2 md:overflow-auto scrollbar">
+        <div className="col-span-1 bg-screen rounded-sm px-3 py-2 flex flex-col gap-2 md:overflow-auto scrollbar dark:scrollbar-dark">
           <div className="text-lg">{t(messages.ACTIVE_PROMOTIONS)}</div>
           <div className="grid grid-rows-3 grid-flow-row grid-cols-1 gap-2 auto-rows-max ">
             {/* <PromotionItem active title="Ramadan Promo" endDate="12-Jan-2024" startDate="01-Jan-2024" />

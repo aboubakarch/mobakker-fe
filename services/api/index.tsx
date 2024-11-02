@@ -379,6 +379,30 @@ class APIService extends HTTPService {
   public postCustomerRating<T = any>(params: any): Promise<T> {
     return this.post<T>(`${endpoints.CUSTOMER_RATING_CREATE}`, params)
   }
+  public createRefund<T = any>(params: any): Promise<T> {
+    return this.post<T>(`${endpoints.REFUND}`, params)
+  }
+  public getRefunds<T = any>(params: any): Promise<T> {
+    return this.get<T>(endpoints.REFUND, params)
+  }
+  public refundExecute<T = any>(payload: any): Promise<T> {
+    return this.post<T>(endpoints.REFUND_EXECUTE, payload)
+  }
+  public editRefund<T = any>(id: string, payload: object): Promise<T> {
+    return this.patch<T>(`${endpoints.REFUND}/${id}`, payload)
+  }
+  public createLoyaltyProgram<T = any>(params: any): Promise<T> {
+    return this.post<T>(`${endpoints.LOYALTY_PROGRAM_CREATE}`, params)
+  }
+  public editLoyalProgram<T = any>(id: string, payload?: object): Promise<T> {
+    return this.patch<T>(`${endpoints.LOYALTY_PROGRAM}/${id}`, payload)
+  }
+  public getLoyalPrograms<T = any>(params: any): Promise<T> {
+    return this.get<T>(endpoints.LOYALTY_PROGRAM, params)
+  }
+  public deleteLoyalProgram<T = any>(id: string): Promise<T> {
+    return this.delete<T>(`${endpoints.LOYALTY_PROGRAM}/${id}`)
+  }
 }
 
 export default APIService

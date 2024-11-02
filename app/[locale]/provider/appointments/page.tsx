@@ -1,8 +1,10 @@
 "use client"
 import AppointmentModal from '@/components/modal/AppointmentModal'
+import CancelAppointmentModal from '@/components/modal/CancelAppointmentModal'
 import DeleteModal from '@/components/modal/DeleteModal'
 import AppointmentDetailsModal from '@/components/modal/details/AppointmentDetailsModal'
 import RatingModal from '@/components/modal/RatingModal'
+import RefundModal from '@/components/modal/RefundModal'
 import SendNotificationModal from '@/components/modal/SendNotificationModal'
 import AppointmentsTable from '@/components/table/AppointmentsTable'
 import { Button } from '@/components/ui'
@@ -24,6 +26,8 @@ const Appointments = () => {
     const { toast } = useToast()
     const [notificationModalOpen, setNotificationModalOpen] = useState(false);
     const [ratingModalOpen, setRatingModalOpen] = useState(false);
+    const [cancelModalOpen, setCancelModalOpen] = useState(false);
+    const [refundModalOpen, setRefundModalOpen] = useState(false);
 
 
     const handleModalClose = () => {
@@ -53,9 +57,26 @@ const Appointments = () => {
         setSelectedAppointment(item)
         setDetailsModalOpen(true)
     }
+    const handleRefund = (item: SampleAppointments) => {
+        setSelectedAppointment(item)
+        setRefundModalOpen(true)
+    }
     const handleAppointmentChange = async (item: SampleAppointments, status: string) => {
         try {
 
+            if (status === "CANCELED") {
+                setSelectedAppointment(item)
+
+                setCancelModalOpen(true)
+                return
+            }
+            if ((status === "COMPLETED") && (item.paymentStatus !== "APPROVED" && item.paymentStatus !== "PAID")) {
+                toast({
+                    variant: "destructive",
+                    description: "Please Complete the payment first!",
+                })
+                return;
+            }
             await APIService.getInstance().editAppointment(item?.id, { status });
             toast({
                 variant: "success",
@@ -70,6 +91,7 @@ const Appointments = () => {
 
                 setFlag(!flag)
             }
+
         } catch (error) {
             toast({
                 variant: "destructive",
@@ -112,16 +134,26 @@ const Appointments = () => {
         setRatingModalOpen(false);
         setSelectedAppointment(undefined)
     }
+    const handleCancelModalClose = () => {
+        setCancelModalOpen(false);
+        setSelectedAppointment(undefined)
+    }
+    const handleRefundModalClose = () => {
+        setRefundModalOpen(false);
+        setSelectedAppointment(undefined)
+    }
     const handleNotificationSend = (item: SampleAppointments) => {
         setSelectedAppointment(item)
         setNotificationModalOpen(true)
     }
     return (
-        <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
+        <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar dark:scrollbar-dark">
             <AppointmentModal visible={modalOpen} closeModal={handleModalClose} val={selectedAppointment} onUpdate={() => setFlag(!flag)} />
             <AppointmentDetailsModal visible={detailsModalOpen} closeModal={handleDetailsModalClose} val={selectedAppointment as SampleAppointments} />
             <SendNotificationModal visible={notificationModalOpen} closeModal={handleNotificationModalClose} val={selectedAppointment ? { id: (selectedAppointment?.customer as any)?.userId } : undefined} />
             <RatingModal visible={ratingModalOpen} closeModal={handleRatingModalClose} val={selectedAppointment as SampleAppointments} onSubmitData={() => setFlag(!flag)} />
+            <CancelAppointmentModal visible={cancelModalOpen} closeModal={handleCancelModalClose} val={selectedAppointment as SampleAppointments} onSubmitData={() => setFlag(!flag)} />
+            <RefundModal visible={refundModalOpen} closeModal={handleRefundModalClose} val={selectedAppointment as SampleAppointments} onSubmitData={() => setFlag(!flag)} />
 
             <DeleteModal
                 visible={deleteModalOpen}
@@ -137,7 +169,15 @@ const Appointments = () => {
 
 
 
-            <AppointmentsTable handleEdit={handleEdit} handleDelete={handleDelete} onUpdateFlag={flag} handleRow={handleRow} onAppointmentChange={handleAppointmentChange} onSendNotification={handleNotificationSend} />
+            <AppointmentsTable
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
+                onUpdateFlag={flag}
+                handleRow={handleRow}
+                onAppointmentChange={handleAppointmentChange}
+                onSendNotification={handleNotificationSend}
+                handleAssign={handleRefund}
+            />
         </div>
     )
 }

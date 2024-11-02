@@ -7,152 +7,124 @@ import {
     DropdownMenuLabel,
     DropdownMenuTrigger,
 } from "@/components/ui"
-import { MoreVertical } from "lucide-react";
+import { Edit, MoreVertical, Trash2 } from "lucide-react";
 import Image from "next/image";
 // import { Checkbox } from "@/components/ui/Checkbox"
 import { messages, tableHeader } from "@/constants/constants";
 import TextColumn from "../TextColumn";
 import Badge from "@/components/ui/Badge";
 import { TFunction } from "i18next";
+import { getCookie, isValidImageSrc } from "@/lib/helpers";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/Tooltip";
+import { RoleType } from "@/constants/enums";
+import { Switch } from "@/components/ui/Switch";
 // import { Checkbox } from "@/components/ui/Checkbox";
 
 
-export const loyalProgramsColumns: (t: TFunction<"translation", undefined>) => ColumnDef<SampleLoyalPrograms>[] = (t: TFunction<"translation", undefined>) => [
+export const loyalProgramsColumns: (t: TFunction<"translation", undefined>, handleEdit?: (val: SampleLoyalPrograms) => void, handleDelete?: (val: SampleLoyalPrograms) => void, onToggle?: (id: string, val: boolean) => void) => ColumnDef<SampleLoyalPrograms>[] =
+    (t, handleEdit, handleDelete, onToggle) => [
 
-    {
-        accessorKey: "rank",
-        header: () => <div className="text-center">{t(tableHeader.RANK)}</div>,
+        {
+            accessorKey: "branch",
+            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.BRANCH_NAME)}</div>,
 
-        cell: ({ row }) => {
-            const rank: string = row.getValue("rank");
-            return (
-                <div className="w-max flex items-center justify-center text-center justify-self-center">
-
-                    <p className="text-sm line-clamp-1">{rank}</p>
-                </div>
-            )
-        },
-    },
-    {
-        accessorKey: "customerName",
-        header: () => <div className="text-center">{t(tableHeader.LOYAL_CUSTOMER)}</div>,
-
-        cell: ({ row }) => {
-            const customerName: string = row.getValue("customerName");
-            return (
-                <div className="w-max flex items-center justify-center text-center">
-                    <p className="text-sm line-clamp-1 ">{customerName}</p>
-                </div>
-            )
-        },
-    },
-    {
-        accessorKey: "customerNumber",
-        header: () => <div className="text-center">{t(tableHeader.CUSTOMER_NUMBER)}</div>,
-
-        cell: ({ row }) => {
-            const customerNumber: number = row.getValue("customerNumber");
-            return (
-                <div className="w-max flex items-center justify-center text-center justify-self-center">
-                    <p className="text-sm line-clamp-1">{customerNumber}</p>
-                </div>
-            )
-        },
-    },
-    {
-        accessorKey: "serviceBooked",
-        header: () => <div className="text-center">{t(tableHeader.MOST_BOOKED)}</div>,
-        cell: ({ row }) => {
-            const rowItem = row.original
-            return (
-                <div className="w-max flex gap-3 items-center justify-center">
-                    <div className="rounded-full h-11 w-11 relative">
-                        <Image
-                            src={rowItem.servicePicture}
-                            alt="pfp"
-                            fill
-                            className="rounded-full"
-                        />
+            cell: ({ row }) => {
+                const rowItem: SampleBranch = row.getValue("branch");
+                return (
+                    <div className="flex gap-3 items-center justify-center w-max">
+                        <div className="rounded-full h-11 w-11 relative">
+                            <Image
+                                src={rowItem.avatar && isValidImageSrc(rowItem.avatar) ? rowItem.avatar : '/assets/sampleImage.jpg'}
+                                alt="pfp"
+                                fill
+                                className="rounded-full"
+                            />
+                        </div>
+                        <div className="flex flex-col text-sm font-medium leading-snug">
+                            <p className="text-gray-900 dark:text-white">{rowItem.name}</p>
+                            <p className="text-indigo-800">{rowItem.city}</p>
+                        </div>
                     </div>
-                    <div className="flex flex-col text-sm font-medium leading-snug">
-                        <p className="text-gray-900">{rowItem.serviceBooked}</p>
-                    </div>
-                </div>
-            )
+                )
+            },
         },
-    },
-    {
-        accessorKey: "serviceType",
-        header: () => <div className="text-center">{t(tableHeader.SERVICE_TYPE)}</div>,
+        {
+            accessorKey: "noOfBooking",
+            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.TOTAL_BOOKING)}</div>,
 
-        cell: ({ row }) => {
-            const serviceType: string = row.getValue("serviceType");
-            return (
-                <TextColumn text={serviceType} />
-            )
+            cell: ({ row }) => {
+                const noOfBooking: string = row.getValue("noOfBooking");
+                return (
+                    <Badge text={noOfBooking} />
+                )
+            },
         },
-    },
-    {
-        accessorKey: "branchName",
-        header: () => <div className="text-center">{t(tableHeader.BRANCH_NAME)}</div>,
+        {
+            accessorKey: "rating",
+            header: () => <div className="ltr:text-left rtl:text-right">{t(tableHeader.RATING)}</div>,
 
-        cell: ({ row }) => {
-            const branchName: string = row.getValue("branchName")
-            return (
-                <TextColumn text={branchName} />
-            )
-        }
-    },
-    {
-        accessorKey: "lastBooking",
-        header: () => <div className="text-center">{t(tableHeader.LAST_BOOKING)}</div>,
-
-        cell: ({ row }) => {
-            const lastBooking: string = row.getValue("lastBooking");
-            return (
-                <Badge text={lastBooking} />
-            )
+            cell: ({ row }) => {
+                const rating: string = row.getValue("rating");
+                return (
+                    <Badge text={rating} containerStyle="bg-emerald-500" textStyle="text-emerald-500" />
+                )
+            },
         },
-    },
-    {
-        accessorKey: "rating",
-        header: () => <div className="text-center">{t(tableHeader.RATING)}</div>,
+        {
+            accessorKey: "isActive",
+            header: () => <div className="">{t(tableHeader.STATUS)}</div>,
 
-        cell: ({ row }) => {
-            const rating: string = row.getValue("rating");
-            return (
-                <Badge text={rating} containerStyle="bg-emerald-500" textStyle="text-emerald-500" />
-            )
+            cell: ({ row }) => {
+                const status: boolean = row.getValue("isActive");
+                const id = row.original.id
+                return (
+                    <Switch className='data-[state=checked]:bg-indigo-800 data-[state=unchecked]:bg-red-400 ' checked={status} onClick={(e) => e.stopPropagation()} onCheckedChange={(checked: boolean) => {
+                        if (onToggle) {
+                            onToggle(id || "", checked)
+                        }
+                    }} />
+                )
+            },
         },
-    },
 
 
-    {
-        id: "actions",
-        cell: () => {
-            // const row = row.original()
+        {
+            id: "actions",
+            cell: ({ row }) => {
+                const rowVal = row.original
+                const role = getCookie("role")
+                if (role === RoleType.ADMIN || role === RoleType.SUPER_ADMIN) {
+                    return null
+                }
 
-            return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                            <span className="sr-only">Open menu</span>
-                            <MoreVertical className="h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>{messages.ACTIONS}</DropdownMenuLabel>
-                        <DropdownMenuItem className="text-indigo-800 hover:bg-indigo-800 hover:bg-opacity-25">
-                            {messages.EDIT}
-                        </DropdownMenuItem>
-                        <DropdownMenuItem className="text-red-400 hover:bg-red-400 hover:bg-opacity-25">
-                            {messages.DELETE}
-                        </DropdownMenuItem>
 
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            )
+                return (
+                    <TooltipProvider>
+                        <div className="flex gap-2">
+
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <Button onClick={handleEdit ? (e: any) => { e.stopPropagation(); handleEdit(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
+                                        <Edit className="h-5 w-5 text-indigo-800" />
+                                    </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>{t(messages.EDIT)}</p>
+                                </TooltipContent>
+                            </Tooltip>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <Button onClick={handleDelete ? (e: any) => { e.stopPropagation(); handleDelete(rowVal) } : undefined} variant="ghost" className="h-10 w-10 p-0 hover:bg-indigo-800 hover:bg-opacity-5">
+                                        <Trash2 className="h-5 w-5 text-red-700" />
+                                    </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>{t(messages.DELETE)}</p>
+                                </TooltipContent>
+                            </Tooltip>
+                        </div>
+                    </TooltipProvider>
+                )
+            },
         },
-    },
-
-]
+    ]

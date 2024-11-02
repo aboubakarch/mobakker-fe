@@ -11,7 +11,7 @@ import { SortEnum } from '@/constants/enums'
 import { debounce } from 'lodash'
 import AppointmentFilters from './filters/AppointmentFilters'
 
-const AppointmentsTable: FC<ITableProps<SampleAppointments>> = ({ handleDelete, handleEdit, onUpdateFlag, handleRow, onAppointmentChange, onSendNotification }) => {
+const AppointmentsTable: FC<ITableProps<SampleAppointments>> = ({ handleDelete, handleEdit, onUpdateFlag, handleRow, onAppointmentChange, onSendNotification, handleAssign }) => {
     const { t } = useTranslation()
     const { toast } = useToast()
     const [data, setData] = useState<SampleAppointments[]>([])
@@ -92,13 +92,13 @@ const AppointmentsTable: FC<ITableProps<SampleAppointments>> = ({ handleDelete, 
 
         <div>
             {!pageLoaded && data.length === 0 ? (
-                <div className="flex flex-col space-y-2 bg-white p-4">
+                <div className="flex flex-col space-y-2 bg-background p-4">
                     <Skeleton className="h-[75px] w-full rounded-xl" />
                     <Skeleton className="h-[75px] w-full rounded-xl" />
                 </div>
             ) : (<DataTable
                 data={data}
-                columns={appointmentsColumns(t, handleEdit, handleDelete, onAppointmentChange, onSendNotification)}
+                columns={appointmentsColumns(t, handleEdit, handleDelete, onAppointmentChange, onSendNotification, handleAssign)}
                 filterKey='id' count={total}
                 onChangePagination={setPagination}
                 tablePagination={pagination}
@@ -106,7 +106,7 @@ const AppointmentsTable: FC<ITableProps<SampleAppointments>> = ({ handleDelete, 
                 sort={sort}
                 toggleSort={toggleSort}
                 onRowClick={handleRow}
-                rowStyle='odd:bg-white even:bg-indigo-800 even:bg-opacity-5'
+                rowStyle='odd:bg-background even:bg-indigo-800 even:bg-opacity-5'
                 search={search}
                 onSearch={(q: string) => setSearch(q)}
                 filterComponent={() => <AppointmentFilters onApply={handleApplyFilters} onReset={handleResetFilters} />}

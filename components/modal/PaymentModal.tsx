@@ -149,10 +149,10 @@ const PaymentModal: FC<IModalCompProps> = ({ closeModal, visible, val, onUpdate 
 
 
     return (
-        <Modal visibility={visible} closeModal={closeModal} className='transition-all md:w-[35%] shadow-xl' position={2} >
+        <Modal visibility={visible} closeModal={closeModal} className='transition-all md:w-[35%] shadow-xl dark:shadow-white/10' position={2} >
             <div className='px-10 py-6 flex flex-col gap-5 transition-all' >
 
-                <h1 className="text-center text-gray-900 text-xl font-semibold  leading-[30px]">{t("Buy Subscription")}</h1>
+                <h1 className="text-center text-gray-900 dark:text-white text-xl font-semibold  leading-[30px]">{t("Buy Subscription")}</h1>
                 <div className='flex flex-col gap-4 '>
                     {subsciptions && <div className='flex flex-col gap-2'>
                         <p className='text-sm'>Select Subscription</p>

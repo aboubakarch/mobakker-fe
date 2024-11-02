@@ -7,6 +7,7 @@ import { Button } from '@/components/ui'
 import PageHeader from '@/components/ui/PageHeader'
 import { messages } from '@/constants/constants'
 import { useToast } from '@/hooks/use-toast'
+import { convertToFormData } from '@/lib/helpers'
 import APIService from '@/services/api'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -81,8 +82,37 @@ const Providers = () => {
         handleDeleteModalClose()
     }
 
+    const onToggle = async (val: SampleProvider, active: boolean) => {
+        setLoading(true)
+        try {
+
+            const vals = {
+                isVerified: active ? "UNVERIFIED" : "BLOCKED"
+            }
+            const formData = convertToFormData(vals)
+
+            await APIService.getInstance().editServiceProvider((val as any).id as string, formData as any);
+
+
+            toast({
+                variant: "success",
+                description: "User Updated!",
+            })
+            setFlag(!flag)
+        } catch (error) {
+            toast({
+                variant: "destructive",
+                description: "Error updating use!",
+            })
+
+        }
+        setLoading(false)
+
+        handleDeleteModalClose()
+    }
+
     return (
-        <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
+        <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar dark:scrollbar-dark">
             <ProviderModal visible={modalOpen} closeModal={handleModalClose} val={selectedProvider} onUpdate={() => setFlag(!flag)} />
             <EmployeeDetailsModal visible={detailsModalOpen} closeModal={handleDetailsModalClose} val={selectedProvider as any} />
 
@@ -99,7 +129,7 @@ const Providers = () => {
                 <Button onClick={() => setModalOpen(true)} className='bg-indigo-800 hover:bg-indigo-600'>{t(messages.ADD_PROVIDER)}</Button>
 
             </PageHeader>
-            <ProviderTable handleEdit={handleEdit} handleDelete={handleDelete} onUpdateFlag={flag} handleRow={handleRow} />
+            <ProviderTable handleEdit={handleEdit} handleDelete={handleDelete} onUpdateFlag={flag} handleRow={handleRow} onToggle={onToggle as any} />
         </div>
     )
 }

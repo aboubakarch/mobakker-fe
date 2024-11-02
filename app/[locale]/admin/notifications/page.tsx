@@ -10,13 +10,13 @@ const Notifaction = () => {
     const { t } = useTranslation()
 
     return (
-        <div className="flex flex-col gap-4 h-full w-full p-5 pb-3 overflow-auto scrollbar">
+        <div className="flex flex-col gap-4 h-full w-full p-5 pb-3 overflow-auto scrollbar dark:scrollbar-dark">
             <PageHeader title={t(messages.NOTIFICATIONS)}
                 description={t(messages.REALTIME_NOTIFICATIONS)}
             >
             </PageHeader>
 
-            <div className='flex bg-white items-center justify-center shadow-lg rounded-md h-full'>
+            <div className='flex bg-background items-center justify-center shadow-lg dark:shadow-white/10  rounded-md h-full'>
                 <div className='  flex items-center justify-center flex-col'>
                     <Image src={'/assets/notificationBell.gif'} alt='notification' width={300} height={300} />
                     <h1 className='text-lg font-semibold'>{t(messages.NO_NOTIFICATIONS_RIGHT_NOW)}</h1>

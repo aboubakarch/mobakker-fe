@@ -8,10 +8,12 @@ import ServiceRatingTable from "@/components/table/ServiceRatingTable";
 import EmployeeRatingTable from "@/components/table/EmployeeRatingTable";
 import CustomerRatingTable from "@/components/table/CustomerRatingTable";
 import { messages } from "@/constants/constants";
+import { useTranslation } from "react-i18next";
 
 const Ratings = () => {
     const [selectedTab, setSelectedTab] = useState<'service' | 'employee' | 'customer'>('service');
     const [flag, setFlag] = useState(false);
+    const { t } = useTranslation()
 
     const handleEdit = (item: any) => {
         // Your edit logic here
@@ -26,10 +28,10 @@ const Ratings = () => {
     };
 
     return (
-        <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar">
+        <div className="flex flex-col gap-4 h-full w-full p-5 pb-0 overflow-auto scrollbar dark:scrollbar-dark">
             <PageHeader
-                title="Ratings"
-                description="Here you can manage Service, Employee, and Customer Ratings"
+                title={t(messages.RATING)}
+                description={t(messages.MANAGE_DESCRIPTION)}
             >
 
             </PageHeader>
